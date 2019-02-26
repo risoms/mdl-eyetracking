@@ -7,30 +7,17 @@ Created on Wed Feb 13 15:57:56 2019
 """
 
 #---main
+from pdb import set_trace as breakpoint
 import scipy
 import numpy as np
 import tempfile
 import os
-import sys
-import re
-import platform
 
 #---psychopy
-from psychopy import visual, event, core, sound
+from psychopy import visual, event
 
-#---check packages
-import pkg_resources
-from distutils.version import StrictVersion
-import pip
-import importlib
-#---debug
-from pdb import set_trace as breakpoint
-import pylink
-#---------------------------------------------check libraries for missing
-#list of possibly missing packages to install
-pip_ = pkg_resources.get_distribution("pip").version
-required_pkgs = ['pylink','psychopy','importlib']
-
+#---eyetracking
+from .pylink import pylink
 
 #---------------------------------------------start
 class calibration(pylink.EyeLinkCustomDisplay):
@@ -79,40 +66,32 @@ class calibration(pylink.EyeLinkCustomDisplay):
 
     def setup_cal_display(self):
         """
-        Sets up the initial calibration display, which contains a menu with
-        instructions.
+        Sets up the initial calibration display, which contains a menu with instructions.
         """
         menu_screen = visual.ImageStim(self.window, name='menu_screen', image="instructions/menu.png", mask=None, 
                                        ori=0, pos=[0, 0], size=None, color=[1,1,1], colorSpace='rgb', opacity=1,
                                        flipHoriz=False, flipVert=False, texRes=128, interpolate=True, depth=-1.0)
 
         menu_screen.draw()
-        #self.targetout.draw()
         self.window.flip()
 
     def setup_drift_display(self):
         """
         Sets up the initial drift display
         """
-        drift_screen = visual.ImageStim(self.window, name='drift_screen',
-                                       image="instructions/fixation.png", mask=None,
-                                       ori=0, pos=[0, 0], size=None,
-                                       color=[1,1,1], colorSpace='rgb', opacity=1,
-                                       flipHoriz=False, flipVert=False,
-                                       texRes=128, interpolate=True, depth=-1.0)
+        drift_screen = visual.ImageStim(self.window, name='drift_screen', image="instructions/fixation.png", mask=None,
+                                        ori=0, pos=[0, 0], size=None, color=[1,1,1], colorSpace='rgb', opacity=1,
+                                        flipHoriz=False, flipVert=False,texRes=128, interpolate=True, depth=-1.0)
 
         drift_screen.draw()
-        #self.targetout.draw()
         self.window.flip()
         
     def exit_cal_display(self):
-        """Exits calibration display."""
-        
+        """Exits calibration display."""       
         self.clear_cal_display()
     
     def exit_drift_display(self):
         """Exits calibration display."""
-        
         self.clear_drift_display()
 
     def record_abort_hide(self):

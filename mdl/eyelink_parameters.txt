@@ -1,0 +1,35 @@
+#----presets
+"screen_pixel_coords" = "0 0 1920 1080"
+"DISPLAY_COORDS" = "0 0 1920 1080
+"tracker" = "Eyelink 1000"
+"pupil_size_mode" = "area"
+"saccade_velocity_threshold" = "35"
+"saccade_acceleration_threshold" = "9500"
+"calibration_type" = "HV13"
+"FRAMERATE" = "120"
+smi_send_port = 4444
+smi_recv_port = 5555
+smi_ip = "127.0.0.1"
+
+#Program button #5 for use in drift correction 
+"button_function 5 'accept_target_fixation'"
+
+#sensitivity
+"select_parser_configuration 0"
+
+#----get from Eyelink
+#tracker version #eyelink 1000, version 5
+version = eyelink.getTrackerVersion()
+
+#----edf filters
+"file_event_filter" = "LEFT,RIGHT,FIXATION,SACCADE,BLINK,MESSAGE,BUTTON,INPUT"
+if version >= 4:
+        "file_sample_data" = 'LEFT,RIGHT,GAZE,HREF,AREA,GAZERES,STATUS,INPUT,HTARGET'
+else:
+        "file_sample_data" = "LEFT,RIGHT,GAZE,AREA,GAZERES,STATUS,INPUT"
+
+#----set link data (used for gaze cursor) 
+if version >= 4:
+	"link_sample_data" = "LEFT,RIGHT,GAZE,GAZERES,AREA,STATUS,HTARGET,INPUT"
+else:
+	"link_sample_data" = "LEFT,RIGHT,GAZE,GAZERES,AREA,STATUS,INPUT"

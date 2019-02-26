@@ -12,7 +12,6 @@ References:
 import os
 import sys
 import re
-import platform
 from win32api import GetSystemMetrics
 
 #---debug
@@ -23,26 +22,13 @@ path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(path)
 
 #---eyelink
-import pylink
+from .pylink import pylink
 
 #---bridging
 from .calibration import calibration
-
-#---------------------------------------------check libraries for missing
-import pkg_resources
-#list of possibly missing packages to install
-pip_ = pkg_resources.get_distribution("pip").version
-required_pkgs = ['pylink','psychopy']
-
-#for geting os variables
-os_ = platform.system()
-if os_ == "Windows":
-    required_pkgs.append('win32api')
-elif os_ =='Darwin':
-    required_pkgs.append('pyobjc')
  
 #---------------------------------------------start
-class run():
+class eyetracking():
     def __init__(self,edfsubject):
         # Make filename
         self.fname = os.path.splitext(edfsubject)[0]  # strip away extension if present
@@ -109,6 +95,87 @@ class run():
 
         #Places EyeLink tracker in offline (idle) mode        
         pylink.getEYELINK().setOfflineMode()
+        
+    def console(c='blue', msg=''):
+        """
+        Allow color print to console.
+        
+        Parameters
+        ----------
+        color : :class:`str`
+            Color to use (black, red, green, orange, purple, blue, grey).
+        msg : :class:`str`
+            Message to be color printed.
+        """
+    
+        color = dict(
+            black = '\33[40m',
+            red =  '\33[41m',
+            green =  '\33[42m',
+            orange = '\33[43m',
+            purple = '\33[45m',
+            blue =  '\33[46m',
+            grey =  '\33[47m',
+            ENDC = '\033[0m')
+    
+        print(_data = color['green'] + msg + color['ENDC'])
+    
+    def libraries():
+        """
+        Check if libraries are available.
+        
+        Parameters
+        ----------
+        win : :class:`object`
+            PsychoPy win object.
+        drift : :obj:`int`
+            Counter of drift correct runs.
+        """
+        #check libraries for missing
+        from distutils.version import StrictVersion
+        import importlib
+        import pkg_resources
+        import platform
+        import pip
+        
+        #list of possibly missing packages to install
+        required = ['psychopy','importlib']
+        
+        #for geting os variables
+        os_ = platform.system()
+        if os_ == "Windows":
+            required.append('win32api')
+        elif os_ =='Darwin':
+            required.append('pyobjc')
+        
+        #try installing and/or importing packages
+        try:
+            #if pip >= 10.01
+            pip_ = pkg_resources.get_distribution("pip").version
+            if StrictVersion(pip_) > StrictVersion('10.0.0'):
+                from pip._internal import main as _main
+                #for required packages check if package exists on device
+                for package in required:
+                    #if missing, install
+                    if importlib.util.find_spec(package) is None:
+                        _main(['install',package])
+                    #else import
+                    else:
+                        __import__(package)
+                        
+            #else pip < 10.01          
+            else:
+                #for required packages check if package exists on device
+                for package in required:
+                    #if missing
+                    if importlib.util.find_spec(package) is None:
+                        pip.main(['install',package])
+                    #else import
+                    else:
+                        __import__(package)
+                
+        except Exception as e:
+            return e
         
     def set_eye_used(self, eye):
         """
