@@ -48,7 +48,6 @@ print('#########################################################################
 print('loading eyetracking code')
 print('##########################################################################')
 from pdb import set_trace as breakpoint
-from win32api import GetSystemMetrics
 
 # bridge
 sys.path.insert(0, '.\lib')
@@ -1069,15 +1068,8 @@ for thisPracticeLrn in practiceLrn:
     '''
     
     #stop recording
-    eyetracking.stop_recording(trial=1, block=1)
-    
-    #variables
-    eyetracking.send_variable(variable='imageFile', value=imageFile)
-    eyetracking.send_variable(variable='corr', value=correctAns)
-    #eyetracking.send_variable(variable='resp', value=resp)
-    
-    #trial results
-    pylink.getEYELINK().sendMessage("TRIAL_RESULT 1")
+    variables = dict(a='trial')
+    eyetracking.stop_recording(trial=1, block=1, variables=variables)
     
     ################################################################################################
     ################################################################################################

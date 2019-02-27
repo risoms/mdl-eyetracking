@@ -32,7 +32,8 @@ class calibration(pylink.EyeLinkCustomDisplay):
            The Psychopy window we plan to use for stimulus presentation.
         """
         pylink.EyeLinkCustomDisplay.__init__(self)
-        # Set up window
+        #---setup
+        #window
         self.window = window
         self.window.flip(clearBuffer=True)
         self.w = w
@@ -41,65 +42,36 @@ class calibration(pylink.EyeLinkCustomDisplay):
         self.display.mouseVisible = False
         self.mouse = event.Mouse(visible=False)
         self.last_mouse_state = -1
-        
-        # Simple warning beeps
+        #sound
         self.__target_beep__ = sound.Sound('A', octave=4, secs=0.1)
         self.__target_beep__done__ = sound.Sound('E', octave=4, secs=0.1)
         self.__target_beep__error__ = sound.Sound('E', octave=6, secs=0.1)
         
-        # Define stimuli
+        #display
         self.backcolor = window.color
         tcolout = -1
         self.txtcol = tcolout
-
-        self.targetout = visual.Circle(self.window, pos=(0, 0), radius=10, 
-                                       fillColor=[1,1,1], lineColor=[1,1,1], units='pix')
-        self.targetin = visual.Circle(self.window, pos=(0, 0), radius=3, 
-                                      fillColor=[-1,-1,-1], lineColor=[-1,-1,-1], units='pix')
+        
+        #set circles
+        self.targetout = visual.Circle(self.window, pos=(0, 0), radius=10, fillColor=[1,1,1], lineColor=[1,1,1], units='pix')
+        self.targetin = visual.Circle(self.window, pos=(0, 0), radius=3, fillColor=[-1,-1,-1], lineColor=[-1,-1,-1], units='pix')
         
         # lines for drawing cross hair etc.
         self.line = visual.Line(self.display, start=(0, 0), end=(0,0), lineWidth=2.0, lineColor=[0,0,0], units='pix')
 
-        # Image drawing variables (used later)
-        self.rgb_index_array = None
-        self.imagetitlestim = None
-        self.imgstim_size = None
-        self.eye_image = None
-        self.lineob = None
-        self.loz = None
-
-        # Define tracker
-        self.setTracker(tracker)
-
-    def setTracker(self, tracker):
-        """Initial camera set-up for calibration"""
-
-        self.tracker = tracker
-        self.tracker_version = tracker.getTrackerVersion()
-        if (self.tracker_version >= 3):
-            self.tracker.sendCommand("enable_search_limits=YES")
-            self.tracker.sendCommand("track_search_limits=YES")
-            self.tracker.sendCommand("autothreshold_click=YES")
-            self.tracker.sendCommand("autothreshold_repeat=YES")
-            self.tracker.sendCommand("enable_camera_position_detect=YES")
-
     def setup_cal_display(self):
-        """
-        Sets up the initial calibration display, which contains a menu with instructions.
-        """
+        """Sets up the initial calibration display, which contains a menu with instructions."""
         menu_screen = visual.ImageStim(self.window, name='menu_screen', image="instructions/menu.png", mask=None, 
-                                       ori=0, pos=[0, 0], size=None, color=[1,1,1], colorSpace='rgb', opacity=1,
-                                       flipHoriz=False, flipVert=False, texRes=128, interpolate=True, depth=-1.0)
-
+        ori=0, pos=[0, 0], size=None, color=[1,1,1], colorSpace='rgb', opacity=1, flipHoriz=False, flipVert=False, texRes=128, 
+        interpolate=True, depth=-1.0)
         menu_screen.draw()
         self.window.flip()
 
     def setup_drift_display(self):
         """Sets up the initial drift display"""
         drift_screen = visual.ImageStim(self.window, name='drift_screen', image="instructions/fixation.png", mask=None,
-                                        ori=0, pos=[0, 0], size=None, color=[1,1,1], colorSpace='rgb', opacity=1,
-                                        flipHoriz=False, flipVert=False,texRes=128, interpolate=True, depth=-1.0)
-
+        ori=0, pos=[0, 0], size=None, color=[1,1,1], colorSpace='rgb', opacity=1, flipHoriz=False, flipVert=False,texRes=128,
+        interpolate=True, depth=-1.0)
         drift_screen.draw()
         self.window.flip()
 
