@@ -2,7 +2,7 @@ mdl-eyelink:  Bindings for Eyelink and Python.
 =======================================
 <div class="row">
 	<a href="https://liberalarts.utexas.edu/imhr/">
-		<img src="https://liberalarts.utexas.edu/_internal/images/banners/institutes-banners/mentalHealth.jpg" height="176" width="400">
+		<img src="./imhr.jpg" height="176" width="400">
 	</a>
 <div>
 
