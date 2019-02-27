@@ -1,0 +1,4 @@
+https://github.com/psychopy/psychopy/issues/1244
+https://www.sr-support.com/forum/eyelink/programming/5498-pylink-update-on-pypi/page2?5351-pylink-update-on-pypi=
+https://www.sr-support.com/forum/eyelink/programming/54997-pylink-pyd-import-fail-in-psychopy3
+https://github.com/psychopy/psychopy/blob/288828a6223e32c44c4a2ed5ecb3ece5edff5f2b/psychopy/iohub/devices/eyetracker/hw/sr_research/eyelink/eyetracker.py

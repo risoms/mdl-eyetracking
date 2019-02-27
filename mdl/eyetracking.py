@@ -21,10 +21,8 @@ from pdb import set_trace as breakpoint
 path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(path)
 
-#---eyelink
-from .pylink import pylink
-
 #---bridging
+from . import pylink
 from .calibration import calibration
  
 #---------------------------------------------start
@@ -118,7 +116,7 @@ class eyetracking():
             grey =  '\33[47m',
             ENDC = '\033[0m')
     
-        print(_data = color['green'] + msg + color['ENDC'])
+        print(color['green'] + msg + color['ENDC'])
     
     def libraries():
         """
@@ -206,13 +204,14 @@ class eyetracking():
         drift : :obj:`int`
             Counter of drift correct runs.
         """
+        self.console(msg="calibrating eyetracker")
         if drift >= 2: #if drift correct failed 3 times in a row
             pylink.getEYELINK().sendMessage("Drift_failed") #send failure message
             self.stop_recording()
         
         if self.realconnect:
             # Generate custom calibration stimuli
-            self.genv = calibration.calibration(w=self.w, h=self.h, tracker=self.tracker, window=window)
+            self.genv = calibration(w=self.w, h=self.h, tracker=self.tracker, window=window)
              
             pylink.getEYELINK().setCalibrationType('HV%d'%(self.cnum)) # Set calibration type
             pylink.getEYELINK().setAutoCalibrationPacing(self.paval) # Set calibraiton pacing
@@ -261,10 +260,11 @@ class eyetracking():
             Variable value to be read by eyelink.
         
         """
+        self.console(msg="sending trial-level data")
         msg = "!V TRIAL_VAR %s %s" %(variable, value)
         pylink.getEYELINK().sendMessage(msg)
         
-    def start_recording(self, trialNum, blockNum):
+    def start_recording(self, trial=None, block=None):
         """
         Starts recording of eyelink.
         
@@ -272,14 +272,15 @@ class eyetracking():
         ----------
         trialNum : :obj:`str`
             Trial Number.
-        blockNum : :obj:`str`
-            PsychoPy win object.
+        block : :obj:`str`
+            Block Number.
         
         """
-        pylink.getEYELINK().sendCommand("record_status_message 'Trial %s Block %s'" %(trialNum,blockNum))
+        self.console(msg="start recording")
+        pylink.getEYELINK().sendCommand("record_status_message 'Trial %s Block %s'" %(trial, block))
         pylink.getEYELINK().sendCommand("clear_screen 0")
         pylink.beginRealTimeMode(100) #start realtime mode
-        pylink.getEYELINK().startRecording(1, 1, 1, 1)# Begin recording
+        pylink.getEYELINK().startRecording(1, 1, 1, 1) # Begin recording
 
     def stop_recording(self, image=None, trial=None, block=None):
         """
@@ -298,6 +299,7 @@ class eyetracking():
             milliseconds. This function is equivalent to the C API void end_realtime_mode(void);
         
         """
+        self.console(msg="stop recording")
         #end of trial message
         pylink.getEYELINK().sendMessage('Ending Recording')
         ##add image to display
@@ -312,7 +314,8 @@ class eyetracking():
         #Places EyeLink tracker in off-line (idle) mode
         pylink.getEYELINK().setOfflineMode()
         #send trial data
-        pylink.getEYELINK().sendMessage("!V TRIAL_VAR trialNum %s" %(value))
+        pylink.getEYELINK().sendMessage("!V TRIAL_VAR trial %s" %(trial))
+        pylink.getEYELINK().sendMessage("!V TRIAL_VAR block %s" %(block))
         
     def finish_recording(self, path):
         """

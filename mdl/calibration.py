@@ -17,7 +17,7 @@ import os
 from psychopy import visual, event
 
 #---eyetracking
-from .pylink import pylink
+from . import pylink
 
 #---------------------------------------------start
 class calibration(pylink.EyeLinkCustomDisplay):

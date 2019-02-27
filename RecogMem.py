@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-This experiment was created using PsychoPy2 Experiment Builder (v1.90.3),
-    on February 25, 2019, at 00:58
+This experiment was created using PsychoPy2 Experiment Builder (v1.90.2),
+    on February 21, 2019, at 10:57
 If you publish work using this script please cite the PsychoPy publications:
     Peirce, JW (2007) PsychoPy - Psychophysics software in Python.
         Journal of Neuroscience Methods, 162(1-2), 8-13.
@@ -21,69 +21,18 @@ from numpy.random import random, randint, normal, shuffle
 import os  # handy system and path functions
 import sys  # to get file system encoding
 
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-print('##########################################################################')
-print('loading eyetracking code')
-print('##########################################################################')
-from pdb import set_trace as breakpoint
-from win32api import GetSystemMetrics
-
-# bridge
 sys.path.insert(0, '.\lib')
-from mdl import eyetracking, pylink
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
+from pdb import set_trace as breakpoint
+import calibration # bridge
+from win32api import GetSystemMetrics
 
 # Ensure that relative paths start from the same directory as this script
 _thisDir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(_thisDir)
 
 # Store info about the experiment session
-expName = 'RBRecognitionMemory'  # from the Builder filename that created this script
-expInfo = {u'session': u'001', u'participant': u'', u'dominant eye': u'',}
+expName = u'RBRecognitionMemory'  # from the Builder filename that created this script
+expInfo = {u'session': u'001', u'participant': u''}
 dlg = gui.DlgFromDict(dictionary=expInfo, title=expName)
 if dlg.OK == False:
     core.quit()  # user pressed cancel
@@ -96,7 +45,7 @@ filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expNa
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
     extraInfo=expInfo, runtimeInfo=None,
-    originPath=None,
+    originPath=u'C:\\Users\\mdl\\Desktop\\lupita\\RecogMem.psyexp',
     savePickle=True, saveWideText=True,
     dataFileName=filename)
 # save a log file for detail verbose info
@@ -108,39 +57,10 @@ endExpNow = False  # flag for 'escape' or other condition => quit the exp
 # Start Code - component code to be run before the window creation
 
 # Setup the Window
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-print('##########################################################################')
-print('size=[GetSystemMetrics(0), GetSystemMetrics(1)]')
-print('##########################################################################')
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
 win = visual.Window(
-    size=[1366, 738], fullscr=False, screen=0,
-    allowGUI=False, allowStencil=False,
-    monitor='testMonitor', color='white', colorSpace='rgb',
+    size=[GetSystemMetrics(0), GetSystemMetrics(1)], fullscr=False, screen=0,
+    allowGUI=True, allowStencil=False,
+    monitor=u'testMonitor', color=u'white', colorSpace='rgb',
     blendMode='avg', useFBO=True)
 # store frame rate of monitor if we can measure it
 expInfo['frameRate'] = win.getActualFrameRate()
@@ -149,60 +69,75 @@ if expInfo['frameRate'] != None:
 else:
     frameDur = 1.0 / 60.0  # could not measure, so guess
 
-# Initialize components for Routine "basketballContext"
-basketballContextClock = core.Clock()
+# Initialize components for Routine "context1"
+context1Clock = core.Clock()
 contextIntr = visual.TextStim(win=win, name='contextIntr',
-    text='This task is divided into 4 blocks, with each block consisting of 2 parts: a learning and a test period.\n\nDuring \
-    the learning period you will be viewing a face. When viewing each face, you should memorize the face and imagine that you \
-    will be competing against that person in a one-on-one basketball game.\n\nFollowing the learning period, you will be \
-    presented with a test period which includes questions about the faces.\n\nPress any key to continue.',
-    font='Arial',
+    text=u'You will be viewing a series of faces. When viewing each face, you should imagine that you will be competing against that person in a basketball game.\n\nPress any key to continue.',
+    font=u'Arial',
     pos=(0, 0), height=0.1, wrapWidth=1.5, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=0.0);
 
 # Initialize components for Routine "instructions"
 instructionsClock = core.Clock()
 instrText = visual.TextStim(win=win, name='instrText',
-    text='You will begin with a practice block.\n\nRemember, when viewing each face during learning, you should memorize \
-    the face and imagine that you will be competing against that person in a one-on-one basketball game.\n\nIf you have \
-    any questions, please ask them now or press any key to continue.',
-    font='Arial',
+    text=u'This task is divided into 4 blocks, with each block consisting of 2 parts: a learning and a test period.\n\nDuring the learning period, you will be presented with a face.\nYour task is to memorize each face and judge whether the individual looks over 25 by pressing the "yes" or "no" keys.\n\nIn the test period, you will indicate whether the face was presented during the learning period.\n\nIf you have any questions please ask them now.\n\nYou will begin with a practice session.\nPress any key to continue.',
+    font=u'Arial',
     pos=(0, 0), height=0.1, wrapWidth=1.5, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=0.0);
 win.mouseVisible = False
+
+# Initialize components for Routine "context2"
+context2Clock = core.Clock()
+contextRem = visual.TextStim(win=win, name='contextRem',
+    text=u'Remember, when viewing each face, you should imagine that you will be competing against that person in a basketball game. \n\n\nPress any key to continue.',
+    font=u'Arial',
+    pos=(0, 0), height=0.1, wrapWidth=1.5, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
+    depth=0.0);
+
+# Initialize components for Routine "fixationCross"
+fixationCrossClock = core.Clock()
+fixation = visual.TextStim(win=win, name='fixation',
+    text=u'+',
+    font=u'Arial',
+    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
+    depth=0.0);
 
 # Initialize components for Routine "learningPhase"
 learningPhaseClock = core.Clock()
 stimuliLrn = visual.ImageStim(
     win=win, name='stimuliLrn',units='pix', 
     image='sin', mask=None,
-    ori=0, pos=(0, 0), size=(360,450),
+    ori=0, pos=(0, 0), size=(340,432),
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=0.0)
-
-# Initialize components for Routine "fixationCross"
-fixationCrossClock = core.Clock()
-fixation = visual.TextStim(win=win, name='fixation',
-    text='+',
-    font='Arial',
-    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
-    depth=0.0);
+text = visual.TextStim(win=win, name='text',
+    text='default text',
+    font=u'Arial',
+    pos=(0, -.70), height=0.1, wrapWidth=1.5, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
+    depth=-1.0);
 
 # Initialize components for Routine "endPracticeLrn"
 endPracticeLrnClock = core.Clock()
 endPracticeLn = visual.TextStim(win=win, name='endPracticeLn',
-    text='That was the end of the practice learning period, now you will begin the practice test period.\n\nDuring the test \
-    period, you will be presented with a face. If you saw the face previously, press the "Old" key. If you did not see the \
-    face previously press the "New" key.\n\nAfter indicating whether the face was old or new, you will press the numbered \
-    keys to indicate how likely you are to want to get to know that person on a 1 (not at all likely) to 5 (extremely likely) \
-    scale.\n\nIf you have any questions, please ask them now or press any key to continue.',
-    font='Arial',
+    text=u'That was the end of the learning period.\n \nYou will now be presented with a face.\nIf you saw the face previously, press the "old" key. If you did not see the face previously press the "new" key.\n\nPress any key when you are ready to continue.',
+    font=u'Arial',
     pos=(0, 0), height=0.1, wrapWidth=1.5, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    color=u'black', colorSpace='rgb', opacity=1,
+    depth=0.0);
+
+# Initialize components for Routine "fixationCross"
+fixationCrossClock = core.Clock()
+fixation = visual.TextStim(win=win, name='fixation',
+    text=u'+',
+    font=u'Arial',
+    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=0.0);
 
 # Initialize components for Routine "testPhase"
@@ -210,15 +145,15 @@ testPhaseClock = core.Clock()
 stimuliTest = visual.ImageStim(
     win=win, name='stimuliTest',units='pix', 
     image='sin', mask=None,
-    ori=0, pos=(0, 0), size=(360,450),
+    ori=0, pos=(0, 0), size=(340,432),
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=0.0)
 oldNew = visual.TextStim(win=win, name='oldNew',
-    text='Old or New?',
-    font='Arial',
+    text=u'Old or New?',
+    font=u'Arial',
     pos=(0, -.70), height=0.1, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=-1.0);
 
 # Initialize components for Routine "interact"
@@ -226,43 +161,42 @@ interactClock = core.Clock()
 stimuliInteract = visual.ImageStim(
     win=win, name='stimuliInteract',units='pix', 
     image='sin', mask=None,
-    ori=0, pos=(0, 0), size=(360,450),
+    ori=0, pos=(0, 0), size=(340,432),
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=0.0)
 questionInteract = visual.TextStim(win=win, name='questionInteract',
-    text='How likely are to want to get to know this person on a 1 to 5 scale?',
-    font='Arial',
-    pos=(0, -.68), height=0.1, wrapWidth=2, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    text=u'On a scale of 1-5 how likely are you to interact with this individual?',
+    font=u'Arial',
+    pos=(0, -.7), height=0.1, wrapWidth=1.5, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=-1.0);
-rating_Scale = visual.ImageStim(
-    win=win, name='rating_Scale',units='pix', 
-    image='.\Rating Scale3.jpg', mask=None,
-    ori=0, pos=(0, -335), size=(714,81),
-    color=[1,1,1], colorSpace='rgb', opacity=1,
-    flipHoriz=False, flipVert=False,
-    texRes=128, interpolate=True, depth=-2.0)
 
-# Initialize components for Routine "fixationCross"
-fixationCrossClock = core.Clock()
-fixation = visual.TextStim(win=win, name='fixation',
-    text='+',
-    font='Arial',
-    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+# Initialize components for Routine "ISI"
+ISIClock = core.Clock()
+ISI1000 = visual.TextStim(win=win, name='ISI1000',
+    text=None,
+    font=u'Arial',
+    pos=(0, 0), height=0.1, wrapWidth=None, ori=0, 
+    color=u'white', colorSpace='rgb', opacity=1,
     depth=0.0);
 
 # Initialize components for Routine "endPracticeTest"
 endPracticeTestClock = core.Clock()
 endPrTest = visual.TextStim(win=win, name='endPrTest',
-    text='That was the end of the practice block.\n\nYou will now start with the actual task. If you have any questions \
-    or need any clarification, please ask now since you will not have time to ask questions later.\n\nRemember, you will \
-    start with the learning period. When viewing each face, you should memorize the face and imagine that you will be \
-    competing against that person in a one-on-one basketball game.\n\nPress any key when you are ready to continue.',
-    font='Arial',
+    text=u'That was the end of the practice block.\nYou will now start with the actual task. \nIf you have any questions or need any clarification please ask now since you will not have time to ask later.\n\nRemember your task is to memorize each face and judge whether the individual looks over 25 by pressing the "yes" or "no" keys.\nPress any key when you are ready to continue.\n',
+    font=u'Arial',
     pos=(0, 0), height=0.1, wrapWidth=1.5, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    color=u'black', colorSpace='rgb', opacity=1,
+    depth=0.0);
+
+# Initialize components for Routine "fixationCross"
+fixationCrossClock = core.Clock()
+fixation = visual.TextStim(win=win, name='fixation',
+    text=u'+',
+    font=u'Arial',
+    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=0.0);
 
 # Initialize components for Routine "learningPhase"
@@ -270,30 +204,33 @@ learningPhaseClock = core.Clock()
 stimuliLrn = visual.ImageStim(
     win=win, name='stimuliLrn',units='pix', 
     image='sin', mask=None,
-    ori=0, pos=(0, 0), size=(360,450),
+    ori=0, pos=(0, 0), size=(340,432),
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=0.0)
-
-# Initialize components for Routine "fixationCross"
-fixationCrossClock = core.Clock()
-fixation = visual.TextStim(win=win, name='fixation',
-    text='+',
-    font='Arial',
-    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
-    depth=0.0);
+text = visual.TextStim(win=win, name='text',
+    text='default text',
+    font=u'Arial',
+    pos=(0, -.70), height=0.1, wrapWidth=1.5, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
+    depth=-1.0);
 
 # Initialize components for Routine "endLearning"
 endLearningClock = core.Clock()
 endLrn = visual.TextStim(win=win, name='endLrn',
-    text='That was the end of the learning period, now you will begin the test period.\n\nRemember you will be \
-    presented with a face, if you saw the face previously, press the "Old" key. If you did not see the face previously \
-    press the "New" key.\n\nAfterwards, you will press the numbered keys to indicate how likely you are to want to get \
-    to know that person on a 1 (not at all likely) to 5 (extremely likely) scale.\n\nPress any key when you are ready to continue.',
-    font='Arial',
+    text=u'That was the end of the learning period. \nRemember you will now indicate whether you saw the face previously by pressing the "old" key if you saw the face previously or "new" key if you did not see the face previously.\n\nPress any key when you are ready to continue.',
+    font=u'Arial',
     pos=(0, 0), height=0.1, wrapWidth=1.5, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    color=u'black', colorSpace='rgb', opacity=1,
+    depth=0.0);
+
+# Initialize components for Routine "fixationCross"
+fixationCrossClock = core.Clock()
+fixation = visual.TextStim(win=win, name='fixation',
+    text=u'+',
+    font=u'Arial',
+    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=0.0);
 
 # Initialize components for Routine "testPhase"
@@ -301,58 +238,42 @@ testPhaseClock = core.Clock()
 stimuliTest = visual.ImageStim(
     win=win, name='stimuliTest',units='pix', 
     image='sin', mask=None,
-    ori=0, pos=(0, 0), size=(360,450),
+    ori=0, pos=(0, 0), size=(340,432),
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=0.0)
 oldNew = visual.TextStim(win=win, name='oldNew',
-    text='Old or New?',
-    font='Arial',
+    text=u'Old or New?',
+    font=u'Arial',
     pos=(0, -.70), height=0.1, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=-1.0);
 
-# Initialize components for Routine "interact"
-interactClock = core.Clock()
-stimuliInteract = visual.ImageStim(
-    win=win, name='stimuliInteract',units='pix', 
-    image='sin', mask=None,
-    ori=0, pos=(0, 0), size=(360,450),
-    color=[1,1,1], colorSpace='rgb', opacity=1,
-    flipHoriz=False, flipVert=False,
-    texRes=128, interpolate=True, depth=0.0)
-questionInteract = visual.TextStim(win=win, name='questionInteract',
-    text='How likely are to want to get to know this person on a 1 to 5 scale?',
-    font='Arial',
-    pos=(0, -.68), height=0.1, wrapWidth=2, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
-    depth=-1.0);
-rating_Scale = visual.ImageStim(
-    win=win, name='rating_Scale',units='pix', 
-    image='.\Rating Scale3.jpg', mask=None,
-    ori=0, pos=(0, -335), size=(714,81),
-    color=[1,1,1], colorSpace='rgb', opacity=1,
-    flipHoriz=False, flipVert=False,
-    texRes=128, interpolate=True, depth=-2.0)
-
-# Initialize components for Routine "fixationCross"
-fixationCrossClock = core.Clock()
-fixation = visual.TextStim(win=win, name='fixation',
-    text='+',
-    font='Arial',
-    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+# Initialize components for Routine "ISI"
+ISIClock = core.Clock()
+ISI1000 = visual.TextStim(win=win, name='ISI1000',
+    text=None,
+    font=u'Arial',
+    pos=(0, 0), height=0.1, wrapWidth=None, ori=0, 
+    color=u'white', colorSpace='rgb', opacity=1,
     depth=0.0);
 
 # Initialize components for Routine "endBlock"
 endBlockClock = core.Clock()
 endBlk = visual.TextStim(win=win, name='endBlk',
-    text='That was the end of the block, you will have a 30-second break before starting with the next block.\n\n\
-    Remember during the learning period you should memorize the face and imagine that you will be competing against \
-    that person in a one-on-one basketball game.',
-    font='Arial',
+    text=u'That was the end of the block, you will have a 30-second break. Remember you will first memorize each face and note its age.',
+    font=u'Arial',
     pos=(0, 0), height=0.1, wrapWidth=1.5, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    color=u'black', colorSpace='rgb', opacity=1,
+    depth=0.0);
+
+# Initialize components for Routine "fixationCross"
+fixationCrossClock = core.Clock()
+fixation = visual.TextStim(win=win, name='fixation',
+    text=u'+',
+    font=u'Arial',
+    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=0.0);
 
 # Initialize components for Routine "learningPhase"
@@ -360,31 +281,33 @@ learningPhaseClock = core.Clock()
 stimuliLrn = visual.ImageStim(
     win=win, name='stimuliLrn',units='pix', 
     image='sin', mask=None,
-    ori=0, pos=(0, 0), size=(360,450),
+    ori=0, pos=(0, 0), size=(340,432),
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=0.0)
-
-# Initialize components for Routine "fixationCross"
-fixationCrossClock = core.Clock()
-fixation = visual.TextStim(win=win, name='fixation',
-    text='+',
-    font='Arial',
-    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
-    depth=0.0);
+text = visual.TextStim(win=win, name='text',
+    text='default text',
+    font=u'Arial',
+    pos=(0, -.70), height=0.1, wrapWidth=1.5, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
+    depth=-1.0);
 
 # Initialize components for Routine "endLearning"
 endLearningClock = core.Clock()
 endLrn = visual.TextStim(win=win, name='endLrn',
-    text='That was the end of the learning period, now you will begin the test period.\n\nRemember you \
-    will be presented with a face, if you saw the face previously, press the "Old" key. If you did not see \
-    the face previously press the "New" key.\n\nAfterwards, you will press the numbered keys to indicate how \
-    likely you are to want to get to know that person on a 1 (not at all likely) to 5 (extremely likely) scale.\n\n\
-    Press any key when you are ready to continue.',
-    font='Arial',
+    text=u'That was the end of the learning period. \nRemember you will now indicate whether you saw the face previously by pressing the "old" key if you saw the face previously or "new" key if you did not see the face previously.\n\nPress any key when you are ready to continue.',
+    font=u'Arial',
     pos=(0, 0), height=0.1, wrapWidth=1.5, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    color=u'black', colorSpace='rgb', opacity=1,
+    depth=0.0);
+
+# Initialize components for Routine "fixationCross"
+fixationCrossClock = core.Clock()
+fixation = visual.TextStim(win=win, name='fixation',
+    text=u'+',
+    font=u'Arial',
+    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=0.0);
 
 # Initialize components for Routine "testPhase"
@@ -392,15 +315,15 @@ testPhaseClock = core.Clock()
 stimuliTest = visual.ImageStim(
     win=win, name='stimuliTest',units='pix', 
     image='sin', mask=None,
-    ori=0, pos=(0, 0), size=(360,450),
+    ori=0, pos=(0, 0), size=(340,432),
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=0.0)
 oldNew = visual.TextStim(win=win, name='oldNew',
-    text='Old or New?',
-    font='Arial',
+    text=u'Old or New?',
+    font=u'Arial',
     pos=(0, -.70), height=0.1, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=-1.0);
 
 # Initialize components for Routine "interact"
@@ -408,42 +331,42 @@ interactClock = core.Clock()
 stimuliInteract = visual.ImageStim(
     win=win, name='stimuliInteract',units='pix', 
     image='sin', mask=None,
-    ori=0, pos=(0, 0), size=(360,450),
+    ori=0, pos=(0, 0), size=(340,432),
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=0.0)
 questionInteract = visual.TextStim(win=win, name='questionInteract',
-    text='How likely are to want to get to know this person on a 1 to 5 scale?',
-    font='Arial',
-    pos=(0, -.68), height=0.1, wrapWidth=2, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    text=u'On a scale of 1-5 how likely are you to interact with this individual?',
+    font=u'Arial',
+    pos=(0, -.7), height=0.1, wrapWidth=1.5, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=-1.0);
-rating_Scale = visual.ImageStim(
-    win=win, name='rating_Scale',units='pix', 
-    image='.\Rating Scale3.jpg', mask=None,
-    ori=0, pos=(0, -335), size=(714,81),
-    color=[1,1,1], colorSpace='rgb', opacity=1,
-    flipHoriz=False, flipVert=False,
-    texRes=128, interpolate=True, depth=-2.0)
 
-# Initialize components for Routine "fixationCross"
-fixationCrossClock = core.Clock()
-fixation = visual.TextStim(win=win, name='fixation',
-    text='+',
-    font='Arial',
-    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+# Initialize components for Routine "ISI"
+ISIClock = core.Clock()
+ISI1000 = visual.TextStim(win=win, name='ISI1000',
+    text=None,
+    font=u'Arial',
+    pos=(0, 0), height=0.1, wrapWidth=None, ori=0, 
+    color=u'white', colorSpace='rgb', opacity=1,
     depth=0.0);
 
 # Initialize components for Routine "endBlock"
 endBlockClock = core.Clock()
 endBlk = visual.TextStim(win=win, name='endBlk',
-    text='That was the end of the block, you will have a 30-second break before starting with the next block.\n\nRemember \
-    during the learning period you should memorize the face and imagine that you will be competing against that person in \
-    a one-on-one basketball game.',
-    font='Arial',
+    text=u'That was the end of the block, you will have a 30-second break. Remember you will first memorize each face and note its age.',
+    font=u'Arial',
     pos=(0, 0), height=0.1, wrapWidth=1.5, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    color=u'black', colorSpace='rgb', opacity=1,
+    depth=0.0);
+
+# Initialize components for Routine "fixationCross"
+fixationCrossClock = core.Clock()
+fixation = visual.TextStim(win=win, name='fixation',
+    text=u'+',
+    font=u'Arial',
+    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=0.0);
 
 # Initialize components for Routine "learningPhase"
@@ -451,31 +374,33 @@ learningPhaseClock = core.Clock()
 stimuliLrn = visual.ImageStim(
     win=win, name='stimuliLrn',units='pix', 
     image='sin', mask=None,
-    ori=0, pos=(0, 0), size=(360,450),
+    ori=0, pos=(0, 0), size=(340,432),
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=0.0)
-
-# Initialize components for Routine "fixationCross"
-fixationCrossClock = core.Clock()
-fixation = visual.TextStim(win=win, name='fixation',
-    text='+',
-    font='Arial',
-    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
-    depth=0.0);
+text = visual.TextStim(win=win, name='text',
+    text='default text',
+    font=u'Arial',
+    pos=(0, -.70), height=0.1, wrapWidth=1.5, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
+    depth=-1.0);
 
 # Initialize components for Routine "endLearning"
 endLearningClock = core.Clock()
 endLrn = visual.TextStim(win=win, name='endLrn',
-    text='That was the end of the learning period, now you will begin the test period.\n\n\
-    Remember you will be presented with a face, if you saw the face previously, press the "Old" key. \
-    If you did not see the face previously press the "New" key.\n\nAfterwards, you will press the numbered \
-    keys to indicate how likely you are to want to get to know that person on a 1 (not at all likely) to 5 \
-    (extremely likely) scale.\n\nPress any key when you are ready to continue.',
-    font='Arial',
+    text=u'That was the end of the learning period. \nRemember you will now indicate whether you saw the face previously by pressing the "old" key if you saw the face previously or "new" key if you did not see the face previously.\n\nPress any key when you are ready to continue.',
+    font=u'Arial',
     pos=(0, 0), height=0.1, wrapWidth=1.5, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    color=u'black', colorSpace='rgb', opacity=1,
+    depth=0.0);
+
+# Initialize components for Routine "fixationCross"
+fixationCrossClock = core.Clock()
+fixation = visual.TextStim(win=win, name='fixation',
+    text=u'+',
+    font=u'Arial',
+    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=0.0);
 
 # Initialize components for Routine "testPhase"
@@ -483,58 +408,42 @@ testPhaseClock = core.Clock()
 stimuliTest = visual.ImageStim(
     win=win, name='stimuliTest',units='pix', 
     image='sin', mask=None,
-    ori=0, pos=(0, 0), size=(360,450),
+    ori=0, pos=(0, 0), size=(340,432),
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=0.0)
 oldNew = visual.TextStim(win=win, name='oldNew',
-    text='Old or New?',
-    font='Arial',
+    text=u'Old or New?',
+    font=u'Arial',
     pos=(0, -.70), height=0.1, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=-1.0);
 
-# Initialize components for Routine "interact"
-interactClock = core.Clock()
-stimuliInteract = visual.ImageStim(
-    win=win, name='stimuliInteract',units='pix', 
-    image='sin', mask=None,
-    ori=0, pos=(0, 0), size=(360,450),
-    color=[1,1,1], colorSpace='rgb', opacity=1,
-    flipHoriz=False, flipVert=False,
-    texRes=128, interpolate=True, depth=0.0)
-questionInteract = visual.TextStim(win=win, name='questionInteract',
-    text='How likely are to want to get to know this person on a 1 to 5 scale?',
-    font='Arial',
-    pos=(0, -.68), height=0.1, wrapWidth=2, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
-    depth=-1.0);
-rating_Scale = visual.ImageStim(
-    win=win, name='rating_Scale',units='pix', 
-    image='.\Rating Scale3.jpg', mask=None,
-    ori=0, pos=(0, -335), size=(714,81),
-    color=[1,1,1], colorSpace='rgb', opacity=1,
-    flipHoriz=False, flipVert=False,
-    texRes=128, interpolate=True, depth=-2.0)
-
-# Initialize components for Routine "fixationCross"
-fixationCrossClock = core.Clock()
-fixation = visual.TextStim(win=win, name='fixation',
-    text='+',
-    font='Arial',
-    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+# Initialize components for Routine "ISI"
+ISIClock = core.Clock()
+ISI1000 = visual.TextStim(win=win, name='ISI1000',
+    text=None,
+    font=u'Arial',
+    pos=(0, 0), height=0.1, wrapWidth=None, ori=0, 
+    color=u'white', colorSpace='rgb', opacity=1,
     depth=0.0);
 
 # Initialize components for Routine "endBlock"
 endBlockClock = core.Clock()
 endBlk = visual.TextStim(win=win, name='endBlk',
-    text='That was the end of the block, you will have a 30-second break before starting with the next block.\n\n\
-    Remember during the learning period you should memorize the face and imagine that you will be competing against \
-    that person in a one-on-one basketball game.',
-    font='Arial',
+    text=u'That was the end of the block, you will have a 30-second break. Remember you will first memorize each face and note its age.',
+    font=u'Arial',
     pos=(0, 0), height=0.1, wrapWidth=1.5, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    color=u'black', colorSpace='rgb', opacity=1,
+    depth=0.0);
+
+# Initialize components for Routine "fixationCross"
+fixationCrossClock = core.Clock()
+fixation = visual.TextStim(win=win, name='fixation',
+    text=u'+',
+    font=u'Arial',
+    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=0.0);
 
 # Initialize components for Routine "learningPhase"
@@ -542,30 +451,33 @@ learningPhaseClock = core.Clock()
 stimuliLrn = visual.ImageStim(
     win=win, name='stimuliLrn',units='pix', 
     image='sin', mask=None,
-    ori=0, pos=(0, 0), size=(360,450),
+    ori=0, pos=(0, 0), size=(340,432),
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=0.0)
-
-# Initialize components for Routine "fixationCross"
-fixationCrossClock = core.Clock()
-fixation = visual.TextStim(win=win, name='fixation',
-    text='+',
-    font='Arial',
-    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
-    depth=0.0);
+text = visual.TextStim(win=win, name='text',
+    text='default text',
+    font=u'Arial',
+    pos=(0, -.70), height=0.1, wrapWidth=1.5, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
+    depth=-1.0);
 
 # Initialize components for Routine "endLearning"
 endLearningClock = core.Clock()
 endLrn = visual.TextStim(win=win, name='endLrn',
-    text='That was the end of the learning period, now you will begin the test period.\n\nRemember you will be \
-    presented with a face, if you saw the face previously, press the "Old" key. If you did not see the face previously \
-    press the "New" key.\n\nAfterwards, you will press the numbered keys to indicate how likely you are to want to get to \
-    know that person on a 1 (not at all likely) to 5 (extremely likely) scale.\n\nPress any key when you are ready to continue.',
-    font='Arial',
+    text=u'That was the end of the learning period. \nRemember you will now indicate whether you saw the face previously by pressing the "old" key if you saw the face previously or "new" key if you did not see the face previously.\n\nPress any key when you are ready to continue.',
+    font=u'Arial',
     pos=(0, 0), height=0.1, wrapWidth=1.5, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    color=u'black', colorSpace='rgb', opacity=1,
+    depth=0.0);
+
+# Initialize components for Routine "fixationCross"
+fixationCrossClock = core.Clock()
+fixation = visual.TextStim(win=win, name='fixation',
+    text=u'+',
+    font=u'Arial',
+    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=0.0);
 
 # Initialize components for Routine "testPhase"
@@ -573,62 +485,40 @@ testPhaseClock = core.Clock()
 stimuliTest = visual.ImageStim(
     win=win, name='stimuliTest',units='pix', 
     image='sin', mask=None,
-    ori=0, pos=(0, 0), size=(360,450),
+    ori=0, pos=(0, 0), size=(340,432),
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=0.0)
 oldNew = visual.TextStim(win=win, name='oldNew',
-    text='Old or New?',
-    font='Arial',
+    text=u'Old or New?',
+    font=u'Arial',
     pos=(0, -.70), height=0.1, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=-1.0);
 
-# Initialize components for Routine "interact"
-interactClock = core.Clock()
-stimuliInteract = visual.ImageStim(
-    win=win, name='stimuliInteract',units='pix', 
-    image='sin', mask=None,
-    ori=0, pos=(0, 0), size=(360,450),
-    color=[1,1,1], colorSpace='rgb', opacity=1,
-    flipHoriz=False, flipVert=False,
-    texRes=128, interpolate=True, depth=0.0)
-questionInteract = visual.TextStim(win=win, name='questionInteract',
-    text='How likely are to want to get to know this person on a 1 to 5 scale?',
-    font='Arial',
-    pos=(0, -.68), height=0.1, wrapWidth=2, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
-    depth=-1.0);
-rating_Scale = visual.ImageStim(
-    win=win, name='rating_Scale',units='pix', 
-    image='.\Rating Scale3.jpg', mask=None,
-    ori=0, pos=(0, -335), size=(714,81),
-    color=[1,1,1], colorSpace='rgb', opacity=1,
-    flipHoriz=False, flipVert=False,
-    texRes=128, interpolate=True, depth=-2.0)
-
-# Initialize components for Routine "fixationCross"
-fixationCrossClock = core.Clock()
-fixation = visual.TextStim(win=win, name='fixation',
-    text='+',
-    font='Arial',
-    pos=(0, 0), height=0.13, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+# Initialize components for Routine "ISI"
+ISIClock = core.Clock()
+ISI1000 = visual.TextStim(win=win, name='ISI1000',
+    text=None,
+    font=u'Arial',
+    pos=(0, 0), height=0.1, wrapWidth=None, ori=0, 
+    color=u'white', colorSpace='rgb', opacity=1,
     depth=0.0);
 
 # Initialize components for Routine "endSession"
 endSessionClock = core.Clock()
 end = visual.TextStim(win=win, name='end',
-    text='You have finished the task, thank you for participating!\n',
-    font='Arial',
+    text=u'You have finished the task, thank you for participating!\n',
+    font=u'Arial',
     pos=(0, 0), height=0.1, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1,
+    color=u'black', colorSpace='rgb', opacity=1,
     depth=0.0);
 
 # Create some handy timers
 globalClock = core.Clock()  # to track the time since experiment started
 routineTimer = core.CountdownTimer()  # to track time remaining of each (non-slip) routine 
 
+
 ################################################################################################
 ################################################################################################
 ################################################################################################
@@ -642,64 +532,65 @@ routineTimer = core.CountdownTimer()  # to track time remaining of each (non-sli
 ################################################################################################
 ################################################################################################
 ################################################################################################
-print('##########################################################################')
-print('start calibration')
-print('##########################################################################')
+################################################################################################
+#start eyelink
+import eyetracking
+
 # get subject
 participant = (expInfo['participant'])
-dominant_eye = (expInfo['dominant eye'])
 
 # Prepare eyetracker link and open EDF
 eyelink = eyetracking.run(participant)
 
 #eye used
-eye_used = eyelink.set_eye_used(eye=dominant_eye)
+eye_used = eyetracking.set_eye_used(eye='left')
 
 # Calibrate eyetracker
 DC = 0
 eyelink.calibrate(window=win, drift=DC)
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
 
 
-# ------Prepare to start Routine "basketballContext"-------
+
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+# ------Prepare to start Routine "context1"-------
 t = 0
-basketballContextClock.reset()  # clock
+context1Clock.reset()  # clock
 frameN = -1
 continueRoutine = True
 # update component parameters for each repeat
 bContextResp = event.BuilderKeyResponse()
 # keep track of which components have finished
-basketballContextComponents = [contextIntr, bContextResp]
-for thisComponent in basketballContextComponents:
+context1Components = [contextIntr, bContextResp]
+for thisComponent in context1Components:
     if hasattr(thisComponent, 'status'):
         thisComponent.status = NOT_STARTED
 
-# -------Start Routine "basketballContext"-------
+# -------Start Routine "context1"-------
 while continueRoutine:
     # get current time
-    t = basketballContextClock.getTime()
+    t = context1Clock.getTime()
     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
     # update/draw components on each frame
     
@@ -732,7 +623,7 @@ while continueRoutine:
     if not continueRoutine:  # a component has requested a forced-end of Routine
         break
     continueRoutine = False  # will revert to True if at least one component still running
-    for thisComponent in basketballContextComponents:
+    for thisComponent in context1Components:
         if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
             continueRoutine = True
             break  # at least one component has not yet finished
@@ -745,11 +636,11 @@ while continueRoutine:
     if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
         win.flip()
 
-# -------Ending Routine "basketballContext"-------
-for thisComponent in basketballContextComponents:
+# -------Ending Routine "context1"-------
+for thisComponent in context1Components:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
-# the Routine "basketballContext" was not non-slip safe, so reset the non-slip timer
+# the Routine "context1" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
 # ------Prepare to start Routine "instructions"-------
@@ -834,10 +725,79 @@ win.mouseVisible = False
 # the Routine "instructions" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
+# ------Prepare to start Routine "context2"-------
+t = 0
+context2Clock.reset()  # clock
+frameN = -1
+continueRoutine = True
+# update component parameters for each repeat
+contextResp = event.BuilderKeyResponse()
+# keep track of which components have finished
+context2Components = [contextRem, contextResp]
+for thisComponent in context2Components:
+    if hasattr(thisComponent, 'status'):
+        thisComponent.status = NOT_STARTED
+
+# -------Start Routine "context2"-------
+while continueRoutine:
+    # get current time
+    t = context2Clock.getTime()
+    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+    # update/draw components on each frame
+    
+    # *contextRem* updates
+    if t >= 0.0 and contextRem.status == NOT_STARTED:
+        # keep track of start time/frame for later
+        contextRem.tStart = t
+        contextRem.frameNStart = frameN  # exact frame index
+        contextRem.setAutoDraw(True)
+    
+    # *contextResp* updates
+    if t >= 0.0 and contextResp.status == NOT_STARTED:
+        # keep track of start time/frame for later
+        contextResp.tStart = t
+        contextResp.frameNStart = frameN  # exact frame index
+        contextResp.status = STARTED
+        # keyboard checking is just starting
+        event.clearEvents(eventType='keyboard')
+    if contextResp.status == STARTED:
+        theseKeys = event.getKeys()
+        
+        # check for quit:
+        if "escape" in theseKeys:
+            endExpNow = True
+        if len(theseKeys) > 0:  # at least one key was pressed
+            # a response ends the routine
+            continueRoutine = False
+    
+    # check if all components have finished
+    if not continueRoutine:  # a component has requested a forced-end of Routine
+        break
+    continueRoutine = False  # will revert to True if at least one component still running
+    for thisComponent in context2Components:
+        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+            continueRoutine = True
+            break  # at least one component has not yet finished
+    
+    # check for quit (the Esc key)
+    if endExpNow or event.getKeys(keyList=["escape"]):
+        core.quit()
+    
+    # refresh the screen
+    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+        win.flip()
+
+# -------Ending Routine "context2"-------
+for thisComponent in context2Components:
+    if hasattr(thisComponent, "setAutoDraw"):
+        thisComponent.setAutoDraw(False)
+# the Routine "context2" was not non-slip safe, so reset the non-slip timer
+routineTimer.reset()
+
 # set up handler to look after randomisation of conditions etc
 practiceLrn = data.TrialHandler(nReps=1, method='random', 
-    extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('PracticeConditions.xlsx', selection='0:4'),
+    extraInfo=expInfo,
+    trialList=data.importConditions('PracticeConditions.csv', selection='0:4'),
     seed=None, name='practiceLrn')
 thisExp.addLoop(practiceLrn)  # add the loop to the experiment
 thisPracticeLrn = practiceLrn.trialList[0]  # so we can initialise stimuli with some values
@@ -852,113 +812,6 @@ for thisPracticeLrn in practiceLrn:
     if thisPracticeLrn != None:
         for paramName in thisPracticeLrn:
             exec('{} = thisPracticeLrn[paramName]'.format(paramName))
-    
-    # ------Prepare to start Routine "learningPhase"-------
-    t = 0
-    learningPhaseClock.reset()  # clock
-    frameN = -1
-    continueRoutine = True
-    routineTimer.add(6.000000)
-    # update component parameters for each repeat
-    stimuliLrn.setImage(imageFile)
-    # keep track of which components have finished
-    learningPhaseComponents = [stimuliLrn]
-    for thisComponent in learningPhaseComponents:
-        if hasattr(thisComponent, 'status'):
-            thisComponent.status = NOT_STARTED
-    
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    print('##########################################################################')
-    print('start recording')
-    print('##########################################################################')
-    
-    #eyelink-start recording
-    eyelink.start_recording()
-    
-    
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    # -------Start Routine "learningPhase"-------
-    while continueRoutine and routineTimer.getTime() > 0:
-        # get current time
-        t = learningPhaseClock.getTime()
-        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-        # update/draw components on each frame
-        
-        # *stimuliLrn* updates
-        if t >= 0.0 and stimuliLrn.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            stimuliLrn.tStart = t
-            stimuliLrn.frameNStart = frameN  # exact frame index
-            stimuliLrn.setAutoDraw(True)
-        frameRemains = 0.0 + 6- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if stimuliLrn.status == STARTED and t >= frameRemains:
-            stimuliLrn.setAutoDraw(False)
-        
-        # check if all components have finished
-        if not continueRoutine:  # a component has requested a forced-end of Routine
-            break
-        continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in learningPhaseComponents:
-            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-                continueRoutine = True
-                break  # at least one component has not yet finished
-        
-        # check for quit (the Esc key)
-        if endExpNow or event.getKeys(keyList=["escape"]):
-            core.quit()
-        
-        # refresh the screen
-        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-            win.flip()
-    
-    # -------Ending Routine "learningPhase"-------
-    for thisComponent in learningPhaseComponents:
-        if hasattr(thisComponent, "setAutoDraw"):
-            thisComponent.setAutoDraw(False)
     
     # ------Prepare to start Routine "fixationCross"-------
     t = 0
@@ -1006,79 +859,98 @@ for thisPracticeLrn in practiceLrn:
         # refresh the screen
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    print('##########################################################################')
-    print('ending encoding')
-    print('##########################################################################')
     
-    
-    '''
-    The IMGLOAD command is used to show an overlay image in Data Viewer.  This will code the time that the PictureTrial \
-    image should appear.
-    '''
-    
-    #stop recording
-    eyelink.stop_recording()
-    
-    #variables
-    eyetracking.send_variable(variable='imageFile', value=imageFile)
-    eyetracking.send_variable(variable='corr', value=correctAns)
-    #eyetracking.send_variable(variable='resp', value=resp)
-    
-    #trial results
-    pylink.getEYELINK().sendMessage("TRIAL_RESULT 1")
-    
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    
-    thisExp.nextEntry()
     # -------Ending Routine "fixationCross"-------
     for thisComponent in fixationCrossComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
+    
+    # ------Prepare to start Routine "learningPhase"-------
+    t = 0
+    learningPhaseClock.reset()  # clock
+    frameN = -1
+    continueRoutine = True
+    # update component parameters for each repeat
+    stimuliLrn.setImage(imageFile)
+    text.setText(u'Does this individual look over the age of 25?\nReply using the keys "yes" or "no"')
+    ratingRespLrn = event.BuilderKeyResponse()
+    # keep track of which components have finished
+    learningPhaseComponents = [stimuliLrn, text, ratingRespLrn]
+    for thisComponent in learningPhaseComponents:
+        if hasattr(thisComponent, 'status'):
+            thisComponent.status = NOT_STARTED
+    
+    # -------Start Routine "learningPhase"-------
+    while continueRoutine:
+        # get current time
+        t = learningPhaseClock.getTime()
+        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+        # update/draw components on each frame
+        
+        # *stimuliLrn* updates
+        if t >= 0.0 and stimuliLrn.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            stimuliLrn.tStart = t
+            stimuliLrn.frameNStart = frameN  # exact frame index
+            stimuliLrn.setAutoDraw(True)
+        
+        # *text* updates
+        if t >= 0 and text.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            text.tStart = t
+            text.frameNStart = frameN  # exact frame index
+            text.setAutoDraw(True)
+        
+        # *ratingRespLrn* updates
+        if t >= 0 and ratingRespLrn.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            ratingRespLrn.tStart = t
+            ratingRespLrn.frameNStart = frameN  # exact frame index
+            ratingRespLrn.status = STARTED
+            # keyboard checking is just starting
+            win.callOnFlip(ratingRespLrn.clock.reset)  # t=0 on next screen flip
+            event.clearEvents(eventType='keyboard')
+        if ratingRespLrn.status == STARTED:
+            theseKeys = event.getKeys(keyList=['a', 'l'])
+            
+            # check for quit:
+            if "escape" in theseKeys:
+                endExpNow = True
+            if len(theseKeys) > 0:  # at least one key was pressed
+                ratingRespLrn.keys.extend(theseKeys)  # storing all keys
+                ratingRespLrn.rt.append(ratingRespLrn.clock.getTime())
+                # a response ends the routine
+                continueRoutine = False
+        
+        # check if all components have finished
+        if not continueRoutine:  # a component has requested a forced-end of Routine
+            break
+        continueRoutine = False  # will revert to True if at least one component still running
+        for thisComponent in learningPhaseComponents:
+            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                continueRoutine = True
+                break  # at least one component has not yet finished
+        
+        # check for quit (the Esc key)
+        if endExpNow or event.getKeys(keyList=["escape"]):
+            core.quit()
+        
+        # refresh the screen
+        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+            win.flip()
+    
+    # -------Ending Routine "learningPhase"-------
+    for thisComponent in learningPhaseComponents:
+        if hasattr(thisComponent, "setAutoDraw"):
+            thisComponent.setAutoDraw(False)
+    # check responses
+    if ratingRespLrn.keys in ['', [], None]:  # No response was made
+        ratingRespLrn.keys=None
+    practiceLrn.addData('ratingRespLrn.keys',ratingRespLrn.keys)
+    if ratingRespLrn.keys != None:  # we had a response
+        practiceLrn.addData('ratingRespLrn.rt', ratingRespLrn.rt)
+    # the Routine "learningPhase" was not non-slip safe, so reset the non-slip timer
+    routineTimer.reset()
     thisExp.nextEntry()
     
 # completed 1 repeats of 'practiceLrn'
@@ -1165,8 +1037,8 @@ routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
 practiceTest = data.TrialHandler(nReps=1, method='random', 
-    extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('PracticeConditions.xlsx'),
+    extraInfo=expInfo, 
+    trialList=data.importConditions('PracticeConditions.csv'),
     seed=None, name='practiceTest')
 thisExp.addLoop(practiceTest)  # add the loop to the experiment
 thisPracticeTest = practiceTest.trialList[0]  # so we can initialise stimuli with some values
@@ -1182,12 +1054,64 @@ for thisPracticeTest in practiceTest:
         for paramName in thisPracticeTest:
             exec('{} = thisPracticeTest[paramName]'.format(paramName))
     
+    # ------Prepare to start Routine "fixationCross"-------
+    t = 0
+    fixationCrossClock.reset()  # clock
+    frameN = -1
+    continueRoutine = True
+    routineTimer.add(1.000000)
+    # update component parameters for each repeat
+    # keep track of which components have finished
+    fixationCrossComponents = [fixation]
+    for thisComponent in fixationCrossComponents:
+        if hasattr(thisComponent, 'status'):
+            thisComponent.status = NOT_STARTED
+    
+    # -------Start Routine "fixationCross"-------
+    while continueRoutine and routineTimer.getTime() > 0:
+        # get current time
+        t = fixationCrossClock.getTime()
+        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+        # update/draw components on each frame
+        
+        # *fixation* updates
+        if t >= 0.0 and fixation.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            fixation.tStart = t
+            fixation.frameNStart = frameN  # exact frame index
+            fixation.setAutoDraw(True)
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
+        if fixation.status == STARTED and t >= frameRemains:
+            fixation.setAutoDraw(False)
+        
+        # check if all components have finished
+        if not continueRoutine:  # a component has requested a forced-end of Routine
+            break
+        continueRoutine = False  # will revert to True if at least one component still running
+        for thisComponent in fixationCrossComponents:
+            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                continueRoutine = True
+                break  # at least one component has not yet finished
+        
+        # check for quit (the Esc key)
+        if endExpNow or event.getKeys(keyList=["escape"]):
+            core.quit()
+        
+        # refresh the screen
+        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+            win.flip()
+    
+    # -------Ending Routine "fixationCross"-------
+    for thisComponent in fixationCrossComponents:
+        if hasattr(thisComponent, "setAutoDraw"):
+            thisComponent.setAutoDraw(False)
+    
     # ------Prepare to start Routine "testPhase"-------
     t = 0
     testPhaseClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(5.000000)
+    routineTimer.add(8.000000)
     # update component parameters for each repeat
     stimuliTest.setImage(imageFile)
     stimuliTestResp = event.BuilderKeyResponse()
@@ -1210,7 +1134,7 @@ for thisPracticeTest in practiceTest:
             stimuliTest.tStart = t
             stimuliTest.frameNStart = frameN  # exact frame index
             stimuliTest.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 8- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliTest.status == STARTED and t >= frameRemains:
             stimuliTest.setAutoDraw(False)
         
@@ -1220,7 +1144,7 @@ for thisPracticeTest in practiceTest:
             oldNew.tStart = t
             oldNew.frameNStart = frameN  # exact frame index
             oldNew.setAutoDraw(True)
-        frameRemains = 3 + 2- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 3 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
         if oldNew.status == STARTED and t >= frameRemains:
             oldNew.setAutoDraw(False)
         
@@ -1233,7 +1157,7 @@ for thisPracticeTest in practiceTest:
             # keyboard checking is just starting
             win.callOnFlip(stimuliTestResp.clock.reset)  # t=0 on next screen flip
             event.clearEvents(eventType='keyboard')
-        frameRemains = 3 + 2- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 3 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliTestResp.status == STARTED and t >= frameRemains:
             stimuliTestResp.status = STOPPED
         if stimuliTestResp.status == STARTED:
@@ -1271,8 +1195,6 @@ for thisPracticeTest in practiceTest:
             win.flip()
     
     # -------Ending Routine "testPhase"-------
-    
-    
     for thisComponent in testPhaseComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
@@ -1300,7 +1222,7 @@ for thisPracticeTest in practiceTest:
     stimuliInteract.setImage(imageFile)
     respInteract = event.BuilderKeyResponse()
     # keep track of which components have finished
-    interactComponents = [stimuliInteract, questionInteract, rating_Scale, respInteract]
+    interactComponents = [stimuliInteract, questionInteract, respInteract]
     for thisComponent in interactComponents:
         if hasattr(thisComponent, 'status'):
             thisComponent.status = NOT_STARTED
@@ -1331,16 +1253,6 @@ for thisPracticeTest in practiceTest:
         frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
         if questionInteract.status == STARTED and t >= frameRemains:
             questionInteract.setAutoDraw(False)
-        
-        # *rating_Scale* updates
-        if t >= 0.0 and rating_Scale.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            rating_Scale.tStart = t
-            rating_Scale.frameNStart = frameN  # exact frame index
-            rating_Scale.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if rating_Scale.status == STARTED and t >= frameRemains:
-            rating_Scale.setAutoDraw(False)
         
         # *respInteract* updates
         if t >= 0.0 and respInteract.status == NOT_STARTED:
@@ -1394,41 +1306,41 @@ for thisPracticeTest in practiceTest:
     if respInteract.keys != None:  # we had a response
         practiceTest.addData('respInteract.rt', respInteract.rt)
     
-    # ------Prepare to start Routine "fixationCross"-------
+    # ------Prepare to start Routine "ISI"-------
     t = 0
-    fixationCrossClock.reset()  # clock
+    ISIClock.reset()  # clock
     frameN = -1
     continueRoutine = True
     routineTimer.add(1.000000)
     # update component parameters for each repeat
     # keep track of which components have finished
-    fixationCrossComponents = [fixation]
-    for thisComponent in fixationCrossComponents:
+    ISIComponents = [ISI1000]
+    for thisComponent in ISIComponents:
         if hasattr(thisComponent, 'status'):
             thisComponent.status = NOT_STARTED
     
-    # -------Start Routine "fixationCross"-------
+    # -------Start Routine "ISI"-------
     while continueRoutine and routineTimer.getTime() > 0:
         # get current time
-        t = fixationCrossClock.getTime()
+        t = ISIClock.getTime()
         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
         # update/draw components on each frame
         
-        # *fixation* updates
-        if t >= 0.0 and fixation.status == NOT_STARTED:
+        # *ISI1000* updates
+        if t >= 0.0 and ISI1000.status == NOT_STARTED:
             # keep track of start time/frame for later
-            fixation.tStart = t
-            fixation.frameNStart = frameN  # exact frame index
-            fixation.setAutoDraw(True)
+            ISI1000.tStart = t
+            ISI1000.frameNStart = frameN  # exact frame index
+            ISI1000.setAutoDraw(True)
         frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if fixation.status == STARTED and t >= frameRemains:
-            fixation.setAutoDraw(False)
+        if ISI1000.status == STARTED and t >= frameRemains:
+            ISI1000.setAutoDraw(False)
         
         # check if all components have finished
         if not continueRoutine:  # a component has requested a forced-end of Routine
             break
         continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in fixationCrossComponents:
+        for thisComponent in ISIComponents:
             if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                 continueRoutine = True
                 break  # at least one component has not yet finished
@@ -1441,8 +1353,8 @@ for thisPracticeTest in practiceTest:
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
     
-    # -------Ending Routine "fixationCross"-------
-    for thisComponent in fixationCrossComponents:
+    # -------Ending Routine "ISI"-------
+    for thisComponent in ISIComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
     thisExp.nextEntry()
@@ -1531,7 +1443,7 @@ routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
 block1Lrn = data.TrialHandler(nReps=1, method='random', 
-    extraInfo=expInfo, originPath=-1,
+    extraInfo=expInfo, 
     trialList=data.importConditions('Block1_S1.xlsx', selection='0:20'),
     seed=None, name='block1Lrn')
 thisExp.addLoop(block1Lrn)  # add the loop to the experiment
@@ -1547,113 +1459,6 @@ for thisBlock1Lrn in block1Lrn:
     if thisBlock1Lrn != None:
         for paramName in thisBlock1Lrn:
             exec('{} = thisBlock1Lrn[paramName]'.format(paramName))
-    
-    # ------Prepare to start Routine "learningPhase"-------
-    t = 0
-    learningPhaseClock.reset()  # clock
-    frameN = -1
-    continueRoutine = True
-    routineTimer.add(6.000000)
-    # update component parameters for each repeat
-    stimuliLrn.setImage(imageFile)
-    # keep track of which components have finished
-    learningPhaseComponents = [stimuliLrn]
-    for thisComponent in learningPhaseComponents:
-        if hasattr(thisComponent, 'status'):
-            thisComponent.status = NOT_STARTED
-    
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    print('##########################################################################')
-    print('start recording')
-    print('##########################################################################')
-    
-    #eyelink-start recording
-    eyelink.start_recording()
-    
-    
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    # -------Start Routine "learningPhase"-------
-    while continueRoutine and routineTimer.getTime() > 0:
-        # get current time
-        t = learningPhaseClock.getTime()
-        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-        # update/draw components on each frame
-        
-        # *stimuliLrn* updates
-        if t >= 0.0 and stimuliLrn.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            stimuliLrn.tStart = t
-            stimuliLrn.frameNStart = frameN  # exact frame index
-            stimuliLrn.setAutoDraw(True)
-        frameRemains = 0.0 + 6- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if stimuliLrn.status == STARTED and t >= frameRemains:
-            stimuliLrn.setAutoDraw(False)
-        
-        # check if all components have finished
-        if not continueRoutine:  # a component has requested a forced-end of Routine
-            break
-        continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in learningPhaseComponents:
-            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-                continueRoutine = True
-                break  # at least one component has not yet finished
-        
-        # check for quit (the Esc key)
-        if endExpNow or event.getKeys(keyList=["escape"]):
-            core.quit()
-        
-        # refresh the screen
-        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-            win.flip()
-    
-    # -------Ending Routine "learningPhase"-------
-    for thisComponent in learningPhaseComponents:
-        if hasattr(thisComponent, "setAutoDraw"):
-            thisComponent.setAutoDraw(False)
     
     # ------Prepare to start Routine "fixationCross"-------
     t = 0
@@ -1702,75 +1507,97 @@ for thisBlock1Lrn in block1Lrn:
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
     
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    print('##########################################################################')
-    print('ending encoding')
-    print('##########################################################################')
-    
-    
-    '''
-    The IMGLOAD command is used to show an overlay image in Data Viewer.  This will code the time that the PictureTrial \
-    image should appear.
-    '''
-    
-    #stop recording
-    eyelink.stop_recording()
-    
-    #variables
-    eyetracking.send_variable(variable='imageFile', value=imageFile)
-    
-    #trial results
-    pylink.getEYELINK().sendMessage("TRIAL_RESULT 1")
-    
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
-    ################################################################################################
     # -------Ending Routine "fixationCross"-------
     for thisComponent in fixationCrossComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
+    
+    # ------Prepare to start Routine "learningPhase"-------
+    t = 0
+    learningPhaseClock.reset()  # clock
+    frameN = -1
+    continueRoutine = True
+    # update component parameters for each repeat
+    stimuliLrn.setImage(imageFile)
+    text.setText(u'Does this individual look over the age of 25?\nReply using the keys "yes" or "no"')
+    ratingRespLrn = event.BuilderKeyResponse()
+    # keep track of which components have finished
+    learningPhaseComponents = [stimuliLrn, text, ratingRespLrn]
+    for thisComponent in learningPhaseComponents:
+        if hasattr(thisComponent, 'status'):
+            thisComponent.status = NOT_STARTED
+    
+    # -------Start Routine "learningPhase"-------
+    while continueRoutine:
+        # get current time
+        t = learningPhaseClock.getTime()
+        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+        # update/draw components on each frame
+        
+        # *stimuliLrn* updates
+        if t >= 0.0 and stimuliLrn.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            stimuliLrn.tStart = t
+            stimuliLrn.frameNStart = frameN  # exact frame index
+            stimuliLrn.setAutoDraw(True)
+        
+        # *text* updates
+        if t >= 0 and text.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            text.tStart = t
+            text.frameNStart = frameN  # exact frame index
+            text.setAutoDraw(True)
+        
+        # *ratingRespLrn* updates
+        if t >= 0 and ratingRespLrn.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            ratingRespLrn.tStart = t
+            ratingRespLrn.frameNStart = frameN  # exact frame index
+            ratingRespLrn.status = STARTED
+            # keyboard checking is just starting
+            win.callOnFlip(ratingRespLrn.clock.reset)  # t=0 on next screen flip
+            event.clearEvents(eventType='keyboard')
+        if ratingRespLrn.status == STARTED:
+            theseKeys = event.getKeys(keyList=['a', 'l'])
+            
+            # check for quit:
+            if "escape" in theseKeys:
+                endExpNow = True
+            if len(theseKeys) > 0:  # at least one key was pressed
+                ratingRespLrn.keys.extend(theseKeys)  # storing all keys
+                ratingRespLrn.rt.append(ratingRespLrn.clock.getTime())
+                # a response ends the routine
+                continueRoutine = False
+        
+        # check if all components have finished
+        if not continueRoutine:  # a component has requested a forced-end of Routine
+            break
+        continueRoutine = False  # will revert to True if at least one component still running
+        for thisComponent in learningPhaseComponents:
+            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                continueRoutine = True
+                break  # at least one component has not yet finished
+        
+        # check for quit (the Esc key)
+        if endExpNow or event.getKeys(keyList=["escape"]):
+            core.quit()
+        
+        # refresh the screen
+        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+            win.flip()
+    
+    # -------Ending Routine "learningPhase"-------
+    for thisComponent in learningPhaseComponents:
+        if hasattr(thisComponent, "setAutoDraw"):
+            thisComponent.setAutoDraw(False)
+    # check responses
+    if ratingRespLrn.keys in ['', [], None]:  # No response was made
+        ratingRespLrn.keys=None
+    block1Lrn.addData('ratingRespLrn.keys',ratingRespLrn.keys)
+    if ratingRespLrn.keys != None:  # we had a response
+        block1Lrn.addData('ratingRespLrn.rt', ratingRespLrn.rt)
+    # the Routine "learningPhase" was not non-slip safe, so reset the non-slip timer
+    routineTimer.reset()
     thisExp.nextEntry()
     
 # completed 1 repeats of 'block1Lrn'
@@ -1857,7 +1684,7 @@ routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
 block1Test = data.TrialHandler(nReps=1, method='random', 
-    extraInfo=expInfo, originPath=-1,
+    extraInfo=expInfo, 
     trialList=data.importConditions('Block1_S1.xlsx'),
     seed=None, name='block1Test')
 thisExp.addLoop(block1Test)  # add the loop to the experiment
@@ -1874,12 +1701,64 @@ for thisBlock1Test in block1Test:
         for paramName in thisBlock1Test:
             exec('{} = thisBlock1Test[paramName]'.format(paramName))
     
+    # ------Prepare to start Routine "fixationCross"-------
+    t = 0
+    fixationCrossClock.reset()  # clock
+    frameN = -1
+    continueRoutine = True
+    routineTimer.add(1.000000)
+    # update component parameters for each repeat
+    # keep track of which components have finished
+    fixationCrossComponents = [fixation]
+    for thisComponent in fixationCrossComponents:
+        if hasattr(thisComponent, 'status'):
+            thisComponent.status = NOT_STARTED
+    
+    # -------Start Routine "fixationCross"-------
+    while continueRoutine and routineTimer.getTime() > 0:
+        # get current time
+        t = fixationCrossClock.getTime()
+        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+        # update/draw components on each frame
+        
+        # *fixation* updates
+        if t >= 0.0 and fixation.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            fixation.tStart = t
+            fixation.frameNStart = frameN  # exact frame index
+            fixation.setAutoDraw(True)
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
+        if fixation.status == STARTED and t >= frameRemains:
+            fixation.setAutoDraw(False)
+        
+        # check if all components have finished
+        if not continueRoutine:  # a component has requested a forced-end of Routine
+            break
+        continueRoutine = False  # will revert to True if at least one component still running
+        for thisComponent in fixationCrossComponents:
+            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                continueRoutine = True
+                break  # at least one component has not yet finished
+        
+        # check for quit (the Esc key)
+        if endExpNow or event.getKeys(keyList=["escape"]):
+            core.quit()
+        
+        # refresh the screen
+        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+            win.flip()
+    
+    # -------Ending Routine "fixationCross"-------
+    for thisComponent in fixationCrossComponents:
+        if hasattr(thisComponent, "setAutoDraw"):
+            thisComponent.setAutoDraw(False)
+    
     # ------Prepare to start Routine "testPhase"-------
     t = 0
     testPhaseClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(5.000000)
+    routineTimer.add(8.000000)
     # update component parameters for each repeat
     stimuliTest.setImage(imageFile)
     stimuliTestResp = event.BuilderKeyResponse()
@@ -1902,7 +1781,7 @@ for thisBlock1Test in block1Test:
             stimuliTest.tStart = t
             stimuliTest.frameNStart = frameN  # exact frame index
             stimuliTest.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 8- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliTest.status == STARTED and t >= frameRemains:
             stimuliTest.setAutoDraw(False)
         
@@ -1912,7 +1791,7 @@ for thisBlock1Test in block1Test:
             oldNew.tStart = t
             oldNew.frameNStart = frameN  # exact frame index
             oldNew.setAutoDraw(True)
-        frameRemains = 3 + 2- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 3 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
         if oldNew.status == STARTED and t >= frameRemains:
             oldNew.setAutoDraw(False)
         
@@ -1925,7 +1804,7 @@ for thisBlock1Test in block1Test:
             # keyboard checking is just starting
             win.callOnFlip(stimuliTestResp.clock.reset)  # t=0 on next screen flip
             event.clearEvents(eventType='keyboard')
-        frameRemains = 3 + 2- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 3 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliTestResp.status == STARTED and t >= frameRemains:
             stimuliTestResp.status = STOPPED
         if stimuliTestResp.status == STARTED:
@@ -1980,145 +1859,41 @@ for thisBlock1Test in block1Test:
     if stimuliTestResp.keys != None:  # we had a response
         block1Test.addData('stimuliTestResp.rt', stimuliTestResp.rt)
     
-    # ------Prepare to start Routine "interact"-------
+    # ------Prepare to start Routine "ISI"-------
     t = 0
-    interactClock.reset()  # clock
-    frameN = -1
-    continueRoutine = True
-    routineTimer.add(5.000000)
-    # update component parameters for each repeat
-    stimuliInteract.setImage(imageFile)
-    respInteract = event.BuilderKeyResponse()
-    # keep track of which components have finished
-    interactComponents = [stimuliInteract, questionInteract, rating_Scale, respInteract]
-    for thisComponent in interactComponents:
-        if hasattr(thisComponent, 'status'):
-            thisComponent.status = NOT_STARTED
-    
-    # -------Start Routine "interact"-------
-    while continueRoutine and routineTimer.getTime() > 0:
-        # get current time
-        t = interactClock.getTime()
-        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-        # update/draw components on each frame
-        
-        # *stimuliInteract* updates
-        if t >= 0.0 and stimuliInteract.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            stimuliInteract.tStart = t
-            stimuliInteract.frameNStart = frameN  # exact frame index
-            stimuliInteract.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if stimuliInteract.status == STARTED and t >= frameRemains:
-            stimuliInteract.setAutoDraw(False)
-        
-        # *questionInteract* updates
-        if t >= 0.0 and questionInteract.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            questionInteract.tStart = t
-            questionInteract.frameNStart = frameN  # exact frame index
-            questionInteract.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if questionInteract.status == STARTED and t >= frameRemains:
-            questionInteract.setAutoDraw(False)
-        
-        # *rating_Scale* updates
-        if t >= 0.0 and rating_Scale.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            rating_Scale.tStart = t
-            rating_Scale.frameNStart = frameN  # exact frame index
-            rating_Scale.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if rating_Scale.status == STARTED and t >= frameRemains:
-            rating_Scale.setAutoDraw(False)
-        
-        # *respInteract* updates
-        if t >= 0.0 and respInteract.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            respInteract.tStart = t
-            respInteract.frameNStart = frameN  # exact frame index
-            respInteract.status = STARTED
-            # keyboard checking is just starting
-            win.callOnFlip(respInteract.clock.reset)  # t=0 on next screen flip
-            event.clearEvents(eventType='keyboard')
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if respInteract.status == STARTED and t >= frameRemains:
-            respInteract.status = STOPPED
-        if respInteract.status == STARTED:
-            theseKeys = event.getKeys(keyList=['1', '2', '3', '4', '5'])
-            
-            # check for quit:
-            if "escape" in theseKeys:
-                endExpNow = True
-            if len(theseKeys) > 0:  # at least one key was pressed
-                respInteract.keys = theseKeys[-1]  # just the last key pressed
-                respInteract.rt = respInteract.clock.getTime()
-                # a response ends the routine
-                continueRoutine = False
-        
-        # check if all components have finished
-        if not continueRoutine:  # a component has requested a forced-end of Routine
-            break
-        continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in interactComponents:
-            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-                continueRoutine = True
-                break  # at least one component has not yet finished
-        
-        # check for quit (the Esc key)
-        if endExpNow or event.getKeys(keyList=["escape"]):
-            core.quit()
-        
-        # refresh the screen
-        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-            win.flip()
-    
-    # -------Ending Routine "interact"-------
-    for thisComponent in interactComponents:
-        if hasattr(thisComponent, "setAutoDraw"):
-            thisComponent.setAutoDraw(False)
-    # check responses
-    if respInteract.keys in ['', [], None]:  # No response was made
-        respInteract.keys=None
-    block1Test.addData('respInteract.keys',respInteract.keys)
-    if respInteract.keys != None:  # we had a response
-        block1Test.addData('respInteract.rt', respInteract.rt)
-    
-    # ------Prepare to start Routine "fixationCross"-------
-    t = 0
-    fixationCrossClock.reset()  # clock
+    ISIClock.reset()  # clock
     frameN = -1
     continueRoutine = True
     routineTimer.add(1.000000)
     # update component parameters for each repeat
     # keep track of which components have finished
-    fixationCrossComponents = [fixation]
-    for thisComponent in fixationCrossComponents:
+    ISIComponents = [ISI1000]
+    for thisComponent in ISIComponents:
         if hasattr(thisComponent, 'status'):
             thisComponent.status = NOT_STARTED
     
-    # -------Start Routine "fixationCross"-------
+    # -------Start Routine "ISI"-------
     while continueRoutine and routineTimer.getTime() > 0:
         # get current time
-        t = fixationCrossClock.getTime()
+        t = ISIClock.getTime()
         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
         # update/draw components on each frame
         
-        # *fixation* updates
-        if t >= 0.0 and fixation.status == NOT_STARTED:
+        # *ISI1000* updates
+        if t >= 0.0 and ISI1000.status == NOT_STARTED:
             # keep track of start time/frame for later
-            fixation.tStart = t
-            fixation.frameNStart = frameN  # exact frame index
-            fixation.setAutoDraw(True)
+            ISI1000.tStart = t
+            ISI1000.frameNStart = frameN  # exact frame index
+            ISI1000.setAutoDraw(True)
         frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if fixation.status == STARTED and t >= frameRemains:
-            fixation.setAutoDraw(False)
+        if ISI1000.status == STARTED and t >= frameRemains:
+            ISI1000.setAutoDraw(False)
         
         # check if all components have finished
         if not continueRoutine:  # a component has requested a forced-end of Routine
             break
         continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in fixationCrossComponents:
+        for thisComponent in ISIComponents:
             if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                 continueRoutine = True
                 break  # at least one component has not yet finished
@@ -2131,8 +1906,8 @@ for thisBlock1Test in block1Test:
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
     
-    # -------Ending Routine "fixationCross"-------
-    for thisComponent in fixationCrossComponents:
+    # -------Ending Routine "ISI"-------
+    for thisComponent in ISIComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
     thisExp.nextEntry()
@@ -2194,7 +1969,7 @@ for thisComponent in endBlockComponents:
 
 # set up handler to look after randomisation of conditions etc
 block2Lrn = data.TrialHandler(nReps=1, method='random', 
-    extraInfo=expInfo, originPath=-1,
+    extraInfo=expInfo, 
     trialList=data.importConditions('Block2_S1.xlsx', selection='0:20'),
     seed=None, name='block2Lrn')
 thisExp.addLoop(block2Lrn)  # add the loop to the experiment
@@ -2210,59 +1985,6 @@ for thisBlock2Lrn in block2Lrn:
     if thisBlock2Lrn != None:
         for paramName in thisBlock2Lrn:
             exec('{} = thisBlock2Lrn[paramName]'.format(paramName))
-    
-    # ------Prepare to start Routine "learningPhase"-------
-    t = 0
-    learningPhaseClock.reset()  # clock
-    frameN = -1
-    continueRoutine = True
-    routineTimer.add(6.000000)
-    # update component parameters for each repeat
-    stimuliLrn.setImage(imageFile)
-    # keep track of which components have finished
-    learningPhaseComponents = [stimuliLrn]
-    for thisComponent in learningPhaseComponents:
-        if hasattr(thisComponent, 'status'):
-            thisComponent.status = NOT_STARTED
-    
-    # -------Start Routine "learningPhase"-------
-    while continueRoutine and routineTimer.getTime() > 0:
-        # get current time
-        t = learningPhaseClock.getTime()
-        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-        # update/draw components on each frame
-        
-        # *stimuliLrn* updates
-        if t >= 0.0 and stimuliLrn.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            stimuliLrn.tStart = t
-            stimuliLrn.frameNStart = frameN  # exact frame index
-            stimuliLrn.setAutoDraw(True)
-        frameRemains = 0.0 + 6- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if stimuliLrn.status == STARTED and t >= frameRemains:
-            stimuliLrn.setAutoDraw(False)
-        
-        # check if all components have finished
-        if not continueRoutine:  # a component has requested a forced-end of Routine
-            break
-        continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in learningPhaseComponents:
-            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-                continueRoutine = True
-                break  # at least one component has not yet finished
-        
-        # check for quit (the Esc key)
-        if endExpNow or event.getKeys(keyList=["escape"]):
-            core.quit()
-        
-        # refresh the screen
-        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-            win.flip()
-    
-    # -------Ending Routine "learningPhase"-------
-    for thisComponent in learningPhaseComponents:
-        if hasattr(thisComponent, "setAutoDraw"):
-            thisComponent.setAutoDraw(False)
     
     # ------Prepare to start Routine "fixationCross"-------
     t = 0
@@ -2315,6 +2037,93 @@ for thisBlock2Lrn in block2Lrn:
     for thisComponent in fixationCrossComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
+    
+    # ------Prepare to start Routine "learningPhase"-------
+    t = 0
+    learningPhaseClock.reset()  # clock
+    frameN = -1
+    continueRoutine = True
+    # update component parameters for each repeat
+    stimuliLrn.setImage(imageFile)
+    text.setText(u'Does this individual look over the age of 25?\nReply using the keys "yes" or "no"')
+    ratingRespLrn = event.BuilderKeyResponse()
+    # keep track of which components have finished
+    learningPhaseComponents = [stimuliLrn, text, ratingRespLrn]
+    for thisComponent in learningPhaseComponents:
+        if hasattr(thisComponent, 'status'):
+            thisComponent.status = NOT_STARTED
+    
+    # -------Start Routine "learningPhase"-------
+    while continueRoutine:
+        # get current time
+        t = learningPhaseClock.getTime()
+        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+        # update/draw components on each frame
+        
+        # *stimuliLrn* updates
+        if t >= 0.0 and stimuliLrn.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            stimuliLrn.tStart = t
+            stimuliLrn.frameNStart = frameN  # exact frame index
+            stimuliLrn.setAutoDraw(True)
+        
+        # *text* updates
+        if t >= 0 and text.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            text.tStart = t
+            text.frameNStart = frameN  # exact frame index
+            text.setAutoDraw(True)
+        
+        # *ratingRespLrn* updates
+        if t >= 0 and ratingRespLrn.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            ratingRespLrn.tStart = t
+            ratingRespLrn.frameNStart = frameN  # exact frame index
+            ratingRespLrn.status = STARTED
+            # keyboard checking is just starting
+            win.callOnFlip(ratingRespLrn.clock.reset)  # t=0 on next screen flip
+            event.clearEvents(eventType='keyboard')
+        if ratingRespLrn.status == STARTED:
+            theseKeys = event.getKeys(keyList=['a', 'l'])
+            
+            # check for quit:
+            if "escape" in theseKeys:
+                endExpNow = True
+            if len(theseKeys) > 0:  # at least one key was pressed
+                ratingRespLrn.keys.extend(theseKeys)  # storing all keys
+                ratingRespLrn.rt.append(ratingRespLrn.clock.getTime())
+                # a response ends the routine
+                continueRoutine = False
+        
+        # check if all components have finished
+        if not continueRoutine:  # a component has requested a forced-end of Routine
+            break
+        continueRoutine = False  # will revert to True if at least one component still running
+        for thisComponent in learningPhaseComponents:
+            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                continueRoutine = True
+                break  # at least one component has not yet finished
+        
+        # check for quit (the Esc key)
+        if endExpNow or event.getKeys(keyList=["escape"]):
+            core.quit()
+        
+        # refresh the screen
+        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+            win.flip()
+    
+    # -------Ending Routine "learningPhase"-------
+    for thisComponent in learningPhaseComponents:
+        if hasattr(thisComponent, "setAutoDraw"):
+            thisComponent.setAutoDraw(False)
+    # check responses
+    if ratingRespLrn.keys in ['', [], None]:  # No response was made
+        ratingRespLrn.keys=None
+    block2Lrn.addData('ratingRespLrn.keys',ratingRespLrn.keys)
+    if ratingRespLrn.keys != None:  # we had a response
+        block2Lrn.addData('ratingRespLrn.rt', ratingRespLrn.rt)
+    # the Routine "learningPhase" was not non-slip safe, so reset the non-slip timer
+    routineTimer.reset()
     thisExp.nextEntry()
     
 # completed 1 repeats of 'block2Lrn'
@@ -2401,7 +2210,7 @@ routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
 block2Test = data.TrialHandler(nReps=1, method='random', 
-    extraInfo=expInfo, originPath=-1,
+    extraInfo=expInfo, 
     trialList=data.importConditions('Block2_S1.xlsx'),
     seed=None, name='block2Test')
 thisExp.addLoop(block2Test)  # add the loop to the experiment
@@ -2418,12 +2227,64 @@ for thisBlock2Test in block2Test:
         for paramName in thisBlock2Test:
             exec('{} = thisBlock2Test[paramName]'.format(paramName))
     
+    # ------Prepare to start Routine "fixationCross"-------
+    t = 0
+    fixationCrossClock.reset()  # clock
+    frameN = -1
+    continueRoutine = True
+    routineTimer.add(1.000000)
+    # update component parameters for each repeat
+    # keep track of which components have finished
+    fixationCrossComponents = [fixation]
+    for thisComponent in fixationCrossComponents:
+        if hasattr(thisComponent, 'status'):
+            thisComponent.status = NOT_STARTED
+    
+    # -------Start Routine "fixationCross"-------
+    while continueRoutine and routineTimer.getTime() > 0:
+        # get current time
+        t = fixationCrossClock.getTime()
+        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+        # update/draw components on each frame
+        
+        # *fixation* updates
+        if t >= 0.0 and fixation.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            fixation.tStart = t
+            fixation.frameNStart = frameN  # exact frame index
+            fixation.setAutoDraw(True)
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
+        if fixation.status == STARTED and t >= frameRemains:
+            fixation.setAutoDraw(False)
+        
+        # check if all components have finished
+        if not continueRoutine:  # a component has requested a forced-end of Routine
+            break
+        continueRoutine = False  # will revert to True if at least one component still running
+        for thisComponent in fixationCrossComponents:
+            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                continueRoutine = True
+                break  # at least one component has not yet finished
+        
+        # check for quit (the Esc key)
+        if endExpNow or event.getKeys(keyList=["escape"]):
+            core.quit()
+        
+        # refresh the screen
+        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+            win.flip()
+    
+    # -------Ending Routine "fixationCross"-------
+    for thisComponent in fixationCrossComponents:
+        if hasattr(thisComponent, "setAutoDraw"):
+            thisComponent.setAutoDraw(False)
+    
     # ------Prepare to start Routine "testPhase"-------
     t = 0
     testPhaseClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(5.000000)
+    routineTimer.add(8.000000)
     # update component parameters for each repeat
     stimuliTest.setImage(imageFile)
     stimuliTestResp = event.BuilderKeyResponse()
@@ -2446,7 +2307,7 @@ for thisBlock2Test in block2Test:
             stimuliTest.tStart = t
             stimuliTest.frameNStart = frameN  # exact frame index
             stimuliTest.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 8- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliTest.status == STARTED and t >= frameRemains:
             stimuliTest.setAutoDraw(False)
         
@@ -2456,7 +2317,7 @@ for thisBlock2Test in block2Test:
             oldNew.tStart = t
             oldNew.frameNStart = frameN  # exact frame index
             oldNew.setAutoDraw(True)
-        frameRemains = 3 + 2- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 3 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
         if oldNew.status == STARTED and t >= frameRemains:
             oldNew.setAutoDraw(False)
         
@@ -2469,7 +2330,7 @@ for thisBlock2Test in block2Test:
             # keyboard checking is just starting
             win.callOnFlip(stimuliTestResp.clock.reset)  # t=0 on next screen flip
             event.clearEvents(eventType='keyboard')
-        frameRemains = 3 + 2- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 3 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliTestResp.status == STARTED and t >= frameRemains:
             stimuliTestResp.status = STOPPED
         if stimuliTestResp.status == STARTED:
@@ -2534,7 +2395,7 @@ for thisBlock2Test in block2Test:
     stimuliInteract.setImage(imageFile)
     respInteract = event.BuilderKeyResponse()
     # keep track of which components have finished
-    interactComponents = [stimuliInteract, questionInteract, rating_Scale, respInteract]
+    interactComponents = [stimuliInteract, questionInteract, respInteract]
     for thisComponent in interactComponents:
         if hasattr(thisComponent, 'status'):
             thisComponent.status = NOT_STARTED
@@ -2565,16 +2426,6 @@ for thisBlock2Test in block2Test:
         frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
         if questionInteract.status == STARTED and t >= frameRemains:
             questionInteract.setAutoDraw(False)
-        
-        # *rating_Scale* updates
-        if t >= 0.0 and rating_Scale.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            rating_Scale.tStart = t
-            rating_Scale.frameNStart = frameN  # exact frame index
-            rating_Scale.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if rating_Scale.status == STARTED and t >= frameRemains:
-            rating_Scale.setAutoDraw(False)
         
         # *respInteract* updates
         if t >= 0.0 and respInteract.status == NOT_STARTED:
@@ -2628,41 +2479,41 @@ for thisBlock2Test in block2Test:
     if respInteract.keys != None:  # we had a response
         block2Test.addData('respInteract.rt', respInteract.rt)
     
-    # ------Prepare to start Routine "fixationCross"-------
+    # ------Prepare to start Routine "ISI"-------
     t = 0
-    fixationCrossClock.reset()  # clock
+    ISIClock.reset()  # clock
     frameN = -1
     continueRoutine = True
     routineTimer.add(1.000000)
     # update component parameters for each repeat
     # keep track of which components have finished
-    fixationCrossComponents = [fixation]
-    for thisComponent in fixationCrossComponents:
+    ISIComponents = [ISI1000]
+    for thisComponent in ISIComponents:
         if hasattr(thisComponent, 'status'):
             thisComponent.status = NOT_STARTED
     
-    # -------Start Routine "fixationCross"-------
+    # -------Start Routine "ISI"-------
     while continueRoutine and routineTimer.getTime() > 0:
         # get current time
-        t = fixationCrossClock.getTime()
+        t = ISIClock.getTime()
         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
         # update/draw components on each frame
         
-        # *fixation* updates
-        if t >= 0.0 and fixation.status == NOT_STARTED:
+        # *ISI1000* updates
+        if t >= 0.0 and ISI1000.status == NOT_STARTED:
             # keep track of start time/frame for later
-            fixation.tStart = t
-            fixation.frameNStart = frameN  # exact frame index
-            fixation.setAutoDraw(True)
+            ISI1000.tStart = t
+            ISI1000.frameNStart = frameN  # exact frame index
+            ISI1000.setAutoDraw(True)
         frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if fixation.status == STARTED and t >= frameRemains:
-            fixation.setAutoDraw(False)
+        if ISI1000.status == STARTED and t >= frameRemains:
+            ISI1000.setAutoDraw(False)
         
         # check if all components have finished
         if not continueRoutine:  # a component has requested a forced-end of Routine
             break
         continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in fixationCrossComponents:
+        for thisComponent in ISIComponents:
             if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                 continueRoutine = True
                 break  # at least one component has not yet finished
@@ -2675,8 +2526,8 @@ for thisBlock2Test in block2Test:
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
     
-    # -------Ending Routine "fixationCross"-------
-    for thisComponent in fixationCrossComponents:
+    # -------Ending Routine "ISI"-------
+    for thisComponent in ISIComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
     thisExp.nextEntry()
@@ -2738,7 +2589,7 @@ for thisComponent in endBlockComponents:
 
 # set up handler to look after randomisation of conditions etc
 block3Lrn = data.TrialHandler(nReps=1, method='random', 
-    extraInfo=expInfo, originPath=-1,
+    extraInfo=expInfo, 
     trialList=data.importConditions('Block3_S1.xlsx', selection='0:20'),
     seed=None, name='block3Lrn')
 thisExp.addLoop(block3Lrn)  # add the loop to the experiment
@@ -2754,59 +2605,6 @@ for thisBlock3Lrn in block3Lrn:
     if thisBlock3Lrn != None:
         for paramName in thisBlock3Lrn:
             exec('{} = thisBlock3Lrn[paramName]'.format(paramName))
-    
-    # ------Prepare to start Routine "learningPhase"-------
-    t = 0
-    learningPhaseClock.reset()  # clock
-    frameN = -1
-    continueRoutine = True
-    routineTimer.add(6.000000)
-    # update component parameters for each repeat
-    stimuliLrn.setImage(imageFile)
-    # keep track of which components have finished
-    learningPhaseComponents = [stimuliLrn]
-    for thisComponent in learningPhaseComponents:
-        if hasattr(thisComponent, 'status'):
-            thisComponent.status = NOT_STARTED
-    
-    # -------Start Routine "learningPhase"-------
-    while continueRoutine and routineTimer.getTime() > 0:
-        # get current time
-        t = learningPhaseClock.getTime()
-        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-        # update/draw components on each frame
-        
-        # *stimuliLrn* updates
-        if t >= 0.0 and stimuliLrn.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            stimuliLrn.tStart = t
-            stimuliLrn.frameNStart = frameN  # exact frame index
-            stimuliLrn.setAutoDraw(True)
-        frameRemains = 0.0 + 6- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if stimuliLrn.status == STARTED and t >= frameRemains:
-            stimuliLrn.setAutoDraw(False)
-        
-        # check if all components have finished
-        if not continueRoutine:  # a component has requested a forced-end of Routine
-            break
-        continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in learningPhaseComponents:
-            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-                continueRoutine = True
-                break  # at least one component has not yet finished
-        
-        # check for quit (the Esc key)
-        if endExpNow or event.getKeys(keyList=["escape"]):
-            core.quit()
-        
-        # refresh the screen
-        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-            win.flip()
-    
-    # -------Ending Routine "learningPhase"-------
-    for thisComponent in learningPhaseComponents:
-        if hasattr(thisComponent, "setAutoDraw"):
-            thisComponent.setAutoDraw(False)
     
     # ------Prepare to start Routine "fixationCross"-------
     t = 0
@@ -2859,6 +2657,93 @@ for thisBlock3Lrn in block3Lrn:
     for thisComponent in fixationCrossComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
+    
+    # ------Prepare to start Routine "learningPhase"-------
+    t = 0
+    learningPhaseClock.reset()  # clock
+    frameN = -1
+    continueRoutine = True
+    # update component parameters for each repeat
+    stimuliLrn.setImage(imageFile)
+    text.setText(u'Does this individual look over the age of 25?\nReply using the keys "yes" or "no"')
+    ratingRespLrn = event.BuilderKeyResponse()
+    # keep track of which components have finished
+    learningPhaseComponents = [stimuliLrn, text, ratingRespLrn]
+    for thisComponent in learningPhaseComponents:
+        if hasattr(thisComponent, 'status'):
+            thisComponent.status = NOT_STARTED
+    
+    # -------Start Routine "learningPhase"-------
+    while continueRoutine:
+        # get current time
+        t = learningPhaseClock.getTime()
+        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+        # update/draw components on each frame
+        
+        # *stimuliLrn* updates
+        if t >= 0.0 and stimuliLrn.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            stimuliLrn.tStart = t
+            stimuliLrn.frameNStart = frameN  # exact frame index
+            stimuliLrn.setAutoDraw(True)
+        
+        # *text* updates
+        if t >= 0 and text.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            text.tStart = t
+            text.frameNStart = frameN  # exact frame index
+            text.setAutoDraw(True)
+        
+        # *ratingRespLrn* updates
+        if t >= 0 and ratingRespLrn.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            ratingRespLrn.tStart = t
+            ratingRespLrn.frameNStart = frameN  # exact frame index
+            ratingRespLrn.status = STARTED
+            # keyboard checking is just starting
+            win.callOnFlip(ratingRespLrn.clock.reset)  # t=0 on next screen flip
+            event.clearEvents(eventType='keyboard')
+        if ratingRespLrn.status == STARTED:
+            theseKeys = event.getKeys(keyList=['a', 'l'])
+            
+            # check for quit:
+            if "escape" in theseKeys:
+                endExpNow = True
+            if len(theseKeys) > 0:  # at least one key was pressed
+                ratingRespLrn.keys.extend(theseKeys)  # storing all keys
+                ratingRespLrn.rt.append(ratingRespLrn.clock.getTime())
+                # a response ends the routine
+                continueRoutine = False
+        
+        # check if all components have finished
+        if not continueRoutine:  # a component has requested a forced-end of Routine
+            break
+        continueRoutine = False  # will revert to True if at least one component still running
+        for thisComponent in learningPhaseComponents:
+            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                continueRoutine = True
+                break  # at least one component has not yet finished
+        
+        # check for quit (the Esc key)
+        if endExpNow or event.getKeys(keyList=["escape"]):
+            core.quit()
+        
+        # refresh the screen
+        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+            win.flip()
+    
+    # -------Ending Routine "learningPhase"-------
+    for thisComponent in learningPhaseComponents:
+        if hasattr(thisComponent, "setAutoDraw"):
+            thisComponent.setAutoDraw(False)
+    # check responses
+    if ratingRespLrn.keys in ['', [], None]:  # No response was made
+        ratingRespLrn.keys=None
+    block3Lrn.addData('ratingRespLrn.keys',ratingRespLrn.keys)
+    if ratingRespLrn.keys != None:  # we had a response
+        block3Lrn.addData('ratingRespLrn.rt', ratingRespLrn.rt)
+    # the Routine "learningPhase" was not non-slip safe, so reset the non-slip timer
+    routineTimer.reset()
     thisExp.nextEntry()
     
 # completed 1 repeats of 'block3Lrn'
@@ -2945,7 +2830,7 @@ routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
 block3Test = data.TrialHandler(nReps=1, method='random', 
-    extraInfo=expInfo, originPath=-1,
+    extraInfo=expInfo, 
     trialList=data.importConditions('Block3_S1.xlsx'),
     seed=None, name='block3Test')
 thisExp.addLoop(block3Test)  # add the loop to the experiment
@@ -2962,12 +2847,64 @@ for thisBlock3Test in block3Test:
         for paramName in thisBlock3Test:
             exec('{} = thisBlock3Test[paramName]'.format(paramName))
     
+    # ------Prepare to start Routine "fixationCross"-------
+    t = 0
+    fixationCrossClock.reset()  # clock
+    frameN = -1
+    continueRoutine = True
+    routineTimer.add(1.000000)
+    # update component parameters for each repeat
+    # keep track of which components have finished
+    fixationCrossComponents = [fixation]
+    for thisComponent in fixationCrossComponents:
+        if hasattr(thisComponent, 'status'):
+            thisComponent.status = NOT_STARTED
+    
+    # -------Start Routine "fixationCross"-------
+    while continueRoutine and routineTimer.getTime() > 0:
+        # get current time
+        t = fixationCrossClock.getTime()
+        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+        # update/draw components on each frame
+        
+        # *fixation* updates
+        if t >= 0.0 and fixation.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            fixation.tStart = t
+            fixation.frameNStart = frameN  # exact frame index
+            fixation.setAutoDraw(True)
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
+        if fixation.status == STARTED and t >= frameRemains:
+            fixation.setAutoDraw(False)
+        
+        # check if all components have finished
+        if not continueRoutine:  # a component has requested a forced-end of Routine
+            break
+        continueRoutine = False  # will revert to True if at least one component still running
+        for thisComponent in fixationCrossComponents:
+            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                continueRoutine = True
+                break  # at least one component has not yet finished
+        
+        # check for quit (the Esc key)
+        if endExpNow or event.getKeys(keyList=["escape"]):
+            core.quit()
+        
+        # refresh the screen
+        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+            win.flip()
+    
+    # -------Ending Routine "fixationCross"-------
+    for thisComponent in fixationCrossComponents:
+        if hasattr(thisComponent, "setAutoDraw"):
+            thisComponent.setAutoDraw(False)
+    
     # ------Prepare to start Routine "testPhase"-------
     t = 0
     testPhaseClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(5.000000)
+    routineTimer.add(8.000000)
     # update component parameters for each repeat
     stimuliTest.setImage(imageFile)
     stimuliTestResp = event.BuilderKeyResponse()
@@ -2990,7 +2927,7 @@ for thisBlock3Test in block3Test:
             stimuliTest.tStart = t
             stimuliTest.frameNStart = frameN  # exact frame index
             stimuliTest.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 8- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliTest.status == STARTED and t >= frameRemains:
             stimuliTest.setAutoDraw(False)
         
@@ -3000,7 +2937,7 @@ for thisBlock3Test in block3Test:
             oldNew.tStart = t
             oldNew.frameNStart = frameN  # exact frame index
             oldNew.setAutoDraw(True)
-        frameRemains = 3 + 2- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 3 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
         if oldNew.status == STARTED and t >= frameRemains:
             oldNew.setAutoDraw(False)
         
@@ -3013,7 +2950,7 @@ for thisBlock3Test in block3Test:
             # keyboard checking is just starting
             win.callOnFlip(stimuliTestResp.clock.reset)  # t=0 on next screen flip
             event.clearEvents(eventType='keyboard')
-        frameRemains = 3 + 2- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 3 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliTestResp.status == STARTED and t >= frameRemains:
             stimuliTestResp.status = STOPPED
         if stimuliTestResp.status == STARTED:
@@ -3068,145 +3005,41 @@ for thisBlock3Test in block3Test:
     if stimuliTestResp.keys != None:  # we had a response
         block3Test.addData('stimuliTestResp.rt', stimuliTestResp.rt)
     
-    # ------Prepare to start Routine "interact"-------
+    # ------Prepare to start Routine "ISI"-------
     t = 0
-    interactClock.reset()  # clock
-    frameN = -1
-    continueRoutine = True
-    routineTimer.add(5.000000)
-    # update component parameters for each repeat
-    stimuliInteract.setImage(imageFile)
-    respInteract = event.BuilderKeyResponse()
-    # keep track of which components have finished
-    interactComponents = [stimuliInteract, questionInteract, rating_Scale, respInteract]
-    for thisComponent in interactComponents:
-        if hasattr(thisComponent, 'status'):
-            thisComponent.status = NOT_STARTED
-    
-    # -------Start Routine "interact"-------
-    while continueRoutine and routineTimer.getTime() > 0:
-        # get current time
-        t = interactClock.getTime()
-        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-        # update/draw components on each frame
-        
-        # *stimuliInteract* updates
-        if t >= 0.0 and stimuliInteract.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            stimuliInteract.tStart = t
-            stimuliInteract.frameNStart = frameN  # exact frame index
-            stimuliInteract.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if stimuliInteract.status == STARTED and t >= frameRemains:
-            stimuliInteract.setAutoDraw(False)
-        
-        # *questionInteract* updates
-        if t >= 0.0 and questionInteract.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            questionInteract.tStart = t
-            questionInteract.frameNStart = frameN  # exact frame index
-            questionInteract.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if questionInteract.status == STARTED and t >= frameRemains:
-            questionInteract.setAutoDraw(False)
-        
-        # *rating_Scale* updates
-        if t >= 0.0 and rating_Scale.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            rating_Scale.tStart = t
-            rating_Scale.frameNStart = frameN  # exact frame index
-            rating_Scale.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if rating_Scale.status == STARTED and t >= frameRemains:
-            rating_Scale.setAutoDraw(False)
-        
-        # *respInteract* updates
-        if t >= 0.0 and respInteract.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            respInteract.tStart = t
-            respInteract.frameNStart = frameN  # exact frame index
-            respInteract.status = STARTED
-            # keyboard checking is just starting
-            win.callOnFlip(respInteract.clock.reset)  # t=0 on next screen flip
-            event.clearEvents(eventType='keyboard')
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if respInteract.status == STARTED and t >= frameRemains:
-            respInteract.status = STOPPED
-        if respInteract.status == STARTED:
-            theseKeys = event.getKeys(keyList=['1', '2', '3', '4', '5'])
-            
-            # check for quit:
-            if "escape" in theseKeys:
-                endExpNow = True
-            if len(theseKeys) > 0:  # at least one key was pressed
-                respInteract.keys = theseKeys[-1]  # just the last key pressed
-                respInteract.rt = respInteract.clock.getTime()
-                # a response ends the routine
-                continueRoutine = False
-        
-        # check if all components have finished
-        if not continueRoutine:  # a component has requested a forced-end of Routine
-            break
-        continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in interactComponents:
-            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-                continueRoutine = True
-                break  # at least one component has not yet finished
-        
-        # check for quit (the Esc key)
-        if endExpNow or event.getKeys(keyList=["escape"]):
-            core.quit()
-        
-        # refresh the screen
-        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-            win.flip()
-    
-    # -------Ending Routine "interact"-------
-    for thisComponent in interactComponents:
-        if hasattr(thisComponent, "setAutoDraw"):
-            thisComponent.setAutoDraw(False)
-    # check responses
-    if respInteract.keys in ['', [], None]:  # No response was made
-        respInteract.keys=None
-    block3Test.addData('respInteract.keys',respInteract.keys)
-    if respInteract.keys != None:  # we had a response
-        block3Test.addData('respInteract.rt', respInteract.rt)
-    
-    # ------Prepare to start Routine "fixationCross"-------
-    t = 0
-    fixationCrossClock.reset()  # clock
+    ISIClock.reset()  # clock
     frameN = -1
     continueRoutine = True
     routineTimer.add(1.000000)
     # update component parameters for each repeat
     # keep track of which components have finished
-    fixationCrossComponents = [fixation]
-    for thisComponent in fixationCrossComponents:
+    ISIComponents = [ISI1000]
+    for thisComponent in ISIComponents:
         if hasattr(thisComponent, 'status'):
             thisComponent.status = NOT_STARTED
     
-    # -------Start Routine "fixationCross"-------
+    # -------Start Routine "ISI"-------
     while continueRoutine and routineTimer.getTime() > 0:
         # get current time
-        t = fixationCrossClock.getTime()
+        t = ISIClock.getTime()
         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
         # update/draw components on each frame
         
-        # *fixation* updates
-        if t >= 0.0 and fixation.status == NOT_STARTED:
+        # *ISI1000* updates
+        if t >= 0.0 and ISI1000.status == NOT_STARTED:
             # keep track of start time/frame for later
-            fixation.tStart = t
-            fixation.frameNStart = frameN  # exact frame index
-            fixation.setAutoDraw(True)
+            ISI1000.tStart = t
+            ISI1000.frameNStart = frameN  # exact frame index
+            ISI1000.setAutoDraw(True)
         frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if fixation.status == STARTED and t >= frameRemains:
-            fixation.setAutoDraw(False)
+        if ISI1000.status == STARTED and t >= frameRemains:
+            ISI1000.setAutoDraw(False)
         
         # check if all components have finished
         if not continueRoutine:  # a component has requested a forced-end of Routine
             break
         continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in fixationCrossComponents:
+        for thisComponent in ISIComponents:
             if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                 continueRoutine = True
                 break  # at least one component has not yet finished
@@ -3219,8 +3052,8 @@ for thisBlock3Test in block3Test:
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
     
-    # -------Ending Routine "fixationCross"-------
-    for thisComponent in fixationCrossComponents:
+    # -------Ending Routine "ISI"-------
+    for thisComponent in ISIComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
     thisExp.nextEntry()
@@ -3282,7 +3115,7 @@ for thisComponent in endBlockComponents:
 
 # set up handler to look after randomisation of conditions etc
 block4Lrn = data.TrialHandler(nReps=1, method='random', 
-    extraInfo=expInfo, originPath=-1,
+    extraInfo=expInfo, 
     trialList=data.importConditions('Block4_S1.xlsx', selection='0:20'),
     seed=None, name='block4Lrn')
 thisExp.addLoop(block4Lrn)  # add the loop to the experiment
@@ -3298,59 +3131,6 @@ for thisBlock4Lrn in block4Lrn:
     if thisBlock4Lrn != None:
         for paramName in thisBlock4Lrn:
             exec('{} = thisBlock4Lrn[paramName]'.format(paramName))
-    
-    # ------Prepare to start Routine "learningPhase"-------
-    t = 0
-    learningPhaseClock.reset()  # clock
-    frameN = -1
-    continueRoutine = True
-    routineTimer.add(6.000000)
-    # update component parameters for each repeat
-    stimuliLrn.setImage(imageFile)
-    # keep track of which components have finished
-    learningPhaseComponents = [stimuliLrn]
-    for thisComponent in learningPhaseComponents:
-        if hasattr(thisComponent, 'status'):
-            thisComponent.status = NOT_STARTED
-    
-    # -------Start Routine "learningPhase"-------
-    while continueRoutine and routineTimer.getTime() > 0:
-        # get current time
-        t = learningPhaseClock.getTime()
-        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-        # update/draw components on each frame
-        
-        # *stimuliLrn* updates
-        if t >= 0.0 and stimuliLrn.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            stimuliLrn.tStart = t
-            stimuliLrn.frameNStart = frameN  # exact frame index
-            stimuliLrn.setAutoDraw(True)
-        frameRemains = 0.0 + 6- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if stimuliLrn.status == STARTED and t >= frameRemains:
-            stimuliLrn.setAutoDraw(False)
-        
-        # check if all components have finished
-        if not continueRoutine:  # a component has requested a forced-end of Routine
-            break
-        continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in learningPhaseComponents:
-            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-                continueRoutine = True
-                break  # at least one component has not yet finished
-        
-        # check for quit (the Esc key)
-        if endExpNow or event.getKeys(keyList=["escape"]):
-            core.quit()
-        
-        # refresh the screen
-        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-            win.flip()
-    
-    # -------Ending Routine "learningPhase"-------
-    for thisComponent in learningPhaseComponents:
-        if hasattr(thisComponent, "setAutoDraw"):
-            thisComponent.setAutoDraw(False)
     
     # ------Prepare to start Routine "fixationCross"-------
     t = 0
@@ -3403,6 +3183,93 @@ for thisBlock4Lrn in block4Lrn:
     for thisComponent in fixationCrossComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
+    
+    # ------Prepare to start Routine "learningPhase"-------
+    t = 0
+    learningPhaseClock.reset()  # clock
+    frameN = -1
+    continueRoutine = True
+    # update component parameters for each repeat
+    stimuliLrn.setImage(imageFile)
+    text.setText(u'Does this individual look over the age of 25?\nReply using the keys "yes" or "no"')
+    ratingRespLrn = event.BuilderKeyResponse()
+    # keep track of which components have finished
+    learningPhaseComponents = [stimuliLrn, text, ratingRespLrn]
+    for thisComponent in learningPhaseComponents:
+        if hasattr(thisComponent, 'status'):
+            thisComponent.status = NOT_STARTED
+    
+    # -------Start Routine "learningPhase"-------
+    while continueRoutine:
+        # get current time
+        t = learningPhaseClock.getTime()
+        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+        # update/draw components on each frame
+        
+        # *stimuliLrn* updates
+        if t >= 0.0 and stimuliLrn.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            stimuliLrn.tStart = t
+            stimuliLrn.frameNStart = frameN  # exact frame index
+            stimuliLrn.setAutoDraw(True)
+        
+        # *text* updates
+        if t >= 0 and text.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            text.tStart = t
+            text.frameNStart = frameN  # exact frame index
+            text.setAutoDraw(True)
+        
+        # *ratingRespLrn* updates
+        if t >= 0 and ratingRespLrn.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            ratingRespLrn.tStart = t
+            ratingRespLrn.frameNStart = frameN  # exact frame index
+            ratingRespLrn.status = STARTED
+            # keyboard checking is just starting
+            win.callOnFlip(ratingRespLrn.clock.reset)  # t=0 on next screen flip
+            event.clearEvents(eventType='keyboard')
+        if ratingRespLrn.status == STARTED:
+            theseKeys = event.getKeys(keyList=['a', 'l'])
+            
+            # check for quit:
+            if "escape" in theseKeys:
+                endExpNow = True
+            if len(theseKeys) > 0:  # at least one key was pressed
+                ratingRespLrn.keys.extend(theseKeys)  # storing all keys
+                ratingRespLrn.rt.append(ratingRespLrn.clock.getTime())
+                # a response ends the routine
+                continueRoutine = False
+        
+        # check if all components have finished
+        if not continueRoutine:  # a component has requested a forced-end of Routine
+            break
+        continueRoutine = False  # will revert to True if at least one component still running
+        for thisComponent in learningPhaseComponents:
+            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                continueRoutine = True
+                break  # at least one component has not yet finished
+        
+        # check for quit (the Esc key)
+        if endExpNow or event.getKeys(keyList=["escape"]):
+            core.quit()
+        
+        # refresh the screen
+        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+            win.flip()
+    
+    # -------Ending Routine "learningPhase"-------
+    for thisComponent in learningPhaseComponents:
+        if hasattr(thisComponent, "setAutoDraw"):
+            thisComponent.setAutoDraw(False)
+    # check responses
+    if ratingRespLrn.keys in ['', [], None]:  # No response was made
+        ratingRespLrn.keys=None
+    block4Lrn.addData('ratingRespLrn.keys',ratingRespLrn.keys)
+    if ratingRespLrn.keys != None:  # we had a response
+        block4Lrn.addData('ratingRespLrn.rt', ratingRespLrn.rt)
+    # the Routine "learningPhase" was not non-slip safe, so reset the non-slip timer
+    routineTimer.reset()
     thisExp.nextEntry()
     
 # completed 1 repeats of 'block4Lrn'
@@ -3489,7 +3356,7 @@ routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
 block4Test = data.TrialHandler(nReps=1, method='random', 
-    extraInfo=expInfo, originPath=-1,
+    extraInfo=expInfo, 
     trialList=data.importConditions('Block4_S1.xlsx'),
     seed=None, name='block4Test')
 thisExp.addLoop(block4Test)  # add the loop to the experiment
@@ -3506,12 +3373,64 @@ for thisBlock4Test in block4Test:
         for paramName in thisBlock4Test:
             exec('{} = thisBlock4Test[paramName]'.format(paramName))
     
+    # ------Prepare to start Routine "fixationCross"-------
+    t = 0
+    fixationCrossClock.reset()  # clock
+    frameN = -1
+    continueRoutine = True
+    routineTimer.add(1.000000)
+    # update component parameters for each repeat
+    # keep track of which components have finished
+    fixationCrossComponents = [fixation]
+    for thisComponent in fixationCrossComponents:
+        if hasattr(thisComponent, 'status'):
+            thisComponent.status = NOT_STARTED
+    
+    # -------Start Routine "fixationCross"-------
+    while continueRoutine and routineTimer.getTime() > 0:
+        # get current time
+        t = fixationCrossClock.getTime()
+        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+        # update/draw components on each frame
+        
+        # *fixation* updates
+        if t >= 0.0 and fixation.status == NOT_STARTED:
+            # keep track of start time/frame for later
+            fixation.tStart = t
+            fixation.frameNStart = frameN  # exact frame index
+            fixation.setAutoDraw(True)
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
+        if fixation.status == STARTED and t >= frameRemains:
+            fixation.setAutoDraw(False)
+        
+        # check if all components have finished
+        if not continueRoutine:  # a component has requested a forced-end of Routine
+            break
+        continueRoutine = False  # will revert to True if at least one component still running
+        for thisComponent in fixationCrossComponents:
+            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                continueRoutine = True
+                break  # at least one component has not yet finished
+        
+        # check for quit (the Esc key)
+        if endExpNow or event.getKeys(keyList=["escape"]):
+            core.quit()
+        
+        # refresh the screen
+        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+            win.flip()
+    
+    # -------Ending Routine "fixationCross"-------
+    for thisComponent in fixationCrossComponents:
+        if hasattr(thisComponent, "setAutoDraw"):
+            thisComponent.setAutoDraw(False)
+    
     # ------Prepare to start Routine "testPhase"-------
     t = 0
     testPhaseClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(5.000000)
+    routineTimer.add(8.000000)
     # update component parameters for each repeat
     stimuliTest.setImage(imageFile)
     stimuliTestResp = event.BuilderKeyResponse()
@@ -3534,7 +3453,7 @@ for thisBlock4Test in block4Test:
             stimuliTest.tStart = t
             stimuliTest.frameNStart = frameN  # exact frame index
             stimuliTest.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 8- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliTest.status == STARTED and t >= frameRemains:
             stimuliTest.setAutoDraw(False)
         
@@ -3544,7 +3463,7 @@ for thisBlock4Test in block4Test:
             oldNew.tStart = t
             oldNew.frameNStart = frameN  # exact frame index
             oldNew.setAutoDraw(True)
-        frameRemains = 3 + 2- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 3 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
         if oldNew.status == STARTED and t >= frameRemains:
             oldNew.setAutoDraw(False)
         
@@ -3557,7 +3476,7 @@ for thisBlock4Test in block4Test:
             # keyboard checking is just starting
             win.callOnFlip(stimuliTestResp.clock.reset)  # t=0 on next screen flip
             event.clearEvents(eventType='keyboard')
-        frameRemains = 3 + 2- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 3 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliTestResp.status == STARTED and t >= frameRemains:
             stimuliTestResp.status = STOPPED
         if stimuliTestResp.status == STARTED:
@@ -3612,145 +3531,41 @@ for thisBlock4Test in block4Test:
     if stimuliTestResp.keys != None:  # we had a response
         block4Test.addData('stimuliTestResp.rt', stimuliTestResp.rt)
     
-    # ------Prepare to start Routine "interact"-------
+    # ------Prepare to start Routine "ISI"-------
     t = 0
-    interactClock.reset()  # clock
-    frameN = -1
-    continueRoutine = True
-    routineTimer.add(5.000000)
-    # update component parameters for each repeat
-    stimuliInteract.setImage(imageFile)
-    respInteract = event.BuilderKeyResponse()
-    # keep track of which components have finished
-    interactComponents = [stimuliInteract, questionInteract, rating_Scale, respInteract]
-    for thisComponent in interactComponents:
-        if hasattr(thisComponent, 'status'):
-            thisComponent.status = NOT_STARTED
-    
-    # -------Start Routine "interact"-------
-    while continueRoutine and routineTimer.getTime() > 0:
-        # get current time
-        t = interactClock.getTime()
-        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-        # update/draw components on each frame
-        
-        # *stimuliInteract* updates
-        if t >= 0.0 and stimuliInteract.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            stimuliInteract.tStart = t
-            stimuliInteract.frameNStart = frameN  # exact frame index
-            stimuliInteract.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if stimuliInteract.status == STARTED and t >= frameRemains:
-            stimuliInteract.setAutoDraw(False)
-        
-        # *questionInteract* updates
-        if t >= 0.0 and questionInteract.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            questionInteract.tStart = t
-            questionInteract.frameNStart = frameN  # exact frame index
-            questionInteract.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if questionInteract.status == STARTED and t >= frameRemains:
-            questionInteract.setAutoDraw(False)
-        
-        # *rating_Scale* updates
-        if t >= 0.0 and rating_Scale.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            rating_Scale.tStart = t
-            rating_Scale.frameNStart = frameN  # exact frame index
-            rating_Scale.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if rating_Scale.status == STARTED and t >= frameRemains:
-            rating_Scale.setAutoDraw(False)
-        
-        # *respInteract* updates
-        if t >= 0.0 and respInteract.status == NOT_STARTED:
-            # keep track of start time/frame for later
-            respInteract.tStart = t
-            respInteract.frameNStart = frameN  # exact frame index
-            respInteract.status = STARTED
-            # keyboard checking is just starting
-            win.callOnFlip(respInteract.clock.reset)  # t=0 on next screen flip
-            event.clearEvents(eventType='keyboard')
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if respInteract.status == STARTED and t >= frameRemains:
-            respInteract.status = STOPPED
-        if respInteract.status == STARTED:
-            theseKeys = event.getKeys(keyList=['1', '2', '3', '4', '5'])
-            
-            # check for quit:
-            if "escape" in theseKeys:
-                endExpNow = True
-            if len(theseKeys) > 0:  # at least one key was pressed
-                respInteract.keys = theseKeys[-1]  # just the last key pressed
-                respInteract.rt = respInteract.clock.getTime()
-                # a response ends the routine
-                continueRoutine = False
-        
-        # check if all components have finished
-        if not continueRoutine:  # a component has requested a forced-end of Routine
-            break
-        continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in interactComponents:
-            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-                continueRoutine = True
-                break  # at least one component has not yet finished
-        
-        # check for quit (the Esc key)
-        if endExpNow or event.getKeys(keyList=["escape"]):
-            core.quit()
-        
-        # refresh the screen
-        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-            win.flip()
-    
-    # -------Ending Routine "interact"-------
-    for thisComponent in interactComponents:
-        if hasattr(thisComponent, "setAutoDraw"):
-            thisComponent.setAutoDraw(False)
-    # check responses
-    if respInteract.keys in ['', [], None]:  # No response was made
-        respInteract.keys=None
-    block4Test.addData('respInteract.keys',respInteract.keys)
-    if respInteract.keys != None:  # we had a response
-        block4Test.addData('respInteract.rt', respInteract.rt)
-    
-    # ------Prepare to start Routine "fixationCross"-------
-    t = 0
-    fixationCrossClock.reset()  # clock
+    ISIClock.reset()  # clock
     frameN = -1
     continueRoutine = True
     routineTimer.add(1.000000)
     # update component parameters for each repeat
     # keep track of which components have finished
-    fixationCrossComponents = [fixation]
-    for thisComponent in fixationCrossComponents:
+    ISIComponents = [ISI1000]
+    for thisComponent in ISIComponents:
         if hasattr(thisComponent, 'status'):
             thisComponent.status = NOT_STARTED
     
-    # -------Start Routine "fixationCross"-------
+    # -------Start Routine "ISI"-------
     while continueRoutine and routineTimer.getTime() > 0:
         # get current time
-        t = fixationCrossClock.getTime()
+        t = ISIClock.getTime()
         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
         # update/draw components on each frame
         
-        # *fixation* updates
-        if t >= 0.0 and fixation.status == NOT_STARTED:
+        # *ISI1000* updates
+        if t >= 0.0 and ISI1000.status == NOT_STARTED:
             # keep track of start time/frame for later
-            fixation.tStart = t
-            fixation.frameNStart = frameN  # exact frame index
-            fixation.setAutoDraw(True)
+            ISI1000.tStart = t
+            ISI1000.frameNStart = frameN  # exact frame index
+            ISI1000.setAutoDraw(True)
         frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
-        if fixation.status == STARTED and t >= frameRemains:
-            fixation.setAutoDraw(False)
+        if ISI1000.status == STARTED and t >= frameRemains:
+            ISI1000.setAutoDraw(False)
         
         # check if all components have finished
         if not continueRoutine:  # a component has requested a forced-end of Routine
             break
         continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in fixationCrossComponents:
+        for thisComponent in ISIComponents:
             if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                 continueRoutine = True
                 break  # at least one component has not yet finished
@@ -3763,8 +3578,8 @@ for thisBlock4Test in block4Test:
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
     
-    # -------Ending Routine "fixationCross"-------
-    for thisComponent in fixationCrossComponents:
+    # -------Ending Routine "ISI"-------
+    for thisComponent in ISIComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
     thisExp.nextEntry()
@@ -3841,68 +3656,6 @@ while continueRoutine:
 for thisComponent in endSessionComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
-
-
-
-
-
-    
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-print('##########################################################################')
-print('finished recording')
-print('##########################################################################')
-edfpath = _thisDir + os.sep + '_data/edf'
-eyelink.finish_recording(edfpath)
-
-    
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-################################################################################################
-
-
-
 # check responses
 if endResp.keys in ['', [], None]:  # No response was made
     endResp.keys=None
