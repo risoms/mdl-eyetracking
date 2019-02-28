@@ -167,7 +167,7 @@ print('#########################################################################
 ################################################################################################
 ################################################################################################
 win = visual.Window(
-    size=[1366, 738], fullscr=False, screen=0,
+    size=[1920, 1080], fullscr=False, screen=0,
     allowGUI=False, allowStencil=False,
     monitor='testMonitor', color='white', colorSpace='rgb',
     blendMode='avg', useFBO=True)

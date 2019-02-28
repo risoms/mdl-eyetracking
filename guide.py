@@ -46,7 +46,10 @@ eyetracking.send_message(msg=msg)
 #----stop recording
 #block=block number(from psychopy) #trial=trial number(from psychopy)
 #variables (optional) = dictionary of trial-event data to be saved to eyelink
-variables = dict(stimulus=imageFile, event='fixationCross')
+variables = dict(
+        stimulus=imageFile, 
+        event='fixationCross', 
+        race="white")
 eyetracking.stop_recording(trial=trial, block=block, variables=variables)
 
 #----end recording session
