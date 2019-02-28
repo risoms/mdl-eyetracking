@@ -51,7 +51,7 @@ from pdb import set_trace as breakpoint
 
 # bridge
 sys.path.insert(0, '.\lib')
-from mdl import eyetracking, pylink
+import mdl
 ################################################################################################
 ################################################################################################
 ################################################################################################
@@ -376,7 +376,7 @@ fixation = visual.TextStim(win=win, name='fixation',
 # Initialize components for Routine "endBlock"
 endBlockClock = core.Clock()
 endBlk = visual.TextStim(win=win, name='endBlk',
-    text='That was the end of the block, you will have a 30-second break before starting with the next block.\n\n\
+    text='That was the end of the block, you will have a 1-second break before starting with the next block.\n\n\
     Remember during the learning period you should memorize the face and imagine that you will be competing against \
     that person in a one-on-one basketball game.',
     font='Arial',
@@ -467,7 +467,7 @@ fixation = visual.TextStim(win=win, name='fixation',
 # Initialize components for Routine "endBlock"
 endBlockClock = core.Clock()
 endBlk = visual.TextStim(win=win, name='endBlk',
-    text='That was the end of the block, you will have a 30-second break before starting with the next block.\n\nRemember \
+    text='That was the end of the block, you will have a 1-second break before starting with the next block.\n\nRemember \
     during the learning period you should memorize the face and imagine that you will be competing against that person in \
     a one-on-one basketball game.',
     font='Arial',
@@ -558,7 +558,7 @@ fixation = visual.TextStim(win=win, name='fixation',
 # Initialize components for Routine "endBlock"
 endBlockClock = core.Clock()
 endBlk = visual.TextStim(win=win, name='endBlk',
-    text='That was the end of the block, you will have a 30-second break before starting with the next block.\n\n\
+    text='That was the end of the block, you will have a 1-second break before starting with the next block.\n\n\
     Remember during the learning period you should memorize the face and imagine that you will be competing against \
     that person in a one-on-one basketball game.',
     font='Arial',
@@ -671,15 +671,12 @@ routineTimer = core.CountdownTimer()  # to track time remaining of each (non-sli
 ################################################################################################
 ################################################################################################
 ################################################################################################
-print('##########################################################################')
-print('start calibration')
-print('##########################################################################')
 # get subject
-participant = (expInfo['participant'])
+subject = (expInfo['participant'])
 dominant_eye = (expInfo['dominant eye'])
 
 # Prepare eyetracker link and open EDF
-eyetracking = eyetracking(participant)
+eyetracking = mdl.eyetracking(subject=subject)
 
 #eye used
 eye_used = eyetracking.set_eye_used(eye=dominant_eye)
@@ -865,7 +862,7 @@ routineTimer.reset()
 # set up handler to look after randomisation of conditions etc
 practiceLrn = data.TrialHandler(nReps=1, method='random', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('PracticeConditions.xlsx', selection='0:4'),
+    trialList=data.importConditions('blocks\PracticeConditions.xlsx', selection='0:4'),
     seed=None, name='practiceLrn')
 thisExp.addLoop(practiceLrn)  # add the loop to the experiment
 thisPracticeLrn = practiceLrn.trialList[0]  # so we can initialise stimuli with some values
@@ -886,7 +883,7 @@ for thisPracticeLrn in practiceLrn:
     learningPhaseClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(6.000000)
+    routineTimer.add(1.0)
     # update component parameters for each repeat
     stimuliLrn.setImage(imageFile)
     # keep track of which components have finished
@@ -962,7 +959,7 @@ for thisPracticeLrn in practiceLrn:
             stimuliLrn.tStart = t
             stimuliLrn.frameNStart = frameN  # exact frame index
             stimuliLrn.setAutoDraw(True)
-        frameRemains = 0.0 + 6- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliLrn.status == STARTED and t >= frameRemains:
             stimuliLrn.setAutoDraw(False)
         
@@ -1060,17 +1057,10 @@ for thisPracticeLrn in practiceLrn:
     print('##########################################################################')
     print('ending encoding')
     print('##########################################################################')
-    
-    
-    '''
-    The IMGLOAD command is used to show an overlay image in Data Viewer.  This will code the time that the PictureTrial \
-    image should appear.
-    '''
-    
     #stop recording
-    variables = dict(a='trial')
+    variables = dict(stimulus=imageFile,
+                     event='fixationCross')
     eyetracking.stop_recording(trial=1, block=1, variables=variables)
-    
     ################################################################################################
     ################################################################################################
     ################################################################################################
@@ -1187,7 +1177,7 @@ routineTimer.reset()
 # set up handler to look after randomisation of conditions etc
 practiceTest = data.TrialHandler(nReps=1, method='random', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('PracticeConditions.xlsx'),
+    trialList=data.importConditions('blocks\PracticeConditions.xlsx'),
     seed=None, name='practiceTest')
 thisExp.addLoop(practiceTest)  # add the loop to the experiment
 thisPracticeTest = practiceTest.trialList[0]  # so we can initialise stimuli with some values
@@ -1208,7 +1198,7 @@ for thisPracticeTest in practiceTest:
     testPhaseClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(5.000000)
+    routineTimer.add(1.000000)
     # update component parameters for each repeat
     stimuliTest.setImage(imageFile)
     stimuliTestResp = event.BuilderKeyResponse()
@@ -1231,7 +1221,7 @@ for thisPracticeTest in practiceTest:
             stimuliTest.tStart = t
             stimuliTest.frameNStart = frameN  # exact frame index
             stimuliTest.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliTest.status == STARTED and t >= frameRemains:
             stimuliTest.setAutoDraw(False)
         
@@ -1316,7 +1306,7 @@ for thisPracticeTest in practiceTest:
     interactClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(5.000000)
+    routineTimer.add(1.000000)
     # update component parameters for each repeat
     stimuliInteract.setImage(imageFile)
     respInteract = event.BuilderKeyResponse()
@@ -1339,7 +1329,7 @@ for thisPracticeTest in practiceTest:
             stimuliInteract.tStart = t
             stimuliInteract.frameNStart = frameN  # exact frame index
             stimuliInteract.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliInteract.status == STARTED and t >= frameRemains:
             stimuliInteract.setAutoDraw(False)
         
@@ -1349,7 +1339,7 @@ for thisPracticeTest in practiceTest:
             questionInteract.tStart = t
             questionInteract.frameNStart = frameN  # exact frame index
             questionInteract.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if questionInteract.status == STARTED and t >= frameRemains:
             questionInteract.setAutoDraw(False)
         
@@ -1359,7 +1349,7 @@ for thisPracticeTest in practiceTest:
             rating_Scale.tStart = t
             rating_Scale.frameNStart = frameN  # exact frame index
             rating_Scale.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if rating_Scale.status == STARTED and t >= frameRemains:
             rating_Scale.setAutoDraw(False)
         
@@ -1372,7 +1362,7 @@ for thisPracticeTest in practiceTest:
             # keyboard checking is just starting
             win.callOnFlip(respInteract.clock.reset)  # t=0 on next screen flip
             event.clearEvents(eventType='keyboard')
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if respInteract.status == STARTED and t >= frameRemains:
             respInteract.status = STOPPED
         if respInteract.status == STARTED:
@@ -1553,8 +1543,8 @@ routineTimer.reset()
 # set up handler to look after randomisation of conditions etc
 block1Lrn = data.TrialHandler(nReps=1, method='random', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('Block1_S1.xlsx', selection='0:20'),
-    seed=None, name='block1Lrn')
+    trialList=data.importConditions('blocks\Block1_S1.xlsx', selection='0:20'),
+    seed=None, name='blocks\Block1Lrn')
 thisExp.addLoop(block1Lrn)  # add the loop to the experiment
 thisBlock1Lrn = block1Lrn.trialList[0]  # so we can initialise stimuli with some values
 # abbreviate parameter names if possible (e.g. rgb = thisBlock1Lrn.rgb)
@@ -1574,7 +1564,7 @@ for thisBlock1Lrn in block1Lrn:
     learningPhaseClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(6.000000)
+    routineTimer.add(1.0)
     # update component parameters for each repeat
     stimuliLrn.setImage(imageFile)
     # keep track of which components have finished
@@ -1650,7 +1640,7 @@ for thisBlock1Lrn in block1Lrn:
             stimuliLrn.tStart = t
             stimuliLrn.frameNStart = frameN  # exact frame index
             stimuliLrn.setAutoDraw(True)
-        frameRemains = 0.0 + 6- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliLrn.status == STARTED and t >= frameRemains:
             stimuliLrn.setAutoDraw(False)
         
@@ -1749,22 +1739,9 @@ for thisBlock1Lrn in block1Lrn:
     print('##########################################################################')
     print('ending encoding')
     print('##########################################################################')
-    
-    
-    '''
-    The IMGLOAD command is used to show an overlay image in Data Viewer.  This will code the time that the PictureTrial \
-    image should appear.
-    '''
-    
     #stop recording
-    eyetracking.stop_recording(trial=1, block=1)
-    
-    #variables
-    eyetracking.send_variable(variable='imageFile', value=imageFile)
-    
-    #trial results
-    pylink.getEYELINK().sendMessage("TRIAL_RESULT 1")
-    
+    variables = dict(stimulus=imageFile,event='fixationCross')
+    eyetracking.stop_recording(trial=1, block=1, variables=variables)
     ################################################################################################
     ################################################################################################
     ################################################################################################
@@ -1794,7 +1771,7 @@ for thisBlock1Lrn in block1Lrn:
             thisComponent.setAutoDraw(False)
     thisExp.nextEntry()
     
-# completed 1 repeats of 'block1Lrn'
+# completed 1 repeats of 'blocks\Block1Lrn'
 
 
 # ------Prepare to start Routine "endLearning"-------
@@ -1879,8 +1856,8 @@ routineTimer.reset()
 # set up handler to look after randomisation of conditions etc
 block1Test = data.TrialHandler(nReps=1, method='random', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('Block1_S1.xlsx'),
-    seed=None, name='block1Test')
+    trialList=data.importConditions('blocks\Block1_S1.xlsx'),
+    seed=None, name='blocks\Block1Test')
 thisExp.addLoop(block1Test)  # add the loop to the experiment
 thisBlock1Test = block1Test.trialList[0]  # so we can initialise stimuli with some values
 # abbreviate parameter names if possible (e.g. rgb = thisBlock1Test.rgb)
@@ -1900,7 +1877,7 @@ for thisBlock1Test in block1Test:
     testPhaseClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(5.000000)
+    routineTimer.add(1.000000)
     # update component parameters for each repeat
     stimuliTest.setImage(imageFile)
     stimuliTestResp = event.BuilderKeyResponse()
@@ -1909,7 +1886,58 @@ for thisBlock1Test in block1Test:
     for thisComponent in testPhaseComponents:
         if hasattr(thisComponent, 'status'):
             thisComponent.status = NOT_STARTED
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    print('##########################################################################')
+    print('start recording')
+    print('##########################################################################')
     
+    #eyelink-start recording
+    eyetracking.start_recording(block=1,trial=1)    
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
     # -------Start Routine "testPhase"-------
     while continueRoutine and routineTimer.getTime() > 0:
         # get current time
@@ -1923,7 +1951,7 @@ for thisBlock1Test in block1Test:
             stimuliTest.tStart = t
             stimuliTest.frameNStart = frameN  # exact frame index
             stimuliTest.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliTest.status == STARTED and t >= frameRemains:
             stimuliTest.setAutoDraw(False)
         
@@ -2000,13 +2028,66 @@ for thisBlock1Test in block1Test:
     block1Test.addData('stimuliTestResp.corr', stimuliTestResp.corr)
     if stimuliTestResp.keys != None:  # we had a response
         block1Test.addData('stimuliTestResp.rt', stimuliTestResp.rt)
-    
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    print('##########################################################################')
+    print('ending encoding')
+    print('##########################################################################')
+    #stop recording
+    variables = dict(accuracy=stimuliTestResp.corr,
+                     stimulus=imageFile,
+                     event='testPhase')
+    eyetracking.stop_recording(trial=1, block=1, variables=variables)
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
+    ################################################################################################
     # ------Prepare to start Routine "interact"-------
     t = 0
     interactClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(5.000000)
+    routineTimer.add(1.000000)
     # update component parameters for each repeat
     stimuliInteract.setImage(imageFile)
     respInteract = event.BuilderKeyResponse()
@@ -2029,7 +2110,7 @@ for thisBlock1Test in block1Test:
             stimuliInteract.tStart = t
             stimuliInteract.frameNStart = frameN  # exact frame index
             stimuliInteract.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliInteract.status == STARTED and t >= frameRemains:
             stimuliInteract.setAutoDraw(False)
         
@@ -2039,7 +2120,7 @@ for thisBlock1Test in block1Test:
             questionInteract.tStart = t
             questionInteract.frameNStart = frameN  # exact frame index
             questionInteract.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if questionInteract.status == STARTED and t >= frameRemains:
             questionInteract.setAutoDraw(False)
         
@@ -2049,7 +2130,7 @@ for thisBlock1Test in block1Test:
             rating_Scale.tStart = t
             rating_Scale.frameNStart = frameN  # exact frame index
             rating_Scale.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if rating_Scale.status == STARTED and t >= frameRemains:
             rating_Scale.setAutoDraw(False)
         
@@ -2062,7 +2143,7 @@ for thisBlock1Test in block1Test:
             # keyboard checking is just starting
             win.callOnFlip(respInteract.clock.reset)  # t=0 on next screen flip
             event.clearEvents(eventType='keyboard')
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if respInteract.status == STARTED and t >= frameRemains:
             respInteract.status = STOPPED
         if respInteract.status == STARTED:
@@ -2158,7 +2239,7 @@ for thisBlock1Test in block1Test:
             thisComponent.setAutoDraw(False)
     thisExp.nextEntry()
     
-# completed 1 repeats of 'block1Test'
+# completed 1 repeats of 'blocks\Block1Test'
 
 
 # ------Prepare to start Routine "endBlock"-------
@@ -2166,7 +2247,7 @@ t = 0
 endBlockClock.reset()  # clock
 frameN = -1
 continueRoutine = True
-routineTimer.add(30.000000)
+routineTimer.add(1.000000)
 # update component parameters for each repeat
 # keep track of which components have finished
 endBlockComponents = [endBlk]
@@ -2187,7 +2268,7 @@ while continueRoutine and routineTimer.getTime() > 0:
         endBlk.tStart = t
         endBlk.frameNStart = frameN  # exact frame index
         endBlk.setAutoDraw(True)
-    frameRemains = 0.0 + 30- win.monitorFramePeriod * 0.75  # most of one frame period left
+    frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
     if endBlk.status == STARTED and t >= frameRemains:
         endBlk.setAutoDraw(False)
     
@@ -2216,8 +2297,8 @@ for thisComponent in endBlockComponents:
 # set up handler to look after randomisation of conditions etc
 block2Lrn = data.TrialHandler(nReps=1, method='random', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('Block2_S1.xlsx', selection='0:20'),
-    seed=None, name='block2Lrn')
+    trialList=data.importConditions('blocks\Block2_S1.xlsx', selection='0:20'),
+    seed=None, name='blocks\Block2Lrn')
 thisExp.addLoop(block2Lrn)  # add the loop to the experiment
 thisBlock2Lrn = block2Lrn.trialList[0]  # so we can initialise stimuli with some values
 # abbreviate parameter names if possible (e.g. rgb = thisBlock2Lrn.rgb)
@@ -2237,7 +2318,7 @@ for thisBlock2Lrn in block2Lrn:
     learningPhaseClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(6.000000)
+    routineTimer.add(1.0)
     # update component parameters for each repeat
     stimuliLrn.setImage(imageFile)
     # keep track of which components have finished
@@ -2259,7 +2340,7 @@ for thisBlock2Lrn in block2Lrn:
             stimuliLrn.tStart = t
             stimuliLrn.frameNStart = frameN  # exact frame index
             stimuliLrn.setAutoDraw(True)
-        frameRemains = 0.0 + 6- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliLrn.status == STARTED and t >= frameRemains:
             stimuliLrn.setAutoDraw(False)
         
@@ -2338,7 +2419,7 @@ for thisBlock2Lrn in block2Lrn:
             thisComponent.setAutoDraw(False)
     thisExp.nextEntry()
     
-# completed 1 repeats of 'block2Lrn'
+# completed 1 repeats of 'blocks\Block2Lrn'
 
 
 # ------Prepare to start Routine "endLearning"-------
@@ -2423,8 +2504,8 @@ routineTimer.reset()
 # set up handler to look after randomisation of conditions etc
 block2Test = data.TrialHandler(nReps=1, method='random', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('Block2_S1.xlsx'),
-    seed=None, name='block2Test')
+    trialList=data.importConditions('blocks\Block2_S1.xlsx'),
+    seed=None, name='blocks\Block2Test')
 thisExp.addLoop(block2Test)  # add the loop to the experiment
 thisBlock2Test = block2Test.trialList[0]  # so we can initialise stimuli with some values
 # abbreviate parameter names if possible (e.g. rgb = thisBlock2Test.rgb)
@@ -2444,7 +2525,7 @@ for thisBlock2Test in block2Test:
     testPhaseClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(5.000000)
+    routineTimer.add(1.000000)
     # update component parameters for each repeat
     stimuliTest.setImage(imageFile)
     stimuliTestResp = event.BuilderKeyResponse()
@@ -2467,7 +2548,7 @@ for thisBlock2Test in block2Test:
             stimuliTest.tStart = t
             stimuliTest.frameNStart = frameN  # exact frame index
             stimuliTest.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliTest.status == STARTED and t >= frameRemains:
             stimuliTest.setAutoDraw(False)
         
@@ -2550,7 +2631,7 @@ for thisBlock2Test in block2Test:
     interactClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(5.000000)
+    routineTimer.add(1.000000)
     # update component parameters for each repeat
     stimuliInteract.setImage(imageFile)
     respInteract = event.BuilderKeyResponse()
@@ -2573,7 +2654,7 @@ for thisBlock2Test in block2Test:
             stimuliInteract.tStart = t
             stimuliInteract.frameNStart = frameN  # exact frame index
             stimuliInteract.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliInteract.status == STARTED and t >= frameRemains:
             stimuliInteract.setAutoDraw(False)
         
@@ -2583,7 +2664,7 @@ for thisBlock2Test in block2Test:
             questionInteract.tStart = t
             questionInteract.frameNStart = frameN  # exact frame index
             questionInteract.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if questionInteract.status == STARTED and t >= frameRemains:
             questionInteract.setAutoDraw(False)
         
@@ -2593,7 +2674,7 @@ for thisBlock2Test in block2Test:
             rating_Scale.tStart = t
             rating_Scale.frameNStart = frameN  # exact frame index
             rating_Scale.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if rating_Scale.status == STARTED and t >= frameRemains:
             rating_Scale.setAutoDraw(False)
         
@@ -2606,7 +2687,7 @@ for thisBlock2Test in block2Test:
             # keyboard checking is just starting
             win.callOnFlip(respInteract.clock.reset)  # t=0 on next screen flip
             event.clearEvents(eventType='keyboard')
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if respInteract.status == STARTED and t >= frameRemains:
             respInteract.status = STOPPED
         if respInteract.status == STARTED:
@@ -2702,7 +2783,7 @@ for thisBlock2Test in block2Test:
             thisComponent.setAutoDraw(False)
     thisExp.nextEntry()
     
-# completed 1 repeats of 'block2Test'
+# completed 1 repeats of 'blocks\Block2Test'
 
 
 # ------Prepare to start Routine "endBlock"-------
@@ -2710,7 +2791,7 @@ t = 0
 endBlockClock.reset()  # clock
 frameN = -1
 continueRoutine = True
-routineTimer.add(30.000000)
+routineTimer.add(1.000000)
 # update component parameters for each repeat
 # keep track of which components have finished
 endBlockComponents = [endBlk]
@@ -2731,7 +2812,7 @@ while continueRoutine and routineTimer.getTime() > 0:
         endBlk.tStart = t
         endBlk.frameNStart = frameN  # exact frame index
         endBlk.setAutoDraw(True)
-    frameRemains = 0.0 + 30- win.monitorFramePeriod * 0.75  # most of one frame period left
+    frameRemains = 0.0 + 1 - win.monitorFramePeriod * 0.75  # most of one frame period left
     if endBlk.status == STARTED and t >= frameRemains:
         endBlk.setAutoDraw(False)
     
@@ -2760,8 +2841,8 @@ for thisComponent in endBlockComponents:
 # set up handler to look after randomisation of conditions etc
 block3Lrn = data.TrialHandler(nReps=1, method='random', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('Block3_S1.xlsx', selection='0:20'),
-    seed=None, name='block3Lrn')
+    trialList=data.importConditions('blocks\Block3_S1.xlsx', selection='0:20'),
+    seed=None, name='blocks\Block3Lrn')
 thisExp.addLoop(block3Lrn)  # add the loop to the experiment
 thisBlock3Lrn = block3Lrn.trialList[0]  # so we can initialise stimuli with some values
 # abbreviate parameter names if possible (e.g. rgb = thisBlock3Lrn.rgb)
@@ -2781,7 +2862,7 @@ for thisBlock3Lrn in block3Lrn:
     learningPhaseClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(6.000000)
+    routineTimer.add(1.0)
     # update component parameters for each repeat
     stimuliLrn.setImage(imageFile)
     # keep track of which components have finished
@@ -2803,7 +2884,7 @@ for thisBlock3Lrn in block3Lrn:
             stimuliLrn.tStart = t
             stimuliLrn.frameNStart = frameN  # exact frame index
             stimuliLrn.setAutoDraw(True)
-        frameRemains = 0.0 + 6- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliLrn.status == STARTED and t >= frameRemains:
             stimuliLrn.setAutoDraw(False)
         
@@ -2882,7 +2963,7 @@ for thisBlock3Lrn in block3Lrn:
             thisComponent.setAutoDraw(False)
     thisExp.nextEntry()
     
-# completed 1 repeats of 'block3Lrn'
+# completed 1 repeats of 'blocks\Block3Lrn'
 
 
 # ------Prepare to start Routine "endLearning"-------
@@ -2967,8 +3048,8 @@ routineTimer.reset()
 # set up handler to look after randomisation of conditions etc
 block3Test = data.TrialHandler(nReps=1, method='random', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('Block3_S1.xlsx'),
-    seed=None, name='block3Test')
+    trialList=data.importConditions('blocks\Block3_S1.xlsx'),
+    seed=None, name='blocks\Block3Test')
 thisExp.addLoop(block3Test)  # add the loop to the experiment
 thisBlock3Test = block3Test.trialList[0]  # so we can initialise stimuli with some values
 # abbreviate parameter names if possible (e.g. rgb = thisBlock3Test.rgb)
@@ -2988,7 +3069,7 @@ for thisBlock3Test in block3Test:
     testPhaseClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(5.000000)
+    routineTimer.add(1.000000)
     # update component parameters for each repeat
     stimuliTest.setImage(imageFile)
     stimuliTestResp = event.BuilderKeyResponse()
@@ -3011,7 +3092,7 @@ for thisBlock3Test in block3Test:
             stimuliTest.tStart = t
             stimuliTest.frameNStart = frameN  # exact frame index
             stimuliTest.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliTest.status == STARTED and t >= frameRemains:
             stimuliTest.setAutoDraw(False)
         
@@ -3094,7 +3175,7 @@ for thisBlock3Test in block3Test:
     interactClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(5.000000)
+    routineTimer.add(1.000000)
     # update component parameters for each repeat
     stimuliInteract.setImage(imageFile)
     respInteract = event.BuilderKeyResponse()
@@ -3117,7 +3198,7 @@ for thisBlock3Test in block3Test:
             stimuliInteract.tStart = t
             stimuliInteract.frameNStart = frameN  # exact frame index
             stimuliInteract.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliInteract.status == STARTED and t >= frameRemains:
             stimuliInteract.setAutoDraw(False)
         
@@ -3127,7 +3208,7 @@ for thisBlock3Test in block3Test:
             questionInteract.tStart = t
             questionInteract.frameNStart = frameN  # exact frame index
             questionInteract.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if questionInteract.status == STARTED and t >= frameRemains:
             questionInteract.setAutoDraw(False)
         
@@ -3137,7 +3218,7 @@ for thisBlock3Test in block3Test:
             rating_Scale.tStart = t
             rating_Scale.frameNStart = frameN  # exact frame index
             rating_Scale.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if rating_Scale.status == STARTED and t >= frameRemains:
             rating_Scale.setAutoDraw(False)
         
@@ -3150,7 +3231,7 @@ for thisBlock3Test in block3Test:
             # keyboard checking is just starting
             win.callOnFlip(respInteract.clock.reset)  # t=0 on next screen flip
             event.clearEvents(eventType='keyboard')
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if respInteract.status == STARTED and t >= frameRemains:
             respInteract.status = STOPPED
         if respInteract.status == STARTED:
@@ -3246,7 +3327,7 @@ for thisBlock3Test in block3Test:
             thisComponent.setAutoDraw(False)
     thisExp.nextEntry()
     
-# completed 1 repeats of 'block3Test'
+# completed 1 repeats of 'blocks\Block3Test'
 
 
 # ------Prepare to start Routine "endBlock"-------
@@ -3254,7 +3335,7 @@ t = 0
 endBlockClock.reset()  # clock
 frameN = -1
 continueRoutine = True
-routineTimer.add(30.000000)
+routineTimer.add(1.000000)
 # update component parameters for each repeat
 # keep track of which components have finished
 endBlockComponents = [endBlk]
@@ -3275,7 +3356,7 @@ while continueRoutine and routineTimer.getTime() > 0:
         endBlk.tStart = t
         endBlk.frameNStart = frameN  # exact frame index
         endBlk.setAutoDraw(True)
-    frameRemains = 0.0 + 30- win.monitorFramePeriod * 0.75  # most of one frame period left
+    frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
     if endBlk.status == STARTED and t >= frameRemains:
         endBlk.setAutoDraw(False)
     
@@ -3304,8 +3385,8 @@ for thisComponent in endBlockComponents:
 # set up handler to look after randomisation of conditions etc
 block4Lrn = data.TrialHandler(nReps=1, method='random', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('Block4_S1.xlsx', selection='0:20'),
-    seed=None, name='block4Lrn')
+    trialList=data.importConditions('blocks\Block4_S1.xlsx', selection='0:20'),
+    seed=None, name='blocks\Block4Lrn')
 thisExp.addLoop(block4Lrn)  # add the loop to the experiment
 thisBlock4Lrn = block4Lrn.trialList[0]  # so we can initialise stimuli with some values
 # abbreviate parameter names if possible (e.g. rgb = thisBlock4Lrn.rgb)
@@ -3325,7 +3406,7 @@ for thisBlock4Lrn in block4Lrn:
     learningPhaseClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(6.000000)
+    routineTimer.add(1.0)
     # update component parameters for each repeat
     stimuliLrn.setImage(imageFile)
     # keep track of which components have finished
@@ -3347,7 +3428,7 @@ for thisBlock4Lrn in block4Lrn:
             stimuliLrn.tStart = t
             stimuliLrn.frameNStart = frameN  # exact frame index
             stimuliLrn.setAutoDraw(True)
-        frameRemains = 0.0 + 6- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliLrn.status == STARTED and t >= frameRemains:
             stimuliLrn.setAutoDraw(False)
         
@@ -3426,7 +3507,7 @@ for thisBlock4Lrn in block4Lrn:
             thisComponent.setAutoDraw(False)
     thisExp.nextEntry()
     
-# completed 1 repeats of 'block4Lrn'
+# completed 1 repeats of 'blocks\Block4Lrn'
 
 
 # ------Prepare to start Routine "endLearning"-------
@@ -3511,8 +3592,8 @@ routineTimer.reset()
 # set up handler to look after randomisation of conditions etc
 block4Test = data.TrialHandler(nReps=1, method='random', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('Block4_S1.xlsx'),
-    seed=None, name='block4Test')
+    trialList=data.importConditions('blocks\Block4_S1.xlsx'),
+    seed=None, name='blocks\Block4Test')
 thisExp.addLoop(block4Test)  # add the loop to the experiment
 thisBlock4Test = block4Test.trialList[0]  # so we can initialise stimuli with some values
 # abbreviate parameter names if possible (e.g. rgb = thisBlock4Test.rgb)
@@ -3532,7 +3613,7 @@ for thisBlock4Test in block4Test:
     testPhaseClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(5.000000)
+    routineTimer.add(1.000000)
     # update component parameters for each repeat
     stimuliTest.setImage(imageFile)
     stimuliTestResp = event.BuilderKeyResponse()
@@ -3555,7 +3636,7 @@ for thisBlock4Test in block4Test:
             stimuliTest.tStart = t
             stimuliTest.frameNStart = frameN  # exact frame index
             stimuliTest.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliTest.status == STARTED and t >= frameRemains:
             stimuliTest.setAutoDraw(False)
         
@@ -3638,7 +3719,7 @@ for thisBlock4Test in block4Test:
     interactClock.reset()  # clock
     frameN = -1
     continueRoutine = True
-    routineTimer.add(5.000000)
+    routineTimer.add(1.000000)
     # update component parameters for each repeat
     stimuliInteract.setImage(imageFile)
     respInteract = event.BuilderKeyResponse()
@@ -3661,7 +3742,7 @@ for thisBlock4Test in block4Test:
             stimuliInteract.tStart = t
             stimuliInteract.frameNStart = frameN  # exact frame index
             stimuliInteract.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if stimuliInteract.status == STARTED and t >= frameRemains:
             stimuliInteract.setAutoDraw(False)
         
@@ -3671,7 +3752,7 @@ for thisBlock4Test in block4Test:
             questionInteract.tStart = t
             questionInteract.frameNStart = frameN  # exact frame index
             questionInteract.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if questionInteract.status == STARTED and t >= frameRemains:
             questionInteract.setAutoDraw(False)
         
@@ -3681,7 +3762,7 @@ for thisBlock4Test in block4Test:
             rating_Scale.tStart = t
             rating_Scale.frameNStart = frameN  # exact frame index
             rating_Scale.setAutoDraw(True)
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if rating_Scale.status == STARTED and t >= frameRemains:
             rating_Scale.setAutoDraw(False)
         
@@ -3694,7 +3775,7 @@ for thisBlock4Test in block4Test:
             # keyboard checking is just starting
             win.callOnFlip(respInteract.clock.reset)  # t=0 on next screen flip
             event.clearEvents(eventType='keyboard')
-        frameRemains = 0.0 + 5- win.monitorFramePeriod * 0.75  # most of one frame period left
+        frameRemains = 0.0 + 1- win.monitorFramePeriod * 0.75  # most of one frame period left
         if respInteract.status == STARTED and t >= frameRemains:
             respInteract.status = STOPPED
         if respInteract.status == STARTED:
@@ -3790,7 +3871,7 @@ for thisBlock4Test in block4Test:
             thisComponent.setAutoDraw(False)
     thisExp.nextEntry()
     
-# completed 1 repeats of 'block4Test'
+# completed 1 repeats of 'blocks\Block4Test'
 
 
 # ------Prepare to start Routine "endSession"-------

@@ -4,15 +4,16 @@
 Created on Wed Feb 13 15:37:43 2019
 
 @author: Semeon Risom
+@email: semeon.risom@gmail.com
 
 References:
     https://www.psychopy.org/api/hardware/pylink.html
 """
+
 #---main
 import os
 import re
 import platform
-
 #---debug
 from pdb import set_trace as breakpoint
 
@@ -22,8 +23,13 @@ from .calibration import calibration
  
 #---------------------------------------------start
 class eyetracking():
-    def __init__(self, libraries=False, subject=None, sample_rate=500, c_num=13, paval=1000, sat=35, p_size="area", 
-                 ip="127.0.0.1", s_port=4444, r_port=5555):
+    def __init__(self, libraries=False, subject=None, sample_rate=500, c_num=13, paval=1000,  
+                 pupil_size="area", ip="127.0.0.1", s_port=4444, r_port=5555, 
+                 saccade_velocity_threshold=35,
+                 saccade_acceleration_threshold=9500, 
+                 recording_parse_type="GAZE",
+                 enable_search_limits=True, track_search_limits=True, autothreshold_click=True, 
+                 autothreshold_repeat=True, enable_camera_position_detect=True):
         """
         Start eyetracker.
         
@@ -36,10 +42,8 @@ class eyetracking():
         c_num : :class:`int`
             Calibration type. Default is 13-point.
         paval : :class:`int`
-            Subject Number.
-        sat : :class:`int`
-            Saccade Acceleration Threshold. Default is .9500.
-        p_size : :class:`int`
+            Set calibraiton pacing
+        pupil_size : :class:`int`
             Pupil Size (area, perimeter).
         ip : :class:`int`
             IP Address to connect to Eyelink computer.
@@ -47,6 +51,22 @@ class eyetracking():
             Port address to send data.
         r_port : :class:`int`
             Port address to recieve data.
+        saccade_velocity_threshold : :class:`int`
+            Saccade Velocity Threshold. Default is 35.
+        saccade_acceleration_threshold : :class:`int`
+            Saccade Acceleration Threshold. Default is 9500.
+        recording_parse_type : :class:`str`
+            Options are either 'GAZE','HREF'.
+        enable_search_limits : :class:`bool`
+            s
+        track_search_limits : :class:`bool`
+            s
+        autothreshold_click : :class:`bool`
+            s
+        autothreshold_repeat : :class:`bool`
+            a
+        enable_camera_position_detect : :class:`bool`
+            a
         """
         
         # check if subject number has been entered
@@ -60,17 +80,28 @@ class eyetracking():
         
         #----edf filename
         self.subject = os.path.splitext(subject)[0]  # strip away extension if present
-        assert re.match(r'\w+$', self.subject), 'Name must only include A-Z, 0-9, or _'
-        assert len(self.subject) <= 8, 'Name must be <= 8 characters.'
+        #check if interger
+        if re.match(r'\w+$', self.subject):
+            pass
+        else:
+            self.window.close()
+            raise AssertionError('Name must only include A-Z, 0-9, or _')
+        #check length
+        if len(self.subject) <= 8:
+            pass
+        else:
+            self.window.close()
+            raise AssertionError('Name must be <= 8 characters.')
+        #store name
         self.fname = str(self.subject) + '.edf'
         
         #----initiate connection with eyetracker
         try:
             self.tracker = pylink.EyeLink()
-            self.realconnect = True
+            self.connected = True
         except RuntimeError:
             self.tracker = pylink.EyeLink(None)
-            self.realconnect = False
+            self.connected = False
         
         #----screen size
         if platform.system() == "Windows":
@@ -115,54 +146,34 @@ class eyetracking():
             self.host_version = int(float(tvstr[(vindex + len("EYELINK CL")):].strip()))
         
         #----preset
+        self.saccade_acceleration_threshold = saccade_acceleration_threshold
+        self.saccade_velocity_threshold = saccade_velocity_threshold
+        self.recording_parse_type = recording_parse_type
+        self.enable_search_limits =  "YES" if enable_search_limits else "NO"
+        self.track_search_limits = "YES" if track_search_limits else "NO"
+        self.autothreshold_click = "YES" if autothreshold_click else "NO"
+        self.autothreshold_repeat = "YES" if autothreshold_repeat else "NO"
+        self.enable_camera_position_detect = "YES" if enable_camera_position_detect else "NO"
         #sampling rate
         self.sample_rate = sample_rate
         #calibration
-        self.cnum = c_num #[]-point calibration
-        self.paval = paval #pacing of calibration, in milliseconds
+        self.c_num = c_num #[]-point calibration
+        self.paval = paval
         # specify the EVENT and SAMPLE data that are stored in EDF or retrievable from the Link
-        # See Section 4 Data Files of the EyeLink user manual
+        #[see Section 4.6 Data Files of the  EyeLink 1000 Plus user manual]
         self.fef = "LEFT,RIGHT,FIXATION,SACCADE,BLINK,MESSAGE,BUTTON,INPUT"
-        self.lef = "LEFT,RIGHT,FIXATION,SACCADE,BLINK,MESSAGE,BUTTON,INPUT"
+        self.lef = "LEFT,RIGHT,FIXATION,FIXUPDATE,SACCADE,BLINK,BUTTON,INPUT"
         if self.host_version >= 4:
-            self.fsd = "LEFT,RIGHT,GAZE,HREF,AREA,GAZERES,STATUS,INPUT,HTARGET"
+            self.fsd = "LEFT,RIGHT,GAZE,AREA,GAZERES,STATUS,HTARGET,INPUT"
             self.lsd = "LEFT,RIGHT,GAZE,GAZERES,AREA,STATUS,HTARGET,INPUT"
         else:
-            self.fsd = "LEFT,RIGHT,GAZE,AREA,GAZERES,STATUS,INPUT"
-            self.lsd = "LEFT,RIGHT,GAZE,GAZERES,AREA,STATUS,INPUT"
+            self.fsd = "LEFT,RIGHT,GAZE,AREA,GAZERES,STATUS"
+            self.lsd = "LEFT,RIGHT,GAZE,GAZERES,AREA,STATUS"
         
         #----set tracker
-        self.set_tracker()
+        self.setup()
         
-    def set_tracker(self):
-        """Set Eyelink settings"""
-        
-        #----open edf
-        pylink.getEYELINK().openDataFile(self.fname)
-        pylink.flushGetkeyQueue()
-        
-        #----send settings to eyelink
-        #place EyeLink tracker in offline (idle) mode before changing settings     
-        pylink.getEYELINK().setOfflineMode()
-        #tracker
-        if self.eyelink_version>=2: self.tracker.sendCommand('select_parser_configuration 0')
-        self.tracker.sendCommand("recording_parse_type = GAZE")
-        self.tracker.sendCommand("enable_search_limits = YES")
-        self.tracker.sendCommand("track_search_limits = YES")
-        self.tracker.sendCommand("autothreshold_click = YES")
-        self.tracker.sendCommand("autothreshold_repeat = YES")
-        self.tracker.sendCommand("enable_camera_position_detect = YES")
-        #set content of edf file
-        ##edf filters #event types
-        pylink.getEYELINK().sendCommand('file_event_filter = %s')%(self.fef)
-        pylink.getEYELINK().sendCommand('link_event_filter = LEFT,RIGHT,FIXATION,SACCADE,BLINK,BUTTON')
-        pylink.getEYELINK().sendCommand('file_sample_data = LEFT,RIGHT,GAZE,AREA,GAZERES,STATUS,HTARGET,INPUT')
-        pylink.getEYELINK().sendCommand('link_sample_data = LEFT,RIGHT,GAZE,GAZERES,AREA,STATUS,HTARGET')
-        #select sound for calibration and drift correct
-        pylink.setCalibrationSounds("off", "off", "off")
-        pylink.setDriftCorrectSounds("off", "off", "off")
-        
-    def console(c='blue', msg=''):
+    def console(self, c='green', msg=''):
         """
         Allow color print to console.
         
@@ -183,20 +194,12 @@ class eyetracking():
             blue =  '\33[46m',
             grey =  '\33[47m',
             ENDC = '\033[0m')
-    
-        print(color['green'] + msg + color['ENDC'])
+        
+        print(color[c] + msg + color['ENDC'])
     
     def libraries(self):
-        """
-        Check if libraries are available.
+        """Check if required libraries are available."""
         
-        Parameters
-        ----------
-        win : :class:`object`
-            PsychoPy win object.
-        drift : :obj:`int`
-            Counter of drift correct runs.
-        """
         self.console(msg="eyetracking.libraries()")
         #check libraries for missing
         from distutils.version import StrictVersion
@@ -242,24 +245,90 @@ class eyetracking():
         except Exception as e:
             return e
         
+    def setup(self):
+        """
+        Set Eyelink configuration.
+
+        Attributes
+        ----------
+        saccade_velocity_threshold : :class:`str`
+            Sets velocity threshold of saccade detector: usually 30 for cognitive research, 22 for 
+            pursuit and neurological work. [see http://download.sr-support.com/dispdoc/cmds9.html]
+            
+        saccade_acceleration_threshold : :class:`str`
+            Sets acceleration threshold of saccade detector: usually 9500 for cognitive research, 5000 
+            for pursuit and neurological work. [see http://download.sr-support.com/dispdoc/cmds9.html]
+        recording_parse_type : :class:`str`
+            s
+        enable_search_limits : :class:`bool`
+            s
+        track_search_limits : :class:`bool`
+            s
+        autothreshold_click : :class:`bool`
+            s
+        autothreshold_repeat : :class:`bool`
+            a
+        enable_camera_position_detect : :class:`bool`
+            a
+        """
+        
+        #----open edf
+        self.tracker.openDataFile(self.fname)
+        pylink.flushGetkeyQueue()
+        
+        #----send settings to eyelink
+        #place EyeLink tracker in offline (idle) mode before changing settings     
+        self.tracker.setOfflineMode()
+        #eiter GAZE or HREF
+        self.tracker.sendCommand("recording_parse_type = %s"%(self.recording_parse_type))
+        
+        #if using tracker version 2 or below
+        if self.eyelink_version>=2: 
+            self.console(c='blue', msg="eyelink_version = %d"%(self.eyelink_version))
+            self.tracker.sendCommand('select_parser_configuration 0')
+        else:
+            self.tracker.sendCommand("saccade_velocity_threshold = %s"(self.saccade_velocity_threshold))
+            self.tracker.sendCommand("saccade_acceleration_threshold = %s"(self.saccade_velocity_threshold))
+                
+        #if using tracker version 2 or above
+        if self.eyelink_version>=3:
+            self.console(c='blue', msg="eyelink_version = %d"%(self.eyelink_version))
+            self.tracker.sendCommand("autothreshold_click = %s"%(self.autothreshold_click))
+            self.tracker.sendCommand("autothreshold_repeat = %s"%(self.autothreshold_repeat))
+            self.tracker.sendCommand("enable_camera_position_detect = %s"%(self.enable_camera_position_detect))
+            self.tracker.sendCommand("enable_search_limits = %s"%(self.enable_search_limits))
+            self.tracker.sendCommand("track_search_limits = %s"%(self.track_search_limits))
+        
+        #set content of edf file
+        ##edf filters #event types
+        self.tracker.sendCommand('file_event_filter = %s'%(self.fef))
+        self.tracker.sendCommand('file_sample_data = %s'%(self.fsd))
+        self.tracker.sendCommand('link_event_filter = %s'%(self.lef))
+        self.tracker.sendCommand('link_sample_data = %s'%(self.lsd))
+        #select sound for calibration and drift correct
+        pylink.setCalibrationSounds("off", "off", "off")
+        pylink.setDriftCorrectSounds("off", "off", "off")
+        
     def set_eye_used(self, eye):
         """
         Set dominant eye.
         
         Parameters
         ----------
-        win : :class:`object`
-            PsychoPy win object.
-        drift : :obj:`int`
-            Counter of drift correct runs.
+        eye : :obj:`str`
+            Dominant eye, either left or right. This will be used for outputting Eyelink gaze samples.
         """
         self.console(msg="eyetracking.set_eye_used()")
         eye_entered = str(eye)
         if eye_entered in ('Left','LEFT','left','l','L'):
+            self.console(c='blue', msg="eye_entered = left (%s)"%(eye_entered))
             self.eye_used = self.left_eye
         else:
+            self.console(c='blue', msg="eye_entered = right (%s)"%(eye_entered))
             self.eye_used = self.right_eye
+            
         return self.eye_used
+            
         
     def calibration(self, window):
         """
@@ -267,61 +336,71 @@ class eyetracking():
         
         Parameters
         ----------
-        win : :class:`object`
-            PsychoPy win object.
-        drift : :obj:`int`
-            Counter of drift correct runs.
+        window : :class:`psychopy.visual.window.Window`
+            PsychoPy window instance.
+            
+        Examples
+        --------
+        >>> eyetracking.calibration(window=window)
         """   
-        self.console(msg="eyetracking.calibration()")  
-        if self.realconnect:
+        self.console(msg="eyetracking.calibration()")
+        #if connected to eyetracker
+        if self.connected:
+            self.console(c='blue', msg="connected")
+            # put the tracker in offline mode before we change its configrations
+            self.tracker.setOfflineMode()
             # Generate custom calibration stimuli
             self.genv = calibration(w=self.w, h=self.h, tracker=self.tracker, window=window)
-            pylink.getEYELINK().sendCommand('sample_rate %d')%(self.sample_rate)
+            # execute custom calibration display
+            pylink.openGraphicsEx(self.genv)
+            #set sampling rate
+            self.tracker.sendCommand('sample_rate %d'%(self.sample_rate))
             # inform the tracker the resolution of the subject display
-            #note: [see Eyelink Installation Guide, Section 8.4: Customizing Your PHYSICAL.INI Settings ]
-            pylink.getEYELINK().sendCommand("screen_pixel_coords = 0 0 %d %d"%(self.w - 1, self.h - 1))
+            # note: [see Eyelink Installation Guide, Section 8.4: Customizing Your PHYSICAL.INI Settings ]
+            self.tracker.sendCommand("screen_pixel_coords = 0 0 %d %d"%(self.w - 1, self.h - 1))
             # save display resolution in EDF data file for Data Viewer integration purposes
-            #note: [see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]
-            pylink.getEYELINK().sendMessage("DISPLAY_COORDS = 0 0 %d %d"%(self.w - 1, self.h - 1))
+            # note: [see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]
+            self.tracker.sendMessage("DISPLAY_COORDS = 0 0 %d %d"%(self.w - 1, self.h - 1))
             # set calibration type    
-            pylink.getEYELINK().sendCommand("calibration_type = HV%d"%(self.c_num))
-            pylink.getEYELINK().setAutoCalibrationPacing(self.paval) # Set calibraiton pacing
-            pylink.openGraphicsEx(self.genv) # execute custom calibration display
-            pylink.getEYELINK().doTrackerSetup(self.w, self.h) # calibrate
+            self.tracker.sendCommand("calibration_type = HV%d"%(self.c_num))
+            # set calibraiton pacing
+            self.tracker.setAutoCalibrationPacing(self.paval)
+            # calibrate
+            self.tracker.doTrackerSetup(self.w, self.h)
     
-    def drift_correction(self, window, drift, limit=999):
+    def drift_correction(self, window, drift, limit=999, core=None, thisExp=None):
         """
         Starts drift correction, and calibrates eyetracker using psychopy stimuli..
         
         Parameters
         ----------
-        win : :class:`object`
-            PsychoPy win object.
+        window : :class:`psychopy.visual.window.Window`
+            PsychoPy window instance.
         drift : :obj:`int`
             Counter of drift correction runs.
         limit : :obj:`int`
             Maxinum drift corrections.
+        core : :obj:`psychopy.core`
+            Basic functions, including timing, rush (imported), quit.
+        thisExp : :obj:`psychopy.data.experiment.ExperimentHandler`
+            Experiment handler instance, used to keep track of multiple loops/handlers.
+            
+        Examples
+        --------
+        >>> eyetracking.drift_correction(window=window, drift=1, limit=999)
         """
         self.console(msg="eyetracking.drift_correction()")
         if (drift >= limit): #if drift correct failed more than limit
-            pylink.getEYELINK().sendMessage("drift correction failed") #send failure message
+            self.tracker.sendMessage("drift correction failed") #send failure message
             self.stop_recording()
+            #end experiment
+            if self.is_psychopy:
+                thisExp.abort()
+                window.close()
+                core.quit()
         
-        if self.realconnect:
-            # Generate custom calibration stimuli
-            self.genv = calibration(w=self.w, h=self.h, tracker=self.tracker, window=window)
-            pylink.getEYELINK().sendCommand('sample_rate %d')%(self.sample_rate)
-            # inform the tracker the resolution of the subject display
-            #note: [see Eyelink Installation Guide, Section 8.4: Customizing Your PHYSICAL.INI Settings]
-            pylink.getEYELINK().sendCommand("screen_pixel_coords = 0 0 %d %d"%(self.w - 1, self.h - 1))
-            # save display resolution in EDF data file for Data Viewer integration purposes
-            #note: [see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]
-            pylink.getEYELINK().sendMessage("DISPLAY_COORDS = 0 0 %d %d"%(self.w - 1, self.h - 1))
-            # set calibration type    
-            pylink.getEYELINK().sendCommand("calibration_type = HV%d"%(self.c_num))
-            pylink.getEYELINK().setAutoCalibrationPacing(self.paval) # Set calibraiton pacing
-            pylink.openGraphicsEx(self.genv) # execute custom calibration display
-            pylink.getEYELINK().doTrackerSetup(self.w, self.h) # calibrate
+        #run calibration
+        self.calibration(window)
             
     def sample(self, eye_used):
         """
@@ -331,9 +410,13 @@ class eyetracking():
         ----------
         eye_used : :obj:`str`
             Checks if eye used is available.
+            
+        Examples
+        --------
+        >>> eyetracking.sample(eye_used=eye_used)
         """
         #check for new sample update
-        s = pylink.getEYELINK().getNewestSample() # check for new sample update
+        s = self.tracker.getNewestSample() # check for new sample update
         if(s != None): # Gets the gaze position of the latest sample
             #pupil area
             if eye_used == self.right_eye:
@@ -350,23 +433,33 @@ class eyetracking():
         ----------
         msg : :obj:`str`
             Message to be recieved by eyelink.
-        """
-        pylink.getEYELINK().sendMessage(msg)
         
-    def send_variable(self, variable, value):
+        Examples
+        --------
+        >>> msg = "stimulus onset"
+        >>> eyetracking.send_message(msg=msg)
         """
-        send trial variable to eyelink.
+        self.tracker.sendMessage(msg)
+        
+    def send_variable(self, variables):
+        """
+        send trial variable to eyelink at the end of trial.
         
         Parameters
         ----------
-        variable : :obj:`str`
-            Trial-related variable to be read by eyelink.
-        value : :obj:`str`
-            Variable value to be read by eyelink.
-        
+        variable : :obj:`dict`
+            Trial-related variables to be read by eyelink.
         """
-        msg = "!V TRIAL_VAR %s %s" %(variable, value)
-        pylink.getEYELINK().sendMessage(msg)
+        if variables is not None:
+            for key, value in variables.items():
+                msg = "!V TRIAL_VAR %s %s" %(key, value)
+                self.tracker.sendMessage(msg)
+                pylink.msecDelay(1)
+            #finished
+            self.console(msg="variables sent")
+        else:
+            self.console(c="red", msg="no variables entered")
+            
         
     def start_recording(self, trial=None, block=None):
         """
@@ -378,35 +471,56 @@ class eyetracking():
             Trial Number.
         block : :obj:`str`
             Block Number.
+            
+        Notes
+        ----- 
+        tracker.beginRealTimeMode():
+            To ensure that no data is missed before the important part of the trial starts. The EyeLink 
+            tracker requires 10 to 30 milliseconds after the recording command to begin writing data. 
+            This extra data also allows the detection of blinks or saccades just before the trial start, 
+            allowing bad trials to be discarded in saccadic RT analysis. A "SYNCTIME" message later 
+            in the trial marks the actual zero-time in the trial's data record for analysis.
+            [see pylink.chm]
+        TrialID:
+            The "TRIALID" message is sent to the EDF file next. This message must be placed 
+            in the EDF file before the drift correction and before recording begins, and is critical 
+            for data analysis. The viewer will not parse any messages, events, or samples that exist
+            in the data file prior to this message. The command identifier can be changed in the data
+            loading preference settings.
+            [see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]
+        SYNCTIME:
+            Marks the zero-time in a trial. A number may follow, which is interpreted as the delay of 
+            the message from the actual stimulus onset. It is suggested that recording start 100 
+            milliseconds before the display is drawn or unblanked at zero-time, so that no data at the 
+            trial start is lost.
+            [see pylink.chm]
         
+        Examples
+        --------
+        >>> eyetracking.start_recording(block=1, trial=1)
         """
         self.console(msg="eyetracking.start_recording()")
-
-        # flush cached button presses (eyelink) 
-        pylink.getEYELINK().flushKeybuttons(0)
-        pylink.getEYELINK().setOfflineMode()
-        pylink.msecDelay(50)
+        
+        #Message to post to Eyelink Display Monitor
+        self.tracker.sendCommand("record_status_message 'Trial %d Block %d'" %(trial, block))
             
-        # "TRIALID" defines the start of a trial. The viewer will not parse any messages, events, or 
-        # samples that exist in the data file prior to this message. The command identifier can be changed 
-        # in the data loading preference settings.
-        #note: (see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]
-        pylink.getEYELINK().sendMessage('TRIALID %d'%(trial))
+        #indicates start of trial
+        self.tracker.sendMessage('TRIALID %d'%(trial))
         
-        #info to post to Eyelink Display Monitor
-        pylink.getEYELINK().sendCommand("record_status_message 'Trial %d Block %d'" %(trial, block))
-        
-        #start realtime mode
-        pylink.beginRealTimeMode()
         # start recording, parameters specify whether events and samples are
         # stored in file, and available over the link
-        pylink.getEYELINK().startRecording(1, 1, 1, 1)
-        #buffer
-        pylink.msecDelay(50)
+        self.tracker.startRecording(1, 1, 1, 1)
+        
+        #buffer to prevent loss of data
+        pylink.beginRealTimeMode(100)
+        
+        #indicates zero-time of trial
+        self.tracker.sendMessage('SYNCTIME')
+        self.tracker.sendMessage('start recording')
 
     def stop_recording(self, image=None, trial=None, block=None, accuracy=None, variables=[]):
         """
-        Stops recording of eyelink.
+        Stops recording of eyelink. Also allows transmission of trial-level variables to Eyelink.
         
         Parameters
         ----------
@@ -419,51 +533,64 @@ class eyetracking():
         block : :obj:`int`
             Accuracy (1=correct, 0=incorrect).
         variables : :obj:`dict`
-            List of variables to store.
-            
+            Dict of variables to send to eyelink (variable name, value).
+        
         Notes
         -----
-        pylink.endRealTimeMode():
-            Returns the application to a priority slightly above normal, to end realtime mode. 
-            This function should execute rapidly, but there is the possibility that Windows will 
-            allow other tasks to run after this call, causing delays of 1-20 milliseconds. 
-            This function is equivalent to the C API void end_realtime_mode(void);
+        pylink.pumpDelay():
+            Does a unblocked delay using currentTime(). This is the preferred delay function 
+            when accurate timing is not needed.
+            [see pylink.chm]
+        pylink.msecDelay():
+            During calls to pylink.msecDelay(), Windows is not able to handle messages. One result of 
+            this is that windows may not appear. This is the preferred delay function when accurate 
+            timing is needed.
+            [see pylink.chm]
+        tracker.endRealTimeMode():
+            Returns the application to a priority slightly above normal, to end realtime mode. This 
+            function should execute rapidly, but there is the possibility that Windows will allow other 
+            tasks to run after this call, causing delays of 1-20 milliseconds. This function is equivalent 
+            to the C API void end_realtime_mode(void).
+            [see pylink.chm]
+        TRIAL_VAR: 
+            Lets users specify a trial variable and value for the given trial. One
+            message should be sent for each trial condition variable and its corresponding value. If
+            this command is used there is no need to use TRIAL_VAR_LABELS. The default command identifier 
+            can be changed in the data loading preference settings. Please note that the eye tracker 
+            can handle about 20 messages every 10 milliseconds. So be careful not to send too many 
+            messages too quickly if you have many trial condition messages to send. Add one millisecond 
+            delay between message lines if this is the case.
+            [see pylink.chm]
+        TRIAL_RESULT: 
+            Defines the end of a trial. The viewer will not parse any messages, events, or samples that 
+            exist in the data file after this message. The command identifier can be changed in the 
+            data loading preference settings.
+            [see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]
+            
+        Examples
+        --------
+        >>> variables = dict(stimulus='face.png', event='stimulus')
+        >>> eyetracking.stop_recording(trial=trial, block=block, variables=variables)
         """
         self.console(msg="eyetracking.stop_recording()")
         
         #end of trial message
-        pylink.getEYELINK().sendMessage('Ending Recording')
-        
-        # 'TRIAL_VAR' lets users specify a trial variable and value for the given trial. One
-        # message should be sent for each trial condition variable and its corresponding value. If
-        # this command is used there is no need to use TRIAL_VAR_LABELS. The default
-        # command identifier can be changed in the data loading preference settings. Please note
-        # that the eye tracker can handle about 20 messages every 10 milliseconds. So be careful
-        # not to send too many messages too quickly if you have many trial condition messages to
-        # send. Add one millisecond delay between message lines if this is the case.
-        variables['trial'] = trial
-        variables['trial'] = block
-        def run(key, value):
-            pylink.getEYELINK().sendMessage("!V TRIAL_VAR %s %s" %(key, value))
-            pylink.msecDelay(1)
-        #run
-        [run(key, value) for key, value in variables.items()]
+        self.tracker.sendMessage('end recording')
         
         #end realtime mode
         pylink.endRealTimeMode()
         pylink.msecDelay(100)
         
-        # "TRIAL_RESULT" defines the end of a trial. The viewer will not parse any messages, events, or 
-        # samples that exist in the data file after this message. The command identifier can be changed 
-        # in the data loading preference settings.
-        # [see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]
-        pylink.getEYELINK().sendMessage("TRIAL_RESULT %d"%(accuracy))
-        pylink.msecDelay(100)
+        #send trial-level variables
+        variables['trial'] = trial
+        variables['block'] = block
+        self.send_variable(variables=variables)
         
-        # EyeLink - stop recording eye data
-        pylink.getEYELINK().stopRecording()
-        pylink.msecDelay(50)
-        pylink.getEYELINK().setOfflineMode()
+        #specify end of trial
+        self.tracker.sendMessage("TRIAL_RESULT 1")
+        
+        #stop recording eye data
+        self.tracker.stopRecording()
         
     def finish_recording(self):
         """
@@ -474,17 +601,59 @@ class eyetracking():
         subject : :obj:`int`
             subject number.
         
+        Notes
+        -----
+        pylink.pumpDelay():
+            Does a unblocked delay using currentTime(). This is the preferred delay function 
+            when accurate timing is not needed.
+            [see pylink.chm]
+        pylink.msecDelay():
+            During calls to pylink.msecDelay(), Windows is not able to handle messages. One result of 
+            this is that windows may not appear. This is the preferred delay function when accurate 
+            timing is needed.
+            [see pylink.chm]
+        tracker.setOfflineMode():
+            Places EyeLink tracker in offline (idle) mode. Wait till the tracker has finished the 
+            mode transition.
+            [see pylink.chm]
+        tracker.endRealTimeMode():
+            Returns the application to a priority slightly above normal, to end realtime mode. This 
+            function should execute rapidly, but there is the possibility that Windows will allow other 
+            tasks to run after this call, causing delays of 1-20 milliseconds. This function is 
+            equivalent to the C API void end_realtime_mode(void).
+            [see pylink.chm]
+        tracker.receiveDataFile():
+            This receives a data file from the EyeLink tracker PC. Source filename and destination 
+            filename should be given.
+            [see pylink.chm]
+            
+        Examples
+        --------
+        >>> #end recording session
+        >>> eyetracking.finish_recording()
         """
         self.console(msg="eyetracking.finish_recording()")
-        # Generate file path
+        # generate file path
         self.path = "%s/data/edf/"%(os.getcwd())
         if not os.path.exists(self.path):
             os.makedirs(self.path)
         
-        # Close the file and transfer it to Display PC
-        pylink.getEYELINK().closeDataFile()
-        pylink.msecDelay(50)
-        #copy EDF file to Display PC
-        pylink.getEYELINK().receiveDataFile(self.fname, self.path)
-        #Close connection to tracker
-        pylink.getEYELINK().close()
+        #double check realtime mode has ended
+        pylink.endRealTimeMode()
+        pylink.pumpDelay(500)
+        
+        #rlaces eyeLink tracker in offline (idle) mode
+        self.tracker.setOfflineMode()
+        
+        #allow buffer to prepare data for closing
+        pylink.msecDelay(500)
+        
+        #closes any currently opened EDF file on the EyeLink tracker computer's hard disk
+        self.tracker.closeDataFile()
+        
+        #This receives a data file from the eyelink tracking computer
+        destination = self.path + self.fname
+        self.tracker.receiveDataFile(self.fname, destination)
+        
+        #wends a disconnect message to the EyeLink tracker
+        self.tracker.close()
