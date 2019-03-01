@@ -79,7 +79,7 @@ class eyetracking():
             self.libraries()
         
         #----edf filename
-        self.subject = os.path.splitext(subject)[0]  # strip away extension if present
+        self.subject = os.path.splitext(str(subject))[0]
         #check if interger
         if re.match(r'\w+$', self.subject):
             pass
@@ -284,7 +284,7 @@ class eyetracking():
         
         #if using tracker version 2 or below
         if self.eyelink_version>=2: 
-            self.console(c='blue', msg="eyelink_version = %d"%(self.eyelink_version))
+            self.console(c='blue', msg="select_parser_configuration")
             self.tracker.sendCommand('select_parser_configuration 0')
         else:
             self.tracker.sendCommand("saccade_velocity_threshold = %s"(self.saccade_velocity_threshold))
@@ -292,7 +292,7 @@ class eyetracking():
                 
         #if using tracker version 2 or above
         if self.eyelink_version>=3:
-            self.console(c='blue', msg="eyelink_version = %d"%(self.eyelink_version))
+            self.console(c='blue', msg="autothreshold_click")
             self.tracker.sendCommand("autothreshold_click = %s"%(self.autothreshold_click))
             self.tracker.sendCommand("autothreshold_repeat = %s"%(self.autothreshold_repeat))
             self.tracker.sendCommand("enable_camera_position_detect = %s"%(self.enable_camera_position_detect))

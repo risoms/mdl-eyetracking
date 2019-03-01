@@ -9,6 +9,9 @@ mdl/__pycache__/
 mdl/pylink/__pycache__/
 
 # files
+Rating Scale3.jpg
+RB_ContextET_Basketball.py
+RecogMem.py
 *.DS_Store
 *.egg
 *.csv
