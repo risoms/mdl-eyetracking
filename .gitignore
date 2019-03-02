@@ -1,10 +1,11 @@
 # folders
-.ipynb_checkpoints/
 _backup/
+_example/
 _resources/
-instructions/
+blocks/
 CFD/
 data/
+instructions/
 __pycache__/
 mdl/__pycache__/
 mdl/pylink/__pycache__/
@@ -13,14 +14,16 @@ mdl/pylink/__pycache__/
 Rating Scale3.jpg
 requirements.txt
 todo.txt
-#jupyter
+## jupyter
 distributions.ipynb
-#py
+## py
 notes.py
 eyetracking.py
 RB_ContextET_Basketball.py
 RecogMem.py
+
 #file types
+*.ipynb_checkpoints
 *.DS_Store
 *.egg
 *.csv

@@ -12,8 +12,7 @@ mdl-eyelink provides a high-level interface for eyetracking research in Python. 
 
 Documentation
 -------------
-
-Online documentation is available at [mdl-eyelink](http://mdl.psy.utexas.edu/d/eyelink).
+Online documentation is available at our [examples.ipynb](https://github.com/risoms/mdl-eyelink/blob/master/example.ipynb) file and at [mdl-eyelink](http://mdl.psy.utexas.edu/d/eyelink).
 
 The docs include a [tutorial](http://mdl.psy.utexas.edu/d/eyelink/tutorial.html), [example](http://mdl.psy.utexas.edu/d/eyelink/index.html), [API reference](http://mdl.psy.utexas.edu/d/eyelink/api.html), and other useful information.
 
@@ -36,10 +35,3 @@ The latest stable release (and older versions) can be installed from PyPI:
 You may instead want to use the development version from Github:
 
     pip install git+https://github.com/risoms/mdl-eyelink.git
-
-Development
------------
-
-mdl-eyelink development takes place on Github: https://github.com/risoms/mdl-eyelink
-
-Please submit any reproducible bugs you encounter to the [issue tracker](https://github.com/risoms/mdl-eyelink/issues).
