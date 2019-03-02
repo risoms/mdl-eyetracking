@@ -15,7 +15,7 @@ Documentation
 
 Online documentation is available at [mdl-eyelink](http://mdl.psy.utexas.edu/d/eyelink).
 
-The docs include a [tutorial](http://mdl.psy.utexas.edu/d/eyelink/tutorial.html), [example gallery](http://mdl.psy.utexas.edu/d/eyelink/index.html), [API reference](http://mdl.psy.utexas.edu/d/eyelink/api.html), and other useful information.
+The docs include a [tutorial](http://mdl.psy.utexas.edu/d/eyelink/tutorial.html), [example](http://mdl.psy.utexas.edu/d/eyelink/index.html), [API reference](http://mdl.psy.utexas.edu/d/eyelink/api.html), and other useful information.
 
 
 Dependencies
