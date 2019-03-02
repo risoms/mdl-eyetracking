@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>eyetracking &mdash; mdl-eyelink 2019-03-02T15:27:38 documentation</title>
+    <title>eyetracking &mdash; mdl-eyelink 2019-03-02T17:13:03 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2019-03-02T15:27:38',
+        VERSION:     '2019-03-02T17:13:03',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" >
     <link rel="search" title="Search" href="search.html" >
-    <link rel="top" title="mdl-eyelink 2019-03-02T15:27:38 documentation" href="index.html" > 
+    <link rel="top" title="mdl-eyelink 2019-03-02T17:13:03 documentation" href="index.html" > 
   </head>
   <body>
 
@@ -49,7 +49,7 @@
         <li class="active"><a href="https://mdl.psy.utexas.edu/">MDL</a></li>
         <li class="active"><a href="https://liberalarts.utexas.edu/imhr/">IMHR</a></li>
 	
-        <li class="active"><a href="index.html">mdl-eyelink 2019-03-02T15:27:38 documentation</a></li>
+        <li class="active"><a href="index.html">mdl-eyelink 2019-03-02T17:13:03 documentation</a></li>
 	 
     </ul>
               
@@ -98,7 +98,7 @@
 but should be compatiable with earlier systems.</p>
 <dl class="class">
 <dt id="eyetracking.eyetracking">
-<em class="property">class </em><code class="descclassname">eyetracking.</code><code class="descname">eyetracking</code><span class="sig-paren">(</span><em>libraries=False</em>, <em>subject=None</em>, <em>refresh_rate=120</em>, <em>calibration_type=13</em>, <em>automatic_calibration_pacing=1000</em>, <em>saccade_velocity_threshold=35</em>, <em>saccade_acceleration_threshold=9500</em>, <em>select_parser_configuration=0</em>, <em>recording_parse_type='GAZE'</em>, <em>enable_search_limits=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/eyetracking.html#eyetracking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#eyetracking.eyetracking" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">eyetracking.</code><code class="descname">eyetracking</code><span class="sig-paren">(</span><em>libraries=False</em>, <em>subject=None</em>, <em>calibration_type=13</em>, <em>automatic_calibration_pacing=1000</em>, <em>saccade_velocity_threshold=35</em>, <em>saccade_acceleration_threshold=9500</em>, <em>sound=False</em>, <em>select_parser_configuration=0</em>, <em>recording_parse_type='GAZE'</em>, <em>enable_search_limits=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/eyetracking.html#eyetracking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#eyetracking.eyetracking" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
@@ -120,7 +120,7 @@ but should be compatiable with earlier systems.</p>
 <td>Finish recording of eyelink.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#eyetracking.eyetracking.libraries" title="eyetracking.eyetracking.libraries"><code class="xref py py-obj docutils literal notranslate"><span class="pre">libraries</span></code></a>()</td>
-<td>Check if required libraries are available.</td>
+<td>Check if required libraries to run eyelink and Psychopy are available.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#eyetracking.eyetracking.sample" title="eyetracking.eyetracking.sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample</span></code></a>(eye_used)</td>
 <td>Collects new gaze coordinates from Eyelink.</td>
@@ -278,7 +278,7 @@ filename should be given.
 <dl class="method">
 <dt id="eyetracking.eyetracking.libraries">
 <code class="descname">libraries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/eyetracking.html#eyetracking.libraries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#eyetracking.eyetracking.libraries" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check if required libraries are available.</p>
+<dd><p>Check if required libraries to run eyelink and Psychopy are available.</p>
 </dd></dl>
 
 <dl class="method">
@@ -375,10 +375,6 @@ filename should be given.
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Attributes:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>refresh_rate</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span></dt>
-<dd><p class="first last">Display refresh rate, in Hz. Default is 120. [see EyeLink Programmer’s Guide, 
-Section 25.9: Parser Configuration]</p>
-</dd>
 <dt><strong>calibration_type</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span></dt>
 <dd><p class="first last">Calibration type. Default is 13-point. [see Eyelink 1000 Plus User Manual, 3.7 Calibration]</p>
 </dd>

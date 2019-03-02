@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>calibration &mdash; mdl-eyelink 2019-03-02T15:27:38 documentation</title>
+    <title>calibration &mdash; mdl-eyelink 2019-03-02T17:13:03 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2019-03-02T15:27:38',
+        VERSION:     '2019-03-02T17:13:03',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../genindex.html" >
     <link rel="search" title="Search" href="../search.html" >
-    <link rel="top" title="mdl-eyelink 2019-03-02T15:27:38 documentation" href="../index.html" >
+    <link rel="top" title="mdl-eyelink 2019-03-02T17:13:03 documentation" href="../index.html" >
     <link rel="up" title="Module code" href="index.html" > 
   </head>
   <body>
@@ -50,7 +50,7 @@
         <li class="active"><a href="https://mdl.psy.utexas.edu/">MDL</a></li>
         <li class="active"><a href="https://liberalarts.utexas.edu/imhr/">IMHR</a></li>
 	
-        <li class="active"><a href="../index.html">mdl-eyelink 2019-03-02T15:27:38 documentation</a></li>
+        <li class="active"><a href="../index.html">mdl-eyelink 2019-03-02T17:13:03 documentation</a></li>
 	
           <li class="active"><a href="index.html" accesskey="U">Module code</a></li> 
     </ul>
@@ -165,7 +165,7 @@
         <span class="n">interpolate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">depth</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">)</span>
         <span class="n">drift_screen</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span></div>
-        
+
 <div class="viewcode-block" id="calibration.exit_cal_display"><a class="viewcode-back" href="../calibration.html#calibration.calibration.exit_cal_display">[docs]</a>    <span class="k">def</span> <span class="nf">exit_cal_display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Exits calibration display.&quot;&quot;&quot;</span>       
         <span class="bp">self</span><span class="o">.</span><span class="n">setup_cal_display</span><span class="p">()</span></div>
@@ -173,7 +173,68 @@
 <div class="viewcode-block" id="calibration.exit_drift_display"><a class="viewcode-back" href="../calibration.html#calibration.calibration.exit_drift_display">[docs]</a>    <span class="k">def</span> <span class="nf">exit_drift_display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Exits drift display.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setup_drift_display</span><span class="p">()</span></div>
+    
+<div class="viewcode-block" id="calibration.record_abort_hide"><a class="viewcode-back" href="../calibration.html#calibration.calibration.record_abort_hide">[docs]</a>    <span class="k">def</span> <span class="nf">record_abort_hide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>    </div>
+    
+<div class="viewcode-block" id="calibration.clear_cal_display"><a class="viewcode-back" href="../calibration.html#calibration.calibration.clear_cal_display">[docs]</a>    <span class="k">def</span> <span class="nf">clear_cal_display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clear the calibration display.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_cal_display</span><span class="p">()</span></div>
+        
+<div class="viewcode-block" id="calibration.clear_drift_display"><a class="viewcode-back" href="../calibration.html#calibration.calibration.clear_drift_display">[docs]</a>    <span class="k">def</span> <span class="nf">clear_drift_display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clear the drift-check display.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_drift_display</span><span class="p">()</span></div>
+    
+<div class="viewcode-block" id="calibration.erase_cal_target"><a class="viewcode-back" href="../calibration.html#calibration.calibration.erase_cal_target">[docs]</a>    <span class="k">def</span> <span class="nf">erase_cal_target</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Erase the calibration/validation target.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span></div>
 
+<div class="viewcode-block" id="calibration.erase_drift_target"><a class="viewcode-back" href="../calibration.html#calibration.calibration.erase_drift_target">[docs]</a>    <span class="k">def</span> <span class="nf">erase_drift_target</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Erase the drift-check target.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>   </div>
+
+<div class="viewcode-block" id="calibration.play_beep"><a class="viewcode-back" href="../calibration.html#calibration.calibration.play_beep">[docs]</a>    <span class="k">def</span> <span class="nf">play_beep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beepid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Play a sound during calibration/drift correct.&quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;beepid: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">beepid</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">beepid</span> <span class="o">==</span> <span class="n">pylink</span><span class="o">.</span><span class="n">CAL_TARG_BEEP</span> <span class="ow">or</span> <span class="n">beepid</span> <span class="o">==</span> <span class="n">pylink</span><span class="o">.</span><span class="n">DC_TARG_BEEP</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__target_beep__</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">beepid</span> <span class="o">==</span> <span class="n">pylink</span><span class="o">.</span><span class="n">CAL_ERR_BEEP</span> <span class="ow">or</span> <span class="n">beepid</span> <span class="o">==</span> <span class="n">pylink</span><span class="o">.</span><span class="n">DC_ERR_BEEP</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__target_beep__error__</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">beepid</span> <span class="ow">in</span> <span class="p">[</span><span class="n">pylink</span><span class="o">.</span><span class="n">CAL_GOOD_BEEP</span><span class="p">,</span> <span class="n">pylink</span><span class="o">.</span><span class="n">DC_GOOD_BEEP</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__target_beep__done__</span><span class="o">.</span><span class="n">play</span><span class="p">()</span></div>
+        
+<div class="viewcode-block" id="calibration.draw_cal_target"><a class="viewcode-back" href="../calibration.html#calibration.calibration.draw_cal_target">[docs]</a>    <span class="k">def</span> <span class="nf">draw_cal_target</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Draw the calibration/validation target.&quot;&quot;&quot;</span>
+        <span class="c1"># convert to psychopy coordinates</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+
+        <span class="c1"># set calibration target position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+        <span class="c1"># display</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">play_beep</span><span class="p">(</span><span class="n">pylink</span><span class="o">.</span><span class="n">CAL_TARG_BEEP</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span></div>
+        
+<div class="viewcode-block" id="calibration.draw_drift_target"><a class="viewcode-back" href="../calibration.html#calibration.calibration.draw_drift_target">[docs]</a>    <span class="k">def</span> <span class="nf">draw_drift_target</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Draw the drift-check target.&quot;&quot;&quot;</span>
+        <span class="c1"># convert to psychopy coordinates</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+
+        <span class="c1"># set calibration target position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+        <span class="c1"># display</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">play_beep</span><span class="p">(</span><span class="n">pylink</span><span class="o">.</span><span class="n">CAL_TARG_BEEP</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span></div>
+        
 <div class="viewcode-block" id="calibration.getColorFromIndex"><a class="viewcode-back" href="../calibration.html#calibration.calibration.getColorFromIndex">[docs]</a>    <span class="k">def</span> <span class="nf">getColorFromIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colorindex</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">colorindex</span> <span class="o">==</span> <span class="n">pylink</span><span class="o">.</span><span class="n">CR_HAIR_COLOR</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>

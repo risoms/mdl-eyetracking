@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>eyetracking &mdash; mdl-eyelink 2019-03-02T15:27:38 documentation</title>
+    <title>eyetracking &mdash; mdl-eyelink 2019-03-02T17:13:03 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2019-03-02T15:27:38',
+        VERSION:     '2019-03-02T17:13:03',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../genindex.html" >
     <link rel="search" title="Search" href="../search.html" >
-    <link rel="top" title="mdl-eyelink 2019-03-02T15:27:38 documentation" href="../index.html" >
+    <link rel="top" title="mdl-eyelink 2019-03-02T17:13:03 documentation" href="../index.html" >
     <link rel="up" title="Module code" href="index.html" > 
   </head>
   <body>
@@ -50,7 +50,7 @@
         <li class="active"><a href="https://mdl.psy.utexas.edu/">MDL</a></li>
         <li class="active"><a href="https://liberalarts.utexas.edu/imhr/">IMHR</a></li>
 	
-        <li class="active"><a href="../index.html">mdl-eyelink 2019-03-02T15:27:38 documentation</a></li>
+        <li class="active"><a href="../index.html">mdl-eyelink 2019-03-02T17:13:03 documentation</a></li>
 	
           <li class="active"><a href="index.html" accesskey="U">Module code</a></li> 
     </ul>
@@ -109,8 +109,8 @@
  
 <span class="c1">#---------------------------------------------start</span>
 <div class="viewcode-block" id="eyetracking"><a class="viewcode-back" href="../eyetracking.html#eyetracking.eyetracking">[docs]</a><span class="k">class</span> <span class="nc">eyetracking</span><span class="p">():</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">libraries</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">refresh_rate</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">calibration_type</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> 
-                 <span class="n">automatic_calibration_pacing</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">saccade_velocity_threshold</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">saccade_acceleration_threshold</span><span class="o">=</span><span class="mi">9500</span><span class="p">,</span> 
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">libraries</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">calibration_type</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">automatic_calibration_pacing</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> 
+                 <span class="n">saccade_velocity_threshold</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">saccade_acceleration_threshold</span><span class="o">=</span><span class="mi">9500</span><span class="p">,</span> <span class="n">sound</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">select_parser_configuration</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">recording_parse_type</span><span class="o">=</span><span class="s2">&quot;GAZE&quot;</span><span class="p">,</span> <span class="n">enable_search_limits</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Start eyetracker.</span>
@@ -119,9 +119,8 @@
 <span class="sd">        ----------</span>
 <span class="sd">        libraries : :class:`bool`</span>
 <span class="sd">            Should the code check if required libraries are available.</span>
-<span class="sd">        refresh_rate : :class:`int`</span>
-<span class="sd">            Display refresh rate, in Hz. Default is 120. [see EyeLink Programmer’s Guide, </span>
-<span class="sd">            Section 25.9: Parser Configuration]</span>
+<span class="sd">        sound : :class:`bool`</span>
+<span class="sd">           Should eyetracker play sounds during calibration/validation. Default False.</span>
 <span class="sd">        calibration_type : :class:`int`</span>
 <span class="sd">            Calibration type. Default is 13-point. [see Eyelink 1000 Plus User Manual, 3.7 Calibration]</span>
 <span class="sd">        automatic_calibration_pacing : :class:`int`</span>
@@ -223,7 +222,7 @@
         <span class="c1">#----tracker metadata</span>
         <span class="c1"># get eyelink version</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracker_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">getTrackerVersion</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Eyelink Tracker: Version </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracker_version</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Eyelink Tracker: Version </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracker_version</span><span class="p">))</span>
         
         <span class="c1"># get host tracking software version</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">host_version</span> <span class="o">=</span> <span class="mi">0</span>
@@ -231,7 +230,7 @@
             <span class="n">tvstr</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">getTrackerVersionString</span><span class="p">()</span>
             <span class="n">vindex</span> <span class="o">=</span> <span class="n">tvstr</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;EYELINK CL&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">host_version</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">tvstr</span><span class="p">[(</span><span class="n">vindex</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="s2">&quot;EYELINK CL&quot;</span><span class="p">)):]</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Eyelink Host: Version </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">host_version</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Eyelink Host: Version </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">host_version</span><span class="p">))</span>
         
         <span class="c1">#----preset</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">select_parser_configuration</span> <span class="o">=</span> <span class="n">select_parser_configuration</span>
@@ -239,8 +238,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">saccade_velocity_threshold</span> <span class="o">=</span> <span class="n">saccade_velocity_threshold</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">recording_parse_type</span> <span class="o">=</span> <span class="n">recording_parse_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">enable_search_limits</span> <span class="o">=</span>  <span class="s2">&quot;YES&quot;</span> <span class="k">if</span> <span class="n">enable_search_limits</span> <span class="k">else</span> <span class="s2">&quot;NO&quot;</span>
-        <span class="c1">#refresh rate</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_rate</span> <span class="o">=</span> <span class="n">refresh_rate</span>
         <span class="c1">#calibration</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">calibration_type</span> <span class="o">=</span> <span class="n">calibration_type</span> <span class="c1">#[]-point calibration</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">automatic_calibration_pacing</span> <span class="o">=</span> <span class="n">automatic_calibration_pacing</span>
@@ -283,7 +280,7 @@
         <span class="k">return</span> <span class="nb">print</span><span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">+</span> <span class="n">msg</span> <span class="o">+</span> <span class="n">color</span><span class="p">[</span><span class="s1">&#39;ENDC&#39;</span><span class="p">])</span></div>
     
 <div class="viewcode-block" id="eyetracking.libraries"><a class="viewcode-back" href="../eyetracking.html#eyetracking.eyetracking.libraries">[docs]</a>    <span class="k">def</span> <span class="nf">libraries</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Check if required libraries are available.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Check if required libraries to run eyelink and Psychopy are available.&quot;&quot;&quot;</span>
         
         <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s2">&quot;eyetracking.libraries()&quot;</span><span class="p">)</span>
         <span class="c1">#check libraries for missing</span>
@@ -336,9 +333,6 @@
 
 <span class="sd">        Attributes</span>
 <span class="sd">        ----------</span>
-<span class="sd">        refresh_rate : :class:`int`</span>
-<span class="sd">            Display refresh rate, in Hz. Default is 120. [see EyeLink Programmer’s Guide, </span>
-<span class="sd">            Section 25.9: Parser Configuration]</span>
 <span class="sd">        calibration_type : :class:`int`</span>
 <span class="sd">            Calibration type. Default is 13-point. [see Eyelink 1000 Plus User Manual, 3.7 Calibration]</span>
 <span class="sd">        automatic_calibration_pacing : :class:`int`</span>
@@ -379,8 +373,6 @@
         <span class="c1"># Set the tracker to parse events using either GAZE or HREF</span>
         <span class="c1">#note: [see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s2">&quot;recording_parse_type = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">recording_parse_type</span><span class="p">))</span>
-        <span class="c1">#set sampling rate</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s1">&#39;FRAMERATE </span><span class="si">%d</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">refresh_rate</span><span class="p">))</span>
         <span class="c1"># inform the tracker the resolution of the subject display</span>
         <span class="c1"># note: [see Eyelink Installation Guide, Section 8.4: Customizing Your PHYSICAL.INI Settings]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s2">&quot;screen_pixel_coords = 0 0 </span><span class="si">%d</span><span class="s2"> </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
@@ -394,17 +386,17 @@
         
         <span class="c1">#if using tracker version 2 or greater</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracker_version</span><span class="o">&gt;=</span><span class="mi">2</span><span class="p">:</span> 
-            <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s2">&quot;select_parser_configuration </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">select_parser_configuration</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s2">&quot;select_parser_configuration </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">select_parser_configuration</span><span class="p">))</span>
             <span class="c1">#turn of scene link</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracker_version</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
                  <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s2">&quot;scene_camera_gazemap = NO&quot;</span><span class="p">)</span>   
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s2">&quot;saccade_velocity_threshold = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">saccade_velocity_threshold</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s2">&quot;saccade_acceleration_threshold = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">saccade_acceleration_threshold</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s2">&quot;saccade_velocity_threshold = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">saccade_velocity_threshold</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s2">&quot;saccade_acceleration_threshold = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">saccade_acceleration_threshold</span><span class="p">))</span>
                 
         <span class="c1">#if using tracker version 3 or above</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracker_version</span><span class="o">&gt;=</span><span class="mi">3</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s2">&quot;enable_search_limits=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">enable_search_limits</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s2">&quot;enable_search_limits=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">enable_search_limits</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s2">&quot;track_search_limits=YES&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s2">&quot;autothreshold_click=YES&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s2">&quot;autothreshold_repeat=YES&quot;</span><span class="p">)</span>
@@ -421,8 +413,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s2">&quot;button_function 5 &#39;accept_target_fixation&#39;&quot;</span><span class="p">)</span>
         
         <span class="c1">#select sound for calibration and drift correct</span>
-        <span class="n">pylink</span><span class="o">.</span><span class="n">setCalibrationSounds</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">,</span> <span class="s2">&quot;off&quot;</span><span class="p">,</span> <span class="s2">&quot;off&quot;</span><span class="p">)</span>
-        <span class="n">pylink</span><span class="o">.</span><span class="n">setDriftCorrectSounds</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">,</span> <span class="s2">&quot;off&quot;</span><span class="p">,</span> <span class="s2">&quot;off&quot;</span><span class="p">)</span></div>
+        <span class="c1"># &quot;&quot; = sound, &quot;off&quot; = no sound</span>
+        <span class="n">pylink</span><span class="o">.</span><span class="n">setCalibrationSounds</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">pylink</span><span class="o">.</span><span class="n">setDriftCorrectSounds</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></div>
         
 <div class="viewcode-block" id="eyetracking.set_eye_used"><a class="viewcode-back" href="../eyetracking.html#eyetracking.eyetracking.set_eye_used">[docs]</a>    <span class="k">def</span> <span class="nf">set_eye_used</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eye</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
