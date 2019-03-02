@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import mdl
+
 """
 Created on Wed Feb 13 15:37:43 2019
 
@@ -11,13 +11,14 @@ References:
     https://www.psychopy.org/api/hardware/pylink.html
 """
 
-# ----------------imports
-# %%import
+# %%
+# ----imports
 from psychopy import visual, core
 import sys
-sys.path.insert(0, '.\lib')
+import mdl
 
-# ----------------pre-task
+# %%
+#----pre-task
 # initalize
 """
 Parameters
@@ -62,13 +63,8 @@ eyetracking = mdl.eyetracking(libraries=False, subject=subject, sample_rate=500,
                               recording_parse_type="GAZE", enable_search_limits=True,
                               track_search_limits=True, autothreshold_click=True, autothreshold_repeat=True,
                               enable_camera_position_detect=True)
-# create psychopy window
-window = visual.Window(
-    size=[1336, 768], fullscr=False, screen=0,
-    allowGUI=True, allowStencil=False,
-    monitor=u'testMonitor', color=u'white', colorSpace='rgb',
-    blendMode='avg')
 
+# %%
 # set dominant eye
 """
 Parameters
@@ -81,13 +77,20 @@ eye_used = eyetracking.set_eye_used(eye=dominant_eye)
 
 # %%
 # ----------------calibration
-# calibration
 """
 Parameters
 ----------
 window : :class:`psychopy.visual.window.Window`
     PsychoPy window instance.
 """
+# create psychopy window
+window = visual.Window(
+    size=[1336, 768], fullscr=False, screen=0,
+    allowGUI=True, allowStencil=False,
+    monitor=u'testMonitor', color=u'white', colorSpace='rgb',
+    blendMode='avg')
+
+# start calibration
 eyetracking.calibration(window=window)
 #----------------debugging (optional)
 """
