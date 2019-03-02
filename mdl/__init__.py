@@ -9,7 +9,8 @@ Created on Wed Feb 13 15:37:43 2019
 References:
     https://www.psychopy.org/api/hardware/pylink.html
 """
+import os, sys; sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
-from . import pylink
-from .calibration import calibration
-from .eyetracking import eyetracking
+import pylink
+from calibration import calibration
+from eyetracking import eyetracking

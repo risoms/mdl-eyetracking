@@ -19,7 +19,7 @@ import numpy as np
 from psychopy import visual, event, sound
 
 #---eyetracking
-from . import pylink
+import pylink
 
 class calibration(pylink.EyeLinkCustomDisplay):
     """This inherits a default class from pylink then adds psychopy stim."""
@@ -79,31 +79,46 @@ class calibration(pylink.EyeLinkCustomDisplay):
         interpolate=True, depth=-1.0)
         drift_screen.draw()
         self.window.flip()
-        
+
     def exit_cal_display(self):
         """Exits calibration display."""       
-        self.clear_cal_display()
+        self.setup_cal_display()
     
     def exit_drift_display(self):
-        """Exits calibration display."""
-        self.clear_drift_display()
-
-    def record_abort_hide(self):
-        pass
-
-    def clear_cal_display(self):
-        self.setup_cal_display()
-
-    def clear_drift_display(self):
+        """Exits drift display."""
         self.setup_drift_display()
-
+    
+    def record_abort_hide(self):
+        pass    
+    
+    def clear_cal_display(self):
+        """Clear the calibration display."""
+        self.setup_cal_display()
+        
+    def clear_drift_display(self):
+        """Clear the drift-check display."""
+        self.setup_drift_display()
+    
     def erase_cal_target(self):
+        """Erase the calibration/validation target."""
         self.window.flip()
 
     def erase_drift_target(self):
-        self.window.flip()
+        """Erase the drift-check target."""
+        self.window.flip()   
+
+    def play_beep(self, beepid):
+        """ Play a sound during calibration/drift correct."""
+        print('beepid: %s'%(beepid))
+        if beepid == pylink.CAL_TARG_BEEP or beepid == pylink.DC_TARG_BEEP:
+            self.__target_beep__.play()
+        if beepid == pylink.CAL_ERR_BEEP or beepid == pylink.DC_ERR_BEEP:
+            self.__target_beep__error__.play()
+        if beepid in [pylink.CAL_GOOD_BEEP, pylink.DC_GOOD_BEEP]:
+            self.__target_beep__done__.play()
         
     def draw_cal_target(self, x, y):
+        """Draw the calibration/validation target."""
         # convert to psychopy coordinates
         x = x - (self.w / 2)
         y = -(y - (self.h / 2))
@@ -117,8 +132,9 @@ class calibration(pylink.EyeLinkCustomDisplay):
         self.out.draw()
         self.on.draw()
         self.window.flip()
-
+        
     def draw_drift_target(self, x, y):
+        """Draw the drift-check target."""
         # convert to psychopy coordinates
         x = x - (self.w / 2)
         y = -(y - (self.h / 2))
@@ -132,7 +148,7 @@ class calibration(pylink.EyeLinkCustomDisplay):
         self.out.draw()
         self.on.draw()
         self.window.flip()
-
+        
     def getColorFromIndex(self, colorindex):
         if colorindex == pylink.CR_HAIR_COLOR:
             return (1, 1, 1)
@@ -146,16 +162,6 @@ class calibration(pylink.EyeLinkCustomDisplay):
             return (1, -1, -1)
         else:
             return (-1, -1, -1)
-
-    def draw_line(self, x1, y1, x2, y2, colorindex):
-        pass
-
-    def draw_lozenge(self, x, y, width, height, colorindex):
-        pass
-
-    def get_mouse_state(self):
-        pass
-
 
     def get_input_key(self):
         """This function will be constantly pools, update the stimuli here is you need
@@ -200,12 +206,15 @@ class calibration(pylink.EyeLinkCustomDisplay):
         return ky
 
     def exit_image_display(self):
+        """Clear the camera image."""
         self.clear_cal_display()
 
     def alert_printf(self, msg):
+        """Print error messages."""
         print ("alert_printf %s")%(msg)
 
     def setup_image_display(self, width, height):
+        """Set up the camera image, for newer APIs, the size is 384 x 320 pixels."""
 
         self.size = (width / 2, height / 2)
         self.clear_cal_display()
@@ -217,7 +226,7 @@ class calibration(pylink.EyeLinkCustomDisplay):
                                             dtype=np.uint8)
 
     def image_title(self, text):
-        # Display or update Pupil/CR info on image screen
+        """Display or update Pupil/CR info on image screen."""
         if self.imagetitlestim is None:
             self.imagetitlestim = visual.TextStim(self.window,
                                                   text=text,
@@ -230,7 +239,7 @@ class calibration(pylink.EyeLinkCustomDisplay):
             self.imagetitlestim.setText(text)
 
     def draw_image_line(self, width, line, totlines, buff):
-        # Get image info for each line of image
+        """Display image pixel by pixel, line by line."""
         for i in range(width):
             self.rgb_index_array[line - 1, i] = buff[i]
 
@@ -250,7 +259,7 @@ class calibration(pylink.EyeLinkCustomDisplay):
                     self.size[1] * mx)
             image = image.resize(self.imgstim_size)
 
-            # Save image as a temporay file
+            # Save image as a temporary file
             tfile = os.path.join(tempfile.gettempdir(), '_eleye.png')
             image.save(tfile, 'PNG')
 
@@ -276,7 +285,10 @@ class calibration(pylink.EyeLinkCustomDisplay):
             self.window.flip()
 
     def set_image_palette(self, r, g, b):
-        # This does something the other image functions need
+        """
+        Given a set of RGB colors, create a list of 24bit numbers representing the pallet. 
+        Example: RGB of (1,64,127) would be saved as 82047, or the number 00000001 01000000 011111111.
+        """
         self.clear_cal_display()
         sz = len(r)
         self.rgb_pallete = np.zeros((sz, 3), dtype=np.uint8)
@@ -284,13 +296,3 @@ class calibration(pylink.EyeLinkCustomDisplay):
         while i < sz:
             self.rgb_pallete[i:] = int(r[i]), int(g[i]), int(b[i])
             i += 1
-
-    def dummynote(self):
-        # Draw Text
-        visual.TextStim(self.window, text='Dummy Connection with EyeLink',
-                        color=self.txtcol).draw()
-        self.window.flip()
-
-        # Wait for key press
-        event.waitKeys()
-        self.window.flip()

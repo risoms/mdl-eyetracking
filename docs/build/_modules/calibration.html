@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>calibration &mdash; mdl-eyelink 2019-03-02T15:27:38 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2019-03-02T15:27:38',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" >
+    <link rel="search" title="Search" href="../search.html" >
+    <link rel="top" title="mdl-eyelink 2019-03-02T15:27:38 documentation" href="../index.html" >
+    <link rel="up" title="Module code" href="index.html" > 
+  </head>
+  <body>
+
+<div class="container">
+  <div class="top-scipy-org-logo-header">
+    <img style="border: 0;" alt="IMHR" src="../_static/img/logo.png">
+  </div>
+</div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+        <li class="active"><a href="https://mdl.psy.utexas.edu/">MDL</a></li>
+        <li class="active"><a href="https://liberalarts.utexas.edu/imhr/">IMHR</a></li>
+	
+        <li class="active"><a href="../index.html">mdl-eyelink 2019-03-02T15:27:38 documentation</a></li>
+	
+          <li class="active"><a href="index.html" accesskey="U">Module code</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="../py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+
+        </div>
+      </div>
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <h1>Source code for calibration</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Wed Feb 13 15:37:43 2019</span>
+
+<span class="sd">@author: Semeon Risom</span>
+<span class="sd">@email: semeon.risom@gmail.com.</span>
+
+<span class="sd">Sample code to run SR Research Eyelink eyetracking system. Code is optimized for the Eyelink 1000 Plus (5.0),</span>
+<span class="sd">but should be compatiable with earlier systems.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1">#---main</span>
+<span class="kn">from</span> <span class="nn">pdb</span> <span class="k">import</span> <span class="n">set_trace</span> <span class="k">as</span> <span class="n">breakpoint</span>
+<span class="kn">import</span> <span class="nn">string</span><span class="o">,</span> <span class="nn">scipy</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1">#---psychopy</span>
+<span class="kn">from</span> <span class="nn">psychopy</span> <span class="k">import</span> <span class="n">visual</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">sound</span>
+
+<span class="c1">#---eyetracking</span>
+<span class="kn">import</span> <span class="nn">pylink</span>
+
+<div class="viewcode-block" id="calibration"><a class="viewcode-back" href="../calibration.html#calibration.calibration">[docs]</a><span class="k">class</span> <span class="nc">calibration</span><span class="p">(</span><span class="n">pylink</span><span class="o">.</span><span class="n">EyeLinkCustomDisplay</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This inherits a default class from pylink then adds psychopy stim.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">tracker</span><span class="p">,</span> <span class="n">window</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allow color print to console.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        w,h : :class:`int`</span>
+<span class="sd">            Screen width, height.</span>
+<span class="sd">        tracker : :class:`psychopy.visual.window.Window`</span>
+<span class="sd">            PsychoPy window instance.</span>
+<span class="sd">        window : :class:`psychopy.visual.window.Window`</span>
+<span class="sd">            PsychoPy window instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pylink</span><span class="o">.</span><span class="n">EyeLinkCustomDisplay</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1">#---setup</span>
+        <span class="c1">#window</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">window</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">clearBuffer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">w</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">h</span>
+        <span class="c1">#mouse</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">mouseVisible</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mouse</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">Mouse</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_mouse_state</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="c1">#sound</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__target_beep__</span> <span class="o">=</span> <span class="n">sound</span><span class="o">.</span><span class="n">Sound</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">octave</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">secs</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__target_beep__done__</span> <span class="o">=</span> <span class="n">sound</span><span class="o">.</span><span class="n">Sound</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="n">octave</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">secs</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__target_beep__error__</span> <span class="o">=</span> <span class="n">sound</span><span class="o">.</span><span class="n">Sound</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="n">octave</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">secs</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+        
+        <span class="c1">#display</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">backcolor</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">color</span>
+        <span class="n">tcolout</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">txtcol</span> <span class="o">=</span> <span class="n">tcolout</span>
+        
+        <span class="c1">#set circles</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span> <span class="o">=</span> <span class="n">visual</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">fillColor</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">lineColor</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;pix&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on</span> <span class="o">=</span> <span class="n">visual</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">fillColor</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">lineColor</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;pix&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># lines for drawing cross hair etc.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span> <span class="o">=</span> <span class="n">visual</span><span class="o">.</span><span class="n">Line</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">lineWidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">lineColor</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;pix&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="calibration.setup_cal_display"><a class="viewcode-back" href="../calibration.html#calibration.calibration.setup_cal_display">[docs]</a>    <span class="k">def</span> <span class="nf">setup_cal_display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets up the initial calibration display, which contains a menu with instructions.&quot;&quot;&quot;</span>
+        <span class="n">menu_screen</span> <span class="o">=</span> <span class="n">visual</span><span class="o">.</span><span class="n">ImageStim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;menu_screen&#39;</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s2">&quot;instructions/menu.png&quot;</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+        <span class="n">ori</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">colorSpace</span><span class="o">=</span><span class="s1">&#39;rgb&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">flipHoriz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">flipVert</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">texRes</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> 
+        <span class="n">interpolate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">depth</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">menu_screen</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="calibration.setup_drift_display"><a class="viewcode-back" href="../calibration.html#calibration.calibration.setup_drift_display">[docs]</a>    <span class="k">def</span> <span class="nf">setup_drift_display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets up the initial drift display&quot;&quot;&quot;</span>
+        <span class="n">drift_screen</span> <span class="o">=</span> <span class="n">visual</span><span class="o">.</span><span class="n">ImageStim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;drift_screen&#39;</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s2">&quot;instructions/fixation.png&quot;</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ori</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">colorSpace</span><span class="o">=</span><span class="s1">&#39;rgb&#39;</span><span class="p">,</span><span class="n">opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">flipHoriz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">flipVert</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">texRes</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
+        <span class="n">interpolate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">depth</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">drift_screen</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span></div>
+        
+<div class="viewcode-block" id="calibration.exit_cal_display"><a class="viewcode-back" href="../calibration.html#calibration.calibration.exit_cal_display">[docs]</a>    <span class="k">def</span> <span class="nf">exit_cal_display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Exits calibration display.&quot;&quot;&quot;</span>       
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_cal_display</span><span class="p">()</span></div>
+    
+<div class="viewcode-block" id="calibration.exit_drift_display"><a class="viewcode-back" href="../calibration.html#calibration.calibration.exit_drift_display">[docs]</a>    <span class="k">def</span> <span class="nf">exit_drift_display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Exits drift display.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_drift_display</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="calibration.getColorFromIndex"><a class="viewcode-back" href="../calibration.html#calibration.calibration.getColorFromIndex">[docs]</a>    <span class="k">def</span> <span class="nf">getColorFromIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colorindex</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">colorindex</span> <span class="o">==</span> <span class="n">pylink</span><span class="o">.</span><span class="n">CR_HAIR_COLOR</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">colorindex</span> <span class="o">==</span> <span class="n">pylink</span><span class="o">.</span><span class="n">PUPIL_HAIR_COLOR</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">colorindex</span> <span class="o">==</span> <span class="n">pylink</span><span class="o">.</span><span class="n">PUPIL_BOX_COLOR</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">colorindex</span> <span class="o">==</span> <span class="n">pylink</span><span class="o">.</span><span class="n">SEARCH_LIMIT_BOX_COLOR</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">colorindex</span> <span class="o">==</span> <span class="n">pylink</span><span class="o">.</span><span class="n">MOUSE_CURSOR_COLOR</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="calibration.get_input_key"><a class="viewcode-back" href="../calibration.html#calibration.calibration.get_input_key">[docs]</a>    <span class="k">def</span> <span class="nf">get_input_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This function will be constantly pools, update the stimuli here is you need</span>
+<span class="sd">        dynamic calibration target.&quot;&quot;&quot;</span>
+        
+        <span class="n">ky</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="n">keycode</span><span class="p">,</span> <span class="n">modifier</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">getKeys</span><span class="p">(</span><span class="n">modifiers</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="n">k</span><span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">JUNK_KEY</span>
+            <span class="k">if</span> <span class="n">keycode</span>   <span class="o">==</span> <span class="s1">&#39;f1&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">F1_KEY</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;f2&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">F2_KEY</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;f3&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">F3_KEY</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;f4&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">F4_KEY</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;f5&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">F5_KEY</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;f6&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">F6_KEY</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;f7&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">F7_KEY</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;f8&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">F8_KEY</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;f9&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">F9_KEY</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;f10&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">F10_KEY</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;pageup&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">PAGE_UP</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;pagedown&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">PAGE_DOWN</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;up&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">CURS_UP</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;down&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">CURS_DOWN</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;left&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">CURS_LEFT</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;right&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">CURS_RIGHT</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;backspace&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\b</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;return&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">ENTER_KEY</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;space&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;escape&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">pylink</span><span class="o">.</span><span class="n">ESC_KEY</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">&#39;tab&#39;</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">keycode</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">keycode</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">k</span><span class="o">==</span> <span class="n">pylink</span><span class="o">.</span><span class="n">JUNK_KEY</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># plus/equal &amp; minux signs for CR adjustment</span>
+            <span class="k">if</span> <span class="n">keycode</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;num_add&#39;</span><span class="p">,</span> <span class="s1">&#39;equal&#39;</span><span class="p">]:</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">keycode</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;num_subtract&#39;</span><span class="p">,</span> <span class="s1">&#39;minus&#39;</span><span class="p">]:</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">modifier</span><span class="p">[</span><span class="s1">&#39;alt&#39;</span><span class="p">]</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span> <span class="n">mod</span> <span class="o">=</span> <span class="mi">256</span>
+            <span class="k">else</span><span class="p">:</span> <span class="n">mod</span> <span class="o">=</span> <span class="mi">0</span>
+            
+            <span class="n">ky</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pylink</span><span class="o">.</span><span class="n">KeyInput</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">mod</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">ky</span></div>
+
+<div class="viewcode-block" id="calibration.exit_image_display"><a class="viewcode-back" href="../calibration.html#calibration.calibration.exit_image_display">[docs]</a>    <span class="k">def</span> <span class="nf">exit_image_display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clear the camera image.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_cal_display</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="calibration.alert_printf"><a class="viewcode-back" href="../calibration.html#calibration.calibration.alert_printf">[docs]</a>    <span class="k">def</span> <span class="nf">alert_printf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Print error messages.&quot;&quot;&quot;</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;alert_printf </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">%</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="calibration.setup_image_display"><a class="viewcode-back" href="../calibration.html#calibration.calibration.setup_image_display">[docs]</a>    <span class="k">def</span> <span class="nf">setup_image_display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set up the camera image, for newer APIs, the size is 384 x 320 pixels.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_cal_display</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_mouse_state</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="c1"># Create array to hold image data later</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb_index_array</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rgb_index_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                                            <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="calibration.image_title"><a class="viewcode-back" href="../calibration.html#calibration.calibration.image_title">[docs]</a>    <span class="k">def</span> <span class="nf">image_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Display or update Pupil/CR info on image screen.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">imagetitlestim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">imagetitlestim</span> <span class="o">=</span> <span class="n">visual</span><span class="o">.</span><span class="n">TextStim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span>
+                                                  <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
+                                                  <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">15</span><span class="p">),</span> <span class="n">height</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
+                                                  <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">txtcol</span><span class="p">,</span>
+                                                  <span class="n">alignHoriz</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">alignVert</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span>
+                                                  <span class="n">wrapWidth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="o">.</span><span class="mi">8</span><span class="p">,</span>
+                                                  <span class="n">units</span><span class="o">=</span><span class="s1">&#39;pix&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">imagetitlestim</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="calibration.draw_image_line"><a class="viewcode-back" href="../calibration.html#calibration.calibration.draw_image_line">[docs]</a>    <span class="k">def</span> <span class="nf">draw_image_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">totlines</span><span class="p">,</span> <span class="n">buff</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Display image pixel by pixel, line by line.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rgb_index_array</span><span class="p">[</span><span class="n">line</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">buff</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="c1"># Once all lines are collected turn into an image to display</span>
+        <span class="k">if</span> <span class="n">line</span> <span class="o">==</span> <span class="n">totlines</span><span class="p">:</span>
+            <span class="c1"># Make image</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">toimage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rgb_index_array</span><span class="p">,</span>
+                                       <span class="n">pal</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rgb_pallete</span><span class="p">,</span>
+                                       <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;P&#39;</span><span class="p">)</span>
+            <span class="c1"># Resize Image</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">imgstim_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">maxsz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="n">mx</span> <span class="o">=</span> <span class="mf">1.0</span>
+                <span class="k">while</span> <span class="p">(</span><span class="n">mx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">maxsz</span><span class="p">:</span>
+                    <span class="n">mx</span> <span class="o">+=</span> <span class="mf">1.0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">imgstim_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">mx</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">mx</span><span class="p">)</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imgstim_size</span><span class="p">)</span>
+
+            <span class="c1"># Save image as a temporary file</span>
+            <span class="n">tfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">(),</span> <span class="s1">&#39;_eleye.png&#39;</span><span class="p">)</span>
+            <span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">tfile</span><span class="p">,</span> <span class="s1">&#39;PNG&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Need this for target distance to show up</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__img__</span> <span class="o">=</span> <span class="n">image</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">draw_cross_hair</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__img__</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="c1"># Create eye image</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye_image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">eye_image</span> <span class="o">=</span> <span class="n">visual</span><span class="o">.</span><span class="n">ImageStim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span> <span class="n">tfile</span><span class="p">,</span>
+                                                  <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">imgstim_size</span><span class="p">,</span>
+                                                  <span class="n">units</span><span class="o">=</span><span class="s1">&#39;pix&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">eye_image</span><span class="o">.</span><span class="n">setImage</span><span class="p">(</span><span class="n">tfile</span><span class="p">)</span>
+
+            <span class="c1"># Redraw the Camera Setup Mode graphics</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eye_image</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">imagetitlestim</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">imagetitlestim</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+
+            <span class="c1"># Display</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="calibration.set_image_palette"><a class="viewcode-back" href="../calibration.html#calibration.calibration.set_image_palette">[docs]</a>    <span class="k">def</span> <span class="nf">set_image_palette</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Given a set of RGB colors, create a list of 24bit numbers representing the pallet. </span>
+<span class="sd">        Example: RGB of (1,64,127) would be saved as 82047, or the number 00000001 01000000 011111111.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_cal_display</span><span class="p">()</span>
+        <span class="n">sz</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rgb_pallete</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">sz</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sz</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rgb_pallete</span><span class="p">[</span><span class="n">i</span><span class="p">:]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>
