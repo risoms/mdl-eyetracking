@@ -1,4 +1,5 @@
 # folders
+.ipynb_checkpoints/
 _backup/
 _resources/
 instructions/
@@ -10,8 +11,16 @@ mdl/pylink/__pycache__/
 
 # files
 Rating Scale3.jpg
+requirements.txt
+todo.txt
+#jupyter
+distributions.ipynb
+#py
+notes.py
+eyetracking.py
 RB_ContextET_Basketball.py
 RecogMem.py
+#file types
 *.DS_Store
 *.egg
 *.csv
