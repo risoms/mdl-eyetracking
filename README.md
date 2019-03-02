@@ -21,7 +21,7 @@ The docs include a [tutorial](http://mdl.psy.utexas.edu/d/eyelink/tutorial.html)
 Dependencies
 ------------
 
-mdl-eyelink supports Python 2.7 and 3.5+.
+mdl-eyelink supports Python 2.7 and 3.6+.
 
 Installation requires [numpy](http://www.numpy.org/), [scipy](https://www.scipy.org/), [rpy2](https://rpy2.readthedocs.io/), [pandas](https://pandas.pydata.org/), and [matplotlib](https://matplotlib.org/). Some functions will optionally use [statsmodels](https://www.statsmodels.org/) if it is installed.
 

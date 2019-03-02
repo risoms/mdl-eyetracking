@@ -4,18 +4,18 @@
 Created on Wed Feb 13 15:37:43 2019
 
 @author: Semeon Risom
-@email: semeon.risom@gmail.com
+@email: semeon.risom@gmail.com.
 
-References:
-    https://www.psychopy.org/api/hardware/pylink.html
+Sample code to run SR Research Eyelink eyetracking system. Code is optimized for the Eyelink 1000 Plus (5.0),
+but should be compatiable with earlier systems.
 """
 
+#---debug
+from pdb import set_trace as breakpoint
 #---main
 import os
 import re
 import platform
-#---debug
-from pdb import set_trace as breakpoint
 
 #---bridging
 from . import pylink
@@ -23,13 +23,9 @@ from .calibration import calibration
  
 #---------------------------------------------start
 class eyetracking():
-    def __init__(self, libraries=False, subject=None, sample_rate=500, c_num=13, paval=1000,  
-                 pupil_size="area", ip="127.0.0.1", s_port=4444, r_port=5555, 
-                 saccade_velocity_threshold=35,
-                 saccade_acceleration_threshold=9500, 
-                 recording_parse_type="GAZE",
-                 enable_search_limits=True, track_search_limits=True, autothreshold_click=True, 
-                 autothreshold_repeat=True, enable_camera_position_detect=True):
+    def __init__(self, libraries=False, subject=None, refresh_rate=120, calibration_type=13, 
+                 automatic_calibration_pacing=1000, saccade_velocity_threshold=35, saccade_acceleration_threshold=9500, 
+                 select_parser_configuration=0, recording_parse_type="GAZE", enable_search_limits=True):
         """
         Start eyetracker.
         
@@ -37,36 +33,37 @@ class eyetracking():
         ----------
         libraries : :class:`bool`
             Should the code check if required libraries are available.
-        sample_rate : :class:`int`
-            Sampling rate (250, 500, 1000, or 2000).
-        c_num : :class:`int`
-            Calibration type. Default is 13-point.
-        paval : :class:`int`
-            Set calibraiton pacing
-        pupil_size : :class:`int`
-            Pupil Size (area, perimeter).
-        ip : :class:`int`
-            IP Address to connect to Eyelink computer.
-        s_port : :class:`int`
-            Port address to send data.
-        r_port : :class:`int`
-            Port address to recieve data.
+        refresh_rate : :class:`int`
+            Display refresh rate, in Hz. Default is 120. [see EyeLink Programmer’s Guide, 
+            Section 25.9: Parser Configuration]
+        calibration_type : :class:`int`
+            Calibration type. Default is 13-point. [see Eyelink 1000 Plus User Manual, 3.7 Calibration]
+        automatic_calibration_pacing : :class:`int`
+            Select the delay in milliseconds, between successive calibration or validation targets 
+            if automatic target detection is activeSet automatic calibration pacing. [see pylink.chm]
         saccade_velocity_threshold : :class:`int`
-            Saccade Velocity Threshold. Default is 35.
+            Sets velocity threshold of saccade detector: usually 30 for cognitive research, 22 for 
+            pursuit and neurological work. Default is 35. Note: EyeLink II and EyeLink 1000,
+            select select_parser_configuration should be used instead. [see EyeLink Programmer’s Guide, 
+            Section 25.9: Parser Configuration; Eyelink 1000 Plus User Manual, Section 4.3.5 
+            Saccadic Thresholds]
         saccade_acceleration_threshold : :class:`int`
-            Saccade Acceleration Threshold. Default is 9500.
+            Sets acceleration threshold of saccade detector: usually 9500 for cognitive research, 5000 
+            for pursuit and neurological work. Default is 9500. Note: For EyeLink II and EyeLink 1000,
+            select select_parser_configuration should be used instead. [see EyeLink Programmer’s Guide,
+            Section 25.9: Parser Configuration; Eyelink 1000 Plus User Manual, Section 4.3.5 
+            Saccadic Thresholds]
+        select_parser_configuration : :class:`int`
+            Selects the preset standard parser setup (0) or more sensitive (1). These are equivalent
+            to the cognitive and psychophysical configurations. Default is 0. [see EyeLink Programmer’s 
+            Guide, Section 25.9: Parser Configuration]
         recording_parse_type : :class:`str`
-            Options are either 'GAZE','HREF'.
+            Sets how velocity information for saccade detection is to be computed.
+            Enter either 'GAZE' or 'HREF'. Default is 'GAZE'. [see Eyelink 1000 Plus User Manual, 
+            Section 4.4: File Data Types]
         enable_search_limits : :class:`bool`
-            s
-        track_search_limits : :class:`bool`
-            s
-        autothreshold_click : :class:`bool`
-            s
-        autothreshold_repeat : :class:`bool`
-            a
-        enable_camera_position_detect : :class:`bool`
-            a
+            Enables tracking of pupil to global search limits. Default is True. [see Eyelink 1000 Plus 
+            User Manual, Section 4.4: File Data Types]
         """
         
         # check if subject number has been entered
@@ -99,9 +96,11 @@ class eyetracking():
         try:
             self.tracker = pylink.EyeLink()
             self.connected = True
+            self.console(c='green', msg="Eyelink Connected")
         except RuntimeError:
             self.tracker = pylink.EyeLink(None)
             self.connected = False
+            self.console(c='green', msg="Eyelink RuntimeError")
         
         #----screen size
         if platform.system() == "Windows":
@@ -137,28 +136,28 @@ class eyetracking():
         
         #----tracker metadata
         # get eyelink version
-        self.eyelink_version = self.tracker.getTrackerVersion()
+        self.tracker_version = self.tracker.getTrackerVersion()
+        self.console(c='green', msg="Eyelink Tracker: Version %d"(self.tracker_version))
+        
         # get host tracking software version
         self.host_version = 0
-        if self.eyelink_version == 3:
+        if self.tracker_version == 3:
             tvstr  = self.tracker.getTrackerVersionString()
             vindex = tvstr.find("EYELINK CL")
             self.host_version = int(float(tvstr[(vindex + len("EYELINK CL")):].strip()))
+        self.console(c='green', msg="Eyelink Host: Version %s"(self.host_version))
         
         #----preset
+        self.select_parser_configuration = select_parser_configuration
         self.saccade_acceleration_threshold = saccade_acceleration_threshold
         self.saccade_velocity_threshold = saccade_velocity_threshold
         self.recording_parse_type = recording_parse_type
         self.enable_search_limits =  "YES" if enable_search_limits else "NO"
-        self.track_search_limits = "YES" if track_search_limits else "NO"
-        self.autothreshold_click = "YES" if autothreshold_click else "NO"
-        self.autothreshold_repeat = "YES" if autothreshold_repeat else "NO"
-        self.enable_camera_position_detect = "YES" if enable_camera_position_detect else "NO"
-        #sampling rate
-        self.sample_rate = sample_rate
+        #refresh rate
+        self.refresh_rate = refresh_rate
         #calibration
-        self.c_num = c_num #[]-point calibration
-        self.paval = paval
+        self.calibration_type = calibration_type #[]-point calibration
+        self.automatic_calibration_pacing = automatic_calibration_pacing
         # specify the EVENT and SAMPLE data that are stored in EDF or retrievable from the Link
         #[see Section 4.6 Data Files of the  EyeLink 1000 Plus user manual]
         self.fef = "LEFT,RIGHT,FIXATION,SACCADE,BLINK,MESSAGE,BUTTON,INPUT"
@@ -195,7 +194,7 @@ class eyetracking():
             grey =  '\33[47m',
             ENDC = '\033[0m')
         
-        print(color[c] + msg + color['ENDC'])
+        return print(color[c] + msg + color['ENDC'])
     
     def libraries(self):
         """Check if required libraries are available."""
@@ -251,25 +250,37 @@ class eyetracking():
 
         Attributes
         ----------
-        saccade_velocity_threshold : :class:`str`
+        refresh_rate : :class:`int`
+            Display refresh rate, in Hz. Default is 120. [see EyeLink Programmer’s Guide, 
+            Section 25.9: Parser Configuration]
+        calibration_type : :class:`int`
+            Calibration type. Default is 13-point. [see Eyelink 1000 Plus User Manual, 3.7 Calibration]
+        automatic_calibration_pacing : :class:`int`
+            Select the delay in milliseconds, between successive calibration or validation targets 
+            if automatic target detection is activeSet automatic calibration pacing. [see pylink.chm]
+        saccade_velocity_threshold : :class:`int`
             Sets velocity threshold of saccade detector: usually 30 for cognitive research, 22 for 
-            pursuit and neurological work. [see http://download.sr-support.com/dispdoc/cmds9.html]
-            
-        saccade_acceleration_threshold : :class:`str`
+            pursuit and neurological work. Default is 35. Note: EyeLink II and EyeLink 1000,
+            select select_parser_configuration should be used instead. [see EyeLink Programmer’s Guide, 
+            Section 25.9: Parser Configuration; Eyelink 1000 Plus User Manual, Section 4.3.5 
+            Saccadic Thresholds]
+        saccade_acceleration_threshold : :class:`int`
             Sets acceleration threshold of saccade detector: usually 9500 for cognitive research, 5000 
-            for pursuit and neurological work. [see http://download.sr-support.com/dispdoc/cmds9.html]
+            for pursuit and neurological work. Default is 9500. Note: For EyeLink II and EyeLink 1000,
+            select select_parser_configuration should be used instead. [see EyeLink Programmer’s Guide,
+            Section 25.9: Parser Configuration; Eyelink 1000 Plus User Manual, Section 4.3.5 
+            Saccadic Thresholds]
+        select_parser_configuration : :class:`int`
+            Selects the preset standard parser setup (0) or more sensitive (1). These are equivalent
+            to the cognitive and psychophysical configurations. Default is 0. [see EyeLink Programmer’s 
+            Guide, Section 25.9: Parser Configuration]
         recording_parse_type : :class:`str`
-            s
+            Sets how velocity information for saccade detection is to be computed.
+            Enter either 'GAZE' or 'HREF'. Default is 'GAZE'. [see Eyelink 1000 Plus User Manual, 
+            Section 4.4: File Data Types]
         enable_search_limits : :class:`bool`
-            s
-        track_search_limits : :class:`bool`
-            s
-        autothreshold_click : :class:`bool`
-            s
-        autothreshold_repeat : :class:`bool`
-            a
-        enable_camera_position_detect : :class:`bool`
-            a
+            Enables tracking of pupil to global search limits. Default is True. [see Eyelink 1000 Plus 
+            User Manual, Section 4.4: File Data Types]
         """
         
         #----open edf
@@ -279,25 +290,39 @@ class eyetracking():
         #----send settings to eyelink
         #place EyeLink tracker in offline (idle) mode before changing settings     
         self.tracker.setOfflineMode()
-        #eiter GAZE or HREF
+        # Set the tracker to parse events using either GAZE or HREF
+        #note: [see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]
         self.tracker.sendCommand("recording_parse_type = %s"%(self.recording_parse_type))
+        #set sampling rate
+        self.tracker.sendCommand('FRAMERATE %d'%(self.refresh_rate))
+        # inform the tracker the resolution of the subject display
+        # note: [see Eyelink Installation Guide, Section 8.4: Customizing Your PHYSICAL.INI Settings]
+        self.tracker.sendCommand("screen_pixel_coords = 0 0 %d %d"%(self.w - 1, self.h - 1))
+        # save display resolution in EDF data file for Data Viewer integration purposes
+        # note: [see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]
+        self.tracker.sendMessage("DISPLAY_COORDS = 0 0 %d %d"%(self.w - 1, self.h - 1))
+        # set calibration type    
+        self.tracker.sendCommand("calibration_type = HV%d"%(self.calibration_type))
+        #set automatic calibraiton pacing interval
+        self.tracker.sendCommand("automatic_calibration_pacing = %d"%(self.automatic_calibration_pacing))
         
-        #if using tracker version 2 or below
-        if self.eyelink_version>=2: 
-            self.console(c='blue', msg="select_parser_configuration")
-            self.tracker.sendCommand('select_parser_configuration 0')
+        #if using tracker version 2 or greater
+        if self.tracker_version>=2: 
+            self.tracker.sendCommand("select_parser_configuration %d"(self.select_parser_configuration))
+            #turn of scene link
+            if self.tracker_version==2:
+                 self.tracker.sendCommand("scene_camera_gazemap = NO")   
         else:
             self.tracker.sendCommand("saccade_velocity_threshold = %s"(self.saccade_velocity_threshold))
-            self.tracker.sendCommand("saccade_acceleration_threshold = %s"(self.saccade_velocity_threshold))
+            self.tracker.sendCommand("saccade_acceleration_threshold = %s"(self.saccade_acceleration_threshold))
                 
-        #if using tracker version 2 or above
-        if self.eyelink_version>=3:
-            self.console(c='blue', msg="autothreshold_click")
-            self.tracker.sendCommand("autothreshold_click = %s"%(self.autothreshold_click))
-            self.tracker.sendCommand("autothreshold_repeat = %s"%(self.autothreshold_repeat))
-            self.tracker.sendCommand("enable_camera_position_detect = %s"%(self.enable_camera_position_detect))
-            self.tracker.sendCommand("enable_search_limits = %s"%(self.enable_search_limits))
-            self.tracker.sendCommand("track_search_limits = %s"%(self.track_search_limits))
+        #if using tracker version 3 or above
+        if self.tracker_version>=3:
+            self.tracker.sendCommand("enable_search_limits=%s")%(self.enable_search_limits)
+            self.tracker.sendCommand("track_search_limits=YES")
+            self.tracker.sendCommand("autothreshold_click=YES")
+            self.tracker.sendCommand("autothreshold_repeat=YES")
+            self.tracker.sendCommand("enable_camera_position_detect=YES")
         
         #set content of edf file
         ##edf filters #event types
@@ -305,6 +330,10 @@ class eyetracking():
         self.tracker.sendCommand('file_sample_data = %s'%(self.fsd))
         self.tracker.sendCommand('link_event_filter = %s'%(self.lef))
         self.tracker.sendCommand('link_sample_data = %s'%(self.lsd))
+        
+        #program button '5' for drift correction
+        self.tracker.sendCommand("button_function 5 'accept_target_fixation'")
+        
         #select sound for calibration and drift correct
         pylink.setCalibrationSounds("off", "off", "off")
         pylink.setDriftCorrectSounds("off", "off", "off")
@@ -316,7 +345,7 @@ class eyetracking():
         Parameters
         ----------
         eye : :obj:`str`
-            Dominant eye, either left or right. This will be used for outputting Eyelink gaze samples.
+            Dominant eye (left, right). This will be used for outputting Eyelink gaze samples.
         """
         self.console(msg="eyetracking.set_eye_used()")
         eye_entered = str(eye)
@@ -353,18 +382,6 @@ class eyetracking():
             self.genv = calibration(w=self.w, h=self.h, tracker=self.tracker, window=window)
             # execute custom calibration display
             pylink.openGraphicsEx(self.genv)
-            #set sampling rate
-            self.tracker.sendCommand('sample_rate %d'%(self.sample_rate))
-            # inform the tracker the resolution of the subject display
-            # note: [see Eyelink Installation Guide, Section 8.4: Customizing Your PHYSICAL.INI Settings ]
-            self.tracker.sendCommand("screen_pixel_coords = 0 0 %d %d"%(self.w - 1, self.h - 1))
-            # save display resolution in EDF data file for Data Viewer integration purposes
-            # note: [see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]
-            self.tracker.sendMessage("DISPLAY_COORDS = 0 0 %d %d"%(self.w - 1, self.h - 1))
-            # set calibration type    
-            self.tracker.sendCommand("calibration_type = HV%d"%(self.c_num))
-            # set calibraiton pacing
-            self.tracker.setAutoCalibrationPacing(self.paval)
             # calibrate
             self.tracker.doTrackerSetup(self.w, self.h)
     
@@ -447,7 +464,7 @@ class eyetracking():
         
         Parameters
         ----------
-        variable : :obj:`dict`
+        variable : :obj:`dict` or `None`
             Trial-related variables to be read by eyelink.
         """
         if variables is not None:
@@ -467,9 +484,9 @@ class eyetracking():
         
         Parameters
         ----------
-        trial : :obj:`str`
+        trial : :obj:`str` or `None`
             Trial Number.
-        block : :obj:`str`
+        block : :obj:`str` or `None`
             Block Number.
             
         Notes
@@ -518,21 +535,17 @@ class eyetracking():
         self.tracker.sendMessage('SYNCTIME')
         self.tracker.sendMessage('start recording')
 
-    def stop_recording(self, image=None, trial=None, block=None, accuracy=None, variables=[]):
+    def stop_recording(self, trial=None, block=None, variables=None):
         """
         Stops recording of eyelink. Also allows transmission of trial-level variables to Eyelink.
         
         Parameters
         ----------
-        image : :obj:`str`
-            Image to be displayed in Eyelink software.
         trial : :obj:`int`
             Trial Number.
         block : :obj:`int`
             Block Number.
-        block : :obj:`int`
-            Accuracy (1=correct, 0=incorrect).
-        variables : :obj:`dict`
+        variables : :obj:`dict` or `None`
             Dict of variables to send to eyelink (variable name, value).
         
         Notes

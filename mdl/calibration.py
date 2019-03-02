@@ -4,10 +4,10 @@
 Created on Wed Feb 13 15:37:43 2019
 
 @author: Semeon Risom
-@email: semeon.risom@gmail.com
+@email: semeon.risom@gmail.com.
 
-References:
-    https://www.psychopy.org/api/hardware/pylink.html
+Sample code to run SR Research Eyelink eyetracking system. Code is optimized for the Eyelink 1000 Plus (5.0),
+but should be compatiable with earlier systems.
 """
 
 #---main
