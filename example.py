@@ -34,11 +34,16 @@ window = visual.Window(size=[1336, 768], fullscr=False, screen=0, allowGUI=True,
 # start
 eyetracking.calibration(window=window)
 # %%
+# Enter the key "o" on the ```psychopy.visual.window.Window``` instance. This will begin the task. 
+# The Calibration, Validation, 'task-start' events are controlled by the keyboard.
+# Calibration ("c"), Validation ("v"), task-start ("o") respectively.
+# %%
 # (Optional) Print message to console/terminal. This may be useful for debugging issues.
 eyetracking.console(c="green", msg="eyetracking.calibration() started")
 # %%
 # Start recording. This should be run at the start of the trial. 
 # Note: There is an intentional delay of 150 msec to allow the Eyelink to buffer gaze samples.
+
 eyetracking.start_recording(trial=1, block=1)
 # %%
 # Collects new gaze coordinates from Eyelink (only if needed in experiment). This command should be 
