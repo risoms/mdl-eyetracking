@@ -13,57 +13,22 @@ References:
 
 # %%
 # ----imports
-from psychopy import visual, core
-import sys
+from psychopy import visual
 import mdl
 
-# %%
-#----pre-task
-# initalize
-"""
+```html
+pre-task
+initalize
 Parameters
 ----------
 libraries : :class:`bool`
     Should the code check if required libraries are available.
 sample_rate : :class:`int`
-    Sampling rate (250, 500, 1000, or 2000).
-c_num : :class:`int`
-    Calibration type. Default is 13-point.
-paval : :class:`int`
-    Set calibraiton pacing
-pupil_size : :class:`int`
-    Pupil Size (area, perimeter).
-ip : :class:`int`
-    IP Address to connect to Eyelink computer.
-s_port : :class:`int`
-    Port address to send data.
-r_port : :class:`int`
-    Port address to recieve data.
-saccade_velocity_threshold : :class:`int`
-    Saccade Velocity Threshold. Default is 35.
-saccade_acceleration_threshold : :class:`int`
-    Saccade Acceleration Threshold. Default is 9500.
-recording_parse_type : :class:`str`
-    Options are either 'GAZE','HREF'.
-enable_search_limits : :class:`bool`
-    s
-track_search_limits : :class:`bool`
-    s
-autothreshold_click : :class:`bool`
-    s
-autothreshold_repeat : :class:`bool`
-    a
-enable_camera_position_detect : :class:`bool`
-    a
-"""
+    Subject Number.
+```
+# %%
 subject = 1
-eyetracking = mdl.eyetracking(libraries=False, subject=subject, sample_rate=500, c_num=13, paval=1000,
-                              pupil_size="area", ip="127.0.0.1", s_port=4444, r_port=5555,
-                              saccade_velocity_threshold=35, saccade_acceleration_threshold=9500,
-                              recording_parse_type="GAZE", enable_search_limits=True,
-                              track_search_limits=True, autothreshold_click=True, autothreshold_repeat=True,
-                              enable_camera_position_detect=True)
-
+eyetracking = mdl.eyetracking(libraries=False, subject=subject)
 # %%
 # set dominant eye
 """

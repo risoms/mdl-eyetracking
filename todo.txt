@@ -1,0 +1,3 @@
+to do
+- lupita: send python code for: loop (see notes.py), and inputing eyelink commands
+- molly shrink images
