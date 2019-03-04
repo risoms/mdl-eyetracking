@@ -25,8 +25,4 @@ RecogMem.py
 *.ipynb_checkpoints
 *.DS_Store
 *.egg
-*.csv
-*.xlsx
-*.png
-*.jpg
 
