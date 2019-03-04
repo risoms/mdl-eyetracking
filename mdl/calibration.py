@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Feb 13 15:37:43 2019
-
-@author: Semeon Risom
-@email: semeon.risom@gmail.com.
-
-Sample code to run SR Research Eyelink eyetracking system. Code is optimized for the Eyelink 1000 Plus (5.0),
-but should be compatiable with earlier systems.
+| Created on Wed Feb 13 15:37:43 2019
+| @author: Semeon Risom
+| @email: semeon.risom@gmail.com.
+| Sample code to run SR Research Eyelink eyetracking system. Code is optimized for the Eyelink 1000 Plus (5.0),
+| but should be compatiable with earlier systems.
 """
 
 #---main
@@ -25,7 +23,7 @@ class calibration(pylink.EyeLinkCustomDisplay):
     """This inherits a default class from pylink then adds psychopy stim."""
     def __init__(self, w, h, tracker, window):
         """
-        Allow color print to console.
+        Allow colored printing to console.
         
         Parameters
         ----------
