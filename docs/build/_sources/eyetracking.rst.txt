@@ -1,6 +1,10 @@
 eyetracking
 ===============
 
+.. toctree::
+
+    mdl.eyetracking
+
 .. automodule:: eyetracking
     :members:
     :undoc-members:

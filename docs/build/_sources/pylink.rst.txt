@@ -1,11 +1,11 @@
-eyetracking
+pylink
 ===============
 
 .. toctree::
 
-    mdl.eyetracking
+    mdl.pylink.pylink
 
-.. automodule:: eyetracking
+.. automodule:: pylink
     :members:
     :undoc-members:
     :show-inheritance:
