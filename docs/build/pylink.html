@@ -115,7 +115,311 @@
 <h1>pylink<a class="headerlink" href="#pylink" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<span class="target" id="module-pylink"></span><p>Used by autodoc_mock_imports.</p>
+<span class="target" id="module-pylink"></span><p>Performing research with eye-tracking equipment typically requires a long-term investment in software
+tools to collect, process, and analyze data. Much of this involves real-time data collection, saccadic
+analysis, calibration routines, and so on.
+The EyeLink® eye-tracking system is designed to implement most of the required software base for data
+collection and conversion. It is most powerful when used with the Ethernet link interface, which allows
+remote control of data collection and real-time data transfer. The PyLink toolkit includes Pylink module,
+which implements all core EyeLink functions and classes for EyeLink connection and the eyelink graphics,
+such as the display of camera image, calibration, validation, and drift correct. The EyeLink graphics is
+currently implemented using Simple Direct Media Layer (SDL: www.libsdl.org).</p>
+<p>The Pylink library contains a set of classes and functions, which are used to program experiments on many
+different platforms, such as MS-DOS, Windows, Linux, and the Macintosh. Some programming standards,
+such as placement of messages in the EDF file by your experiment, and the use of special data types, have
+been implemented to allow portability of the development kit across platforms. The standard messages
+allow general analysis tools such as EDF2ASC converter or EyeLink Data Viewer to process your EDF files.</p>
+<dl class="function">
+<dt id="pylink.alert">
+<code class="descclassname">pylink.</code><code class="descname">alert</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#pylink.alert" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to give a notification to the user when an error occurs.
+Parameters
+&lt;message&gt;: Text message to be displayed.
+Return Value:
+None
+Remarks:
+This function does not allow printf formatting as in c. However you can do a formatted string argument in python.
+This is equivalent to the C API void alert_printf(char <a href="#id1"><span class="problematic" id="id2">*</span></a>fmt, …);</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.beginRealTimeMode">
+<code class="descclassname">pylink.</code><code class="descname">beginRealTimeMode</code><span class="sig-paren">(</span><em>delay</em><span class="sig-paren">)</span><a class="headerlink" href="#pylink.beginRealTimeMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the application priority and cleans up pending Windows activity to place the application in realtime
+mode. This could take up to 100 milliseconds, depending on the operation system, to set the application
+priority.
+Parameters
+&lt;delay&gt; an integer, used to set the minimum time this function takes, so that this function can act as
+a useful delay.
+Return Value
+None
+This function is equivalent to the C API void begin_realtime_mode(UINT32 delay);</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.bitmapSave">
+<code class="descclassname">pylink.</code><code class="descname">bitmapSave</code><span class="sig-paren">(</span><em>iwidth,iheight,pixels,xs, ys, width,  height,fname,path, sv_options)iwidth  - original image widthiheight - original image heightpixels  - Pixels of the image in one of two possible formats:               pixel=[line1, line2, ... linen] line=[pix1,pix2,...,pixn],pix=(r,g,b).          pixel=[line1, line2, ... linen] line=[pix1,pix2,...,pixn],pix=0xAARRGGBB.xs - crop x positionys - crop y positionwidth - crop widthheight - crop heightfname - file name to savepath -  path to savesvoptions - save options(SV_NOREPLACE,SV_MAKEPATH</em><span class="sig-paren">)</span><a class="headerlink" href="#pylink.bitmapSave" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pylink.closeGraphics">
+<code class="descclassname">pylink.</code><code class="descname">closeGraphics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pylink.closeGraphics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notifies the eyelink_core_graphics to close or release the graphics.
+Parameters
+None
+Return Value
+None
+This is equivalent to the C API void close_expt_graphics(void);
+This function should not be used with custom graphics</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.closeMessageFile">
+<code class="descclassname">pylink.</code><code class="descname">closeMessageFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pylink.closeMessageFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>DOC UNDONE</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.currentTime">
+<code class="descclassname">pylink.</code><code class="descname">currentTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pylink.currentTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current millisecond time since the initialization of the EyeLink library.
+Parameters
+None.
+Return Value
+Long integer for the current millisecond time since the initialization of the EyeLink library
+This function is equivalent to the C API UINT32 current_time(void);</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.currentUsec">
+<code class="descclassname">pylink.</code><code class="descname">currentUsec</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pylink.currentUsec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current microsecond time since the initialization of the EyeLink library.
+Parameters
+None.
+Return Value
+Long integer for the current microsecond time since the initialization of the EyeLink library
+This is equivalent to the C API UINT32 current_usec(void);</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.enableExtendedRealtime">
+<code class="descclassname">pylink.</code><code class="descname">enableExtendedRealtime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pylink.enableExtendedRealtime" title="Permalink to this definition">¶</a></dt>
+<dd><p>DOC UNDONE</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.enablePCRSample">
+<code class="descclassname">pylink.</code><code class="descname">enablePCRSample</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pylink.enablePCRSample" title="Permalink to this definition">¶</a></dt>
+<dd><p>If enabled, the raw data can be obtained</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.enableUTF8EyeLinkMessages">
+<code class="descclassname">pylink.</code><code class="descname">enableUTF8EyeLinkMessages</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pylink.enableUTF8EyeLinkMessages" title="Permalink to this definition">¶</a></dt>
+<dd><p>If enabled, the utf8 encoding is used on message texts.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.endRealTimeMode">
+<code class="descclassname">pylink.</code><code class="descname">endRealTimeMode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pylink.endRealTimeMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the application to a priority slightly above normal, to end realtime mode. This function should
+execute rapidly, but there is the possibility that Windows will allow other tasks to run after this call, causing
+delays of 1-20 milliseconds.
+Parameters
+None
+Return Value
+None
+This function is equivalent to the C API void end_realtime_mode(void);</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.flushGetkeyQueue">
+<code class="descclassname">pylink.</code><code class="descname">flushGetkeyQueue</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pylink.flushGetkeyQueue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the key queue used by getkey(). It may be called at any time to get rid any of old keys from the
+queue.
+Parameters
+None
+Return Value
+None
+This is equivalent to the C API void flush_getkey_queue(void);</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.getDisplayInformation">
+<code class="descclassname">pylink.</code><code class="descname">getDisplayInformation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pylink.getDisplayInformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the display configuration.
+Parameters
+None
+Return Value
+Instance of DisplayInfo class. The width, height, bits, and refresh rate of the display can be accessed
+from the returned value.
+For example.
+display = getDisplayInformation()
+print display.width, display.height, display.bits, display.refresh</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.getLastError">
+<code class="descclassname">pylink.</code><code class="descname">getLastError</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pylink.getLastError" title="Permalink to this definition">¶</a></dt>
+<dd><p>get error number returned by last call to corresponding C-API function</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.inRealTimeMode">
+<code class="descclassname">pylink.</code><code class="descname">inRealTimeMode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pylink.inRealTimeMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>DOC UNDONE</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.msecDelay">
+<code class="descclassname">pylink.</code><code class="descname">msecDelay</code><span class="sig-paren">(</span><em>delay</em><span class="sig-paren">)</span><a class="headerlink" href="#pylink.msecDelay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does a unblocked delay using currentTime().
+Parameters
+&lt;delay&gt;: an integer for number of milliseconds to delay.
+Return Value
+None
+This is equivalent to the C API void msec_delay(UINT32 n);</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.openCustomGraphicsInternal">
+<code class="descclassname">pylink.</code><code class="descname">openCustomGraphicsInternal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pylink.openCustomGraphicsInternal" title="Permalink to this definition">¶</a></dt>
+<dd><p>DOC UNDONE</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.openGraphics">
+<code class="descclassname">pylink.</code><code class="descname">openGraphics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pylink.openGraphics" title="Permalink to this definition">¶</a></dt>
+<dd><p>openGraphics(dimension, bits);
+Opens the graphics if the display mode is not set. If the display mode is already set, uses the existing
+display mode.
+Parameters
+&lt;dimension&gt;: two-item tuple of display containing width and height information.
+&lt;bits&gt;: color bits.
+Return Value
+None or run-time error.
+This is equivalent to the SDL version C API INT16 init_expt_graphics(SDL_Surface * s, DISPLAYINFO <a href="#id3"><span class="problematic" id="id4">*</span></a>info).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.openMessageFile">
+<code class="descclassname">pylink.</code><code class="descname">openMessageFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pylink.openMessageFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>DOC UNDONE</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.pumpDelay">
+<code class="descclassname">pylink.</code><code class="descname">pumpDelay</code><span class="sig-paren">(</span><em>delay</em><span class="sig-paren">)</span><a class="headerlink" href="#pylink.pumpDelay" title="Permalink to this definition">¶</a></dt>
+<dd><p>During calls to msecDelay(), Windows is not able to handle messages. One result of this is that windows
+may not appear. This is the preferred delay function when accurate timing is not needed. It calls
+pumpMessages() until the last 20 milliseconds of the delay, allowing Windows to function properly. In rare
+cases, the delay may be longer than expected. It does not process modeless dialog box messages.
+Parameters
+&lt;delay&gt;: an integer, which sets number of milliseconds to delay.
+Return Value
+None
+Use the This is equivalent to the C API void pump_delay(UINT32 delay);</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.resetBackground">
+<code class="descclassname">pylink.</code><code class="descname">resetBackground</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pylink.resetBackground" title="Permalink to this definition">¶</a></dt>
+<dd><p>DOC UNDONE</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.sendMessageToFile">
+<code class="descclassname">pylink.</code><code class="descname">sendMessageToFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pylink.sendMessageToFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>DOC UNDONE</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.setCalibrationColors">
+<code class="descclassname">pylink.</code><code class="descname">setCalibrationColors</code><span class="sig-paren">(</span><em>foreground_color</em>, <em>background_color</em><span class="sig-paren">)</span><a class="headerlink" href="#pylink.setCalibrationColors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Passes the colors of the display background and fixation target to the eyelink_core_graphics library. During
+calibration, camera image display, and drift correction, the display background should match the brightness
+of the experimental stimuli as closely as possible, in order to maximize tracking accuracy. This function
+passes the colors of the display background and fixation target to the eyelink_core_graphics library. This
+also prevents flickering of the display at the beginning and end of drift correction.
+Parameters
+&lt;foreground_color&gt;: color for foreground calibration target.
+&lt;background_color&gt;: color for foreground calibration background. Both colors must be a threeinteger
+(from 0 to 255) tuple encoding the red, blue, and green color component.
+Return Value
+None
+This is equivalent to the C API void set_calibration_colors(SDL_Color <a href="#id5"><span class="problematic" id="id6">*</span></a>fg, SDL_Color <a href="#id7"><span class="problematic" id="id8">*</span></a>bg);
+Example:
+setCalibrationColors((0, 0, 0), (255, 255, 255))
+This sets the calibration target in black and calibration background in white.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.setCalibrationSounds">
+<code class="descclassname">pylink.</code><code class="descname">setCalibrationSounds</code><span class="sig-paren">(</span><em>target</em>, <em>good</em>, <em>error</em><span class="sig-paren">)</span><a class="headerlink" href="#pylink.setCalibrationSounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selects the sounds to be played during do_tracker_setup(), including calibration, validation and drift
+correction. These events are the display or movement of the target, successful conclusion of calibration or
+good validation, and failure or interruption of calibration or validation.
+Note: If no sound card is installed, the sounds are produced as beeps from the PC speaker. Otherwise,
+sounds can be selected by passing a string. If the string is  (empty), the default sounds are played. If the
+string is off, no sound will be played for that event. Otherwise, the string should be the name of a .WAV
+file to play.
+Parameters
+&lt;target&gt;: Sets sound to play when target moves;
+&lt;good&gt;: Sets sound to play on successful operation;
+&lt;error&gt;: Sets sound to play on failure or interruption.
+Return Value
+None
+This function is equivalent to the C API void set_cal_sounds(char <a href="#id9"><span class="problematic" id="id10">*</span></a>target, char <a href="#id11"><span class="problematic" id="id12">*</span></a>good, char <a href="#id13"><span class="problematic" id="id14">*</span></a>error);</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.setCameraPosition">
+<code class="descclassname">pylink.</code><code class="descname">setCameraPosition</code><span class="sig-paren">(</span><em>left</em>, <em>top</em>, <em>right</em>, <em>bottom</em><span class="sig-paren">)</span><a class="headerlink" href="#pylink.setCameraPosition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the camera position on the display computer. Moves the top left hand corner of the camera position
+to new location.
+Parameters
+&lt;left&gt;: x-coord of upper-left corner of the camera image window;
+&lt;top&gt;: y-coord of upper-left corner of the camera image window;
+&lt;right&gt;: x-coord of lower-right corner of the camera image window;
+&lt;bottom&gt;: y-coord of lower-right corner of the camera image window.
+Return Value
+None</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.setDriftCorrectSounds">
+<code class="descclassname">pylink.</code><code class="descname">setDriftCorrectSounds</code><span class="sig-paren">(</span><em>target</em>, <em>good</em>, <em>setup</em><span class="sig-paren">)</span><a class="headerlink" href="#pylink.setDriftCorrectSounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selects the sounds to be played during doDriftCorrect(). These events are the display or movement of
+the target, successful conclusion of drift correction, and pressing the ESC key to start the Setup menu.
+Note:
+If no sound card is installed, the sounds are produced as beeps from the PC speaker. Otherwise, sounds
+can be selected by passing a string. If the string is  (empty), the default sounds are played. If the string
+is off, no sound will be played for that event. Otherwise, the string should be the name of a .WAV file to
+play.
+Parameters
+&lt;target&gt;: Sets sound to play when target moves;
+&lt;good&gt;: Sets sound to play on successful operation;
+&lt;setup&gt;: Sets sound to play on ESC key pressed.
+Return Value
+None
+This function is equivalent to the C API void set_dcorr_sounds(char <a href="#id15"><span class="problematic" id="id16">*</span></a>target, char <a href="#id17"><span class="problematic" id="id18">*</span></a>good, char <a href="#id19"><span class="problematic" id="id20">*</span></a>setup);</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pylink.setTargetSize">
+<code class="descclassname">pylink.</code><code class="descname">setTargetSize</code><span class="sig-paren">(</span><em>diameter</em>, <em>holesize</em><span class="sig-paren">)</span><a class="headerlink" href="#pylink.setTargetSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>The standard calibration and drift correction target is a disk (for peripheral delectability) with a central
+hole target (for accurate fixation). The sizes of these features may be set with this function.
+Parameters
+&lt;diameter&gt;: Size of outer disk, in pixels.
+&lt;holesize&gt;: Size of central feature, in pixels. If holesize is 0, no central feature will be drawn. The
+disk is drawn in the calibration foreground color, and the hole is drawn in the calibration background
+color.
+Return Value
+None
+This function is equivalent to the C API void set_target_size(UINT16 diameter, UINT16 holesize);</p>
+</dd></dl>
+
 </div>
 
 

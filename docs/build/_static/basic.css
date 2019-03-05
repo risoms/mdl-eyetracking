@@ -10,17 +10,21 @@
  */
 
 /* --modifications ----------------------------------------------------------- */
-/* .rubric{
+.rubric{
 	margin-top: 0px !important;
-} */
+}
 table.field-list{
 	margin-bottom: 0px !important;
 }
-/* -- main layout ----------------------------------------------------------- */
+dl.method {
+    padding-top: 5px;
+}
 
 body>.container{
     margin-top: 10px !important;
 }
+/* -- main layout ----------------------------------------------------------- */
+
 div.clearer {
     clear: both;
 }

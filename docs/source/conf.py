@@ -18,7 +18,7 @@ print(path)
 sys.path.append(path)
 
 # -- Path setup --------------------------------------------------------------
-autodoc_mock_imports = ["numpy", "pandas", "scipy", "PIL", "psychopy", 'pylink']
+autodoc_mock_imports = ["numpy", "pandas", "scipy", "PIL", "psychopy"]
 
 # -- Project information -----------------------------------------------------
 
