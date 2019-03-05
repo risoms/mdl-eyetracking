@@ -23,9 +23,9 @@ from calibration import calibration
  
 #---------------------------------------------start
 class eyetracking():
-    def __init__(self, libraries=False, subject=None, calibration_type=13, automatic_calibration_pacing=1000, 
-                 saccade_velocity_threshold=35, saccade_acceleration_threshold=9500, sound=False,
-                 select_parser_configuration=0, recording_parse_type="GAZE", enable_search_limits=True):
+    def __init__(self, window, libraries=False, subject=None, calibration_type=13, 
+                 automatic_calibration_pacing=1000, saccade_velocity_threshold=35, saccade_acceleration_threshold=9500, 
+                 sound=False, select_parser_configuration=0, recording_parse_type="GAZE", enable_search_limits=True):
         """
         Start eyetracker.
         
@@ -33,6 +33,8 @@ class eyetracking():
         ----------
         libraries : :class:`bool`
             Should the code check if required libraries are available.
+        window : :class:`psychopy.visual.window.Window`
+            PsychoPy window instance.
         sound : :class:`bool`
            Should eyetracker play sounds during calibration/validation. Default False.
         calibration_type : :class:`int`
@@ -80,13 +82,13 @@ class eyetracking():
         if re.match(r'\w+$', self.subject):
             pass
         else:
-            self.window.close()
+            window.close()
             raise AssertionError('Name must only include A-Z, 0-9, or _')
         #check length
         if len(self.subject) <= 8:
             pass
         else:
-            self.window.close()
+            window.close()
             raise AssertionError('Name must be <= 8 characters.')
         #store name
         self.fname = str(self.subject) + '.edf'
@@ -223,9 +225,6 @@ class eyetracking():
                     #if missing, install
                     if importlib.util.find_spec(package) is None:
                         _main(['install',package])
-                    #else import
-                    else:
-                        __import__(package)
                         
             #else pip < 10.01          
             else:
@@ -234,9 +233,6 @@ class eyetracking():
                     #if missing
                     if importlib.util.find_spec(package) is None:
                         pip.main(['install',package])
-                    #else import
-                    else:
-                        __import__(package)
                 
         except Exception as e:
             return e
@@ -350,8 +346,7 @@ class eyetracking():
             self.eye_used = self.right_eye
             
         return self.eye_used
-            
-        
+
     def calibration(self, window):
         """
         Calibrates eyetracker using psychopy stimuli.
@@ -403,11 +398,6 @@ class eyetracking():
         if (drift >= limit): #if drift correct failed more than limit
             self.tracker.sendMessage("drift correction failed") #send failure message
             self.stop_recording()
-            #end experiment
-            if self.is_psychopy:
-                thisExp.abort()
-                window.close()
-                core.quit()
         
         #run calibration
         self.calibration(window)
@@ -458,7 +448,7 @@ class eyetracking():
         Parameters
         ----------
         variable : :obj:`dict` or `None`
-            Trial-related variables to be read by eyelink.
+            Trial-related variables to be read by eyelink.          
         """
         if variables is not None:
             for key, value in variables.items():

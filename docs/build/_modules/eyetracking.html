@@ -4,14 +4,14 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>eyetracking &#8212; mdl-eyelink 2019-03-04T14:46:48 documentation</title>
+    <title>eyetracking &#8212; mdl-eyelink 2019-03-04T18:16:47 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
@@ -36,7 +36,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           mdl-eyelink</a>
-        <span class="navbar-text navbar-version pull-left"><b>2019-03-04T14:46:48</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2019-03-04T18:16:47</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -56,7 +56,7 @@
      href="../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">mdl-eyetracking</span></p>
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Modules for eyetracking functions.</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../calibration.html">calibration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../eyetracking.html">eyetracking</a></li>
@@ -127,9 +127,9 @@
  
 <span class="c1">#---------------------------------------------start</span>
 <div class="viewcode-block" id="eyetracking"><a class="viewcode-back" href="../eyetracking.html#eyetracking.eyetracking">[docs]</a><span class="k">class</span> <span class="nc">eyetracking</span><span class="p">():</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">libraries</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">calibration_type</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">automatic_calibration_pacing</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> 
-                 <span class="n">saccade_velocity_threshold</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">saccade_acceleration_threshold</span><span class="o">=</span><span class="mi">9500</span><span class="p">,</span> <span class="n">sound</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">select_parser_configuration</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">recording_parse_type</span><span class="o">=</span><span class="s2">&quot;GAZE&quot;</span><span class="p">,</span> <span class="n">enable_search_limits</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">libraries</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">calibration_type</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> 
+                 <span class="n">automatic_calibration_pacing</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">saccade_velocity_threshold</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">saccade_acceleration_threshold</span><span class="o">=</span><span class="mi">9500</span><span class="p">,</span> 
+                 <span class="n">sound</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">select_parser_configuration</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">recording_parse_type</span><span class="o">=</span><span class="s2">&quot;GAZE&quot;</span><span class="p">,</span> <span class="n">enable_search_limits</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Start eyetracker.</span>
 <span class="sd">        </span>
@@ -137,6 +137,8 @@
 <span class="sd">        ----------</span>
 <span class="sd">        libraries : :class:`bool`</span>
 <span class="sd">            Should the code check if required libraries are available.</span>
+<span class="sd">        window : :class:`psychopy.visual.window.Window`</span>
+<span class="sd">            PsychoPy window instance.</span>
 <span class="sd">        sound : :class:`bool`</span>
 <span class="sd">           Should eyetracker play sounds during calibration/validation. Default False.</span>
 <span class="sd">        calibration_type : :class:`int`</span>
@@ -184,13 +186,13 @@
         <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\w+$&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">subject</span><span class="p">):</span>
             <span class="k">pass</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">window</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;Name must only include A-Z, 0-9, or _&#39;</span><span class="p">)</span>
         <span class="c1">#check length</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subject</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">8</span><span class="p">:</span>
             <span class="k">pass</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">window</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;Name must be &lt;= 8 characters.&#39;</span><span class="p">)</span>
         <span class="c1">#store name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fname</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subject</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.edf&#39;</span>
@@ -327,9 +329,6 @@
                     <span class="c1">#if missing, install</span>
                     <span class="k">if</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">package</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="n">_main</span><span class="p">([</span><span class="s1">&#39;install&#39;</span><span class="p">,</span><span class="n">package</span><span class="p">])</span>
-                    <span class="c1">#else import</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="nb">__import__</span><span class="p">(</span><span class="n">package</span><span class="p">)</span>
                         
             <span class="c1">#else pip &lt; 10.01          </span>
             <span class="k">else</span><span class="p">:</span>
@@ -338,9 +337,6 @@
                     <span class="c1">#if missing</span>
                     <span class="k">if</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">package</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="n">pip</span><span class="o">.</span><span class="n">main</span><span class="p">([</span><span class="s1">&#39;install&#39;</span><span class="p">,</span><span class="n">package</span><span class="p">])</span>
-                    <span class="c1">#else import</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="nb">__import__</span><span class="p">(</span><span class="n">package</span><span class="p">)</span>
                 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">e</span></div>
@@ -454,8 +450,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">eye_used</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_eye</span>
             
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye_used</span></div>
-            
-        
+
 <div class="viewcode-block" id="eyetracking.calibration"><a class="viewcode-back" href="../eyetracking.html#eyetracking.eyetracking.calibration">[docs]</a>    <span class="k">def</span> <span class="nf">calibration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calibrates eyetracker using psychopy stimuli.</span>
@@ -507,11 +502,6 @@
         <span class="k">if</span> <span class="p">(</span><span class="n">drift</span> <span class="o">&gt;=</span> <span class="n">limit</span><span class="p">):</span> <span class="c1">#if drift correct failed more than limit</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span><span class="s2">&quot;drift correction failed&quot;</span><span class="p">)</span> <span class="c1">#send failure message</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">stop_recording</span><span class="p">()</span>
-            <span class="c1">#end experiment</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_psychopy</span><span class="p">:</span>
-                <span class="n">thisExp</span><span class="o">.</span><span class="n">abort</span><span class="p">()</span>
-                <span class="n">window</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                <span class="n">core</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
         
         <span class="c1">#run calibration</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">(</span><span class="n">window</span><span class="p">)</span></div>
@@ -562,7 +552,7 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        variable : :obj:`dict` or `None`</span>
-<span class="sd">            Trial-related variables to be read by eyelink.</span>
+<span class="sd">            Trial-related variables to be read by eyelink.          </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">variables</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">variables</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -784,7 +774,7 @@
     </p>
     <p>
         &copy; Copyright .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
     </p>
   </div>
 </footer>

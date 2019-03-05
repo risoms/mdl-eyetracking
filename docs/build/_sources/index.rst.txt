@@ -3,7 +3,7 @@ mdl-eyetracking
 
 .. toctree::
    :maxdepth: 2
-   :caption: mdl-eyetracking
+   :caption: Modules for eyetracking functions.
 
    calibration
    eyetracking
