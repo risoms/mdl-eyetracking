@@ -18,7 +18,7 @@
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="mdl-eyetracking" href="index.html" />
+    <link rel="prev" title="mdl-r33-analysis" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -58,6 +58,12 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Modules for eyetracking functions.</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="eyetracking.html">eyetracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pylink.html">pylink</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Modules for eyetracking functions.</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">calibration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="eyetracking.html">eyetracking</a></li>
@@ -121,7 +127,7 @@
 <dl class="class">
 <dt id="calibration.calibration">
 <em class="property">class </em><code class="descclassname">calibration.</code><code class="descname">calibration</code><span class="sig-paren">(</span><em>w</em>, <em>h</em>, <em>tracker</em>, <em>window</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pylink.tracker.EyeLinkCustomDisplay</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sphinx.ext.autodoc.importer._MockObject</span></code></p>
 <p>This inherits a default class from pylink then adds psychopy stim.</p>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
@@ -130,32 +136,26 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.alert_printf" title="calibration.calibration.alert_printf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alert_printf</span></code></a>(msg)</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code>(*args,&nbsp;**kw)</td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.alert_printf" title="calibration.calibration.alert_printf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alert_printf</span></code></a>(msg)</td>
 <td>Print error messages.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.clear_cal_display" title="calibration.calibration.clear_cal_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_cal_display</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.clear_cal_display" title="calibration.calibration.clear_cal_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_cal_display</span></code></a>()</td>
 <td>Clear the calibration display.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.clear_drift_display" title="calibration.calibration.clear_drift_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_drift_display</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.clear_drift_display" title="calibration.calibration.clear_drift_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_drift_display</span></code></a>()</td>
 <td>Clear the drift-check display.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.draw_cal_target" title="calibration.calibration.draw_cal_target"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_cal_target</span></code></a>(x,&nbsp;y)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.draw_cal_target" title="calibration.calibration.draw_cal_target"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_cal_target</span></code></a>(x,&nbsp;y)</td>
 <td>Draw the calibration/validation target.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_cross_hair</span></code>()</td>
-<td></td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.draw_drift_target" title="calibration.calibration.draw_drift_target"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_drift_target</span></code></a>(x,&nbsp;y)</td>
 <td>Draw the drift-check target.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.draw_image_line" title="calibration.calibration.draw_image_line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_image_line</span></code></a>(width,&nbsp;line,&nbsp;totlines,&nbsp;buff)</td>
 <td>Display image pixel by pixel, line by line.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_line</span></code>(x1,&nbsp;y1,&nbsp;x2,&nbsp;y2,&nbsp;colorindex)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_lozenge</span></code>(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;colorindex)</td>
-<td></td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.erase_cal_target" title="calibration.calibration.erase_cal_target"><code class="xref py py-obj docutils literal notranslate"><span class="pre">erase_cal_target</span></code></a>()</td>
 <td>Erase the calibration/validation target.</td>
@@ -175,25 +175,22 @@
 <tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.get_input_key" title="calibration.calibration.get_input_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_input_key</span></code></a>()</td>
 <td>This function will be constantly pools, update the stimuli here is you need dynamic calibration target.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_mouse_state</span></code>()</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.image_title" title="calibration.calibration.image_title"><code class="xref py py-obj docutils literal notranslate"><span class="pre">image_title</span></code></a>(text)</td>
+<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.image_title" title="calibration.calibration.image_title"><code class="xref py py-obj docutils literal notranslate"><span class="pre">image_title</span></code></a>(text)</td>
 <td>Display or update Pupil/CR info on image screen.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.play_beep" title="calibration.calibration.play_beep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play_beep</span></code></a>(beepid)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.play_beep" title="calibration.calibration.play_beep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play_beep</span></code></a>(beepid)</td>
 <td>Play a sound during calibration/drift correct.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.set_image_palette" title="calibration.calibration.set_image_palette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_image_palette</span></code></a>(r,&nbsp;g,&nbsp;b)</td>
+<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.set_image_palette" title="calibration.calibration.set_image_palette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_image_palette</span></code></a>(r,&nbsp;g,&nbsp;b)</td>
 <td>Given a set of RGB colors, create a list of 24bit numbers representing the pallet.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.setup_cal_display" title="calibration.calibration.setup_cal_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_cal_display</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.setup_cal_display" title="calibration.calibration.setup_cal_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_cal_display</span></code></a>()</td>
 <td>Sets up the initial calibration display, which contains a menu with instructions.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.setup_drift_display" title="calibration.calibration.setup_drift_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_drift_display</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.setup_drift_display" title="calibration.calibration.setup_drift_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_drift_display</span></code></a>()</td>
 <td>Sets up the initial drift display</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.setup_image_display" title="calibration.calibration.setup_image_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_image_display</span></code></a>(width,&nbsp;height)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.setup_image_display" title="calibration.calibration.setup_image_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_image_display</span></code></a>(width,&nbsp;height)</td>
 <td>Set up the camera image, for newer APIs, the size is 384 x 320 pixels.</td>
 </tr>
 </tbody>

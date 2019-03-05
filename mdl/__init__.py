@@ -1,16 +1,18 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Feb 13 15:37:43 2019
 
-@author: Semeon Risom
-@email: semeon.risom@gmail.com
-
-References:
-    https://www.psychopy.org/api/hardware/pylink.html
-"""
 import os, sys; sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
 import pylink
 import calibration
 import eyetracking
+
+__version__ = '1.0.0'
+__license__ = 'GNU GPLv3 (or more recent equivalent)'
+__author__ = 'Semeon Risom'
+__author_email__ = 'semeon.risom@gmail.com'
+__maintainer_email__ = 'semeon.risom@gmail.com'
+__url__ = 'https://semeon.io/d/mdl-eyelink/'
+__download_url__ = 'https://github.com/risoms/mdl-eyelink/'
+__git_sha__ = 'n/a'
+__build_platform__ = 'n/a'

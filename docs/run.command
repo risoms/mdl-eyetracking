@@ -1,4 +1,4 @@
 #!/bin/bash
-cd /Users/mdl-admin/Desktop/R33-analysis-master/output/docs/
-make htmlhelp
-exit 0
+cd /Users/mdl-admin/Desktop/mdl-eyelink/docs/
+sphinx-build source build
+#sphinx-apidoc -o source ./../../py/mdl

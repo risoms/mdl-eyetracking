@@ -9,6 +9,13 @@
  *
  */
 
+/* --modifications ----------------------------------------------------------- */
+/* .rubric{
+	margin-top: 0px !important;
+} */
+table.field-list{
+	margin-bottom: 0px !important;
+}
 /* -- main layout ----------------------------------------------------------- */
 
 body>.container{
@@ -595,11 +602,13 @@ div.literal-block-wrapper div.highlight {
 code.descname {
     background-color: transparent;
     font-weight: bold;
-    font-size: 1.2em;
+	font-size: 1.2em;
+	padding-left: 0px !important;
 }
 
 code.descclassname {
-    background-color: transparent;
+	background-color: transparent;
+	padding-left: 0px !important;
 }
 
 code.xref, a code {

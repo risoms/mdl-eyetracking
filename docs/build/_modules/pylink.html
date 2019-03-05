@@ -62,6 +62,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../eyetracking.html">eyetracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../pylink.html">pylink</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Modules for eyetracking functions.</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../calibration.html">calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../eyetracking.html">eyetracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pylink.html">pylink</a></li>
+</ul>
 </ul>
 </li>
               
@@ -102,133 +108,64 @@
     <div class="col-md-12 content">
       
   <h1>Source code for pylink</h1><div class="highlight"><pre>
-<span></span><span class="c1"># -*- coding: CP1251 -*-</span>
-<span class="c1">#</span>
-<span class="c1"># Copyright (c) 1996-2005, SR Research Ltd., All Rights Reserved</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
-<span class="c1"># For use by SR Research licencees only. Redistribution and use in source</span>
-<span class="c1"># and binary forms, with or without modification, are NOT permitted.</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
-<span class="c1"># Redistributions in binary form must reproduce the above copyright</span>
-<span class="c1"># notice, this list of conditions and the following disclaimer in</span>
-<span class="c1"># the documentation and/or other materials provided with the distribution.</span>
-<span class="c1">#</span>
-<span class="c1"># Neither name of SR Research Ltd nor the name of contributors may be used</span>
-<span class="c1"># to endorse or promote products derived from this software without</span>
-<span class="c1"># specific prior written permission.</span>
-<span class="c1">#</span>
-<span class="c1"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS ``AS</span>
-<span class="c1"># IS&#39;&#39; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED</span>
-<span class="c1"># TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A</span>
-<span class="c1"># PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE REGENTS OR</span>
-<span class="c1"># CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,</span>
-<span class="c1"># EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,</span>
-<span class="c1"># PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR</span>
-<span class="c1"># PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF</span>
-<span class="c1"># LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING</span>
-<span class="c1"># NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS</span>
-<span class="c1"># SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<span class="c1"># $Date: 2009/11/02 16:14:37 $</span>
-<span class="c1"># </span>
-<span class="c1">#</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    pylink</span>
+<span class="sd">    ------</span>
+
+<span class="sd">    The public API to pylink.</span>
+
+<span class="sd">    :copyright: Copyright 2012 Salem Harrache and contributors, see AUTHORS.</span>
+<span class="sd">    :license: BSD, see LICENSE for details.</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="n">VERSION</span> <span class="o">=</span> <span class="s1">&#39;0.3.3&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="n">VERSION</span>
+
+<span class="kn">from</span> <span class="nn">.link</span> <span class="k">import</span> <span class="n">TCPLink</span><span class="p">,</span> <span class="n">SerialLink</span><span class="p">,</span> <span class="n">UDPLink</span><span class="p">,</span> <span class="n">GSMLink</span>
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="k">import</span> <span class="n">LOGGER</span><span class="p">,</span> <span class="n">active_logger</span>
 
 
-<span class="sd">&quot;&quot;&quot;Performing research with eye-tracking equipment typically requires a long-term investment in software</span>
-<span class="sd">tools to collect, process, and analyze data. Much of this involves real-time data collection, saccadic</span>
-<span class="sd">analysis, calibration routines, and so on.</span>
-<span class="sd">The EyeLink® eye-tracking system is designed to implement most of the required software base for data</span>
-<span class="sd">collection and conversion. It is most powerful when used with the Ethernet link interface, which allows</span>
-<span class="sd">remote control of data collection and real-time data transfer. The PyLink toolkit includes Pylink module,</span>
-<span class="sd">which implements all core EyeLink functions and classes for EyeLink connection and the eyelink graphics,</span>
-<span class="sd">such as the display of camera image, calibration, validation, and drift correct. The EyeLink graphics is</span>
-<span class="sd">currently implemented using Simple Direct Media Layer (SDL: www.libsdl.org).</span>
-
-
-<span class="sd">The Pylink library contains a set of classes and functions, which are used to program experiments on many</span>
-<span class="sd">different platforms, such as MS-DOS, Windows, Linux, and the Macintosh. Some programming standards,</span>
-<span class="sd">such as placement of messages in the EDF file by your experiment, and the use of special data types, have</span>
-<span class="sd">been implemented to allow portability of the development kit across platforms. The standard messages</span>
-<span class="sd">allow general analysis tools such as EDF2ASC converter or EyeLink Data Viewer to process your EDF files.</span>
-
-
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="kn">from</span> <span class="nn">pylink.constants</span> <span class="k">import</span> <span class="o">*</span>
-
-<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">inRealTimeMode</span>
-<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">flushGetkeyQueue</span>
-<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">beginRealTimeMode</span>
-<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">currentTime</span>
-<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">currentUsec</span>
-<span class="c1">#from pylink.pylink_c import currentDoubleUsec</span>
-<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">endRealTimeMode</span>
-<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">pumpDelay</span>
-<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">msecDelay</span>
-<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">alert</span>
-<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">enableExtendedRealtime</span>
-<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">getLastError</span>
-<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">enablePCRSample</span>
-
-<span class="k">try</span><span class="p">:</span>
-	<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">setCalibrationColors</span>
-	<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">setTargetSize</span>
-	<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">setCalibrationSounds</span>
-	<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">setDriftCorrectSounds</span>
-	<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">setCameraPosition</span>
-	<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">getDisplayInformation</span>
-	<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">openGraphics</span>
-	<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">closeGraphics</span>
-	<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">resetBackground</span>
-	<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">disableCustomBackgroundOnImageMode</span>
-	<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">setCalibrationAnimationTarget</span>
-	<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">enableExternalCalibrationDevice</span>
-<span class="k">except</span><span class="p">:</span>
-	<span class="c1">#means no_sdl defined</span>
-	<span class="k">pass</span>
-<span class="k">try</span><span class="p">:</span>
-	<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">enableUTF8EyeLinkMessages</span>
-<span class="k">except</span><span class="p">:</span>
-	<span class="c1">#means no win32 defined</span>
-	<span class="k">pass</span>
-<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">openCustomGraphicsInternal</span>
-<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">bitmapSave</span>
-<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">sendMessageToFile</span>
-<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">openMessageFile</span>
-<span class="kn">from</span> <span class="nn">pylink.pylink_c</span> <span class="k">import</span> <span class="n">closeMessageFile</span>
-
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">EndBlinkEvent</span>
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">StartBlinkEvent</span>
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">StartNonBlinkEvent</span>
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">FixUpdateEvent</span>
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">StartFixationEvent</span>
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">EndFixationEvent</span>
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">StartSaccadeEvent</span>
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">EndSaccadeEvent</span>
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">EyeLinkAddress</span>
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">EyelinkMessage</span>
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">EyeLinkCustomDisplay</span>
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">KeyInput</span>
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">ILinkData</span>
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">IOEvent</span>
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">ButtonEvent</span>
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">MessageEvent</span>
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">Sample</span>
-<span class="kn">from</span> <span class="nn">pylink.tracker</span> <span class="k">import</span> <span class="n">rawSample</span>
-
-
-
-<span class="kn">from</span> <span class="nn">pylink.eyelink</span> <span class="k">import</span> <span class="n">EyeLinkListener</span>
-<span class="kn">from</span> <span class="nn">pylink.eyelink</span> <span class="k">import</span> <span class="n">EyeLink</span>
-<span class="kn">from</span> <span class="nn">pylink.eyelink</span> <span class="k">import</span> <span class="n">getEYELINK</span>
-<span class="kn">from</span> <span class="nn">pylink.eyelink</span> <span class="k">import</span> <span class="n">openGraphicsEx</span>
-
-
-
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">version</span> 
-<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">.</span><span class="si">%d</span><span class="s2">.</span><span class="si">%d</span><span class="s2">.</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">version</span><span class="o">.</span><span class="n">vernum</span><span class="p">)</span>
+<div class="viewcode-block" id="link_from_url"><a class="viewcode-back" href="../pylink.html#pylink.link_from_url">[docs]</a><span class="k">def</span> <span class="nf">link_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Get link from url&#39;&#39;&#39;</span>
+    <span class="n">link</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">bad_url</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;gsm&quot;</span><span class="p">:</span>
+                <span class="n">phone</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">parent_link</span> <span class="o">=</span> <span class="n">link_from_url</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">:]))</span>
+                <span class="n">link</span> <span class="o">=</span> <span class="n">GSMLink</span><span class="p">(</span><span class="n">phone</span><span class="p">,</span> <span class="n">parent_link</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;tcp&quot;</span> <span class="ow">or</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;udp&quot;</span><span class="p">:</span>
+                <span class="n">host</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;tcp&quot;</span><span class="p">:</span>
+                    <span class="n">link</span> <span class="o">=</span> <span class="n">TCPLink</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">link</span> <span class="o">=</span> <span class="n">UDPLink</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;serial&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">port</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">link</span> <span class="o">=</span> <span class="n">SerialLink</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="n">port</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">baudrate</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                    <span class="n">link</span> <span class="o">=</span> <span class="n">SerialLink</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">baudrate</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                    <span class="n">port</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">baudrate</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                    <span class="n">bytesize</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">parity</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">stopbits</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+                    <span class="n">link</span> <span class="o">=</span> <span class="n">SerialLink</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">baudrate</span><span class="p">,</span> <span class="n">bytesize</span><span class="p">,</span> <span class="n">parity</span><span class="p">,</span>
+                                      <span class="n">stopbits</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="n">bad_url</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="n">link</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">bad_url</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Bad url link sepecified&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">link</span></div>
 </pre></div>
 
     </div>

@@ -1,7 +1,0 @@
-example
-===============
-
-.. toctree::
-    :glob:
-
-    *.ipynb

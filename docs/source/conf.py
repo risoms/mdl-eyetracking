@@ -13,11 +13,12 @@ import datetime
 import sphinx_bootstrap_theme
 
 # module directory
-path = os.path.abspath('..\..\mdl')
+path = os.path.abspath(__file__+ '../../../../mdl')
+print(path)
 sys.path.append(path)
 
 # -- Path setup --------------------------------------------------------------
-autodoc_mock_imports = ["numpy","pandas", "scipy","PIL","psychopy","mdl"]
+autodoc_mock_imports = ["numpy", "pandas", "scipy", "PIL", "psychopy", 'pylink']
 
 # -- Project information -----------------------------------------------------
 
