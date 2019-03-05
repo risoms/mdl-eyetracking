@@ -17,18 +17,19 @@ path = os.path.abspath('..\..\mdl')
 sys.path.append(path)
 
 # -- Path setup --------------------------------------------------------------
-autodoc_mock_imports = ["numpy","pandas", "scipy","PIL","psychopy"]
+autodoc_mock_imports = ["numpy","pandas", "scipy","PIL","psychopy","mdl"]
 
 # -- Project information -----------------------------------------------------
 
 project = 'mdl-eyelink'
 author = 'Semeon Risom'
 
-datetime = datetime.datetime.now().replace(microsecond=0).isoformat()
+#datetime = datetime.datetime.now().replace(microsecond=0).replace(second=0).isoformat()
+date = datetime.date.today().isoformat()
 # The short X.Y version
-version = '%s'%(datetime)
+version = '%s'%(date)
 # The full version, including alpha/beta/rc tags
-release = '%s'%(datetime)
+release = '%s'%(date)
 exclude_patterns = ['_build']
 
 # -- General configuration ---------------------------------------------------
@@ -52,15 +53,15 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.autosummary',
     'matplotlib.sphinxext.plot_directive',
-    'sphinx.ext.githubpages'
+    'sphinx.ext.githubpages',
+    'nbsphinx'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
 # The suffix(es) of source filenames.
-source_suffix = '.rst'
-
+source_suffix = ['.rst', '.md', '.ipynb']
 # The master toctree document.
 master_doc = 'index'
 
@@ -70,7 +71,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = []
+exclude_patterns = ['_build', '**.ipynb_checkpoints']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -110,20 +111,34 @@ html_theme_options = {
          ("API", "api"),
     ],
 }
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
 
-# Custom sidebar templates, must be a dictionary that maps document names
-# to template names.
-#
-# The default sidebars (for documents that don't match any pattern) are
-# defined by theme itself.  Builtin themes are using these templates by
-# default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
-# 'searchbox.html']``.
-#
-# html_sidebars = { '**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html'] }
-
+# -- nbsphinx -------------------------------------------------
+nbsphinx_allow_errors = False
+nbsphinx_execute = 'never'
+# This is processed by Jinja2 and inserted before each notebook
+nbsphinx_prolog = r"""
+{% set docname = env.doc2path(env.docname, base='doc') %}
+.. only:: html
+    .. role:: raw-html(raw)
+        :format: html
+    .. nbinfo::
+        This page was generated from `{{ docname }}`__.
+        Interactive online version:
+        :raw-html:`<a href="https://mybinder.org/v2/gh/spatialaudio/nbsphinx/{{ env.config.release }}?filepath={{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a>`
+    __ https://github.com/spatialaudio/nbsphinx/blob/
+        {{ env.config.release }}/{{ docname }}
+.. raw:: latex
+    \nbsphinxstartnotebook{\scriptsize\noindent\strut
+    \textcolor{gray}{The following section was generated from
+    \sphinxcode{\sphinxupquote{\strut {{ docname | escape_latex }}}} \dotfill}}
+"""
+# This is processed by Jinja2 and inserted after each notebook
+nbsphinx_epilog = r"""
+.. raw:: latex
+    \nbsphinxstopnotebook{\scriptsize\noindent\strut
+    \textcolor{gray}{\dotfill\ \sphinxcode{\sphinxupquote{\strut
+    {{ env.doc2path(env.docname, base='doc') | escape_latex }}}} ends here.}}
+"""
 # latex
 pngmath_latex_preamble = r"""
 \usepackage{color}

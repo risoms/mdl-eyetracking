@@ -11,6 +11,9 @@
 
 /* -- main layout ----------------------------------------------------------- */
 
+body>.container{
+    margin-top: 10px !important;
+}
 div.clearer {
     clear: both;
 }
