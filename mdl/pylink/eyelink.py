@@ -52,33 +52,44 @@ def getLevelTextInternal(level):
 
 class EyeLinkListener(EyeLinkCBind):
     """
-#  EyeLink base class that talks directly to the C api. The constructor of this class only,
-#  initialize the eyelink connection. However, it does not connect. This class is very useful for all broadcast programs.
+    EyeLink base class that talks directly to the C api. The constructor of this class only, initialize the eyelink connection.
+    
+    Parameters
+    ----------
+    EyeLinkCBind : 
+        
+    The constructor of this class only,
+    initialize the eyelink connection. However, it does not connect. This class is very useful for all broadcast programs.
+    EyeLinkListener class implements most of the core EyeLink interface. This includes the simple connection
+    to the eye tracker, sending commands and messages to the tracker, opening and saving a recording file,
+    performing calibration and drift correction, real-time access to tracker data and eye movement events
+    (such as fixations, blinks, and saccades), as well as other important operations.
 
-## EyeLinkListener class implements most of the core EyeLink interface. This includes the simple connection
-#  to the eye tracker, sending commands and messages to the tracker, opening and saving a recording file,
-#  performing calibration and drift correction, real-time access to tracker data and eye movement events
-#  (such as fixations, blinks, and saccades), as well as other important operations.
-#
-#  An instance of EyeLinkListener class can be created by using the class constructor function. For example,
-#
-#	\code
-#   	try:
-#		EYELINK = EyeLinkListener()
-#	except:
-#		EYELINK = None
-#	\endcode
-#
-#  All of the methods should be called in the format of: EYELINK.functionName(parameters), where EYELINK is 
-#  an instance of the EyeLinkListener class.
-"""
+     An instance of EyeLinkListener class can be created by using the class constructor function. For example,
+    
+        \code
+          try:
+            EYELINK = EyeLinkListener()
+        except:
+            EYELINK = None
+        \endcode
+    
+     All of the methods should be called in the format of: EYELINK.functionName(parameters), where EYELINK is 
+     an instance of the EyeLinkListener class.
+    """
 
     def __init__(self):
-        """
-        # The constructor takes no parameters. However, if the connection suceeds, calibration_type, 
-        # gaze_constraint, automatic_calibration commands are sent to the tracker. By default the 
-        # calibration type is HV9, the gazeConstraint is AUTO and automatic calibration is turned off.
-        """
+		"""[summary]
+		
+        The constructor takes no parameters. However, if the connection suceeds, calibration_type, 
+        gaze_constraint, automatic_calibration commands are sent to the tracker. By default the 
+        calibration type is HV9, the gazeConstraint is AUTO and automatic calibration is turned off.
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
 
         EyeLinkCBind.__init__(self)
         self._trackerInfo = ILinkData()
@@ -86,20 +97,28 @@ class EyeLinkListener(EyeLinkCBind):
         # TODO: should now remove all methods that are not available to the listener in EyeLinkCBind
 
     def getTrackerInfo(self):
-        """
+        """[summary]
+		
+		[description]
+		
+		Returns
+		-------
+		self._trackerInfo
+			An instance of the ILinkData class.
+		"""
+		
         Returns the current tracker information.
         @return
-        An instance of the ILinkData class.
-        """
+        
         self._getDataStatus(self._trackerInfo)
         return self._trackerInfo
 
     # Allow the normal calibration target drawing to proceed at different locations.
     #
     #  This is equivalent to the C API
-    #	\code
-    #	INT16 CALLTYPE set_draw_cal_target_hook(INT16 (CALLBACK * erase_cal_target_hook)(HDC hdc), INT16 options);
-    #	\endcode
+    #    \code
+    #    INT16 CALLTYPE set_draw_cal_target_hook(INT16 (CALLBACK * erase_cal_target_hook)(HDC hdc), INT16 options);
+    #    \endcode
     #
     #  @param position A tuple in the format of (x, y), passing along the position of drift correction target.  X and y are in screen pixels.
     def drawCalTarget(self, position):
@@ -111,6 +130,15 @@ class EyeLinkListener(EyeLinkCBind):
 
     # returns the current sample rate.
     def getSampleRate(self):
+		"""[summary]
+		
+		[description]
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
         v = self.getModeData()[1]
         if v == constants.MISSING_DATA:
             return constants.MISSING_DATA
@@ -133,6 +161,15 @@ class EyeLinkListener(EyeLinkCBind):
 
     # returns the eye used.
     def getEyeUsed(self):
+		"""[summary]
+		
+		[description]
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
         v = self.eyeAvailable()
         if v == -1:
             return "NONE"
@@ -146,25 +183,41 @@ class EyeLinkListener(EyeLinkCBind):
     # Sends the given message to the connected %EyeLink tracker. The message will be written to the %EyeLink tracker.
     #
     #  @remarks
-    #  	This is equivalent to the C API
-    #	\code
-    #	int eyecmd_printf(char *fmt, ...);
-    #	\endcode
+    #      This is equivalent to the C API
+    #    \code
+    #    int eyecmd_printf(char *fmt, ...);
+    #    \endcode
     #       The maximum text length is 130 characters. If the given string has more than 130 characters, the first 130
     #       characters will be sent and if the send passes this function will return 1. If the text is not truncated,
-    #	0 will be returnd on a successful message send.
+    #    0 will be returnd on a successful message send.
     #
     #  @param message_text text message to be sent.  It does not support printf() kind of formatting.
     #  @return
-    #	If there is any problem sending the message, a runtime exception is raised.
+    #    If there is any problem sending the message, a runtime exception is raised.
     def sendMessage(self, message_text, offset=0):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		message_text : [type]
+			[description]
+		offset : int, optional
+			[description] (the default is 0, which [default_description])
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
         cut = 0
         if message_text is None or len(message_text) == 0:
             return 0
         message_text = str(message_text)
         # if len(message_text) > 130 :   #bugfix: api-152
         #msg = msg[0:130]
-        #	cut = 1
+        #    cut = 1
         # print "About to send: cut=",cut,msg
         rv = EyeLinkCBind.sendMessage(self, message_text, offset)
         # print "sent"
@@ -179,12 +232,12 @@ class EyeLinkListener(EyeLinkCBind):
 #  configuration, examine the *.INI files in the EYELINK\\EXE\\ directory of the eye tracker computer).  An
 #  instance of the EyeLink class can be created by using the class constructor function.  For example,
 #
-# 	\code
-#	try:
-#		EYELINK = EyeLink()
-#	except:
-#		EYELINK = None
-#	\endcode
+#     \code
+#    try:
+#        EYELINK = EyeLink()
+#    except:
+#        EYELINK = None
+#    \endcode
 #
 #  An instance of EyeLink class can directly use all of the EyeLinkListener methods.  In addition, it has
 #  its own methods as listed in the following.  All of the methods should be called in the format of:
@@ -195,11 +248,39 @@ class EyeLinkListener(EyeLinkCBind):
 #  constructor will connect to the address, otherwise, it connects to the
 #  tracker at 100.1.1.1 with sub net mask 255.255.255.0.
 class EyeLink(EyeLinkListener):
+	"""[summary]
+	
+	[description]
+	
+	Parameters
+	----------
+	EyeLinkListener : [type]
+		[description]
+	
+	Returns
+	-------
+	[type]
+		[description]
+	"""
     # Constructor.
     # @param trackeraddress optional tracker address. If no parameters passed in, defalut address of
     # 100.1.1.1 is used.  If None is passed as the address, the connection is opened in dummy mode.
     #
     def __init__(self, trackeraddress="100.1.1.1"):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		trackeraddress : str, optional
+			[description] (the default is "100.1.1.1", which [default_description])
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
         # The constructor takes no parameters. However, if the connection suceeds, calibration_type,
         # gaze_constraint, automatic_calibration commands are sent to the tracker. By default the
         # calibration type is HV9, the gazeConstraint is AUTO and automatic calibration is turned off.
@@ -254,6 +335,22 @@ class EyeLink(EyeLinkListener):
     #  @param size Size of the file.
     #  @param received Size received so far.
     def progressUpdate(self, size, received):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		size : [type]
+			[description]
+		received : [type]
+			[description]
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
         # print("\r",received,"/",size,)
         return
 
@@ -263,15 +360,31 @@ class EyeLink(EyeLinkListener):
     #  @param size Size of the file.
     #  @param received Size received so far.
     def progressSendDataUpdate(self, size, sent):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		size : [type]
+			[description]
+		sent : [type]
+			[description]
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
         print("\s", sent, "/", size,)
 
     # @todo Need description.
     # def getAutoCalibrationMessage(self):
-    #	return self.__autoCalibrationMessage__
+    #    return self.__autoCalibrationMessage__
 
     # @todo Need description.
     # def setAutoCalibrationMessage(self,v):
-    #	self.__autoCalibrationMessage__=v
+    #    self.__autoCalibrationMessage__=v
 
     # Sets the sample model to be used for velocity and acceleration calculation.
     #  @param sm sample model to be used. Valid values are \c FIVE_SAMPLE_MODEL,
@@ -279,6 +392,20 @@ class EyeLink(EyeLinkListener):
     #
     #
     def setSampleSizeForVelAndAcceleration(self, sm):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		sm : [type]
+			[description]
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
         self.__sampleSizeForVelAndAccel__ = sm
 
     # Returns the sample model used for velocity and acceleration calculation.
@@ -333,9 +460,25 @@ class EyeLink(EyeLinkListener):
     #  \c exitCalibration() from an event handler will cause any call to \c do_tracker_setup() in
     #  progress to return immediately.
     #
-    #  @param width	Width of the screen.
+    #  @param width    Width of the screen.
     #  @param height Height of he screen.
     def doTrackerSetup(self, width=None, height=None):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		width : [type], optional
+			[description] (the default is None, which [default_description])
+		height : [type], optional
+			[description] (the default is None, which [default_description])
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
         if width is not None and height is not None:
             displayCoords = " 0 0 %d %d" % (width, height)
             self.sendMessage("DISPLAY_COORDS" + displayCoords)
@@ -346,32 +489,60 @@ class EyeLink(EyeLinkListener):
     # This programs a specific button for use in drift correction.
     #
     #  @remarks
-    # 	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("button_function %d 'accept_target_fixation'"%button);
-    #	\endcode
+    #     This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("button_function %d 'accept_target_fixation'"%button);
+    #    \endcode
     #
     #  @param button Id of the button that is used to accept target fixation.
     def setAcceptTargetFixationButton(self, button):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		button : [type]
+			[description]
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
         self.sendCommand(
             "button_function %d 'accept_target_fixation'" % button)
 
     # This command sets the calibration type, and recomputed the calibration targets after a display resolution change.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("calibration_type=%s"%caltype);
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("calibration_type=%s"%caltype);
+    #    \endcode
     #
     #  @param type One of these calibration type codes:
-    #		<table>
-    #		<tr><td>\c H3</td><td>horizontal 3-point calibration</td></tr>
-    #		<tr><td>\c HV3</td><td>3-point calibration, poor linearization</td></tr>
-    #		<tr><td>\c HV5</td><td>5-point calibration, poor at corners</td></tr>
-    #		<tr><td>\c HV9</td><td>9-point grid calibration, best overall</td></tr>
-    #		</table>
+    #        <table>
+    #        <tr><td>\c H3</td><td>horizontal 3-point calibration</td></tr>
+    #        <tr><td>\c HV3</td><td>3-point calibration, poor linearization</td></tr>
+    #        <tr><td>\c HV5</td><td>5-point calibration, poor at corners</td></tr>
+    #        <tr><td>\c HV9</td><td>9-point grid calibration, best overall</td></tr>
+    #        </table>
     def setCalibrationType(self, type):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		type : [type]
+			[description]
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
         if(self.isConnected()):
             self.sendCommand("calibration_type=%s" % (type))
 
@@ -379,10 +550,10 @@ class EyeLink(EyeLinkListener):
     #  target position when in \c H3 mode.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("x_gaze_constraint=%s"%(str(value)));
-    # 	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("x_gaze_constraint=%s"%(str(value)));
+    #     \endcode
     #
     #  @param x_position x gaze coordinate, or \c AUTO.
     def setXGazeConstraint(self, x_position="AUTO"):
@@ -393,10 +564,10 @@ class EyeLink(EyeLinkListener):
     #  target position when in \c H3 mode.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("y_gaze_constraint=%s"%(str(value)));
-    # 	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("y_gaze_constraint=%s"%(str(value)));
+    #     \endcode
     #
     #  @param y_position y gaze coordinate, or \c AUTO.
     def setYGazeConstraint(self, y_position="AUTO"):
@@ -406,24 +577,42 @@ class EyeLink(EyeLinkListener):
     # Enables the auto calibration mechanism.  By default, this mechanism is turned off.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	if(EYELINK.isConnected()):
-    #		EYELINK.sendCommand("enable_automatic_calibration=YES")
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    if(EYELINK.isConnected()):
+    #        EYELINK.sendCommand("enable_automatic_calibration=YES")
+    #    \endcode
     def enableAutoCalibration(self):
+		"""[summary]
+		
+		[description]
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
         if(self.isConnected()):
             self.sendCommand("enable_automatic_calibration=YES")
 
     # Disables the auto calibration mechanism.  By default, this mechanism is turned off.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	if(EYELINK.isConnected()):
-    #		EYELINK.sendCommand("enable_automatic_calibration=NO")
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    if(EYELINK.isConnected()):
+    #        EYELINK.sendCommand("enable_automatic_calibration=NO")
+    #    \endcode
     def disableAutoCalibration(self):
+		"""[summary]
+		
+		[description]
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
         if(self.isConnected()):
             self.sendCommand("enable_automatic_calibration=NO")
 
@@ -431,13 +620,27 @@ class EyeLink(EyeLinkListener):
     #  subjects and when interocular data is required.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("automatic_calibration_pacing=%d"%(time))
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("automatic_calibration_pacing=%d"%(time))
+    #    \endcode
     #
     #  @param time shortest delay.
     def setAutoCalibrationPacing(self, pace):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		pace : [type]
+			[description]
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
         self.sendCommand("automatic_calibration_pacing=%d" % (pace))
 
     # Sends a command to the tracker to read the specified io port
@@ -464,23 +667,23 @@ class EyeLink(EyeLinkListener):
     #  The default file filter level is \c 2.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	if(EYELINK.getTrackerVersion() >=2):
-    #		if(filefilter == -1):
-    #			EYELINK.sendCommand("heuristic_filter %d"%(linkfilter))
-    #		else:
-    #			EYELINK.sendCommand(" %d %d"%(linkfilter, filefilter));
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    if(EYELINK.getTrackerVersion() >=2):
+    #        if(filefilter == -1):
+    #            EYELINK.sendCommand("heuristic_filter %d"%(linkfilter))
+    #        else:
+    #            EYELINK.sendCommand(" %d %d"%(linkfilter, filefilter));
+    #    \endcode
     #
     #  @param linkfilter Filter level of the link data.
-    #		\c 0 or \c OFF disables link filter.
-    #	   	\c 1 or \c ON sets filter to 1 (moderate filtering, 1 sample delay).
-    #	   	\c 2 applies an extra level of filtering (2 sample delay).
+    #        \c 0 or \c OFF disables link filter.
+    #           \c 1 or \c ON sets filter to 1 (moderate filtering, 1 sample delay).
+    #           \c 2 applies an extra level of filtering (2 sample delay).
     #  @param filefilter Filter level of the data written to EDF file.
-    #		\c 0 or \c OFF disables link filter.
-    #	   	\c 1 or \c ON sets filter to 1 (moderate filtering, 1 sample delay).
-    #	   	\c 2 applies an extra level of filtering (2 sample delay).
+    #        \c 0 or \c OFF disables link filter.
+    #           \c 1 or \c ON sets filter to 1 (moderate filtering, 1 sample delay).
+    #           \c 2 applies an extra level of filtering (2 sample delay).
     def setHeuristicLinkAndFileFilter(self, linkfilter, filefilter=-1):
         if(self.getTrackerVersion() >= 2):
             if(filefilter == -1):
@@ -494,10 +697,10 @@ class EyeLink(EyeLinkListener):
     #  For %EyeLink II, you should use the \c setHuresticFileAndLinkFilter() method instead.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("heuristic_filter=ON");
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("heuristic_filter=ON");
+    #    \endcode
     def setHeuristicFilterOn(self):
         self.sendCommand("heuristic_filter=ON")
 
@@ -506,32 +709,46 @@ class EyeLink(EyeLinkListener):
     #  For %EyeLink II, you should use the following \c setHuresticFileAndLinkFilter() method instead.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("heuristic_filter = OFF");
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("heuristic_filter = OFF");
+    #    \endcode
     def setHeuristicFilterOff(self):
         self.sendCommand("heuristic_filter=OFF")
 
     # Can be used to determine pupil size information to be recorded.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("pupil_size_diameter = %s"%(value));
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("pupil_size_diameter = %s"%(value));
+    #    \endcode
     #
     #  @param value \c YES to convert pupil area to diameter; \c NO to output pupil area data.
     def setPupilSizeDiameter(self, value):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		value : [type]
+			[description]
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
         self.sendCommand("pupil_size_diameter = %s" % (value))
 
     # Can be used to turn off head tracking if not used.  Do this before calibration.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("simulate_head_camera = %s"%(value));
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("simulate_head_camera = %s"%(value));
+    #    \endcode
     #
     #  @param value \c YES to disable head tracking; \c NO to enable head tracking.
     def setSimulationMode(self, value):
@@ -540,10 +757,10 @@ class EyeLink(EyeLinkListener):
     # Used to compute correct visual angles and velocities when head tracking not used.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("simulation_screen_distance = %s"%(distance));
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("simulation_screen_distance = %s"%(distance));
+    #    \endcode
     #
     #  @param distance simulated distance from display to subject in millimeters.
     def setScreenSimulationDistance(self, distance):
@@ -555,10 +772,10 @@ class EyeLink(EyeLinkListener):
     #  this command is used, until the tracker application is shut down.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("mark_playback_start");
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("mark_playback_start");
+    #    \endcode
     def markPlayBackStart(self):
         self.sendCommand("mark_playback_start")
 
@@ -566,17 +783,17 @@ class EyeLink(EyeLinkListener):
     #  This command has no effect for %EyeLink II, and messages cannot be enabled for versions of %EyeLink I before v2.1.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	re = []
-    #	if(message):
-    #		re.append("MESSAGE ")
-    #	if(button):
-    #		re.append("BUTTON ")
-    #	if(inputevent):
-    #		re.append("INPUT ")
-    #	EYELINK.sendCommand("link_nonrecord_events = %s"%"".join(re));
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    re = []
+    #    if(message):
+    #        re.append("MESSAGE ")
+    #    if(button):
+    #        re.append("BUTTON ")
+    #    if(inputevent):
+    #        re.append("INPUT ")
+    #    EYELINK.sendCommand("link_nonrecord_events = %s"%"".join(re));
+    #    \endcode
     #
     #  @param message \c 1 to enable the recording of %EyeLink messages.
     #  @param button \c 1 to enable recording of buttons (1..8 press or release).
@@ -594,132 +811,132 @@ class EyeLink(EyeLinkListener):
     # Sets data in samples written to EDF file.  See tracker file "DATA.INI" for types.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("file_sample_data = %s"%list)
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("file_sample_data = %s"%list)
+    #    \endcode
     #
     #  @param list list of the following data types, separated by spaces or commas.
-    #		<table>
-    #		<tr><td>\c GAZE</td><td>screen x/y (gaze) position</td></tr>
-    #		<tr><td>\c GAZERES</td><td>units-per-degree screen resolution</td></tr>
-    #		<tr><td>\c HREF</td><td>head-referenced gaze</td></tr>
-    #		<tr><td>\c PUPIL</td><td>raw eye camera pupil coordinates</td></tr>
-    #		<tr><td>\c AREA</td><td>pupil area</td></tr>
-    #		<tr><td>\c STATUS</td><td>warning and error flags</td></tr>
-    #		<tr><td>\c BUTTON</td><td>button state and change flags</td></tr>
-    #		<tr><td>\c INPUT</td><td>input port data lines</td></tr>
-    #		</table>
+    #        <table>
+    #        <tr><td>\c GAZE</td><td>screen x/y (gaze) position</td></tr>
+    #        <tr><td>\c GAZERES</td><td>units-per-degree screen resolution</td></tr>
+    #        <tr><td>\c HREF</td><td>head-referenced gaze</td></tr>
+    #        <tr><td>\c PUPIL</td><td>raw eye camera pupil coordinates</td></tr>
+    #        <tr><td>\c AREA</td><td>pupil area</td></tr>
+    #        <tr><td>\c STATUS</td><td>warning and error flags</td></tr>
+    #        <tr><td>\c BUTTON</td><td>button state and change flags</td></tr>
+    #        <tr><td>\c INPUT</td><td>input port data lines</td></tr>
+    #        </table>
     def setFileSampleFilter(self, list):
         self.sendCommand("file_sample_data = %s" % list)
 
     # Sets data in events written to EDF file.  See tracker file "DATA.INI" for types.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("file_event_data = %s"%list);
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("file_event_data = %s"%list);
+    #    \endcode
     #
     #  @param list list of the following event data types, separated by spaces or commas.
-    #		<table>
-    #		<tr><td>\c GAZE</td><td>screen xy (gaze) position</td></tr>
-    #		<tr><td>\c GAZERES</td><td>units-per-degree angular resolution</td></tr>
-    #		<tr><td>\c HREF</td><td>HREF gaze position</td></tr>
-    #		<tr><td>\c AREA</td><td>pupil area or diameter</td></tr>
-    #		<tr><td>\c VELOCITY</td><td>velocity of eye motion (avg, peak)</td></tr>
-    #		<tr><td>\c STATUS</td><td>warning and error flags for event</td></tr>
-    #		<tr><td>\c FIXAVG</td><td>include ONLY average data in ENDFIX events</td></tr>
-    #		<tr><td>\c NOSTART</td><td>start events have no data, just time stamp</td></tr>
-    #		</table>
+    #        <table>
+    #        <tr><td>\c GAZE</td><td>screen xy (gaze) position</td></tr>
+    #        <tr><td>\c GAZERES</td><td>units-per-degree angular resolution</td></tr>
+    #        <tr><td>\c HREF</td><td>HREF gaze position</td></tr>
+    #        <tr><td>\c AREA</td><td>pupil area or diameter</td></tr>
+    #        <tr><td>\c VELOCITY</td><td>velocity of eye motion (avg, peak)</td></tr>
+    #        <tr><td>\c STATUS</td><td>warning and error flags for event</td></tr>
+    #        <tr><td>\c FIXAVG</td><td>include ONLY average data in ENDFIX events</td></tr>
+    #        <tr><td>\c NOSTART</td><td>start events have no data, just time stamp</td></tr>
+    #        </table>
     def setFileEventData(self, list):
         self.sendCommand("file_event_data = %s" % list)
 
     # Sets which types of events will be written to EDF file.  See tracker file "DATA.INI" for types.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("file_event_filter = %s"%list);
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("file_event_filter = %s"%list);
+    #    \endcode
     #
     #  @param list list of the following event types, separated by spaces or commas.
-    #		<table>
-    #		<tr><td>\c LEFT, \c RIGHT</td><td>events for one or both eyes</td></tr>
-    #		<tr><td>\c FIXATION</td><td>fixation start and end events</td></tr>
-    #		<tr><td>\c FIXUPDATE</td><td>fixation (pursuit) state updates</td></tr>
-    #		<tr><td>\c SACCADE</td><td>saccade start and end</td></tr>
-    #		<tr><td>\c BLINK</td><td>blink start an end</td></tr>
-    #		<tr><td>\c MESSAGE</td><td>messages (user notes in file)</td></tr>
-    #		<tr><td>\c BUTTON</td><td>button 1..8 press or release</td></tr>
-    #		<tr><td>\c INPUT</td><td>changes in input port lines;</td></tr>
-    #		</table>
+    #        <table>
+    #        <tr><td>\c LEFT, \c RIGHT</td><td>events for one or both eyes</td></tr>
+    #        <tr><td>\c FIXATION</td><td>fixation start and end events</td></tr>
+    #        <tr><td>\c FIXUPDATE</td><td>fixation (pursuit) state updates</td></tr>
+    #        <tr><td>\c SACCADE</td><td>saccade start and end</td></tr>
+    #        <tr><td>\c BLINK</td><td>blink start an end</td></tr>
+    #        <tr><td>\c MESSAGE</td><td>messages (user notes in file)</td></tr>
+    #        <tr><td>\c BUTTON</td><td>button 1..8 press or release</td></tr>
+    #        <tr><td>\c INPUT</td><td>changes in input port lines;</td></tr>
+    #        </table>
     def setFileEventFilter(self, list):
         self.sendCommand("file_event_filter = %s" % list)
 
     # Sets data in samples sent through link.  See tracker file "DATA.INI" for types.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("link_sample_data = %s"%list)
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("link_sample_data = %s"%list)
+    #    \endcode
     #
     #  @param list list of data types, separated by spaces or commas.
-    #		<table>
-    #		<tr><td>\c GAZE</td><td>screen xy (gaze) position</td></tr>
-    #		<tr><td>\c GAZERES</td><td>units-per-degree screen resolution</td></tr>
-    #		<tr><td>\c HREF</td><td>head-referenced gaze</td></tr>
-    #		<tr><td>\c PUPIL</td><td>raw eye camera pupil coordinates</td></tr>
-    #		<tr><td>\c AREA</td><td>pupil area</td></tr>
-    #		<tr><td>\c STATUS</td><td>warning and error flags</td></tr>
-    #		<tr><td>\c BUTTON</td><td>button state and change flags</td></tr>
-    #		<tr><td>\c INPUT</td><td>input port data lines</td></tr>
-    #		</table>
+    #        <table>
+    #        <tr><td>\c GAZE</td><td>screen xy (gaze) position</td></tr>
+    #        <tr><td>\c GAZERES</td><td>units-per-degree screen resolution</td></tr>
+    #        <tr><td>\c HREF</td><td>head-referenced gaze</td></tr>
+    #        <tr><td>\c PUPIL</td><td>raw eye camera pupil coordinates</td></tr>
+    #        <tr><td>\c AREA</td><td>pupil area</td></tr>
+    #        <tr><td>\c STATUS</td><td>warning and error flags</td></tr>
+    #        <tr><td>\c BUTTON</td><td>button state and change flags</td></tr>
+    #        <tr><td>\c INPUT</td><td>input port data lines</td></tr>
+    #        </table>
     def setLinkSampleFilter(self, list):
         self.sendCommand("link_sample_data = %s" % list)
 
     # Sets data in events sent through link.  See tracker file "DATA.INI" for types.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("link_event_data = %s"%list);
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("link_event_data = %s"%list);
+    #    \endcode
     #
     #  @param list list of data types, separated by spaces or commas.
-    #		<table>
-    #		<tr><td>\c GAZE</td><td>screen xy (gaze) position</td></tr>
-    #		<tr><td>\c GAZERES</td><td>units-per-degree angular resolution</td></tr>
-    #		<tr><td>\c HREF</td><td>HREF gaze position</td></tr>
-    #		<tr><td>\c AREA</td><td>pupil area or diameter</td></tr>
-    #		<tr><td>\c VELOCITY</td><td>velocity of eye motion (avg, peak)</td></tr>
-    #		<tr><td>\c STATUS</td><td>warning and error flags for event</td></tr>
-    #		<tr><td>\c FIXAVG</td><td>include ONLY average data in ENDFIX events</td></tr>
-    #		<tr><td>\c NOSTART</td><td>start events have no data, just time stamp</td></tr>
-    #		</table>
+    #        <table>
+    #        <tr><td>\c GAZE</td><td>screen xy (gaze) position</td></tr>
+    #        <tr><td>\c GAZERES</td><td>units-per-degree angular resolution</td></tr>
+    #        <tr><td>\c HREF</td><td>HREF gaze position</td></tr>
+    #        <tr><td>\c AREA</td><td>pupil area or diameter</td></tr>
+    #        <tr><td>\c VELOCITY</td><td>velocity of eye motion (avg, peak)</td></tr>
+    #        <tr><td>\c STATUS</td><td>warning and error flags for event</td></tr>
+    #        <tr><td>\c FIXAVG</td><td>include ONLY average data in ENDFIX events</td></tr>
+    #        <tr><td>\c NOSTART</td><td>start events have no data, just time stamp</td></tr>
+    #        </table>
     def setLinkEventData(self, list):
         self.sendCommand("link_event_data = %s" % list)
 
     # Sets which types of events will be sent through link.  See tracker file "DATA.INI" for types.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("link_event_filter = %s"%list);
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("link_event_filter = %s"%list);
+    #    \endcode
     #
     #  @param list list of event types.
-    #		<table>
-    #		<tr><td>\c LEFT, \c RIGHT</td><td>events for one or both eyes</td></tr>
-    #		<tr><td>\c FIXATION</td><td>fixation start and end events</td></tr>
-    #		<tr><td>\c FIXUPDATE</td><td>fixation (pursuit) state updates</td></tr>
-    #		<tr><td>\c SACCADE</td><td>saccade start and end</td></tr>
-    #		<tr><td>\c BLINK</td><td>blink start an end</td></tr>
-    #		<tr><td>\c MESSAGE</td><td>messages (user notes in file)</td></tr>
-    #		<tr><td>\c BUTTON</td><td>button 1..8 press or release</td></tr>
-    #		<tr><td>\c INPUT</td><td>changes in input port lines;</td></tr>
-    #		</table>
+    #        <table>
+    #        <tr><td>\c LEFT, \c RIGHT</td><td>events for one or both eyes</td></tr>
+    #        <tr><td>\c FIXATION</td><td>fixation start and end events</td></tr>
+    #        <tr><td>\c FIXUPDATE</td><td>fixation (pursuit) state updates</td></tr>
+    #        <tr><td>\c SACCADE</td><td>saccade start and end</td></tr>
+    #        <tr><td>\c BLINK</td><td>blink start an end</td></tr>
+    #        <tr><td>\c MESSAGE</td><td>messages (user notes in file)</td></tr>
+    #        <tr><td>\c BUTTON</td><td>button 1..8 press or release</td></tr>
+    #        <tr><td>\c INPUT</td><td>changes in input port lines;</td></tr>
+    #        </table>
     def setLinkEventFilter(self, list):
         self.sendCommand("link_event_filter = %s" % list)
 
@@ -727,10 +944,10 @@ class EyeLink(EyeLinkListener):
     #  pursuit and neurological work.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("saccade_velocity_threshold =%d"%(vel));
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("saccade_velocity_threshold =%d"%(vel));
+    #    \endcode
     #
     #  @param vel minimum velocity (�/sec) for saccades.
     def setSaccadeVelocityThreshold(self, vel):
@@ -740,23 +957,37 @@ class EyeLink(EyeLinkListener):
     #  \c 5000 for pursuit and neurological work.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("saccade_acceleration_threshold  =%d"%(accl));
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("saccade_acceleration_threshold  =%d"%(accl));
+    #    \endcode
     #
     #  @param accel minimum acceleration (�/sec/sec) for saccades.
     def setAccelerationThreshold(self, accel):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		accel : [type]
+			[description]
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
         self.sendCommand("saccade_acceleration_threshold  =%d" % (accel))
 
     # Sets a spatial threshold to shorten saccades.  Usually \c 0.15 for cognitive research,
     #  \c 0 for pursuit and neurological work.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK. sendCommand("saccade_motion_threshold  =%d"%(deg));
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK. sendCommand("saccade_motion_threshold  =%d"%(deg));
+    #    \endcode
     #
     #  @param deg minimum motion (degrees) out of fixation before saccade onset allowed.
     def setMotionThreshold(self, deg):
@@ -765,10 +996,10 @@ class EyeLink(EyeLinkListener):
     # Sets the maximum pursuit velocity accommodation by the saccade detector.  Usually \c 60.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("saccade_pursuit_fixup =  %d"%(v));
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("saccade_pursuit_fixup =  %d"%(v));
+    #    \endcode
     #
     #  @param maxvel maximum pursuit velocity fixup (�/sec).
     def setPursuitFixup(self, maxvel):
@@ -778,10 +1009,10 @@ class EyeLink(EyeLinkListener):
     #  to produce updates for gaze-controlled interface applications.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("fixation_update_interval =  %d"%(time));
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("fixation_update_interval =  %d"%(time));
+    #    \endcode
     #
     #  @param time milliseconds between fixation updates, \c 0 turns off.
     def setUpdateInterval(self, time):
@@ -792,10 +1023,10 @@ class EyeLink(EyeLinkListener):
     #  single sample rather than average position.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("fixation_update_accumulate =  %d"%(time));
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("fixation_update_accumulate =  %d"%(time));
+    #    \endcode
     #
     #  @param time milliseconds to collect data before fixation update for average gaze position.
     def setFixationUpdateAccumulate(self, time):
@@ -804,13 +1035,27 @@ class EyeLink(EyeLinkListener):
     # Sets how velocity information for saccade detection is computed.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("recording_parse_type %s"%(rtype));
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("recording_parse_type %s"%(rtype));
+    #    \endcode
     #
     #  @param rtype \c GAZE or \c HREF; Almost always left to \c GAZE.
     def setRecordingParseType(self, rtype="GAZE"):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		rtype : str, optional
+			[description] (the default is "GAZE", which [default_description])
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
         self.sendCommand("recording_parse_type %s" % (rtype))
 
     # methods to draw graphics to the tracker record screen
@@ -818,11 +1063,11 @@ class EyeLink(EyeLinkListener):
     # Draws text, coordinates are gaze-position display coordinates.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("print_position= %d %d"%pos)
-    #	EYELINK.sendCommand("echo %s"%(text))
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("print_position= %d %d"%pos)
+    #    EYELINK.sendCommand("echo %s"%(text))
+    #    \endcode
     #
     #  @param text text to print in quotes.
     #  @param pos Center point of text; Default position is (\c -1, \c -1).
@@ -837,10 +1082,10 @@ class EyeLink(EyeLinkListener):
     # Clear tracker screen for drawing background graphics or messages.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK. sendCommand("clear_screen %d"%(color));
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK. sendCommand("clear_screen %d"%(color));
+    #    \endcode
     #
     #  @param color \c 0 to \c 15.
     def clearScreen(self, color):
@@ -849,11 +1094,11 @@ class EyeLink(EyeLinkListener):
     # Draws line, coordinates are gaze-position display coordinates.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK. sendCommand("draw_line %d %d %d %d %d"%
-    #		(firstPoint[0],firstPoint[1],secondPoint[0],secondPoint[1], color));
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK. sendCommand("draw_line %d %d %d %d %d"%
+    #        (firstPoint[0],firstPoint[1],secondPoint[0],secondPoint[1], color));
+    #    \endcode
     #
     #  @param firstPoint a two-item tuple, containing the x, y coordinates of the start point.
     #  @param secondPoint a two-item tuple, containing the x, y coordinates of the end point.
@@ -865,10 +1110,10 @@ class EyeLink(EyeLinkListener):
     # Draws an empty box, coordinates are gaze-position display coordinates.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("draw_box %d %d %d %d %d"%(x,y,x+width,y+height,color));
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("draw_box %d %d %d %d %d"%(x,y,x+width,y+height,color));
+    #    \endcode
     #
     #  @param x x coordinates for the top-left corner of the rectangle.
     #  @param y y coordinates for the top-left corner of the rectangle.
@@ -882,10 +1127,10 @@ class EyeLink(EyeLinkListener):
     # Draws a solid block of color, coordinates are gaze-position display coordinates.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("draw_filled_box %d %d %d %d %d"%(x,y,x+width,y+height,color));
-    # 	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("draw_filled_box %d %d %d %d %d"%(x,y,x+width,y+height,color));
+    #     \endcode
     #
     #  @param x x coordinates for the top-left corner of the rectangle.
     #  @param y y coordinates for the top-left corner of the rectangle.
@@ -923,10 +1168,10 @@ class EyeLink(EyeLinkListener):
     # Prints text at current print position to tracker screen, gray on black only.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("echo %s"%text)
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("echo %s"%text)
+    #    \endcode
     #
     #  @param text text to print in quotes.
     def echo(self, text, pos=(-1, -1)):
@@ -935,26 +1180,45 @@ class EyeLink(EyeLinkListener):
     # Draws a small "+" to mark a target point.
     #
     #  @remarks
-    #	This function is equivalent to
-    #	\code
-    #	EYELINK.sendCommand("draw_cross %d %d %d"%(x,y, color));
-    #	\endcode
+    #    This function is equivalent to
+    #    \code
+    #    EYELINK.sendCommand("draw_cross %d %d %d"%(x,y, color));
+    #    \endcode
     #
     #  @param x x coordinates for the center point of cross.
     #  @param y y coordinates for the center point of cross.
     #  @param color \c 0 to \c 15 (\c 0 for black; \c 1 for blue; \c 2 for green; \c 3 for cyan;
-    #		\c 4 for red; \c 5 for magenta; \c 6 for brown; \c 7 for light gray; \c 8 for
-    #		dark gray; \c 9 for light blue; \c 10 for light green; \c 11 for light cyan;
-    #		\c 12 for light red; \c 13 for bright magenta; \c 14 for yellow; \c 15 for bright white).
+    #        \c 4 for red; \c 5 for magenta; \c 6 for brown; \c 7 for light gray; \c 8 for
+    #        dark gray; \c 9 for light blue; \c 10 for light green; \c 11 for light cyan;
+    #        \c 12 for light red; \c 13 for bright magenta; \c 14 for yellow; \c 15 for bright white).
     def drawCross(self, x, y, color):
         self.sendCommand("draw_cross %d %d %d" % (x, y, color))
 
 
 def getEYELINK():
+	"""[summary]
+	
+	[description]
+	
+	Returns
+	-------
+	[type]
+		[description]
+	"""
     return constants.EYELINK
 
 
 def openGraphicsEx(eyeCustomDisplay):
+	"""[summary]
+	
+	[description]
+	
+	Parameters
+	----------
+	eyeCustomDisplay : [type]
+		[description]
+	
+	"""
     if(isinstance(eyeCustomDisplay, EyeLinkCustomDisplay)):
         openCustomGraphicsInternal(eyeCustomDisplay)
     else:
@@ -962,12 +1226,12 @@ def openGraphicsEx(eyeCustomDisplay):
             eyeCustomDisplay.__class__.__name__
 
 # try:
-#	if(pyLinkDefaults.EYELINK_OBJECTTYPE == pyLinkDefaults.EYELINK_OBJECT):
-#		EyeLink()
-#	else:
+#    if(pyLinkDefaults.EYELINK_OBJECTTYPE == pyLinkDefaults.EYELINK_OBJECT):
+#        EyeLink()
+#    else:
 #
-#		EyeLinkListener()
+#        EyeLinkListener()
 # except :
-#	global EYELINK
-#	EYELINK = None
-#	print "NOTE: Running in NON-EyeLink Mode"
+#    global EYELINK
+#    EYELINK = None
+#    print "NOTE: Running in NON-EyeLink Mode"

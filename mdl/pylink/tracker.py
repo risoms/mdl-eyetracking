@@ -51,11 +51,32 @@ from . import constants
 #	myAddress = EyeLinkAddress((100, 1, 1, 1), 4000)
 #	\endcode
 class EyeLinkAddress:
+	"""[summary]
+	
+	[description]
+	
+	Returns
+	-------
+	[type]
+		[description]
+	"""
 	## Constructor
 	# @param ip optional ipaddress in tuple form. eg. if the ip address is 192.168.25.48, the tuple form is (192,168,25,48)
 	# The default ip address is 100.1.1.1
 	# @param port optional port value as integer. The default value is 4000.
 	def __init__(self, ip = (100,1,1,1), port = 4000):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		ip : tuple, optional
+			[description] (the default is (100,1,1,1), which [default_description])
+		port : int, optional
+			[description] (the default is 4000, which [default_description])
+		
+		"""
 		self.ip = ip
 		self.port = port
 	
@@ -92,6 +113,20 @@ class EyeLinkAddress:
 #	myMessage = EyelinkMessage((100, 1, 1, 1), 4000, "test")
 #	\endcode
 class EyelinkMessage(EyeLinkAddress):
+	"""[summary]
+	
+	[description]
+	
+	Parameters
+	----------
+	EyeLinkAddress : [type]
+		[description]
+	
+	Returns
+	-------
+	[type]
+		[description]
+	"""
 	## Constructor
 	# @param ip optional ipaddress in tuple form. eg. if the ip address is 192.168.25.48, the tuple form is (192,168,25,48)
 	# The default ip address is 100.1.1.1
@@ -131,6 +166,15 @@ class EyelinkMessage(EyeLinkAddress):
 #  from the Set Options screen of the %EyeLink II tracker, or from the default configuration set by the DATA.INI file 
 #  for the %EyeLink I tracker).  Eye position data may also be set to \c MISSING_VALUE during a blink.	
 class SampleData:
+	"""[summary]
+	
+	[description]
+	
+	Returns
+	-------
+	[type]
+		[description]
+	"""
 	def __init__(self,px, py,hx, hy,pa,gx, gy):
 		self.__pupil__ =(px, py) 
 		self.__headref__ = (hx, hy) 
@@ -194,6 +238,15 @@ class SampleData:
 #  the sample can be retrieved as \c newSample.getTime().  Please note that all methods for the Sample class do not 
 #  take a parameter whereas the return values are noted.
 class Sample:
+	"""[summary]
+	
+	[description]
+	
+	Returns
+	-------
+	[type]
+		[description]
+	"""
 	def __init__(self, time, type, flags, px, py, hx, hy, pa, gx, gy, rx, ry, status, input, buttons, htype, hdata):
 		self.__time__ = time
 		self.__type__ = type
@@ -316,6 +369,15 @@ class Sample:
 	#  \arg 1 if right eye data present
 	#  \arg 0 if left eye data present
 	def getEye(self):
+		"""[summary]
+		
+		[description]
+		
+		Returns
+		-------
+		[type]
+			[description]
+		"""
 		if (self.__leftData__ is not None and self.__rightData__ is not None):
 			return 2
 		elif self.__leftData__ is not None :
@@ -355,10 +417,132 @@ class Sample:
 
 			 
 def newSample(time, flags, px, py, hx, hy, pa, gx, gy, rx, ry, status, input, buttons, htype, hdata):
+	"""[summary]
+	
+	[description]
+	
+	Parameters
+	----------
+	time : [type]
+		[description]
+	flags : [type]
+		[description]
+	px : [type]
+		[description]
+	py : [type]
+		[description]
+	hx : [type]
+		[description]
+	hy : [type]
+		[description]
+	pa : [type]
+		[description]
+	gx : [type]
+		[description]
+	gy : [type]
+		[description]
+	rx : [type]
+		[description]
+	ry : [type]
+		[description]
+	status : [type]
+		[description]
+	input : [type]
+		[description]
+	buttons : [type]
+		[description]
+	htype : [type]
+		[description]
+	hdata : [type]
+		[description]
+	
+	Returns
+	-------
+	[type]
+		[description]
+	"""
 	return Sample(time,constants.SAMPLE_TYPE, flags, px, py, hx, hy, pa, gx, gy, rx, ry, status, input, buttons, htype, hdata)
 		 
 class rawSample:
 	def __init__(self, time, left_raw_pupil_x,  left_raw_pupil_y, left_raw_cr_x, left_raw_cr_y, left_pupil_area, left_cr_area, left_pupil_dimension_x,left_pupil_dimension_y, left_cr_dimension_x, left_cr_dimension_y, left_win_pos_x, left_win_pos_y, left_pupil_cr_x, left_pupil_cr_y, left_cr_area2, left_raw_cr2_x, left_raw_cr2_y, right_raw_pupil_x,  right_raw_pupil_y, right_raw_cr_x, right_raw_cr_y, right_pupil_area, right_cr_area, right_pupil_dimension_x, right_pupil_dimension_y, right_cr_dimension_x, right_cr_dimension_y, right_win_pos_x, right_win_pos_y, right_pupil_cr_x, right_pupil_cr_y, right_cr_area2, right_raw_cr2_x, right_raw_cr2_y  ):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		time : [type]
+			[description]
+		left_raw_pupil_x : [type]
+			[description]
+		left_raw_pupil_y : [type]
+			[description]
+		left_raw_cr_x : [type]
+			[description]
+		left_raw_cr_y : [type]
+			[description]
+		left_pupil_area : [type]
+			[description]
+		left_cr_area : [type]
+			[description]
+		left_pupil_dimension_x : [type]
+			[description]
+		left_pupil_dimension_y : [type]
+			[description]
+		left_cr_dimension_x : [type]
+			[description]
+		left_cr_dimension_y : [type]
+			[description]
+		left_win_pos_x : [type]
+			[description]
+		left_win_pos_y : [type]
+			[description]
+		left_pupil_cr_x : [type]
+			[description]
+		left_pupil_cr_y : [type]
+			[description]
+		left_cr_area2 : [type]
+			[description]
+		left_raw_cr2_x : [type]
+			[description]
+		left_raw_cr2_y : [type]
+			[description]
+		right_raw_pupil_x : [type]
+			[description]
+		right_raw_pupil_y : [type]
+			[description]
+		right_raw_cr_x : [type]
+			[description]
+		right_raw_cr_y : [type]
+			[description]
+		right_pupil_area : [type]
+			[description]
+		right_cr_area : [type]
+			[description]
+		right_pupil_dimension_x : [type]
+			[description]
+		right_pupil_dimension_y : [type]
+			[description]
+		right_cr_dimension_x : [type]
+			[description]
+		right_cr_dimension_y : [type]
+			[description]
+		right_win_pos_x : [type]
+			[description]
+		right_win_pos_y : [type]
+			[description]
+		right_pupil_cr_x : [type]
+			[description]
+		right_pupil_cr_y : [type]
+			[description]
+		right_cr_area2 : [type]
+			[description]
+		right_raw_cr2_x : [type]
+			[description]
+		right_raw_cr2_y : [type]
+			[description]
+		
+		"""
 		#print "pupil dimension", left_pupil_dimension_x,left_pupil_dimension_y
 		self.__time__				   = time
 		self.__left_rawpupil__ 		   = (left_raw_pupil_x,  left_raw_pupil_y)
@@ -452,6 +636,88 @@ class rawSample:
 		
 
 def newRawSample(time, left_raw_pupil_x,  left_raw_pupil_y, left_raw_cr_x, left_raw_cr_y, left_pupil_area, left_cr_area, left_pupil_dimension_x,left_pupil_dimension_y, left_cr_dimension_x, left_cr_dimension_y, left_win_pos_x, left_win_pos_y, left_pupil_cr_x, left_pupil_cr_y, left_cr_area2, left_raw_cr2_x, left_raw_cr2_y, right_raw_pupil_x,  right_raw_pupil_y, right_raw_cr_x, right_raw_cr_y, right_pupil_area, right_cr_area, right_pupil_dimension_x, right_pupil_dimension_y, right_cr_dimension_x, right_cr_dimension_y, right_win_pos_x, right_win_pos_y, right_pupil_cr_x, right_pupil_cr_y, right_cr_area2, right_raw_cr2_x, right_raw_cr2_y):
+	"""[summary]
+	
+	[description]
+	
+	Parameters
+	----------
+	time : [type]
+		[description]
+	left_raw_pupil_x : [type]
+		[description]
+	left_raw_pupil_y : [type]
+		[description]
+	left_raw_cr_x : [type]
+		[description]
+	left_raw_cr_y : [type]
+		[description]
+	left_pupil_area : [type]
+		[description]
+	left_cr_area : [type]
+		[description]
+	left_pupil_dimension_x : [type]
+		[description]
+	left_pupil_dimension_y : [type]
+		[description]
+	left_cr_dimension_x : [type]
+		[description]
+	left_cr_dimension_y : [type]
+		[description]
+	left_win_pos_x : [type]
+		[description]
+	left_win_pos_y : [type]
+		[description]
+	left_pupil_cr_x : [type]
+		[description]
+	left_pupil_cr_y : [type]
+		[description]
+	left_cr_area2 : [type]
+		[description]
+	left_raw_cr2_x : [type]
+		[description]
+	left_raw_cr2_y : [type]
+		[description]
+	right_raw_pupil_x : [type]
+		[description]
+	right_raw_pupil_y : [type]
+		[description]
+	right_raw_cr_x : [type]
+		[description]
+	right_raw_cr_y : [type]
+		[description]
+	right_pupil_area : [type]
+		[description]
+	right_cr_area : [type]
+		[description]
+	right_pupil_dimension_x : [type]
+		[description]
+	right_pupil_dimension_y : [type]
+		[description]
+	right_cr_dimension_x : [type]
+		[description]
+	right_cr_dimension_y : [type]
+		[description]
+	right_win_pos_x : [type]
+		[description]
+	right_win_pos_y : [type]
+		[description]
+	right_pupil_cr_x : [type]
+		[description]
+	right_pupil_cr_y : [type]
+		[description]
+	right_cr_area2 : [type]
+		[description]
+	right_raw_cr2_x : [type]
+		[description]
+	right_raw_cr2_y : [type]
+		[description]
+	
+	Returns
+	-------
+	[type]
+		[description]
+	"""
 	#print "pupil dimension in def", left_pupil_dimension_x,left_pupil_dimension_y
 	return rawSample(time, left_raw_pupil_x,  left_raw_pupil_y, left_raw_cr_x, left_raw_cr_y, left_pupil_area, left_cr_area, left_pupil_dimension_x,left_pupil_dimension_y, left_cr_dimension_x, left_cr_dimension_y, left_win_pos_x, left_win_pos_y, left_pupil_cr_x, left_pupil_cr_y, left_cr_area2, left_raw_cr2_x, left_raw_cr2_y, right_raw_pupil_x,  right_raw_pupil_y, right_raw_cr_x, right_raw_cr_y, right_pupil_area, right_cr_area, right_pupil_dimension_x, right_pupil_dimension_y, right_cr_dimension_x, right_cr_dimension_y, right_win_pos_x, right_win_pos_y, right_pupil_cr_x, right_pupil_cr_y, right_cr_area2, right_raw_cr2_x, right_raw_cr2_y)
 
@@ -511,6 +777,15 @@ def newRawSample(time, left_raw_pupil_x,  left_raw_pupil_y, left_raw_cr_x, left_
 #  When both eyes are being tracked, left and right eye events are produced.  The eye from which data 
 #  was produced can be retrieved by the \c getEye() method. 
 class EyeEvent:
+	"""[summary]
+	
+	[description]
+	
+	Returns
+	-------
+	[type]
+		[description]
+	"""
 	def __init__(self, time, type, eye, read, sttime):
 		self.__time__ = time
 		self.__type__ = type
@@ -571,7 +846,55 @@ def newStartBlinkEvent(time, type, eye, read, sttime):
 #  StartSaccadeEvent types inherit this.
 #  This also inherits all properties from EyeEvent.
 class StartNonBlinkEvent(EyeEvent):
+	"""[summary]
+	
+	[description]
+	
+	Parameters
+	----------
+	EyeEvent : [type]
+		[description]
+	
+	Returns
+	-------
+	[type]
+		[description]
+	"""
 	def __init__(self, time, type, eye, read, sttime, gstx, gsty, hstx, hsty, svel, supd_x, supd_y):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		EyeEvent : [type]
+			[description]
+		time : [type]
+			[description]
+		type : [type]
+			[description]
+		eye : [type]
+			[description]
+		read : [type]
+			[description]
+		sttime : [type]
+			[description]
+		gstx : [type]
+			[description]
+		gsty : [type]
+			[description]
+		hstx : [type]
+			[description]
+		hsty : [type]
+			[description]
+		svel : [type]
+			[description]
+		supd_x : [type]
+			[description]
+		supd_y : [type]
+			[description]
+		
+		"""
 		EyeEvent.__init__(self, time, type, eye, read, sttime)
 		self.__startGaze__ = (gstx, gsty)
 		self.__startHref__ = (hstx, hsty)
@@ -614,7 +937,49 @@ class StartNonBlinkEvent(EyeEvent):
 ## Class to represent Start Saccade event.
 #  There are no direct properties for this interface.  All properties are inherited from StartNonBlinkEvent.	
 class StartSaccadeEvent(StartNonBlinkEvent):
+	"""[summary]
+	
+	[description]
+	
+	Parameters
+	----------
+	StartNonBlinkEvent : [type]
+		[description]
+	
+	"""
 	def __init__(self, time, type, eye, read, sttime, gstx, gsty, hstx, hsty, svel, supd_x, supd_y):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		time : [type]
+			[description]
+		type : [type]
+			[description]
+		eye : [type]
+			[description]
+		read : [type]
+			[description]
+		sttime : [type]
+			[description]
+		gstx : [type]
+			[description]
+		gsty : [type]
+			[description]
+		hstx : [type]
+			[description]
+		hsty : [type]
+			[description]
+		svel : [type]
+			[description]
+		supd_x : [type]
+			[description]
+		supd_y : [type]
+			[description]
+		
+		"""
 		StartNonBlinkEvent.__init__(self, time, type, eye, read, sttime, gstx, gsty, hstx, hsty, svel, supd_x, supd_y)
 
 
@@ -643,6 +1008,20 @@ def newStartFixationEvent(time, type, eye, read, sttime, gstx, gsty, hstx, hsty,
 ## Class to represent End Blink event. This also contains the Start Blink data.
 #  This also inherits all properties from EyeEvent.
 class EndBlinkEvent(EyeEvent):
+	"""[summary]
+	
+	[description]
+	
+	Parameters
+	----------
+	EyeEvent : [type]
+		[description]
+	
+	Returns
+	-------
+	[type]
+		[description]
+	"""
 	def __init__(self, time, type, eye, read, sttime, entime):
 		EyeEvent.__init__(self, time, type, eye, read, sttime)
 		self.__entime__ = entime
@@ -691,7 +1070,44 @@ def newEndBlinkEvent(time, type, eye, read, sttime, entime):
 #  Please note that the average velocity for saccades may be larger than the saccade magnitude 
 #  divided by its duration because of overshoots and returns.   
 class EndNonBlinkEvent:
+	"""[summary]
+	
+	[description]
+	
+	Returns
+	-------
+	[type]
+		[description]
+	"""
 	def __init__(self, entime, genx, geny, henx, heny, evel, avel, pvel, eupd_x, eupd_y):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		entime : [type]
+			[description]
+		genx : [type]
+			[description]
+		geny : [type]
+			[description]
+		henx : [type]
+			[description]
+		heny : [type]
+			[description]
+		evel : [type]
+			[description]
+		avel : [type]
+			[description]
+		pvel : [type]
+			[description]
+		eupd_x : [type]
+			[description]
+		eupd_y : [type]
+			[description]
+		
+		"""
 		self.__endTime__ = entime
 		self.__endGaze__ = (genx, geny)
 		self.__endHref__ = (henx, heny)
@@ -772,7 +1188,77 @@ def getAngle(xavgres,yavgres,x1,y1, x2, y2):
 ## Class to represent End Saccade event. This also contains the Start Saccade data.
 #  This also inherits all properties from StartSaccadeEvent and EndNonBlinkEvent.
 class EndSaccadeEvent(StartSaccadeEvent, EndNonBlinkEvent):
+	"""[summary]
+	
+	[description]
+	
+	Parameters
+	----------
+	StartSaccadeEvent : [type]
+		[description]
+	EndNonBlinkEvent : [type]
+		[description]
+	
+	Returns
+	-------
+	[type]
+		[description]
+	"""
 	def __init__(self, time, type, eye, read, sttime, gstx, gsty, hstx, hsty, svel, supd_x, supd_y, entime, genx, geny, henx, heny, evel, avel, pvel, eupd_x, eupd_y):
+		"""[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		StartSaccadeEvent : [type]
+			[description]
+		time : [type]
+			[description]
+		type : [type]
+			[description]
+		eye : [type]
+			[description]
+		read : [type]
+			[description]
+		sttime : [type]
+			[description]
+		gstx : [type]
+			[description]
+		gsty : [type]
+			[description]
+		hstx : [type]
+			[description]
+		hsty : [type]
+			[description]
+		svel : [type]
+			[description]
+		supd_x : [type]
+			[description]
+		supd_y : [type]
+			[description]
+		entime : [type]
+			[description]
+		genx : [type]
+			[description]
+		geny : [type]
+			[description]
+		henx : [type]
+			[description]
+		heny : [type]
+			[description]
+		evel : [type]
+			[description]
+		avel : [type]
+			[description]
+		pvel : [type]
+			[description]
+		eupd_x : [type]
+			[description]
+		eupd_y : [type]
+			[description]
+		
+		"""
 		StartSaccadeEvent.__init__(self, time, type, eye, read, sttime, gstx, gsty, hstx, hsty, svel, supd_x, supd_y)
 		EndNonBlinkEvent.__init__(self, entime, genx, geny, henx, heny, evel, avel, pvel, eupd_x, eupd_y)
 	
