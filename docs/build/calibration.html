@@ -18,7 +18,6 @@
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="eyetracking" href="eyetracking.html" />
     <link rel="prev" title="mdl-r33-analysis" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -76,7 +75,9 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">calibration</a></li>
+<li><a class="reference internal" href="#">calibration</a><ul>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -110,6 +111,229 @@
 <h1>calibration<a class="headerlink" href="#calibration" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
+<span class="target" id="module-calibration"></span><div class="line-block">
+<div class="line">Created on Wed Feb 13 15:37:43 2019</div>
+<div class="line">&#64;author: Semeon Risom</div>
+<div class="line">&#64;email: <a class="reference external" href="mailto:semeon&#46;risom&#37;&#52;&#48;gmail&#46;com">semeon<span>&#46;</span>risom<span>&#64;</span>gmail<span>&#46;</span>com</a>.</div>
+<div class="line">Sample code to run SR Research Eyelink eyetracking system. Code is optimized for the Eyelink 1000 Plus (5.0),</div>
+<div class="line">but should be compatiable with earlier systems.</div>
+</div>
+<dl class="class">
+<dt id="calibration.calibration">
+<em class="property">class </em><code class="descclassname">calibration.</code><code class="descname">calibration</code><span class="sig-paren">(</span><em>w</em>, <em>h</em>, <em>tracker</em>, <em>window</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pylink.tracker.EyeLinkCustomDisplay</span></code></p>
+<p>This inherits a default class from pylink then adds psychopy stim.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.alert_printf" title="calibration.calibration.alert_printf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alert_printf</span></code></a>(msg)</td>
+<td>Print error messages.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.clear_cal_display" title="calibration.calibration.clear_cal_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_cal_display</span></code></a>()</td>
+<td>Clear the calibration display.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.clear_drift_display" title="calibration.calibration.clear_drift_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_drift_display</span></code></a>()</td>
+<td>Clear the drift-check display.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.draw_cal_target" title="calibration.calibration.draw_cal_target"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_cal_target</span></code></a>(x,&nbsp;y)</td>
+<td>Draw the calibration/validation target.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_cross_hair</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.draw_drift_target" title="calibration.calibration.draw_drift_target"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_drift_target</span></code></a>(x,&nbsp;y)</td>
+<td>Draw the drift-check target.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.draw_image_line" title="calibration.calibration.draw_image_line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_image_line</span></code></a>(width,&nbsp;line,&nbsp;totlines,&nbsp;buff)</td>
+<td>Display image pixel by pixel, line by line.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_line</span></code>(x1,&nbsp;y1,&nbsp;x2,&nbsp;y2,&nbsp;colorindex)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_lozenge</span></code>(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;colorindex)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.erase_cal_target" title="calibration.calibration.erase_cal_target"><code class="xref py py-obj docutils literal notranslate"><span class="pre">erase_cal_target</span></code></a>()</td>
+<td>Erase the calibration/validation target.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.erase_drift_target" title="calibration.calibration.erase_drift_target"><code class="xref py py-obj docutils literal notranslate"><span class="pre">erase_drift_target</span></code></a>()</td>
+<td>Erase the drift-check target.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.exit_cal_display" title="calibration.calibration.exit_cal_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exit_cal_display</span></code></a>()</td>
+<td>Exits calibration display.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.exit_drift_display" title="calibration.calibration.exit_drift_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exit_drift_display</span></code></a>()</td>
+<td>Exits drift display.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.exit_image_display" title="calibration.calibration.exit_image_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exit_image_display</span></code></a>()</td>
+<td>Clear the camera image.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.get_input_key" title="calibration.calibration.get_input_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_input_key</span></code></a>()</td>
+<td>This function will be constantly pools, update the stimuli here is you need dynamic calibration target.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_mouse_state</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.image_title" title="calibration.calibration.image_title"><code class="xref py py-obj docutils literal notranslate"><span class="pre">image_title</span></code></a>(text)</td>
+<td>Display or update Pupil/CR info on image screen.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.play_beep" title="calibration.calibration.play_beep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play_beep</span></code></a>(beepid)</td>
+<td>Play a sound during calibration/drift correct.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.set_image_palette" title="calibration.calibration.set_image_palette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_image_palette</span></code></a>(r,&nbsp;g,&nbsp;b)</td>
+<td>Given a set of RGB colors, create a list of 24bit numbers representing the pallet.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.setup_cal_display" title="calibration.calibration.setup_cal_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_cal_display</span></code></a>()</td>
+<td>Sets up the initial calibration display, which contains a menu with instructions.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#calibration.calibration.setup_drift_display" title="calibration.calibration.setup_drift_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_drift_display</span></code></a>()</td>
+<td>Sets up the initial drift display</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#calibration.calibration.setup_image_display" title="calibration.calibration.setup_image_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_image_display</span></code></a>(width,&nbsp;height)</td>
+<td>Set up the camera image, for newer APIs, the size is 384 x 320 pixels.</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="68%" />
+<col width="32%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>getColorFromIndex</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><strong>record_abort_hide</strong></td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="calibration.calibration.alert_printf">
+<code class="descname">alert_printf</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.alert_printf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.alert_printf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print error messages.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.clear_cal_display">
+<code class="descname">clear_cal_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.clear_cal_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.clear_cal_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the calibration display.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.clear_drift_display">
+<code class="descname">clear_drift_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.clear_drift_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.clear_drift_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the drift-check display.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.draw_cal_target">
+<code class="descname">draw_cal_target</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.draw_cal_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.draw_cal_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the calibration/validation target.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.draw_drift_target">
+<code class="descname">draw_drift_target</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.draw_drift_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.draw_drift_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the drift-check target.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.draw_image_line">
+<code class="descname">draw_image_line</code><span class="sig-paren">(</span><em>width</em>, <em>line</em>, <em>totlines</em>, <em>buff</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.draw_image_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.draw_image_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display image pixel by pixel, line by line.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.erase_cal_target">
+<code class="descname">erase_cal_target</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.erase_cal_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.erase_cal_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Erase the calibration/validation target.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.erase_drift_target">
+<code class="descname">erase_drift_target</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.erase_drift_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.erase_drift_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Erase the drift-check target.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.exit_cal_display">
+<code class="descname">exit_cal_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.exit_cal_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.exit_cal_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exits calibration display.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.exit_drift_display">
+<code class="descname">exit_drift_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.exit_drift_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.exit_drift_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exits drift display.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.exit_image_display">
+<code class="descname">exit_image_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.exit_image_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.exit_image_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the camera image.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.getColorFromIndex">
+<code class="descname">getColorFromIndex</code><span class="sig-paren">(</span><em>colorindex</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.getColorFromIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.getColorFromIndex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.get_input_key">
+<code class="descname">get_input_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.get_input_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.get_input_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will be constantly pools, update the stimuli here is you need
+dynamic calibration target.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.image_title">
+<code class="descname">image_title</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.image_title"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.image_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display or update Pupil/CR info on image screen.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.play_beep">
+<code class="descname">play_beep</code><span class="sig-paren">(</span><em>beepid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.play_beep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.play_beep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Play a sound during calibration/drift correct.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.record_abort_hide">
+<code class="descname">record_abort_hide</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.record_abort_hide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.record_abort_hide" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.set_image_palette">
+<code class="descname">set_image_palette</code><span class="sig-paren">(</span><em>r</em>, <em>g</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.set_image_palette"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.set_image_palette" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a set of RGB colors, create a list of 24bit numbers representing the pallet. 
+Example: RGB of (1,64,127) would be saved as 82047, or the number 00000001 01000000 011111111.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.setup_cal_display">
+<code class="descname">setup_cal_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.setup_cal_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.setup_cal_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets up the initial calibration display, which contains a menu with instructions.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.setup_drift_display">
+<code class="descname">setup_drift_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.setup_drift_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.setup_drift_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets up the initial drift display</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calibration.calibration.setup_image_display">
+<code class="descname">setup_image_display</code><span class="sig-paren">(</span><em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calibration.html#calibration.setup_image_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#calibration.calibration.setup_image_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set up the camera image, for newer APIs, the size is 384 x 320 pixels.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
