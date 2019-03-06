@@ -15,17 +15,7 @@ mdl-r33-analysis
              <h3 class="panel-title">Contents</h3>
            </div>
        <div class="panel-body">
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Modules for eyetracking functions.
-   :glob:
-
-   calibration
-   eyetracking
-   pylink
-   example.ipynb
-
+       
 .. toctree::
    :maxdepth: 2
    :caption: Modules for eyetracking functions.
