@@ -1,5 +1,5 @@
 @echo OFF
 
-sphinx-apidoc -o %~dp0\source %~dp0\..\mdl
+sphinx-apidoc -o %~dp0\source %~dp0\build
 
 :end

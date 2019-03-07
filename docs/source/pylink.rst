@@ -1,14 +1,10 @@
 pylink
 ===============
 
-.. toctree::
+.. currentmodule:: mdl.pylink
 
-    mdl.pylink.pylink
-
-.. currentmodule:: pylink
-
-.. autosummary::
+.. automodule::
    :nosignatures:
 
-    eyelink
-    tracker
+    mdl.pylink.pylink.eyelink
+    mdl.pylink.pylink.tracker

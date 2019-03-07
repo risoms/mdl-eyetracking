@@ -4,8 +4,8 @@
 import os, sys; sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
 import pylink
-import calibration
-import eyetracking
+from .calibration import calibration
+from .eyetracking import eyetracking
 
 __version__ = '1.0.0'
 __license__ = 'GNU GPLv3 (or more recent equivalent)'
