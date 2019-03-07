@@ -5,7 +5,10 @@ pylink
 
     mdl.pylink.pylink
 
-.. automodule:: pylink.eyelink
-    :members:
-    :undoc-members:
-    :show-inheritance:
+.. currentmodule:: pylink
+
+.. autosummary::
+   :nosignatures:
+
+    eyelink
+    tracker
