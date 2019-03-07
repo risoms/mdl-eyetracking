@@ -5,7 +5,7 @@ pylink
 
     mdl.pylink.pylink
 
-.. automodule:: pylink.eyetracking
+.. automodule:: pylink.eyelink
     :members:
     :undoc-members:
     :show-inheritance:
