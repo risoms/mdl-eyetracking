@@ -5,14 +5,12 @@ _resources/
 blocks/
 CFD/
 data/
-instructions/
 __pycache__/
 mdl/__pycache__/
 mdl/pylink/__pycache__/
 
 # files
 Rating Scale3.jpg
-requirements.txt
 todo.txt
 ## jupyter
 distributions.ipynb
