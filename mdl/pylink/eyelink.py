@@ -40,20 +40,10 @@ from pylink.pylink_c import openCustomGraphicsInternal
 from pylink.tracker import ILinkData
 from pylink.tracker import EyeLinkCustomDisplay
 
-
-def getLevelTextInternal(level):
-    if level == 0:
-        return "OFF"
-    elif level == 1:
-        return "NORMAL"
-    elif level == 2:
-        return "HIGH"
-
-
 class EyeLinkListener(EyeLinkCBind):
     """
     EyeLink base class that talks directly to the C api. The constructor of this class only, initialize the eyelink connection.
-    
+
     Parameters
     ----------
     EyeLinkCBind : 
@@ -65,31 +55,31 @@ class EyeLinkListener(EyeLinkCBind):
     performing calibration and drift correction, real-time access to tracker data and eye movement events
     (such as fixations, blinks, and saccades), as well as other important operations.
 
-     An instance of EyeLinkListener class can be created by using the class constructor function. For example,
-    
+        An instance of EyeLinkListener class can be created by using the class constructor function. For example,
+
         \code
-          try:
+            try:
             EYELINK = EyeLinkListener()
         except:
             EYELINK = None
         \endcode
-    
-     All of the methods should be called in the format of: EYELINK.functionName(parameters), where EYELINK is 
-     an instance of the EyeLinkListener class.
+
+        All of the methods should be called in the format of: EYELINK.functionName(parameters), where EYELINK is 
+        an instance of the EyeLinkListener class.
     """
 
     def __init__(self):
-		"""[summary]
-		
+        """[summary]
+
         The constructor takes no parameters. However, if the connection suceeds, calibration_type, 
         gaze_constraint, automatic_calibration commands are sent to the tracker. By default the 
         calibration type is HV9, the gazeConstraint is AUTO and automatic calibration is turned off.
-		
-		Returns
-		-------
-		[type]
-			[description]
-		"""
+
+        Returns
+        -------
+        [type]
+            [description]
+        """
 
         EyeLinkCBind.__init__(self)
         self._trackerInfo = ILinkData()
@@ -98,30 +88,31 @@ class EyeLinkListener(EyeLinkCBind):
 
     def getTrackerInfo(self):
         """[summary]
-		
-		[description]
-		
-		Returns
-		-------
-		self._trackerInfo
-			An instance of the ILinkData class.
-		"""
-		
-        Returns the current tracker information.
-        @return
+        
+        Returns
+        -------
+        {"type":"[type]"}[item] : :class:`[type]`
+            [Description]
+        """
+        
+        # Returns the current tracker information.
+        # @return
         
         self._getDataStatus(self._trackerInfo)
         return self._trackerInfo
 
-    # Allow the normal calibration target drawing to proceed at different locations.
-    #
-    #  This is equivalent to the C API
-    #    \code
-    #    INT16 CALLTYPE set_draw_cal_target_hook(INT16 (CALLBACK * erase_cal_target_hook)(HDC hdc), INT16 options);
-    #    \endcode
-    #
-    #  @param position A tuple in the format of (x, y), passing along the position of drift correction target.  X and y are in screen pixels.
     def drawCalTarget(self, position):
+        
+        # Allow the normal calibration target drawing to proceed at different locations.
+
+        # This is equivalent to the C API
+        #     \code
+        #     INT16 CALLTYPE set_draw_cal_target_hook(INT16 (CALLBACK * erase_cal_target_hook)(HDC hdc), INT16 options);
+        #     \endcode
+
+        # @param position A tuple in the format of (x, y), passing along the position of drift correction target.  X and y are in screen pixels.
+    
+    
         self._drawCalTarget(position)
 
     # returns the current tracker time.
@@ -130,15 +121,15 @@ class EyeLinkListener(EyeLinkCBind):
 
     # returns the current sample rate.
     def getSampleRate(self):
-		"""[summary]
-		
-		[description]
-		
-		Returns
-		-------
-		[type]
-			[description]
-		"""
+        """[summary]
+        
+        [description]
+        
+        Returns
+        -------
+        [type]
+            [description]
+        """
         v = self.getModeData()[1]
         if v == constants.MISSING_DATA:
             return constants.MISSING_DATA
@@ -151,25 +142,33 @@ class EyeLinkListener(EyeLinkCBind):
             return "PUPIL_CR"
         return "PUPIL_ONLY"
 
+    def getLevelTextInternal(level):
+        if level == 0:
+            return "OFF"
+        elif level == 1:
+            return "NORMAL"
+        elif level == 2:
+            return "HIGH"
+    
     # returns the Link Filter Level.
     def getLinkFilter(self):
-        return getLevelTextInternal(self.getModeData()[4])
+        return self.getLevelTextInternal(self.getModeData()[4])
 
     # returns the File Filter Level.
     def getFileFilter(self):
-        return getLevelTextInternal(self.getModeData()[3])
+        return self.getLevelTextInternal(self.getModeData()[3])
 
     # returns the eye used.
     def getEyeUsed(self):
-		"""[summary]
-		
-		[description]
-		
-		Returns
-		-------
-		[type]
-			[description]
-		"""
+        """[summary]
+        
+        [description]
+        
+        Returns
+        -------
+        [type]
+            [description]
+        """
         v = self.eyeAvailable()
         if v == -1:
             return "NONE"
@@ -195,22 +194,22 @@ class EyeLinkListener(EyeLinkCBind):
     #  @return
     #    If there is any problem sending the message, a runtime exception is raised.
     def sendMessage(self, message_text, offset=0):
-		"""[summary]
-		
-		[description]
-		
-		Parameters
-		----------
-		message_text : [type]
-			[description]
-		offset : int, optional
-			[description] (the default is 0, which [default_description])
-		
-		Returns
-		-------
-		[type]
-			[description]
-		"""
+        """[summary]
+        
+        [description]
+        
+        Parameters
+        ----------
+        message_text : [type]
+            [description]
+        offset : int, optional
+            [description] (the default is 0, which [default_description])
+        
+        Returns
+        -------
+        [type]
+            [description]
+        """
         cut = 0
         if message_text is None or len(message_text) == 0:
             return 0
@@ -248,39 +247,39 @@ class EyeLinkListener(EyeLinkCBind):
 #  constructor will connect to the address, otherwise, it connects to the
 #  tracker at 100.1.1.1 with sub net mask 255.255.255.0.
 class EyeLink(EyeLinkListener):
-	"""[summary]
-	
-	[description]
-	
-	Parameters
-	----------
-	EyeLinkListener : [type]
-		[description]
-	
-	Returns
-	-------
-	[type]
-		[description]
-	"""
+    """[summary]
+    
+    [description]
+    
+    Parameters
+    ----------
+    EyeLinkListener : [type]
+        [description]
+    
+    Returns
+    -------
+    [type]
+        [description]
+    """
     # Constructor.
     # @param trackeraddress optional tracker address. If no parameters passed in, defalut address of
     # 100.1.1.1 is used.  If None is passed as the address, the connection is opened in dummy mode.
     #
     def __init__(self, trackeraddress="100.1.1.1"):
-		"""[summary]
-		
-		[description]
-		
-		Parameters
-		----------
-		trackeraddress : str, optional
-			[description] (the default is "100.1.1.1", which [default_description])
-		
-		Returns
-		-------
-		[type]
-			[description]
-		"""
+        """[summary]
+        
+        [description]
+        
+        Parameters
+        ----------
+        trackeraddress : str, optional
+            [description] (the default is "100.1.1.1", which [default_description])
+        
+        Returns
+        -------
+        [type]
+            [description]
+        """
         # The constructor takes no parameters. However, if the connection suceeds, calibration_type,
         # gaze_constraint, automatic_calibration commands are sent to the tracker. By default the
         # calibration type is HV9, the gazeConstraint is AUTO and automatic calibration is turned off.
@@ -335,22 +334,22 @@ class EyeLink(EyeLinkListener):
     #  @param size Size of the file.
     #  @param received Size received so far.
     def progressUpdate(self, size, received):
-		"""[summary]
-		
-		[description]
-		
-		Parameters
-		----------
-		size : [type]
-			[description]
-		received : [type]
-			[description]
-		
-		Returns
-		-------
-		[type]
-			[description]
-		"""
+        """[summary]
+        
+        [description]
+        
+        Parameters
+        ----------
+        size : [type]
+            [description]
+        received : [type]
+            [description]
+        
+        Returns
+        -------
+        [type]
+            [description]
+        """
         # print("\r",received,"/",size,)
         return
 
@@ -360,22 +359,22 @@ class EyeLink(EyeLinkListener):
     #  @param size Size of the file.
     #  @param received Size received so far.
     def progressSendDataUpdate(self, size, sent):
-		"""[summary]
-		
-		[description]
-		
-		Parameters
-		----------
-		size : [type]
-			[description]
-		sent : [type]
-			[description]
-		
-		Returns
-		-------
-		[type]
-			[description]
-		"""
+        """[summary]
+        
+        [description]
+        
+        Parameters
+        ----------
+        size : [type]
+            [description]
+        sent : [type]
+            [description]
+        
+        Returns
+        -------
+        [type]
+            [description]
+        """
         print("\s", sent, "/", size,)
 
     # @todo Need description.
@@ -392,20 +391,20 @@ class EyeLink(EyeLinkListener):
     #
     #
     def setSampleSizeForVelAndAcceleration(self, sm):
-		"""[summary]
-		
-		[description]
-		
-		Parameters
-		----------
-		sm : [type]
-			[description]
-		
-		Returns
-		-------
-		[type]
-			[description]
-		"""
+        """[summary]
+        
+        [description]
+        
+        Parameters
+        ----------
+        sm : [type]
+            [description]
+        
+        Returns
+        -------
+        [type]
+            [description]
+        """
         self.__sampleSizeForVelAndAccel__ = sm
 
     # Returns the sample model used for velocity and acceleration calculation.
@@ -463,22 +462,22 @@ class EyeLink(EyeLinkListener):
     #  @param width    Width of the screen.
     #  @param height Height of he screen.
     def doTrackerSetup(self, width=None, height=None):
-		"""[summary]
-		
-		[description]
-		
-		Parameters
-		----------
-		width : [type], optional
-			[description] (the default is None, which [default_description])
-		height : [type], optional
-			[description] (the default is None, which [default_description])
-		
-		Returns
-		-------
-		[type]
-			[description]
-		"""
+        """[summary]
+        
+        [description]
+        
+        Parameters
+        ----------
+        width : [type], optional
+            [description] (the default is None, which [default_description])
+        height : [type], optional
+            [description] (the default is None, which [default_description])
+        
+        Returns
+        -------
+        [type]
+            [description]
+        """
         if width is not None and height is not None:
             displayCoords = " 0 0 %d %d" % (width, height)
             self.sendMessage("DISPLAY_COORDS" + displayCoords)
@@ -496,20 +495,20 @@ class EyeLink(EyeLinkListener):
     #
     #  @param button Id of the button that is used to accept target fixation.
     def setAcceptTargetFixationButton(self, button):
-		"""[summary]
-		
-		[description]
-		
-		Parameters
-		----------
-		button : [type]
-			[description]
-		
-		Returns
-		-------
-		[type]
-			[description]
-		"""
+        """[summary]
+        
+        [description]
+        
+        Parameters
+        ----------
+        button : [type]
+            [description]
+        
+        Returns
+        -------
+        [type]
+            [description]
+        """
         self.sendCommand(
             "button_function %d 'accept_target_fixation'" % button)
 
@@ -529,20 +528,20 @@ class EyeLink(EyeLinkListener):
     #        <tr><td>\c HV9</td><td>9-point grid calibration, best overall</td></tr>
     #        </table>
     def setCalibrationType(self, type):
-		"""[summary]
-		
-		[description]
-		
-		Parameters
-		----------
-		type : [type]
-			[description]
-		
-		Returns
-		-------
-		[type]
-			[description]
-		"""
+        """[summary]
+        
+        [description]
+        
+        Parameters
+        ----------
+        type : [type]
+            [description]
+        
+        Returns
+        -------
+        [type]
+            [description]
+        """
         if(self.isConnected()):
             self.sendCommand("calibration_type=%s" % (type))
 
@@ -583,15 +582,15 @@ class EyeLink(EyeLinkListener):
     #        EYELINK.sendCommand("enable_automatic_calibration=YES")
     #    \endcode
     def enableAutoCalibration(self):
-		"""[summary]
-		
-		[description]
-		
-		Returns
-		-------
-		[type]
-			[description]
-		"""
+        """[summary]
+        
+        [description]
+        
+        Returns
+        -------
+        [type]
+            [description]
+        """
         if(self.isConnected()):
             self.sendCommand("enable_automatic_calibration=YES")
 
@@ -604,15 +603,15 @@ class EyeLink(EyeLinkListener):
     #        EYELINK.sendCommand("enable_automatic_calibration=NO")
     #    \endcode
     def disableAutoCalibration(self):
-		"""[summary]
-		
-		[description]
-		
-		Returns
-		-------
-		[type]
-			[description]
-		"""
+        """[summary]
+        
+        [description]
+        
+        Returns
+        -------
+        [type]
+            [description]
+        """
         if(self.isConnected()):
             self.sendCommand("enable_automatic_calibration=NO")
 
@@ -627,20 +626,20 @@ class EyeLink(EyeLinkListener):
     #
     #  @param time shortest delay.
     def setAutoCalibrationPacing(self, pace):
-		"""[summary]
-		
-		[description]
-		
-		Parameters
-		----------
-		pace : [type]
-			[description]
-		
-		Returns
-		-------
-		[type]
-			[description]
-		"""
+        """[summary]
+        
+        [description]
+        
+        Parameters
+        ----------
+        pace : [type]
+            [description]
+        
+        Returns
+        -------
+        [type]
+            [description]
+        """
         self.sendCommand("automatic_calibration_pacing=%d" % (pace))
 
     # Sends a command to the tracker to read the specified io port
@@ -726,20 +725,20 @@ class EyeLink(EyeLinkListener):
     #
     #  @param value \c YES to convert pupil area to diameter; \c NO to output pupil area data.
     def setPupilSizeDiameter(self, value):
-		"""[summary]
-		
-		[description]
-		
-		Parameters
-		----------
-		value : [type]
-			[description]
-		
-		Returns
-		-------
-		[type]
-			[description]
-		"""
+        """[summary]
+        
+        [description]
+        
+        Parameters
+        ----------
+        value : [type]
+            [description]
+        
+        Returns
+        -------
+        [type]
+            [description]
+        """
         self.sendCommand("pupil_size_diameter = %s" % (value))
 
     # Can be used to turn off head tracking if not used.  Do this before calibration.
@@ -964,20 +963,20 @@ class EyeLink(EyeLinkListener):
     #
     #  @param accel minimum acceleration (�/sec/sec) for saccades.
     def setAccelerationThreshold(self, accel):
-		"""[summary]
-		
-		[description]
-		
-		Parameters
-		----------
-		accel : [type]
-			[description]
-		
-		Returns
-		-------
-		[type]
-			[description]
-		"""
+        """[summary]
+        
+        [description]
+        
+        Parameters
+        ----------
+        accel : [type]
+            [description]
+        
+        Returns
+        -------
+        [type]
+            [description]
+        """
         self.sendCommand("saccade_acceleration_threshold  =%d" % (accel))
 
     # Sets a spatial threshold to shorten saccades.  Usually \c 0.15 for cognitive research,
@@ -1042,20 +1041,20 @@ class EyeLink(EyeLinkListener):
     #
     #  @param rtype \c GAZE or \c HREF; Almost always left to \c GAZE.
     def setRecordingParseType(self, rtype="GAZE"):
-		"""[summary]
-		
-		[description]
-		
-		Parameters
-		----------
-		rtype : str, optional
-			[description] (the default is "GAZE", which [default_description])
-		
-		Returns
-		-------
-		[type]
-			[description]
-		"""
+        """[summary]
+        
+        [description]
+        
+        Parameters
+        ----------
+        rtype : str, optional
+            [description] (the default is "GAZE", which [default_description])
+        
+        Returns
+        -------
+        [type]
+            [description]
+        """
         self.sendCommand("recording_parse_type %s" % (rtype))
 
     # methods to draw graphics to the tracker record screen
@@ -1196,42 +1195,31 @@ class EyeLink(EyeLinkListener):
 
 
 def getEYELINK():
-	"""[summary]
-	
-	[description]
-	
-	Returns
-	-------
-	[type]
-		[description]
-	"""
+    """[summary]
+    
+    [description]
+    
+    Returns
+    -------
+    [type]
+        [description]
+    """
     return constants.EYELINK
 
 
 def openGraphicsEx(eyeCustomDisplay):
 	"""[summary]
-	
+
 	[description]
-	
+
 	Parameters
 	----------
 	eyeCustomDisplay : [type]
 		[description]
-	
-	"""
-    if(isinstance(eyeCustomDisplay, EyeLinkCustomDisplay)):
-        openCustomGraphicsInternal(eyeCustomDisplay)
-    else:
-        raise "Expecting object of type EyeLinkCustomDisplay got " + \
-            eyeCustomDisplay.__class__.__name__
 
-# try:
-#    if(pyLinkDefaults.EYELINK_OBJECTTYPE == pyLinkDefaults.EYELINK_OBJECT):
-#        EyeLink()
-#    else:
-#
-#        EyeLinkListener()
-# except :
-#    global EYELINK
-#    EYELINK = None
-#    print "NOTE: Running in NON-EyeLink Mode"
+    """
+	if(isinstance(eyeCustomDisplay, EyeLinkCustomDisplay)):
+		openCustomGraphicsInternal(eyeCustomDisplay)
+	else:
+		raise "Expecting object of type EyeLinkCustomDisplay got " + \
+        	eyeCustomDisplay.__class__.__name__

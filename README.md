@@ -2,7 +2,7 @@ mdl-eyelink:  Bindings for Eyelink and Python.
 =======================================
 <div class="row">
 	<a href="https://liberalarts.utexas.edu/imhr/">
-		<img src="./imhr.png" height="auto" width="100%" max-width="400px">
+		<img src="dist/imhr.png" height="auto" width="100%" max-width="400px">
 	</a>
 <div>
 
@@ -12,9 +12,9 @@ mdl-eyelink provides a high-level interface for eyetracking research in Python. 
 
 Documentation
 -------------
-Online documentation is available at our [examples.ipynb](https://github.com/risoms/mdl-eyelink/blob/master/example.ipynb) file and at [mdl-eyelink](https://mdl.psy.utexas.edu/d/eyelink/example.html).
+Online documentation is available at our [examples.ipynb](https://github.com/risoms/mdl-eyelink/blob/master/dist/example.ipynb) file and at [mdl-eyelink](https://mdl.psy.utexas.edu/d/eyelink/example.html).
 
-The docs include a [tutorial](https://risoms.github.io/mdl-eyelink/docs/build/tutorial.html), [example](https://mdl.psy.utexas.edu/d/eyelink/example.html), [API reference](https://risoms.github.io/mdl-eyelink/docs/build/py-modindex.html), and other useful information.
+The docs include a [tutorial](https://risoms.github.io/mdl-eyelink/dist/docs/build/tutorial.html), [example](https://mdl.psy.utexas.edu/d/eyelink/example.html), [API reference](https://risoms.github.io/mdl-eyelink/dist/docs/build/py-modindex.html), and other useful information.
 
 
 Dependencies

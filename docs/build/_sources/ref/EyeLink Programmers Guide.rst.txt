@@ -1,2 +1,0 @@
-EyeLink Programmers Guide
-===============
