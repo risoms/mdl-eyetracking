@@ -1,0 +1,6 @@
+numpy
+scipy
+pandas
+psychopy
+win32api
+pyobjc

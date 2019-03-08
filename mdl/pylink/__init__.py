@@ -32,10 +32,20 @@
 #
 
 
-"""Performing research with eye-tracking equipment typically requires a long-term investment in software
+"""
+You do need to install the Display Software (which they also call Eyelink Developers Kit) for your particular platform. 
+This can be found by following the threads from:
+
+https://www.sr-support.com/forums/forumdisplay.php?f=17
+
+for pylink documentation see:
+
+https://www.sr-support.com/forums/showthread.php?t=14
+
+Performing research with eye-tracking equipment typically requires a long-term investment in software
 tools to collect, process, and analyze data. Much of this involves real-time data collection, saccadic
 analysis, calibration routines, and so on.
-The EyeLink® eye-tracking system is designed to implement most of the required software base for data
+The EyeLinkï¿½ eye-tracking system is designed to implement most of the required software base for data
 collection and conversion. It is most powerful when used with the Ethernet link interface, which allows
 remote control of data collection and real-time data transfer. The PyLink toolkit includes Pylink module,
 which implements all core EyeLink functions and classes for EyeLink connection and the eyelink graphics,
@@ -48,8 +58,6 @@ different platforms, such as MS-DOS, Windows, Linux, and the Macintosh. Some pro
 such as placement of messages in the EDF file by your experiment, and the use of special data types, have
 been implemented to allow portability of the development kit across platforms. The standard messages
 allow general analysis tools such as EDF2ASC converter or EyeLink Data Viewer to process your EDF files.
-
-
 """
 
 from pylink.constants import *
@@ -59,7 +67,6 @@ from pylink.pylink_c import flushGetkeyQueue
 from pylink.pylink_c import beginRealTimeMode
 from pylink.pylink_c import currentTime
 from pylink.pylink_c import currentUsec
-#from pylink.pylink_c import currentDoubleUsec
 from pylink.pylink_c import endRealTimeMode
 from pylink.pylink_c import pumpDelay
 from pylink.pylink_c import msecDelay

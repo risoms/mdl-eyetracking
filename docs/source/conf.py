@@ -17,7 +17,7 @@ path = os.path.abspath('..\..\mdl')
 sys.path.append(path)
 
 # -- Path setup --------------------------------------------------------------
-autodoc_mock_imports = ["numpy","pandas", "scipy","PIL","psychopy","mdl"]
+autodoc_mock_imports = ["numpy","pandas", "scipy","PIL","psychopy"]
 
 # -- Project information -----------------------------------------------------
 
@@ -93,21 +93,14 @@ html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 # documentation.
 #
 html_theme_options = {
-    "edit_link": "true",
-    "sidebar": "left",
-    "scipy_org_logo": "false",
-    "rootlinks": [
-        ("https://mdl.psy.utexas.edu/", "MDL"),
-        ("https://liberalarts.utexas.edu/imhr/", "IMHR")
-    ],
     'source_link_position': "footer",
     'bootswatch_theme': "paper",
     'navbar_sidebarrel': False,
     'bootstrap_version': "3",
     'navbar_links': [
-         ("Index", "genindex"),
-         ("Modules", "py-modindex"),
-         ("Tutorial", "tutorial"),
+         ("Index", "index"),
+         ("Modules", "module"),
+         ("Tutorial", "example"),
          ("API", "api"),
     ],
 }
