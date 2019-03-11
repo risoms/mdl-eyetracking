@@ -1,7 +1,6 @@
 mdl.calibration
 ---------------
 
-.. autoclass:: mdl.calibration
+.. automodule:: mdl.calibration
    :members:
-   :private-members:
    :undoc-members:

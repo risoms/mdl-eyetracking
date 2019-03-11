@@ -1,8 +1,6 @@
 pylink
 ------
 
-.. autoclass:: mdl.pylink
-   :member-order: bysource
-   :private-members:
-   :special-members:
-
+.. automodule:: mdl.pylink
+   :members:
+   :undoc-members:

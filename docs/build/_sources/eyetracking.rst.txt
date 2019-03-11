@@ -1,7 +1,6 @@
 mdl.eyetracking
 ---------------
 
-.. autoclass:: mdl.eyetracking
+.. automodule:: mdl.eyetracking
    :members:
-   :private-members:
    :undoc-members:

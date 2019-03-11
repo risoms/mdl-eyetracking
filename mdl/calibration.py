@@ -4,13 +4,13 @@
 | Created on Wed Feb 13 15:37:43 2019
 | @author: Semeon Risom
 | @email: semeon.risom@gmail.com.
-| Sample code to run SR Research Eyelink eyetracking system. Code is optimized for the Eyelink 1000 Plus (5.0),
-| but should be compatiable with earlier systems.
+| This allows mdl.eyetracking package to initiate calibration/validation/drift correction.
 """
 
 #---main
 from pdb import set_trace as breakpoint
-import string, scipy, os, tempfile, array
+import string, os, array
+from math import sin, cos, pi
 from PIL import Image
 import numpy as np
 
@@ -18,13 +18,13 @@ import numpy as np
 from psychopy import visual, event, sound
 
 #---eyetracking
-from . import pylink
+import pylink
 
 class calibration(pylink.EyeLinkCustomDisplay):
-    """This alows eye mdl.eyetracking package to initiate a calibration/validation/drift correction screen."""
+    """This allows mdl.eyetracking package to initiate calibration/validation/drift correction."""
     def __init__(self, w, h, tracker, window):
         """
-        Allow colored printing to console.
+        Initialize mdl.calibration module.
 
         Parameters
         ----------
@@ -36,46 +36,62 @@ class calibration(pylink.EyeLinkCustomDisplay):
             PsychoPy window instance.
         """
         pylink.EyeLinkCustomDisplay.__init__(self)
+        
         #---setup
         #window
         self.window = window
         self.window.flip(clearBuffer=True)
         self.w = w
         self.h = h
+        # check the screen units of Psychopy, forcing the screen to use 'pix'
+        self.units = self.window.units
+        if self.units != 'pix':    self.window.setUnits('pix')
         #mouse
-        self.window.mouseVisible = False
-        self.mouse = event.Mouse(visible=False)
+        window.setMouseVisible(False)
         self.last_mouse_state = -1
         #sound
-        self.__target_beep__ = sound.Sound("dist/type.wav",secs=-1,loops=0)
-        self.__target_beep__done__ = sound.Sound("dist/qbeep.wav",secs=-1,loops=0)
-        self.__target_beep__error__ = sound.Sound("dist/error.wav",secs=-1,loops=0)        
+        self.path = os.path.dirname(os.path.abspath(__file__)) + "\\"
+        self.__target_beep__ = sound.Sound(self.path + "dist\\audio\\type.wav", secs=-1, loops=0)
+        self.__target_beep__done__ = sound.Sound(self.path + "dist\\audio\\qbeep.wav", secs=-1, loops=0)
+        self.__target_beep__error__ = sound.Sound(self.path + "dist\\audio\\error.wav", secs=-1, loops=0)
         #color, image
-        self.rgb_index_array = None
-        self.backcolor = window.color
-        self.txtcol = -1
+        self.pal = None
         self.imgBuffInitType = 'I'
-        self.img_scaling_factor = 3
+        self.img_scaling_factor = 4
         self.imagebuffer = array.array(self.imgBuffInitType)
         self.resizeImagebuffer = array.array(self.imgBuffInitType)
+        self.size = (192*4, 160*4)
+        self.imagebuffer = array.array(self.imgBuffInitType)
+        self.resizeImagebuffer = array.array(self.imgBuffInitType)
+        #font
         #title
         self.msgHeight = self.size[1]/20.0
-        self.title = visual.TextStim(win=self.window, text='', pos = (0,-self.size[1]/2-self.msgHeight), color=[1,1,1], 
-                                        units='pix', height=self.msgHeight, alignVert='center', wrapWidth=self.w)
-        ##menu
-        menu = '\n'.join(['Enter: Show/Hide camera image','Left/Right: Switch camera view','C: Calibration','V: Validation','O: Start Recording',
-        '+=/-: CR threshold','Up/Down: Pupil threshold','Alt+arrows: Search limit'])
-        self.menu = visual.TextStim(self.window, alignHoriz='left',alignVert ='top', height=self.msgHeight, color=[1,1,1],
-                                    pos = (-self.w/2.0, self.h/2.0), units='pix', text = menu)
+        self.title = visual.TextStim(win=self.window, text='', pos=(0,-self.size[1]/2-self.msgHeight), 
+                                    color=[.9,.9,.9], units='pix', 
+                                    height=self.msgHeight, alignVert='center', wrapWidth=self.w)
+        self.title.fontFiles = [self.path + "dist\\utils\\Helvetica.ttf"]
+        self.font = 'Helvetica'
+        #menu
+        menu = '\n'.join(['Show/Hide camera [Enter]','Switch Camera [Left, Right]',
+        'Calibration [C]','Validation [V]','Continue [O]','CR [+/-]',
+        'Pupil [Up/Down]','Search limit [Alt+arrows]'])
+        self.menu = visual.TextStim(win=self.window, text=menu, pos=(-(self.w *.48), 0), height=38,
+                                    color=[.9,.9,.9], units='pix', bold=True,
+                                    alignHoriz='left', alignVert='center')
+        self.title.fontFiles = [self.path + "dist\\utils\\Helvetica.ttf"]
+        self.font = 'Helvetica'
         #fixation
-        self.line = visual.Line(self.window, start=(0, 0), end=(0,0), lineWidth=2.0, lineColor=[0,0,0], units='pix')
-
+        self.line = visual.Line(win=self.window, start=(0, 0), end=(0,0), 
+                          lineWidth=2.0, lineColor=[0,0,0], units='pix')
         #set circles
-        self.out = visual.Circle(self.window, pos=(0, 0), radius=10, fillColor=[1,1,1], lineColor=[1,1,1], units='pix')
-        self.on = visual.Circle(self.window, pos=(0,0), radius=3, fillColor=[-1,-1,-1], lineColor=[-1,-1,-1], units='pix')
+        self.out = visual.Circle(win=self.window, pos=(0, 0), radius=10, fillColor=[1,1,1], 
+                          lineColor=[1,1,1], units='pix')
+        self.on = visual.Circle(win=self.window, pos=(0,0), radius=3, fillColor=[-1,-1,-1], 
+                          lineColor=[-1,-1,-1], units='pix')
 
-        # lines for drawing cross hair etc.
-        self.line = visual.Line(self.window, start=(0, 0), end=(0,0), lineWidth=2.0, lineColor=[0,0,0], units='pix')
+    def record_abort_hide(self):
+        """This function is called if aborted."""
+        pass    
 
     def setup_cal_display(self):
         """Sets up the initial calibration display, which contains a menu with instructions."""
@@ -83,11 +99,9 @@ class calibration(pylink.EyeLinkCustomDisplay):
         self.window.flip()
 
     def exit_cal_display(self):
-        """Exits calibration display."""       
+        """Exits calibration display."""
+        self.window.setUnits(self.units)
         self.setup_cal_display()
-
-    def record_abort_hide(self):
-        pass    
 
     def clear_cal_display(self):
         """Clear the calibration display."""
@@ -123,6 +137,7 @@ class calibration(pylink.EyeLinkCustomDisplay):
             self.__target_beep__done__.play()
         
     def getColorFromIndex(self, colorindex):
+        """Get color from index."""
         if colorindex == pylink.CR_HAIR_COLOR:
             return (1, 1, 1)
         elif colorindex == pylink.PUPIL_HAIR_COLOR:
@@ -135,13 +150,54 @@ class calibration(pylink.EyeLinkCustomDisplay):
             return (1, -1, -1)
         else:
             return (-1, -1, -1)
+        
+    def draw_line(self, x1, y1, x2, y2, colorindex):
+        """Draw a line. This is used for drawing crosshairs/squares."""
+        
+        y1 = (-y1  + self.size[1]/2)* self.img_scaling_factor
+        x1 = (+x1  - self.size[0]/2)* self.img_scaling_factor
+        y2 = (-y2  + self.size[1]/2)* self.img_scaling_factor
+        x2 = (+x2  - self.size[0]/2)* self.img_scaling_factor
+        color = self.getColorFromIndex(colorindex)
+        self.line.start     = (x1, y1)
+        self.line.end       = (x2, y2)
+        self.line.lineColor = color
+        self.line.draw()
+
+    def draw_lozenge(self, x, y, width, height, colorindex):
+        """draw a lozenge to show the defined search limits (x,y) is 
+        top-left corner of the bounding box."""
+
+        width = width * self.img_scaling_factor
+        height = height * self.img_scaling_factor
+        y = (-y + self.size[1]/2)* self.img_scaling_factor
+        x = (+x - self.size[0]/2)* self.img_scaling_factor
+        color = self.getColorFromIndex(colorindex)
+
+        if width > height:
+            rad = height / 2
+            if rad == 0: return #cannot draw the circle with 0 radius
+            Xs1 = [rad*cos(t) + x + rad for t in np.linspace(pi/2, pi/2+pi, 72)]
+            Ys1 = [rad*sin(t) + y - rad for t in np.linspace(pi/2, pi/2+pi, 72)]
+            Xs2 = [rad*cos(t) + x - rad + width for t in np.linspace(pi/2+pi, pi/2+2*pi, 72)]
+            Ys2 = [rad*sin(t) + y - rad for t in np.linspace(pi/2+pi, pi/2+2*pi, 72)]
+        else:
+            rad = width / 2
+            if rad == 0: return #cannot draw sthe circle with 0 radius
+            Xs1 = [rad*cos(t) + x + rad for t in np.linspace(0, pi, 72)]
+            Ys1 = [rad*sin(t) + y - rad for t in np.linspace(0, pi, 72)]
+            Xs2 = [rad*cos(t) + x + rad for t in np.linspace(pi, 2*pi, 72)]
+            Ys2 = [rad*sin(t) + y + rad - height for t in np.linspace(pi, 2*pi, 72)]
+
+        lozenge = visual.ShapeStim(self.display, vertices=list(zip(Xs1+Xs2, Ys1+Ys2)),
+                                    lineWidth=2.0, lineColor=color, closeShape=True, units='pix')
+        lozenge.draw()
 
     def get_input_key(self):
         """
         This function will be constantly pools, update the stimuli here is you need
         dynamic calibration target.
         """
-        
         ky=[]
         for keycode, modifier in event.getKeys(modifiers=True):
             k= pylink.JUNK_KEY
@@ -204,6 +260,7 @@ class calibration(pylink.EyeLinkCustomDisplay):
         """Display image pixel by pixel, line by line."""
         self.size = (width, totlines)
 
+        i = 0
         for i in range(width):
             try: self.imagebuffer.append(self.pal[buff[i]])
             except: pass
@@ -218,15 +275,18 @@ class calibration(pylink.EyeLinkCustomDisplay):
             self.window.flip()
             self.imagebuffer = array.array(self.imgBuffInitType)
 
-    def set_image_palette(self, r, g, b):
-        """
-        Given a set of RGB colors, create a list of 24bit numbers representing the pallet. 
-        Example: RGB of (1,64,127) would be saved as 82047, or the number 00000001 01000000 011111111.
-        """
-        self.clear_cal_display()
+    def set_image_palette(self, r,g,b):
+        """Given a set of RGB colors, create a list of 24bit numbers representing the pallet.
+        I.e., RGB of (1,64,127) would be saved as 82047, or the number 00000001 01000000 011111111"""
+
+        self.imagebuffer = array.array(self.imgBuffInitType)
+        self.resizeImagebuffer = array.array(self.imgBuffInitType)
         sz = len(r)
-        self.rgb_pallete = np.zeros((sz, 3), dtype=np.uint8)
         i = 0
+        self.pal = []
         while i < sz:
-            self.rgb_pallete[i:] = int(r[i]), int(g[i]), int(b[i])
-            i += 1
+            rf = int(b[i])
+            gf = int(g[i])
+            bf = int(r[i])
+            self.pal.append((rf<<16) | (gf<<8) | (bf))
+            i = i + 1

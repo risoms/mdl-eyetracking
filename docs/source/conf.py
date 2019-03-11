@@ -16,9 +16,7 @@ import sphinx_bootstrap_theme
 #osx
 sys.path.append('/Users/mdl-admin/Desktop/mdl-eyelink/')
 sys.path.append('/anaconda3/lib/python3.6/site-packages/')
-#windows
-#path = os.path.abspath('../../mdl')
-#sys.path.append(path)
+sys.path.append(os.path.abspath('../../mdl'))
 
 # -- Path setup --------------------------------------------------------------
 autodoc_mock_imports = ["numpy","pandas","scipy","PIL","psychopy","pylink"]

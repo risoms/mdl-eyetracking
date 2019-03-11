@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/python3
 
-from . import pylink
-from .calibration import calibration
-from .eyetracking import eyetracking
+import os, sys; sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
+import pylink
+from calibration import calibration
+from eyetracking import eyetracking
+
+
+__name__ = 'mdl-eyelink'
+__distname__ = 'mdl-eyelink'
 __version__ = '2019.05.01'
 __license__ = 'GNU GPLv3 (or more recent equivalent)'
 __author__ = 'Semeon Risom'
@@ -14,4 +19,3 @@ __url__ = 'https://semeon.io/d/mdl-eyelink/'
 __download_url__ = 'https://github.com/risoms/mdl-eyelink/'
 __git_sha__ = 'n/a'
 __build_platform__ = 'n/a'
-
