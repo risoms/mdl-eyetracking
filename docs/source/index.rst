@@ -32,7 +32,9 @@ mdl-eyelink
        </div>
        <div class="panel-body">
 
-* Data: :ref:`API <eyetracking>` | :ref:`Tutorial <eyetracking>`
+* eyetracking: :term:`API <eyetracking>` | :term:`Tutorial <eyetracking>`
+* calibration: :mod:`API <calibration>` | :mod:`Tutorial <calibration>`
+* pylink: :mod:`API <pylink>` | :mod:`Tutorial <pylink>`
 
 .. raw:: html
 
