@@ -22,7 +22,7 @@ MAINTAINER_EMAIL = 'semeon.risom@gmail.com'
 URL = 'https://semeon.io/d/mdl-eyelink'
 LICENSE = 'MIT'
 DOWNLOAD_URL = 'https://github.com/risoms/mdl-eyelink/'
-VERSION = '1.0'
+VERSION = '2019.05.01'
 INSTALL_REQUIRES=['numpy','scipy','pandas','matplotlib','psychopy']
 CLASSIFIERS = [
     'Intended Audience :: Science/Research',
@@ -36,15 +36,22 @@ CLASSIFIERS = [
     'Topic :: Scientific/Engineering :: Human Machine Interfaces',
     'Topic :: Multimedia :: Graphics',
     'Operating System :: Unix',
-    'Operating System :: MacOS'
-    'Operating System :: Windows'
+    'Operating System :: MacOS',
+    'Operating System :: Microsoft :: Windows'
 ]
 
-try:
-    from setuptools import setup
-    _has_setuptools = True
-except ImportError:
-    from distutils.core import setup
+	
+from setuptools import find_packages
+from setuptools.config import read_configuration
+				   
+from distutils.core import setup
+
+# Special handling for Anaconda / Miniconda
+required = read_configuration('setup.cfg')['options']['install_requires']
+
+# get description
+with open("README.md", "r") as d:			   
+	LONG_DESCRIPTION = d.read()
 
 if __name__ == "__main__":
     setup(
@@ -55,6 +62,7 @@ if __name__ == "__main__":
         maintainer_email=MAINTAINER_EMAIL,
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
+		long_description_content_type="text/markdown"											  				 
         license=LICENSE,
         url=URL,
         version=VERSION,

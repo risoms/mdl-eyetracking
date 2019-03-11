@@ -5,7 +5,7 @@ from . import pylink
 from .calibration import calibration
 from .eyetracking import eyetracking
 
-__version__ = '1.0.0'
+__version__ = '2019.05.01'
 __license__ = 'GNU GPLv3 (or more recent equivalent)'
 __author__ = 'Semeon Risom'
 __author_email__ = 'semeon.risom@gmail.com'
