@@ -1,7 +1,7 @@
-mdl.eyetracking
+mdl.calibration
 ---------------
 
-.. autoclass:: mdl.eyetracking
+.. autoclass:: mdl.calibration
    :members:
    :private-members:
    :undoc-members:

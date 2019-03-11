@@ -60,5 +60,6 @@ if __name__ == "__main__":
         version=VERSION,
         download_url=DOWNLOAD_URL,
         install_requires=INSTALL_REQUIRES,
-        classifiers=CLASSIFIERS
+        classifiers=CLASSIFIERS,
+		packages = ['mdl']
     )

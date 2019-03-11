@@ -13,11 +13,15 @@ import datetime
 import sphinx_bootstrap_theme
 
 # module directory
-path = os.path.abspath('..\..\mdl')
-sys.path.append(path)
+#osx
+sys.path.append('/Users/mdl-admin/Desktop/mdl-eyelink/')
+sys.path.append('/anaconda3/lib/python3.6/site-packages/')
+#windows
+#path = os.path.abspath('../../mdl')
+#sys.path.append(path)
 
 # -- Path setup --------------------------------------------------------------
-autodoc_mock_imports = ["numpy","pandas", "scipy","PIL","psychopy"]
+autodoc_mock_imports = ["numpy","pandas","scipy","PIL","psychopy","pylink"]
 
 # -- Project information -----------------------------------------------------
 
@@ -98,10 +102,8 @@ html_theme_options = {
     'navbar_sidebarrel': False,
     'bootstrap_version': "3",
     'navbar_links': [
-         ("Index", "index"),
-         ("Modules", "module"),
+         ("Index", "genindex"),
          ("Tutorial", "example"),
-         ("API", "api"),
     ],
 }
 

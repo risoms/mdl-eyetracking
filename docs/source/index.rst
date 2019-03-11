@@ -1,10 +1,5 @@
-mdl-r33-analysis
-=======================================
-
-.. toctree::
-   :hidden:
-
-   genindex
+mdl-eyelink
+-----------
 
 .. raw:: html
 
@@ -17,14 +12,13 @@ mdl-r33-analysis
        <div class="panel-body">
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :glob:
 
    eyetracking <eyetracking>
+   calibration <calibration>
    Example <example>
-   Search <search>
-   Modules <py-modindex>
-   API <api>
+   pylink <pylink>
 
 .. raw:: html
 
@@ -38,12 +32,7 @@ mdl-r33-analysis
        </div>
        <div class="panel-body">
 
-* Data: :ref:`API <processing>` | :ref:`Tutorial <eyetracking>`
-* Databases UTWeb: :ref:`API <eyetracking>` | :ref:`Tutorial <eyetracking>`
-* Databases REDCap: :ref:`API <eyetracking>` | :ref:`Tutorial <eyetracking>`
-* Models: :ref:`API <eyetracking>` | :ref:`Tutorial <eyetracking>`
-* HTML: :ref:`API <eyetracking>` | :ref:`Tutorial <eyetracking>`
-* Export: :ref:`API <eyetracking>` | :ref:`Tutorial <eyetracking>`
+* Data: :ref:`API <eyetracking>` | :ref:`Tutorial <eyetracking>`
 
 .. raw:: html
 

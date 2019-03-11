@@ -1,11 +1,7 @@
 mdl.eyetracking
 ---------------
 
-.. toctree::
-
-    mdl
-
-.. automodule:: mdl.eyetracking
+.. autoclass:: mdl.eyetracking
    :members:
    :private-members:
-   :special-members:
+   :undoc-members:
