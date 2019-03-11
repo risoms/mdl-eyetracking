@@ -17,7 +17,7 @@ mdl-eyelink
 
    eyetracking <eyetracking>
    calibration <calibration>
-   Example <example>
+   example <example>
    pylink <pylink>
 
 .. raw:: html
