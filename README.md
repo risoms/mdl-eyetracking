@@ -1,5 +1,5 @@
 mdl-eyelink:  Bindings for Eyelink and Python.
-=======================================
+==============================================
 <div class="row">
 	<a href="https://liberalarts.utexas.edu/imhr/">
 		<img src="mdl/dist/imhr.png" height="auto" width="100%" max-width="400px">
@@ -7,7 +7,7 @@ mdl-eyelink:  Bindings for Eyelink and Python.
 <div>
 
 --------------------------------------
-mdl-eyelink provides a high-level interface for eyetracking research in Python. This package was created at the [Institute for Mental Health Research](http://mdl.psy.utexas.edu/), at [the University of Texas at Austin](http://www.utexas.edu/) by [Semeon Risom](https://semeon.io).
+mdl-eyelink provides a high-level interface for eyetracking research in Python. This package was created in the [Institute for Mental Health Research](http://mdl.psy.utexas.edu/), at [the University of Texas at Austin](http://www.utexas.edu/) by [Semeon Risom](https://semeon.io).
 
 
 Documentation

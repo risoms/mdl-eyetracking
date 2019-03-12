@@ -10,6 +10,9 @@
  */
 
  /* -- modifications ----------------------------------------------------------- */
+.navbar-form{
+	width: 200px !important;
+}
 .rubric{
 	margin-top: 0px !important;
 }

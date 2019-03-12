@@ -100,8 +100,8 @@ html_theme_options = {
     'navbar_sidebarrel': False,
     'bootstrap_version': "3",
     'navbar_links': [
-         ("Index", "genindex"),
-         ("Tutorial", "example"),
+         ("Glossary", "genindex"),
+         ("Install", "install"),
     ],
 }
 
