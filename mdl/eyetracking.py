@@ -140,8 +140,6 @@ class eyetracking():
         #----tracker metadata
         # get eyelink version
         self.tracker_version = self.tracker.getTrackerVersion()
-        self.console(c='green', msg="Eyelink Tracker: Version %d" %
-                     (self.tracker_version))
 
         # get host tracking software version
         self.host_version = 0
@@ -150,8 +148,6 @@ class eyetracking():
             vindex = tvstr.find("EYELINK CL")
             self.host_version = int(
                 float(tvstr[(vindex + len("EYELINK CL")):].strip()))
-        self.console(c='green', msg="Eyelink Host: Version %s" %
-                     (self.host_version))
 
         #----preset
         self.select_parser_configuration = select_parser_configuration
@@ -175,6 +171,16 @@ class eyetracking():
 
         #----set tracker
         self.setup()
+
+        #---print message
+        self.console(c='blue', msg="Eyelink Tracker: Version %d" %(self.tracker_version))
+        self.console(c='blue', msg="Eyelink Host: Version %s" %(self.host_version))
+        self.console(c='blue', msg="select_parser_configuration: %s" %(self.select_parser_configuration))
+        self.console(c='blue', msg="saccade_acceleration_threshold: %s" %(self.saccade_acceleration_threshold))
+        self.console(c='blue', msg="saccade_velocity_threshold: %s" %(self.saccade_velocity_threshold))
+        self.console(c='blue', msg="recording_parse_type: %s" %(self.recording_parse_type))
+        self.console(c='blue', msg="enable_search_limits: %s" %(self.enable_search_limits))
+        self.console(c='blue', msg="automatic_calibration_pacing: %s" %(self.automatic_calibration_pacing))
 
     def console(self, c='green', msg=''):
         """
@@ -704,6 +710,7 @@ class eyetracking():
         # This receives a data file from the eyelink tracking computer
         destination = self.path + self.fname
         self.tracker.receiveDataFile(self.fname, destination)
+        self.console(c="blue", msg="File saved at: %s"%(destination))
 
         # wends a disconnect message to the EyeLink tracker
         self.tracker.close()

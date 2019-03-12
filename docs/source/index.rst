@@ -36,21 +36,20 @@ mdl-eyelink:  Bindings for Eyelink and Python.
 			<div class="col-md-6">
 
 mdl-eyelink provides a high-level interface for eyetracking research in Python. 
-This package was created by the `Institute for Mental Health Research <http://mdl.psy.utexas.edu/>`_, 
-in `the University of Texas at Austin <http://www.utexas.edu/>`_ by `Semeon Risom <https://semeon.io>`_.
+This package was created at the `Institute for Mental Health Research <http://mdl.psy.utexas.edu/>`_, 
+at `the University of Texas at Austin <http://www.utexas.edu/>`_ by `Semeon Risom <https://semeon.io>`_.
 
 For a brief introduction to the ideas behind the library, you can read the
-:ref:`introductory notes <introduction>`. Visit the :ref:`installation page
+:ref:`introduction <introduction>`. Visit the :ref:`installation page
 <install>` to see how you can download the package. You can browse the
 :ref:`example <example>` to see what you can do with this package,
 and then check out the :ref:`tutorial <tutorial>` and :ref:`API reference
 <index>` to find out how.
 
-To see the code or report a bug, please visit the `github repository
-<https://github.com/risoms/mdl-eyelink>`_.
+To see the code or report a bug, please visit the `github <https://github.com/risoms/mdl-eyelink>`_ repository.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :glob:
    :hidden:
 
@@ -72,9 +71,10 @@ To see the code or report a bug, please visit the `github repository
 					</div>
 					<div class="panel-body">
 
-* eyetracking: :ref:`API <eyetracking>`_ | :ref:`Tutorial <eyetracking>`_
-* calibration: :mod:`API <calibration>`_ | :mod:`Tutorial <calibration>`_
-* pylink: `API <pylink>`_ | `Tutorial <pylink>`_
+* Relational: :ref:`API <eyetracking>` | :ref:`Tutorial <eyetracking>`
+* eyetracking: :py:mod:`API <eyetracking>` | :py:func:`Tutorial <eyetracking>`
+* calibration: :py:class:`API <calibration>` | :ref:`<calibration>`
+* pylink: `API <pylink>` | `Tutorial <pylink>`
 
 .. raw:: html
 
