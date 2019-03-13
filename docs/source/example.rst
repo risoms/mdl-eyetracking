@@ -1,5 +1,3 @@
-mdl-eyelink
------------
 
 .. code:: ipython3
 
@@ -18,6 +16,7 @@ mdl-eyelink
 .. code:: ipython3
 
     # import
+    import os, sys; sys.path.append(os.path.dirname(os.path.realpath(os.getcwd())))
     from psychopy import visual, core
     import mdl
 
@@ -35,8 +34,12 @@ mdl-eyelink
 
 .. code:: ipython3
 
+    # Connect to Eyelink. This allow controlls the parameters to be used when running the eyetracker.
+    param = eyetracking.connect(calibration_type=13)
+
+.. code:: ipython3
+
     # Setting the dominant eye. This step is especially critical for transmitting gaze coordinates from Eyelink->Psychopy.
-    #
     dominant_eye = 'left'
     eye_used = eyetracking.set_eye_used(eye=dominant_eye)
 
@@ -45,9 +48,6 @@ mdl-eyelink
     # Start calibration.
     # Before running the calibration, ensure psychopy window instance has been created in the experiment file. 
     # This window will be used in the calibration function.
-    #
-    # ```psychopy.visual.window.Window``` instance (for demonstration purposes only)
-    # start
     eyetracking.calibration()
 
 .. code:: ipython3
@@ -59,19 +59,18 @@ mdl-eyelink
 .. code:: ipython3
 
     # (Optional) Print message to console/terminal. This may be useful for debugging issues.
-    eyetracking.console(c="green", msg="eyetracking.calibration() started")
+    eyetracking.console(c="blue", msg="eyetracking.calibration() started")
 
 .. code:: ipython3
 
     # Drift correction. This can be done at any point after calibration, including after 
     # eyetracking.start_recording has started. #!! To do. Finish.
     #
-    attempt = 1
-    eyetracking.drift_correction(window=window, attempt=attempt, limit=999, core=core, thisExp=None)
+    eyetracking.drift_correction()
 
 .. code:: ipython3
 
-    # Region of interest. This is used for realtime data collection from eyelink->psychopy.
+    # Gaze contigent. This is used for realtime data collection from eyelink->psychopy.
     # For example, this can be used to require participant to look at the fixation cross for a duration
     # of 500 msec before continuing the task.
     # 
@@ -79,6 +78,15 @@ mdl-eyelink
     roi = dict(center=[860,1060,640,440])
     # start
     eyetracking.roi(window=window, region=roi)
+
+.. code:: ipython3
+
+    # Region of interest. This is used for sending regions of interest for each trial from PsychoPy>Eyelink.
+    # 
+    # Using the eyetracking.roi function to collect samples with the center of the screen.
+    roi = dict(center=[860,1060,640,440])
+    # start
+    eyetracking.gc(window=window, region=roi)
 
 .. code:: ipython3
 
@@ -100,15 +108,15 @@ mdl-eyelink
     while True:
         # if difference between starting and current time is greater than > 2.01 msec, collect new sample
         if (s1 - s0) >= .00201:
-            gxy = eyetracking.sample(eye_used=eye_used) # get gaze coordinates
-            lgxy.append(gxy) # store in list
+            gxy, ps, s = eyetracking.sample(eye_used=eye_used) # get gaze coordinates, pupil size, and sample
+            lgxy.append(gxy) # store in list (not required; demonstration purposes only)
             s0 = time.clock() # update starting time
         #else set current time
         else: 
             s1 = time.clock()
     
-        #break `while` statement if list of gaze coordiantes >= 20 (demonstration purposes only)
-        if len(lgxy) >= 20: break
+        #break `while` statement if list of gaze coordiantes >= 20 (not required; demonstration purposes only)
+        if len(lgxy) >= 200: print(lgxy); break
 
 .. code:: ipython3
 

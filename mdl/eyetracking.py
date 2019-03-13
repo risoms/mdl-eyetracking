@@ -4,13 +4,13 @@
 | Created on Wed Feb 13 15:37:43 2019
 | @author: Semeon Risom
 | @email: semeon.risom@gmail.com.
-
 | Sample code to run SR Research Eyelink eyetracking system. Code is optimized for the Eyelink 1000 Plus (5.0),
 | but should be compatiable with earlier systems.
 """
 
 # ---debug
 from pdb import set_trace as breakpoint
+from IPython.display import display, HTML
 
 # ---main
 import os
@@ -23,65 +23,39 @@ import pylink
 from calibration import calibration
 #---------------------------------------------start
 class eyetracking():
-    def __init__(self, window, isPsychopy=True, libraries=False, subject=None, calibration_type=13,
-                 automatic_calibration_pacing=1000, saccade_velocity_threshold=35, saccade_acceleration_threshold=9500,
-                 sound=False, select_parser_configuration=0, recording_parse_type="GAZE", enable_search_limits=True):
+    """
+    Sample code to run SR Research Eyelink eyetracking system. Code is optimized for the 
+    Eyelink 1000 Plus (5.0), but should be compatiable with earlier systems.
+    """
+    def __init__(self, window, isPsychopy=True, libraries=False, subject=None):
         """
         Start eyetracker.
 
         Parameters
         ----------
-        libraries : :class:`bool`
-            Should the code check if required libraries are available.
         window : :class:`psychopy.visual.window.Window`
             PsychoPy window instance.
         isPsychopy : :class:`bool`
             Is Psychopy being used.
-        sound : :class:`bool`
-           Should eyetracker play sounds during calibration/validation. Default False.
-        calibration_type : :class:`int`
-            Calibration type. Default is 13-point. [see Eyelink 1000 Plus User Manual, 3.7 Calibration]
-        automatic_calibration_pacing : :class:`int`
-            Select the delay in milliseconds, between successive calibration or validation targets 
-            if automatic target detection is activeSet automatic calibration pacing. [see pylink.chm]
-        saccade_velocity_threshold : :class:`int`
-            Sets velocity threshold of saccade detector: usually 30 for cognitive research, 22 for 
-            pursuit and neurological work. Default is 35. Note: EyeLink II and EyeLink 1000,
-            select select_parser_configuration should be used instead. [see EyeLink Programmer’s Guide, 
-            Section 25.9: Parser Configuration; Eyelink 1000 Plus User Manual, Section 4.3.5 
-            Saccadic Thresholds]
-        saccade_acceleration_threshold : :class:`int`
-            Sets acceleration threshold of saccade detector: usually 9500 for cognitive research, 5000 
-            for pursuit and neurological work. Default is 9500. Note: For EyeLink II and EyeLink 1000,
-            select select_parser_configuration should be used instead. [see EyeLink Programmer’s Guide,
-            Section 25.9: Parser Configuration; Eyelink 1000 Plus User Manual, Section 4.3.5 
-            Saccadic Thresholds]
-        select_parser_configuration : :class:`int`
-            Selects the preset standard parser setup (0) or more sensitive (1). These are equivalent
-            to the cognitive and psychophysical configurations. Default is 0. [see EyeLink Programmer’s 
-            Guide, Section 25.9: Parser Configuration]
-        recording_parse_type : :class:`str`
-            Sets how velocity information for saccade detection is to be computed.
-            Enter either 'GAZE' or 'HREF'. Default is 'GAZE'. [see Eyelink 1000 Plus User Manual, 
-            Section 4.4: File Data Types]
-        enable_search_limits : :class:`bool`
-            Enables tracking of pupil to global search limits. Default is True. [see Eyelink 1000 Plus 
-            User Manual, Section 4.4: File Data Types]
+        libraries : :class:`bool`
+            Should the code check if required libraries are available.
+        subject : :class:`int`
+            Subject number.
         """
 
         #----screen size
         if isPsychopy:
-            self.w = window.size[0]
-            self.h = window.size[1]
+            self.w = int(window.size[0])
+            self.h = int(window.size[1])
         else:
             if platform.system() == "Windows":
                 from win32api import GetSystemMetrics
-                self.w = GetSystemMetrics(0)
-                self.h = GetSystemMetrics(1)
+                self.w = int(GetSystemMetrics(0))
+                self.h = int(GetSystemMetrics(1))
             elif platform.system() == 'Darwin':
                 from AppKit import NSScreen
-                self.w = NSScreen.mainScreen().frame().size.width
-                self.h = NSScreen.mainScreen().frame().size.height
+                self.w = int(NSScreen.mainScreen().frame().size.width)
+                self.h = int(NSScreen.mainScreen().frame().size.height)
 
         #----parameters
         # instants
@@ -133,68 +107,6 @@ class eyetracking():
         # store name
         self.fname = str(self.subject) + '.edf'
 
-        #----initiate connection with eyetracker
-        try:
-            self.tracker = pylink.EyeLink()
-            self.connected = True
-            self.console(c='green', msg="Eyelink Connected")
-        except RuntimeError:
-            self.tracker = pylink.EyeLink(None)
-            self.connected = False
-            self.console(c='green', msg="Eyelink RuntimeError")
-
-        #----tracker metadata
-        # get eyelink version
-        self.tracker_version = self.tracker.getTrackerVersion()
-
-        # get host tracking software version
-        self.host_version = 0
-        if self.tracker_version == 3:
-            tvstr = self.tracker.getTrackerVersionString()
-            vindex = tvstr.find("EYELINK CL")
-            self.host_version = int(
-                float(tvstr[(vindex + len("EYELINK CL")):].strip()))
-
-        #----preset
-        self.select_parser_configuration = select_parser_configuration
-        self.saccade_acceleration_threshold = saccade_acceleration_threshold
-        self.saccade_velocity_threshold = saccade_velocity_threshold
-        self.recording_parse_type = recording_parse_type
-        self.enable_search_limits = "YES" if enable_search_limits else "NO"
-        # calibration
-        self.calibration_type = calibration_type  # []-point calibration
-        self.automatic_calibration_pacing = automatic_calibration_pacing
-        # specify the EVENT and SAMPLE data that are stored in EDF or retrievable from the Link
-        # [see Section 4.6 Data Files of the  EyeLink 1000 Plus user manual]
-        self.fef = "LEFT,RIGHT,FIXATION,SACCADE,BLINK,MESSAGE,BUTTON,INPUT"
-        self.lef = "LEFT,RIGHT,FIXATION,FIXUPDATE,SACCADE,BLINK,BUTTON,INPUT"
-        if self.host_version >= 4:
-            self.fsd = "LEFT,RIGHT,GAZE,AREA,GAZERES,STATUS,HTARGET,INPUT"
-            self.lsd = "LEFT,RIGHT,GAZE,GAZERES,AREA,STATUS,HTARGET,INPUT"
-        else:
-            self.fsd = "LEFT,RIGHT,GAZE,AREA,GAZERES,STATUS"
-            self.lsd = "LEFT,RIGHT,GAZE,GAZERES,AREA,STATUS"
-
-        #----set tracker
-        self.setup()
-
-        #---store param for export
-        self.param = dict(
-            tracker_version=self.tracker_version, 
-            host_version=self.host_version,
-            select_parser_configuration=self.select_parser_configuration,
-            saccade_acceleration_threshold=self.saccade_acceleration_threshold,
-            saccade_velocity_threshold=self.saccade_velocity_threshold,
-            recording_parse_type=self.recording_parse_type,
-            enable_search_limits=self.enable_search_limits,
-            automatic_calibration_pacing=self.automatic_calibration_pacing,
-            file_event_filter=self.fef,
-            file_sample_data=self.fsd,
-            link_event_filter=self.lef,
-            link_sample_data=self.lsd,
-            calibration_type=self.calibration_type
-        )
-
     def console(self, c='green', msg=''):
         """
         Allow color print to console.
@@ -205,6 +117,10 @@ class eyetracking():
             Color to use (black, red, green, orange, purple, blue, grey).
         msg : :class:`str`
             Message to be color printed.
+        
+        Examples
+        --------
+        >>> eyetracking.console(c="green", msg="eyetracking.calibration() started")
         """
 
         color = dict(
@@ -257,16 +173,19 @@ class eyetracking():
                     # if missing
                     if importlib.util.find_spec(package) is None:
                         pip.main(['install', package])
-
         except Exception as e:
             return e
 
-    def setup(self):
+    def connect(self, calibration_type=13, automatic_calibration_pacing=1000, saccade_velocity_threshold=35,
+                saccade_acceleration_threshold=9500, sound=True, select_parser_configuration=0,
+                recording_parse_type="GAZE", enable_search_limits=True, ip='100.1.1.1'):
         """
-        Set Eyelink configuration.
+        Connect to Eyelink.
 
-        Attributes
+        Parameters
         ----------
+        ip : :class:`string`
+            Host PC ip address.
         calibration_type : :class:`int`
             Calibration type. Default is 13-point. [see Eyelink 1000 Plus User Manual, 3.7 Calibration]
         automatic_calibration_pacing : :class:`int`
@@ -288,6 +207,8 @@ class eyetracking():
             Selects the preset standard parser setup (0) or more sensitive (1). These are equivalent
             to the cognitive and psychophysical configurations. Default is 0. [see EyeLink Programmer’s 
             Guide, Section 25.9: Parser Configuration]
+        sound : :class:`bool`
+            Should sound be used for calibration/validation/drift correction.
         recording_parse_type : :class:`str`
             Sets how velocity information for saccade detection is to be computed.
             Enter either 'GAZE' or 'HREF'. Default is 'GAZE'. [see Eyelink 1000 Plus User Manual, 
@@ -300,7 +221,70 @@ class eyetracking():
         ----------
         param : :class:`pandas.DataFrame`
             Returns dataframe of parameters for subject.
+        
+        Examples
+        --------
+        >>> param = eyetracking.connect(calibration_type=13)
         """
+        #----initiate connection with eyetracker
+        self.ip = ip
+        try:
+            self.tracker = pylink.EyeLink(self.ip)
+            self.connected = True
+            self.console(c='blue', msg="Eyelink Connected")
+        except RuntimeError:
+            self.tracker = pylink.EyeLink(None)
+            self.connected = False
+            self.console(c='red', msg="Eyelink RuntimeError")
+            
+        #----tracker metadata
+        # get eyelink version
+        self.tracker_version = self.tracker.getTrackerVersion()
+
+        # get host tracking software version
+        self.host_version = 0
+        if self.tracker_version == 3:
+            tvstr = self.tracker.getTrackerVersionString()
+            vindex = tvstr.find("EYELINK CL")
+            self.host_version = int(
+                float(tvstr[(vindex + len("EYELINK CL")):].strip()))
+
+        #----preset
+        self.select_parser_configuration = select_parser_configuration
+        self.saccade_acceleration_threshold = saccade_acceleration_threshold
+        self.saccade_velocity_threshold = saccade_velocity_threshold
+        self.recording_parse_type = recording_parse_type
+        self.enable_search_limits = "YES" if enable_search_limits else "NO"
+        # calibration
+        self.calibration_type = calibration_type  # []-point calibration
+        self.automatic_calibration_pacing = automatic_calibration_pacing
+        # specify the EVENT and SAMPLE data that are stored in EDF or retrievable from the Link
+        # [see Section 4.6 Data Files of the  EyeLink 1000 Plus user manual]
+        self.fef = "LEFT,RIGHT,FIXATION,SACCADE,BLINK,MESSAGE,BUTTON,INPUT"
+        self.lef = "LEFT,RIGHT,FIXATION,FIXUPDATE,SACCADE,BLINK,BUTTON,INPUT"
+        if self.host_version >= 4:
+            self.fsd = "LEFT,RIGHT,GAZE,AREA,GAZERES,STATUS,HTARGET,INPUT"
+            self.lsd = "LEFT,RIGHT,GAZE,GAZERES,AREA,STATUS,HTARGET,INPUT"
+        else:
+            self.fsd = "LEFT,RIGHT,GAZE,AREA,GAZERES,STATUS"
+            self.lsd = "LEFT,RIGHT,GAZE,GAZERES,AREA,STATUS"
+
+        #---store param for export
+        self.param = dict(
+            tracker_version=self.tracker_version, 
+            host_version=self.host_version,
+            select_parser_configuration=self.select_parser_configuration,
+            saccade_acceleration_threshold=self.saccade_acceleration_threshold,
+            saccade_velocity_threshold=self.saccade_velocity_threshold,
+            recording_parse_type=self.recording_parse_type,
+            enable_search_limits=self.enable_search_limits,
+            automatic_calibration_pacing=self.automatic_calibration_pacing,
+            file_event_filter=self.fef,
+            file_sample_data=self.fsd,
+            link_event_filter=self.lef,
+            link_sample_data=self.lsd,
+            calibration_type=self.calibration_type
+        )
 
         #----open edf
         self.tracker.openDataFile(self.fname)
@@ -366,9 +350,12 @@ class eyetracking():
         pylink.setDriftCorrectSounds("", "", "")
         
         # export param to txt file
-        param = pd.DataFrame.from_dict(data=self.param, orient='index', columns=['value'])
+        param = pd.DataFrame(list(self.param.items()),columns=['category', 'value'])
         param.to_csv(path_or_buf=self.path + str(self.subject) + ".txt", index=True, index_label='index')
 
+        #if ipython
+        display(param)
+        
         return param
 
     def set_eye_used(self, eye):
@@ -379,6 +366,11 @@ class eyetracking():
         ----------
         eye : :obj:`str`
             Dominant eye (left, right). This will be used for outputting Eyelink gaze samples.
+        
+        Examples
+        --------
+        >>> dominant_eye = 'left'
+        >>> eye_used = eyetracking.set_eye_used(eye=dominant_eye)
         """
         self.console(msg="eyetracking.set_eye_used()")
         eye_entered = str(eye)
@@ -402,8 +394,7 @@ class eyetracking():
         self.console(msg="eyetracking.calibration()")
         # if connected to eyetracker
         if self.connected:
-            self.console(c='blue', msg='connected')
-            # put the tracker in offline mode before we change its configrations
+            # put the tracker in offline mode before we change its configurations
             self.tracker.setOfflineMode()
             # Generate custom calibration stimuli
             self.genv = calibration(w=self.w, h=self.h, tracker=self.tracker, window=self.window)
@@ -412,18 +403,13 @@ class eyetracking():
             # calibrate
             self.tracker.doTrackerSetup(self.w, self.h)
 
-    def drift_correction(self, window):
+    def drift_correction(self):
         """
         Starts drift correction, and calibrates eyetracker using psychopy stimuli.
-
-        Parameters
-        ----------
-        window : :class:`psychopy.visual.window.Window`
-            PsychoPy window instance.
-
+        
         Examples
         --------
-        >>> eyetracking.drift_correction(window=window)
+        >>> eyetracking.drift_correction()
         """
         self.console(msg="eyetracking.drift_correction()")
 
@@ -447,13 +433,13 @@ class eyetracking():
 
             # stop recording eye data
             self.tracker.stopRecording()
-
-            # flag isRecording
-            self.isRecording = False
+        
+        # flag isRecording
+        self.isRecording = False        
         
         # initiate drift correction, flag isDriftCorrection
         self.isDriftCorrection = True
-        self.tracker.doDriftCorrect(self.w, self.h, 0, 0)
+        self.tracker.doDriftCorrect(int(self.w/2), int(self.h/2), 1, 1)
 
     def roi(self, window, region, duration):
         """
@@ -473,7 +459,7 @@ class eyetracking():
         
         Returns
         -------
-        bbb[item] : :class:`aaa`
+        [item] : :class:`[type]`
             [Description]
         """
 
@@ -485,20 +471,29 @@ class eyetracking():
         ----------
         eye_used : :obj:`str`
             Checks if eye used is available.
+        
+        Returns
+        -------
+        gxy : :class:`tuple`
+            Gaze coordiantes.
+        p : :class:`tuple`
+            Pupil size (area).
 
         Examples
         --------
         >>> eyetracking.sample(eye_used=eye_used)
         """
         # check for new sample update
-        s = self.tracker.getNewestSample()  # check for new sample update
-        if(s != None):  # Gets the gaze position of the latest sample
-            # pupil area
+        s = self.tracker.getNewestSample()
+        if(s != None):
+            # gaze coordinates, pupil area
             if eye_used == self.right_eye:
+                gxy = s.getRightEye().getGaze()
                 ps = s.getRightEye().getPupilSize()
             else:
+                gxy = s.getLeftEye().getGaze()
                 ps = s.getLeftEye().getPupilSize()
-            return ps
+            return gxy, ps, s
 
     def send_message(self, msg):
         """
@@ -574,13 +569,21 @@ class eyetracking():
         >>> eyetracking.start_recording(block=1, trial=1)
         """
         self.console(msg="eyetracking.start_recording()")
-
-        # Message to post to Eyelink Display Monitor
-        self.tracker.sendCommand(
-            "record_status_message 'Trial %s Block %s'" % (str(trial), str(block)))
+        
+        #flush keyboard
+        
+        # clear the host display
+        self.tracker.sendCommand('clear_screen 0') 
+        
+        # draw text and box
+        w,h = 200,200
+        self.tracker.sendCommand('draw_box %d %d %d %d 6' % (self.w/2-w/2, self.h/2-h/2, self.w/2+w/2, self.h/2+h/2))
 
         # indicates start of trial
         self.tracker.sendMessage('TRIALID %s' % (str(trial)))
+    
+        # Message to post to Eyelink Display Monitor
+        self.tracker.sendCommand("record_status_message 'Trial %s Block %s'" % (str(trial), str(block)))
 
         # start recording, parameters specify whether events and samples are
         # stored in file, and available over the link

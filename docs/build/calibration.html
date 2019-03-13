@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>mdl.calibration &#8212; mdl-eyelink 2019-03-12 documentation</title>
+    <title>mdl.calibration &#8212; mdl-eyelink 2019-03-13 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -36,7 +36,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           mdl-eyelink</a>
-        <span class="navbar-text navbar-version pull-left"><b>2019-03-12</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2019-03-13</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -57,7 +57,6 @@
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="eyetracking.html">eyetracking</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">calibration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example.html">example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pylink.html">pylink</a></li>
 </ul>
@@ -183,9 +182,21 @@
 </tbody>
 </table>
 <dl class="method">
-<dt id="mdl.calibration.calibration.alert_printf">
-<code class="descname">alert_printf</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.alert_printf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.alert_printf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Print error messages.</p>
+<dt id="mdl.calibration.calibration.record_abort_hide">
+<code class="descname">record_abort_hide</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.record_abort_hide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.record_abort_hide" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is called if aborted.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mdl.calibration.calibration.setup_cal_display">
+<code class="descname">setup_cal_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.setup_cal_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.setup_cal_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets up the initial calibration display, which contains a menu with instructions.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mdl.calibration.calibration.exit_cal_display">
+<code class="descname">exit_cal_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.exit_cal_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.exit_cal_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exits calibration display.</p>
 </dd></dl>
 
 <dl class="method">
@@ -195,15 +206,27 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="mdl.calibration.calibration.erase_cal_target">
+<code class="descname">erase_cal_target</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.erase_cal_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.erase_cal_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Erase the calibration/validation target.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="mdl.calibration.calibration.draw_cal_target">
 <code class="descname">draw_cal_target</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.draw_cal_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.draw_cal_target" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw the calibration/validation target.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mdl.calibration.calibration.draw_image_line">
-<code class="descname">draw_image_line</code><span class="sig-paren">(</span><em>width</em>, <em>line</em>, <em>totlines</em>, <em>buff</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.draw_image_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.draw_image_line" title="Permalink to this definition">¶</a></dt>
-<dd><p>Display image pixel by pixel, line by line.</p>
+<dt id="mdl.calibration.calibration.play_beep">
+<code class="descname">play_beep</code><span class="sig-paren">(</span><em>beepid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.play_beep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.play_beep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Play a sound during calibration/drift correction.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mdl.calibration.calibration.getColorFromIndex">
+<code class="descname">getColorFromIndex</code><span class="sig-paren">(</span><em>colorindex</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.getColorFromIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.getColorFromIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get color from index.</p>
 </dd></dl>
 
 <dl class="method">
@@ -220,15 +243,10 @@ top-left corner of the bounding box.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mdl.calibration.calibration.erase_cal_target">
-<code class="descname">erase_cal_target</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.erase_cal_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.erase_cal_target" title="Permalink to this definition">¶</a></dt>
-<dd><p>Erase the calibration/validation target.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mdl.calibration.calibration.exit_cal_display">
-<code class="descname">exit_cal_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.exit_cal_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.exit_cal_display" title="Permalink to this definition">¶</a></dt>
-<dd><p>Exits calibration display.</p>
+<dt id="mdl.calibration.calibration.get_input_key">
+<code class="descname">get_input_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.get_input_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.get_input_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will be constantly pools, update the stimuli here is you need
+dynamic calibration target.</p>
 </dd></dl>
 
 <dl class="method">
@@ -238,16 +256,15 @@ top-left corner of the bounding box.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mdl.calibration.calibration.getColorFromIndex">
-<code class="descname">getColorFromIndex</code><span class="sig-paren">(</span><em>colorindex</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.getColorFromIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.getColorFromIndex" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get color from index.</p>
+<dt id="mdl.calibration.calibration.alert_printf">
+<code class="descname">alert_printf</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.alert_printf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.alert_printf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print error messages.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mdl.calibration.calibration.get_input_key">
-<code class="descname">get_input_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.get_input_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.get_input_key" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will be constantly pools, update the stimuli here is you need
-dynamic calibration target.</p>
+<dt id="mdl.calibration.calibration.setup_image_display">
+<code class="descname">setup_image_display</code><span class="sig-paren">(</span><em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.setup_image_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.setup_image_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set up the camera image, for newer APIs, the size is 384 x 320 pixels.</p>
 </dd></dl>
 
 <dl class="method">
@@ -257,15 +274,9 @@ dynamic calibration target.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mdl.calibration.calibration.play_beep">
-<code class="descname">play_beep</code><span class="sig-paren">(</span><em>beepid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.play_beep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.play_beep" title="Permalink to this definition">¶</a></dt>
-<dd><p>Play a sound during calibration/drift correction.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mdl.calibration.calibration.record_abort_hide">
-<code class="descname">record_abort_hide</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.record_abort_hide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.record_abort_hide" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function is called if aborted.</p>
+<dt id="mdl.calibration.calibration.draw_image_line">
+<code class="descname">draw_image_line</code><span class="sig-paren">(</span><em>width</em>, <em>line</em>, <em>totlines</em>, <em>buff</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.draw_image_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.draw_image_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display image pixel by pixel, line by line.</p>
 </dd></dl>
 
 <dl class="method">
@@ -273,18 +284,6 @@ dynamic calibration target.</p>
 <code class="descname">set_image_palette</code><span class="sig-paren">(</span><em>r</em>, <em>g</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.set_image_palette"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.set_image_palette" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a set of RGB colors, create a list of 24bit numbers representing the pallet.
 I.e., RGB of (1,64,127) would be saved as 82047, or the number 00000001 01000000 011111111</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mdl.calibration.calibration.setup_cal_display">
-<code class="descname">setup_cal_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.setup_cal_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.setup_cal_display" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets up the initial calibration display, which contains a menu with instructions.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mdl.calibration.calibration.setup_image_display">
-<code class="descname">setup_image_display</code><span class="sig-paren">(</span><em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/calibration.html#calibration.setup_image_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.calibration.calibration.setup_image_display" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set up the camera image, for newer APIs, the size is 384 x 320 pixels.</p>
 </dd></dl>
 
 </dd></dl>

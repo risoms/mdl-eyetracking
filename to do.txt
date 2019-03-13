@@ -1,0 +1,31 @@
+notes
+- draw interest area using code
+- set box for drift correct ( draw the text on the Host screen and show the bounding box)
+- flush keyboard before start of trial?
+- set up gaze contigent and drift correct
+
+steps
+- between blocks, do drift correct 
+- when start recording started
+	- do gaze contigent (if gc=True)
+		- if fail gaze contigent (2 seconds, no fixation)
+			- start drift correct
+
+
+
+# OPTIONAL-- set an Interest Area for data viewer integraiton
+# a full list of Data Viewer integration messages and their syntax can be found in the Data Viewer Manual 
+# (Help menu -> Contents -> Protocol for EyeLink Data To Viewer Integraiton).
+tk.sendMessage("!V IAREA RECTANGLE 1 %d %d %d %d target" % (scnWidth/2-w/2, scnHeight/2-h/2, scnWidth/2+w/2, scnHeight/2+h/2))
+
+
+# flush cached button presses (eyelink) 
+tk.flushKeybuttons(0)
+tk.setOfflineMode()
+pylink.msecDelay(50)
+
+# OPTIONAL-- draw the text on the Host screen and show the bounding box
+tk.sendCommand('clear_screen 0') # clear the host Display first
+tk.sendCommand('draw_text %d %d 6 %s' % (scnWidth/2, scnHeight/2, text))
+tk.sendCommand('draw_box %d %d %d %d 6' % (scnWidth/2-w/2, scnHeight/2-h/2, scnWidth/2+w/2, scnHeight/2+h/2))
+	
