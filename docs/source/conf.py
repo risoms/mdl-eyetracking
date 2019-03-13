@@ -78,22 +78,15 @@ exclude_patterns = ['_build', '**.ipynb_checkpoints']
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
 
+# Sort by source
+autodoc_member_order = 'bysource'
 
 # -- Options for HTML output -------------------------------------------------
 
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
-#
-#html_theme = 'scipy'
-#html_static_path = ['_static']
-#html_theme_path = ['_templates']
+# The theme to use for HTML and HTML Help pages.
 html_theme = 'bootstrap'
 html_static_path = ['_static']
 html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
-# Theme options are theme-specific and customize the look and feel of a theme
-# further.  For a list of options available for each theme, see the
-# documentation.
-#
 html_theme_options = {
     'source_link_position': "footer",
     'bootswatch_theme': "paper",
@@ -142,19 +135,16 @@ pngmath_use_preview = True
 pngmath_dvipng_args = ['-gamma 1.5', '-D 96', '-bg Transparent']
 
 # -- Options for HTMLHelp output ---------------------------------------------
-
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'mdl-eyelink'
 
 # -- Options for manual page output ------------------------------------------
-
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
     (master_doc, 'mdl-eyelink', 'mdl-eyelink', [author], 1)
 ]
 # -- Options for Texinfo output ----------------------------------------------
-
 # Grouping the document tree into Texinfo files. List of tuples
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
@@ -162,7 +152,6 @@ texinfo_documents = [
     (master_doc, 'mdl-eyelink', 'mdl-eyelink', author, 'mdl-eyelink', 'One line description of project.', 'Miscellaneous'),
 ]
 # -- Options for Epub output -------------------------------------------------
-
 # Bibliographic Dublin Core info.
 epub_title = project
 
@@ -175,7 +164,6 @@ epub_title = project
 
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
-
 
 # -- Extension configuration -------------------------------------------------
 
