@@ -16,6 +16,7 @@ from pdb import set_trace as breakpoint
 import os
 import re
 import platform
+import pandas as pd
 
 # ---bridging
 import pylink
@@ -105,6 +106,11 @@ class eyetracking():
             )
         else:
             self.subject = subject
+    
+        # generate file path
+        self.path = "%s/data/edf/" % (os.getcwd())
+        if not os.path.exists(self.path):
+            os.makedirs(self.path)
         
         #----check if required libraries are available
         if libraries == True:
@@ -112,7 +118,7 @@ class eyetracking():
 
         #----edf filename
         self.subject = os.path.splitext(str(subject))[0]
-        # check if interger
+        # check if integer
         if re.match(r'\w+$', self.subject):
             pass
         else:
@@ -172,15 +178,22 @@ class eyetracking():
         #----set tracker
         self.setup()
 
-        #---print message
-        self.console(c='blue', msg="Eyelink Tracker: Version %d" %(self.tracker_version))
-        self.console(c='blue', msg="Eyelink Host: Version %s" %(self.host_version))
-        self.console(c='blue', msg="select_parser_configuration: %s" %(self.select_parser_configuration))
-        self.console(c='blue', msg="saccade_acceleration_threshold: %s" %(self.saccade_acceleration_threshold))
-        self.console(c='blue', msg="saccade_velocity_threshold: %s" %(self.saccade_velocity_threshold))
-        self.console(c='blue', msg="recording_parse_type: %s" %(self.recording_parse_type))
-        self.console(c='blue', msg="enable_search_limits: %s" %(self.enable_search_limits))
-        self.console(c='blue', msg="automatic_calibration_pacing: %s" %(self.automatic_calibration_pacing))
+        #---store param for export
+        self.param = dict(
+            tracker_version=self.tracker_version, 
+            host_version=self.host_version,
+            select_parser_configuration=self.select_parser_configuration,
+            saccade_acceleration_threshold=self.saccade_acceleration_threshold,
+            saccade_velocity_threshold=self.saccade_velocity_threshold,
+            recording_parse_type=self.recording_parse_type,
+            enable_search_limits=self.enable_search_limits,
+            automatic_calibration_pacing=self.automatic_calibration_pacing,
+            file_event_filter=self.fef,
+            file_sample_data=self.fsd,
+            link_event_filter=self.lef,
+            link_sample_data=self.lsd,
+            calibration_type=self.calibration_type
+        )
 
     def console(self, c='green', msg=''):
         """
@@ -282,6 +295,11 @@ class eyetracking():
         enable_search_limits : :class:`bool`
             Enables tracking of pupil to global search limits. Default is True. [see Eyelink 1000 Plus 
             User Manual, Section 4.4: File Data Types]
+        
+        Returns
+        ----------
+        param : :class:`pandas.DataFrame`
+            Returns dataframe of parameters for subject.
         """
 
         #----open edf
@@ -346,6 +364,12 @@ class eyetracking():
         # "" = sound, "off" = no sound
         pylink.setCalibrationSounds("", "", "")
         pylink.setDriftCorrectSounds("", "", "")
+        
+        # export param to txt file
+        param = pd.DataFrame.from_dict(data=self.param, orient='index', columns=['value'])
+        param.to_csv(path_or_buf=self.path + str(self.subject) + ".txt", index=True, index_label='index')
+
+        return param
 
     def set_eye_used(self, eye):
         """
@@ -359,10 +383,10 @@ class eyetracking():
         self.console(msg="eyetracking.set_eye_used()")
         eye_entered = str(eye)
         if eye_entered in ('Left', 'LEFT', 'left', 'l', 'L'):
-            self.console(c='blue', msg="eye_entered = %s(left)" %(eye_entered))
+            self.console(c="blue", msg="eye_entered = %s(left)" %(eye_entered))
             self.eye_used = self.left_eye
         else:
-            self.console(c='blue', msg="eye_entered = %s(right)" %(eye_entered))
+            self.console(c="blue", msg="eye_entered = %s(right)" %(eye_entered))
             self.eye_used = self.right_eye
 
         return self.eye_used
@@ -378,7 +402,7 @@ class eyetracking():
         self.console(msg="eyetracking.calibration()")
         # if connected to eyetracker
         if self.connected:
-            self.console(c='blue', msg="connected")
+            self.console(c='blue', msg='connected')
             # put the tracker in offline mode before we change its configrations
             self.tracker.setOfflineMode()
             # Generate custom calibration stimuli
@@ -689,10 +713,6 @@ class eyetracking():
         >>> eyetracking.finish_recording()
         """
         self.console(msg="eyetracking.finish_recording()")
-        # generate file path
-        self.path = "%s/data/edf/" % (os.getcwd())
-        if not os.path.exists(self.path):
-            os.makedirs(self.path)
 
         # double check realtime mode has ended
         pylink.endRealTimeMode()

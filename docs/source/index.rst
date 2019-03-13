@@ -50,6 +50,7 @@ To see the code or report a bug, please visit the `github <https://github.com/ri
 
 .. toctree::
    :maxdepth: 1
+   :titlesonly:
    :glob:
    :hidden:
 

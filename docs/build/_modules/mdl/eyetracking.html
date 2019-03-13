@@ -119,6 +119,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">platform</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="c1"># ---bridging</span>
 <span class="kn">import</span> <span class="nn">pylink</span>
@@ -208,6 +209,11 @@
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subject</span> <span class="o">=</span> <span class="n">subject</span>
+    
+        <span class="c1"># generate file path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/data/edf/&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
         
         <span class="c1">#----check if required libraries are available</span>
         <span class="k">if</span> <span class="n">libraries</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
@@ -215,7 +221,7 @@
 
         <span class="c1">#----edf filename</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">subject</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">subject</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="c1"># check if interger</span>
+        <span class="c1"># check if integer</span>
         <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\w+$&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">subject</span><span class="p">):</span>
             <span class="k">pass</span>
         <span class="k">else</span><span class="p">:</span>
@@ -243,8 +249,6 @@
         <span class="c1">#----tracker metadata</span>
         <span class="c1"># get eyelink version</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracker_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">getTrackerVersion</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Eyelink Tracker: Version </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span>
-                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracker_version</span><span class="p">))</span>
 
         <span class="c1"># get host tracking software version</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">host_version</span> <span class="o">=</span> <span class="mi">0</span>
@@ -253,8 +257,6 @@
             <span class="n">vindex</span> <span class="o">=</span> <span class="n">tvstr</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;EYELINK CL&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">host_version</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
                 <span class="nb">float</span><span class="p">(</span><span class="n">tvstr</span><span class="p">[(</span><span class="n">vindex</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="s2">&quot;EYELINK CL&quot;</span><span class="p">)):]</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Eyelink Host: Version </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
-                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">host_version</span><span class="p">))</span>
 
         <span class="c1">#----preset</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">select_parser_configuration</span> <span class="o">=</span> <span class="n">select_parser_configuration</span>
@@ -278,6 +280,23 @@
 
         <span class="c1">#----set tracker</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
+
+        <span class="c1">#---store param for export</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">tracker_version</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tracker_version</span><span class="p">,</span> 
+            <span class="n">host_version</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">host_version</span><span class="p">,</span>
+            <span class="n">select_parser_configuration</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">select_parser_configuration</span><span class="p">,</span>
+            <span class="n">saccade_acceleration_threshold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">saccade_acceleration_threshold</span><span class="p">,</span>
+            <span class="n">saccade_velocity_threshold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">saccade_velocity_threshold</span><span class="p">,</span>
+            <span class="n">recording_parse_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">recording_parse_type</span><span class="p">,</span>
+            <span class="n">enable_search_limits</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">enable_search_limits</span><span class="p">,</span>
+            <span class="n">automatic_calibration_pacing</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">automatic_calibration_pacing</span><span class="p">,</span>
+            <span class="n">file_event_filter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fef</span><span class="p">,</span>
+            <span class="n">file_sample_data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fsd</span><span class="p">,</span>
+            <span class="n">link_event_filter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lef</span><span class="p">,</span>
+            <span class="n">link_sample_data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lsd</span><span class="p">,</span>
+            <span class="n">calibration_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration_type</span>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="eyetracking.console"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.console">[docs]</a>    <span class="k">def</span> <span class="nf">console</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -379,6 +398,11 @@
 <span class="sd">        enable_search_limits : :class:`bool`</span>
 <span class="sd">            Enables tracking of pupil to global search limits. Default is True. [see Eyelink 1000 Plus </span>
 <span class="sd">            User Manual, Section 4.4: File Data Types]</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        ----------</span>
+<span class="sd">        param : :class:`pandas.DataFrame`</span>
+<span class="sd">            Returns dataframe of parameters for subject.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1">#----open edf</span>
@@ -442,7 +466,13 @@
         <span class="c1"># select sound for calibration and drift correct</span>
         <span class="c1"># &quot;&quot; = sound, &quot;off&quot; = no sound</span>
         <span class="n">pylink</span><span class="o">.</span><span class="n">setCalibrationSounds</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="n">pylink</span><span class="o">.</span><span class="n">setDriftCorrectSounds</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+        <span class="n">pylink</span><span class="o">.</span><span class="n">setDriftCorrectSounds</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># export param to txt file</span>
+        <span class="n">param</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">])</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path_or_buf</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subject</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.txt&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index_label</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">param</span></div>
 
 <div class="viewcode-block" id="eyetracking.set_eye_used"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.set_eye_used">[docs]</a>    <span class="k">def</span> <span class="nf">set_eye_used</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eye</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -456,10 +486,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s2">&quot;eyetracking.set_eye_used()&quot;</span><span class="p">)</span>
         <span class="n">eye_entered</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">eye</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">eye_entered</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;Left&#39;</span><span class="p">,</span> <span class="s1">&#39;LEFT&#39;</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;eye_entered = </span><span class="si">%s</span><span class="s2">(left)&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">eye_entered</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;eye_entered = </span><span class="si">%s</span><span class="s2">(left)&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">eye_entered</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">eye_used</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left_eye</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;eye_entered = </span><span class="si">%s</span><span class="s2">(right)&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">eye_entered</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;eye_entered = </span><span class="si">%s</span><span class="s2">(right)&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">eye_entered</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">eye_used</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_eye</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye_used</span></div>
@@ -475,7 +505,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s2">&quot;eyetracking.calibration()&quot;</span><span class="p">)</span>
         <span class="c1"># if connected to eyetracker</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;connected&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;connected&#39;</span><span class="p">)</span>
             <span class="c1"># put the tracker in offline mode before we change its configrations</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">setOfflineMode</span><span class="p">()</span>
             <span class="c1"># Generate custom calibration stimuli</span>
@@ -786,10 +816,6 @@
 <span class="sd">        &gt;&gt;&gt; eyetracking.finish_recording()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s2">&quot;eyetracking.finish_recording()&quot;</span><span class="p">)</span>
-        <span class="c1"># generate file path</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/data/edf/&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">):</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
 
         <span class="c1"># double check realtime mode has ended</span>
         <span class="n">pylink</span><span class="o">.</span><span class="n">endRealTimeMode</span><span class="p">()</span>
@@ -807,6 +833,7 @@
         <span class="c1"># This receives a data file from the eyelink tracking computer</span>
         <span class="n">destination</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">fname</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">receiveDataFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="p">,</span> <span class="n">destination</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;File saved at: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">destination</span><span class="p">))</span>
 
         <span class="c1"># wends a disconnect message to the EyeLink tracker</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
