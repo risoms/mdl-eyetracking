@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#%%
+# %%
 # Created on Wed Feb 13 15:37:43 2019
 # @author: Semeon Risom
 # @email: semeon.risom@gmail.com.
@@ -10,10 +10,23 @@
 # To Do:
 # Finish eyetracking.drift_correction()
 # Finish eyetracking.roi()
+# %%[metadata]
+# The sequence of operations for implementing the trial is:
+# 1) Perform a DRIFT CORRECTION, which also serves as the pre-trial fixation target.
+# 2) Start recording, allowing 100 milliseconds of data to accumulate before the trial display starts.
+# 3) Draw the subject display, recording the time that the display appeared by placing a message in 
+# the EDF file.
+# 4) Loop until one of these events occurs RECORDING halts, due to the tracker Abort menu or an error,
+# the maximum trial duration expires 'ESCAPE' is pressed, the program is interrupted, or abutton on the
+# EyeLink button box is pressed.
+# 5) Add special code to handle gaze-contingent display updates.
+# 6) Blank the display, stop recording after an additional 100 milliseconds of data has been collected.
+# 7) Report the trial result, and return an appropriate error code.
+# [see Pylink.chm]
 # %%
 # import
 import os, sys; sys.path.append(os.path.dirname(os.path.realpath(os.getcwd())))
-from psychopy import visual, core
+from psychopy import visual
 import mdl
 # %%
 # Initialize the Eyelink.
@@ -36,7 +49,7 @@ eye_used = eyetracking.set_eye_used(eye=dominant_eye)
 # Start calibration.
 # Before running the calibration, ensure psychopy window instance has been created in the experiment file. 
 # This window will be used in the calibration function.
-eyetracking.calibration()
+eyetracking.calibration(event='calibration')
 # %%
 # Enter the key "o" on the ```psychopy.visual.window.Window``` instance. This will begin the task. 
 # The Calibration, Validation, 'task-start' events are controlled by the keyboard.
@@ -45,10 +58,10 @@ eyetracking.calibration()
 # (Optional) Print message to console/terminal. This may be useful for debugging issues.
 eyetracking.console(c="blue", msg="eyetracking.calibration() started")
 # %%
-# Drift correction. This can be done at any point after calibration, including after 
+# Drift correction. This can be done at any point after calibration, including before and after 
 # eyetracking.start_recording has started. #!! To do. Finish.
-#
 eyetracking.drift_correction()
+print('finished')
 # %%
 # Gaze contigent. This is used for realtime data collection from eyelink->psychopy.
 # For example, this can be used to require participant to look at the fixation cross for a duration

@@ -383,7 +383,7 @@ class eyetracking():
 
         return self.eye_used
 
-    def calibration(self):
+    def calibration(self, event='calibration'):
         """
         Initialize mdl.calibration module.
             
@@ -391,21 +391,32 @@ class eyetracking():
         --------
         >>> eyetracking.calibration()
         """
-        self.console(msg="eyetracking.calibration()")
-        # if connected to eyetracker
-        if self.connected:
-            # put the tracker in offline mode before we change its configurations
-            self.tracker.setOfflineMode()
-            # Generate custom calibration stimuli
-            self.genv = calibration(w=self.w, h=self.h, tracker=self.tracker, window=self.window)
-            # execute custom calibration display
-            pylink.openGraphicsEx(self.genv)
-            # calibrate
-            self.tracker.doTrackerSetup(self.w, self.h)
+        #----if running calibration
+        if event=='calibration':
+            self.console(msg="eyetracking.calibration()")
+            # if connected to eyetracker
+            if self.connected:
+                # put the tracker in offline mode before we change its configurations
+                self.tracker.setOfflineMode()
+                # Generate custom calibration stimuli
+                self.genv = calibration(w=self.w, h=self.h, tracker=self.tracker, window=self.window)
+                # execute custom calibration display
+                pylink.openGraphicsEx(self.genv)
+                # calibrate
+                self.tracker.doTrackerSetup(self.w, self.h)
+        #----else if running drift correction
+        elif event=='drift_correction':
+            pass
 
     def drift_correction(self):
         """
-        Starts drift correction, and calibrates eyetracker using psychopy stimuli.
+        Starts drift correction. This can be done at any point after calibration, including before 
+        and after eyetracking.start_recording has already been initiated.
+        
+        Notes
+        -----
+        Running drift_correction will end any start_recording event to function properly. Once drift
+        correction has occured, it is safe to run start_recording.
         
         Examples
         --------
@@ -437,9 +448,20 @@ class eyetracking():
         # flag isRecording
         self.isRecording = False        
         
+        #draw drift correct on screen
+        self.window = 
+        
         # initiate drift correction, flag isDriftCorrection
         self.isDriftCorrection = True
-        self.tracker.doDriftCorrect(int(self.w/2), int(self.h/2), 1, 1)
+        while:
+            self.tracker.doDriftCorrect(int(self.w/2), int(self.h/2), 1, 1)
+            if error != 27:
+                break;
+            else:
+                self.tracker.doTrackerSetup();
+        except:
+            self.tracker.doTrackerSetup()
+
 
     def roi(self, window, region, duration):
         """
@@ -530,9 +552,9 @@ class eyetracking():
         else:
             self.console(c="red", msg="no variables entered")
 
-    def start_recording(self, trial, block):
+    def start_recording(self, trial, block, image=None):
         """
-        Starts recording of eyelink.
+        Starts recording of Eyelink.
 
         Parameters
         ----------
@@ -540,6 +562,8 @@ class eyetracking():
             Trial Number.
         block : :obj:`str`
             Block Number.
+        image : :obj:`str`, or `None`
+            File path for the stimulus being presented.
 
         Notes
         ----- 
@@ -582,7 +606,7 @@ class eyetracking():
         # indicates start of trial
         self.tracker.sendMessage('TRIALID %s' % (str(trial)))
     
-        # Message to post to Eyelink Display Monitor
+        # Message to post to Eyelink display Monitor
         self.tracker.sendCommand("record_status_message 'Trial %s Block %s'" % (str(trial), str(block)))
 
         # start recording, parameters specify whether events and samples are
@@ -596,6 +620,14 @@ class eyetracking():
         self.tracker.sendMessage('SYNCTIME')
         self.tracker.sendMessage('start recording')
 
+        #send location of image for later processing
+        #note: see "Protocol for EyeLink Data to Data Viewer Integration -> Image" section of the 
+        # Data Viewer manual for more information
+        if image is not None:
+            #%s %d %d %d %d
+            breakpoint()
+            self.tracker.sendMessage('!V IMGLOAD FILL %s %d %d'%('..'+os.sep + pic))
+        
         # flag isDriftCorrection, isRecording, trial, block
         self.isDriftCorrection = False
         self.isRecording = True
@@ -604,7 +636,7 @@ class eyetracking():
 
     def stop_recording(self, trial=None, block=None, variables=None):
         """
-        Stops recording of eyelink. Also allows transmission of trial-level variables to Eyelink.
+        Stops recording of Eyelink. Also allows transmission of trial-level variables to Eyelink.
 
         Parameters
         ----------
@@ -677,7 +709,7 @@ class eyetracking():
 
     def finish_recording(self):
         """
-        Finish recording of eyelink.
+        Finish recording of Eyelink.
 
         Parameters
         ----------
@@ -716,7 +748,10 @@ class eyetracking():
         >>> eyetracking.finish_recording()
         """
         self.console(msg="eyetracking.finish_recording()")
-
+        
+        #clear host display
+        self.tracker.sendCommand('clear_screen 0') 
+        
         # double check realtime mode has ended
         pylink.endRealTimeMode()
         pylink.pumpDelay(500)
@@ -735,5 +770,5 @@ class eyetracking():
         self.tracker.receiveDataFile(self.fname, destination)
         self.console(c="blue", msg="File saved at: %s"%(destination))
 
-        # wends a disconnect message to the EyeLink tracker
+        # sends a disconnect message to the EyeLink tracker
         self.tracker.close()

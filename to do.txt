@@ -1,8 +1,8 @@
 notes
-- draw interest area using code
-- set box for drift correct ( draw the text on the Host screen and show the bounding box)
-- flush keyboard before start of trial?
-- set up gaze contigent and drift correct
+- draw roi using code (mdl-roi)
+- show fixation cross for drift correction
+- have path of stimulus presented on Host pc (ie IMGLOAD)
+- set up gaze contigent, drift correct, and eyetracking.roi (i.e. IAREA RECTANGLE)
 
 steps
 - between blocks, do drift correct 
