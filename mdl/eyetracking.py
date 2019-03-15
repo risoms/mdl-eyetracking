@@ -8,17 +8,23 @@
 | but should be compatiable with earlier systems.
 """
 
-# ---debug
+#----debug
 from pdb import set_trace as breakpoint
-from IPython.display import display, HTML
+from IPython.display import display
 
-# ---main
+#----main
+import time
 import os
 import re
 import platform
 import pandas as pd
+from pathlib import Path
 
-# ---bridging
+#psychopy
+from psychopy import visual
+from psychopy.tools.monitorunittools import posToPix
+
+#----bridging
 import pylink
 from calibration import calibration
 #---------------------------------------------start
@@ -383,7 +389,7 @@ class eyetracking():
 
         return self.eye_used
 
-    def calibration(self, event='calibration'):
+    def calibration(self):
         """
         Initialize mdl.calibration module.
             
@@ -391,24 +397,21 @@ class eyetracking():
         --------
         >>> eyetracking.calibration()
         """
-        #----if running calibration
-        if event=='calibration':
-            self.console(msg="eyetracking.calibration()")
-            # if connected to eyetracker
-            if self.connected:
-                # put the tracker in offline mode before we change its configurations
-                self.tracker.setOfflineMode()
-                # Generate custom calibration stimuli
-                self.genv = calibration(w=self.w, h=self.h, tracker=self.tracker, window=self.window)
-                # execute custom calibration display
-                pylink.openGraphicsEx(self.genv)
-                # calibrate
-                self.tracker.doTrackerSetup(self.w, self.h)
-        #----else if running drift correction
-        elif event=='drift_correction':
-            pass
+        self.console(msg="eyetracking.calibration()")
+        # if connected to eyetracker
+        if self.connected:
+            # put the tracker in offline mode before we change its configurations
+            self.tracker.setOfflineMode()
+            # Generate custom calibration stimuli
+            self.genv = calibration(w=self.w, h=self.h, tracker=self.tracker, window=self.window)
+            # execute custom calibration display
+            pylink.openGraphicsEx(self.genv)
+            # calibrate
+            self.tracker.doTrackerSetup(self.w, self.h)
+            #flip screen after finishing
+            self.window.flip()
 
-    def drift_correction(self):
+    def drift_correction(self, source='manual'):
         """
         Starts drift correction. This can be done at any point after calibration, including before 
         and after eyetracking.start_recording has already been initiated.
@@ -423,6 +426,9 @@ class eyetracking():
         >>> eyetracking.drift_correction()
         """
         self.console(msg="eyetracking.drift_correction()")
+        
+        #clear screen
+        self.window.flip()
 
         #update counter
         self.drift_count = self.drift_count + 1
@@ -437,7 +443,9 @@ class eyetracking():
             pylink.msecDelay(100)
 
             # send trial-level variables
-            self.send_variable(variables=dict(trial=self.trial, block=self.block))
+            #if running from self.gc
+            if source=='gc':
+                self.send_variable(variables=dict(trial=self.trial, block=self.block, issues='gc window failed'))
 
             # specify end of trial
             self.tracker.sendMessage("TRIAL_RESULT 1")
@@ -446,11 +454,7 @@ class eyetracking():
             self.tracker.stopRecording()
         
         # flag isRecording
-        self.isRecording = False        
-        
-        #draw drift correct on screen
-        #self.window = 
-        breakpoint()
+        self.isRecording = False
         
         # initiate drift correction, flag isDriftCorrection
         self.isDriftCorrection = True
@@ -458,30 +462,75 @@ class eyetracking():
             self.tracker.doDriftCorrect(int(self.w/2), int(self.h/2), 1, 1)
         except:
             self.tracker.doTrackerSetup()
+        
+        #flip screen after finishing
+        self.window.flip()
 
-
-    def roi(self, window, region, duration):
+    def gc(self, region, t_min, t_max=None):
         """
-        Create regions of interest. This is used for online data processing from eyelink->psychopy.
+        Creates gaze contigent event. This should be created while recording.
         
         Parameters
         ----------
-        window : :class:`psychopy.visual.window.Window`
-            PsychoPy window instance.
-        duration : :class:`str`
-            Duration window in msec of how long trial should be collecting samples.
-        region : :class:`dict` of {str : [left, top, right, bottom]}
+        region : :class:`dict` of {`str` : [left, top, right, bottom]}
             Dictionary of the bounding box for each region of interest. Bounds are
             by their left, top, right, and bottom coordinates in pixels.
-            >>> # region of interest in the center of the screen, 200 by 200 pixels in size
-            >>> region = dict(center=[860, 440, 1060, 640])
-        
-        Returns
-        -------
-        [item] : :class:`[type]`
-            [Description]
-        """
+        t_min : :class:`int`
+            Mininum duration (msec) in which gaze contigent capture is collecting data before allowing
+            the task to continue.
+        t_max : :class:`int` or `None`
+            Maxinum duration (msec) before task is forced to go into drift correction. 
 
+        Examples
+        --------
+        >>> # region of interest in the center of the screen, 200 by 200 pixels in size.
+        >>> region = dict(center=[860,1060,640,440])
+        >>> eyetracking.gc(region=region, t_min=2000)
+        """
+        
+        #if eyetracker is recording
+        if self.isRecording:
+            # draw box
+            self.tracker.sendCommand('draw_box %d %d %d %d 6'%\
+                                     (region['left'],region['top'],region['right'],region['bottom']))
+            
+            #get start time
+            start_time = time.clock()
+            #get current time
+            current_time = time.clock()
+            
+            #----check gc window
+            while True:
+                #get gaze sample
+                gxy, ps, s = self.sample(self.eye_used)
+                
+                #is gaze with gaze contigent window for t_min time
+                if ((region['left'] < gxy[0] < region['right']) and (region['top'] < gxy[1] < region['bottom'])):
+                    # has mininum time for gc window occured
+                    duration = (time.clock() - current_time) * 1000
+                    print('duration: %d'%(duration))
+                    if duration > t_min:
+                        print('gc window success')
+                        self.send_message(msg='gc window success')
+                        break
+                else:
+                    print('out of window')
+                    #reset current time
+                    current_time = time.clock()
+                
+                # if reached maxinum time
+                if t_max is not None:
+                    # has maxinum time for gc window occured
+                    duration = (time.clock() - start_time) * 1000
+                    print('maxinum: %d'%(duration))
+                    if duration > t_max:
+                        print('gc window failed')
+                        self.drift_correction()
+                        break
+        else:
+            self.console(c='red', msg="eyetracker not recording")
+                    
+            
     def sample(self, eye_used):
         """
         Collects new gaze coordinates from Eyelink.
@@ -495,8 +544,10 @@ class eyetracking():
         -------
         gxy : :class:`tuple`
             Gaze coordiantes.
-        p : :class:`tuple`
+        ps : :class:`tuple`
             Pupil size (area).
+        s : :class:`EyeLink.getNewestSample`
+            Eyelink newest sample.
 
         Examples
         --------
@@ -549,7 +600,7 @@ class eyetracking():
         else:
             self.console(c="red", msg="no variables entered")
 
-    def start_recording(self, trial, block, image=None):
+    def start_recording(self, trial, block, stimulus=None):
         """
         Starts recording of Eyelink.
 
@@ -559,11 +610,16 @@ class eyetracking():
             Trial Number.
         block : :obj:`str`
             Block Number.
-        image : :obj:`str`, or `None`
-            File path for the stimulus being presented.
-
+        stimulus : :obj:`None` or `psychopy.visual.image.ImageStim`, `dict` or `list` of type.
+            Stimuli can be sent individually or as a list either:    
+                `psychopy.visual.image.ImageStim`
+                    PsychoPy stimulus image class.
+                `dict`:
+                    Dictionary containing position (x,y), path, filename.
+            If you wish to have images available on Eyelink, be sure to specify where the image is 
+            stored relative to the EDF data file. 
         Notes
-        ----- 
+        -----
         tracker.beginRealTimeMode():
             To ensure that no data is missed before the important part of the trial starts. The EyeLink 
             tracker requires 10 to 30 milliseconds after the recording command to begin writing data. 
@@ -591,15 +647,6 @@ class eyetracking():
         """
         self.console(msg="eyetracking.start_recording()")
         
-        #flush keyboard
-        
-        # clear the host display
-        self.tracker.sendCommand('clear_screen 0') 
-        
-        # draw text and box
-        w,h = 200,200
-        self.tracker.sendCommand('draw_box %d %d %d %d 6' % (self.w/2-w/2, self.h/2-h/2, self.w/2+w/2, self.h/2+h/2))
-
         # indicates start of trial
         self.tracker.sendMessage('TRIALID %s' % (str(trial)))
     
@@ -616,15 +663,7 @@ class eyetracking():
         # indicates zero-time of trial
         self.tracker.sendMessage('SYNCTIME')
         self.tracker.sendMessage('start recording')
-
-        #send location of image for later processing
-        #note: see "Protocol for EyeLink Data to Data Viewer Integration -> Image" section of the 
-        # Data Viewer manual for more information
-        if image is not None:
-            #%s %d %d %d %d
-            breakpoint()
-            self.tracker.sendMessage('!V IMGLOAD FILL %s %d %d'%('..'+os.sep + pic))
-        
+            
         # flag isDriftCorrection, isRecording, trial, block
         self.isDriftCorrection = False
         self.isRecording = True
@@ -682,7 +721,7 @@ class eyetracking():
         >>> eyetracking.stop_recording(trial=trial, block=block, variables=variables)
         """
         self.console(msg="eyetracking.stop_recording()")
-
+        
         # end of trial message
         self.tracker.sendMessage('end recording')
 
@@ -693,6 +732,7 @@ class eyetracking():
         # send trial-level variables
         variables['trial'] = trial
         variables['block'] = block
+        variables['issues'] = 'none'
         self.send_variable(variables=variables)
 
         # specify end of trial
@@ -704,14 +744,14 @@ class eyetracking():
         # flag isRecording
         self.isRecording = False
 
-    def finish_recording(self):
+    def finish_recording(self, path=None):
         """
         Finish recording of Eyelink.
 
         Parameters
         ----------
-        subject : :obj:`int`
-            subject number.
+        path : :obj:`str` or `None`
+            Path to save data. If None, path will be default from PsychoPy task.
 
         Notes
         -----
@@ -763,9 +803,13 @@ class eyetracking():
         self.tracker.closeDataFile()
 
         # This receives a data file from the eyelink tracking computer
-        destination = self.path + self.fname
+        #if no path entered, use psychopy destination
+        if path is None:
+            destination = self.path + self.fname
+        else:
+            destination = path
         self.tracker.receiveDataFile(self.fname, destination)
-        self.console(c="blue", msg="File saved at: %s"%(destination))
+        self.console(c="blue", msg="File saved at: %s"%(Path(destination)))
 
         # sends a disconnect message to the EyeLink tracker
         self.tracker.close()

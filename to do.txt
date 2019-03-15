@@ -19,13 +19,16 @@ steps
 tk.sendMessage("!V IAREA RECTANGLE 1 %d %d %d %d target" % (scnWidth/2-w/2, scnHeight/2-h/2, scnWidth/2+w/2, scnHeight/2+h/2))
 
 
-# flush cached button presses (eyelink) 
-tk.flushKeybuttons(0)
-tk.setOfflineMode()
-pylink.msecDelay(50)
-
 # OPTIONAL-- draw the text on the Host screen and show the bounding box
 tk.sendCommand('clear_screen 0') # clear the host Display first
-tk.sendCommand('draw_text %d %d 6 %s' % (scnWidth/2, scnHeight/2, text))
 tk.sendCommand('draw_box %d %d %d %d 6' % (scnWidth/2-w/2, scnHeight/2-h/2, scnWidth/2+w/2, scnHeight/2+h/2))
 	
+
+# This message specifies the image to be used as the background for the Spatial Overlay
+View of a trial within the viewer.
+# [see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]
+# !V IMGLOAD CENTER fixations.gif 200 200
+path_ = '..' + os.sep + pic
+tk.sendMessage('!V IMGLOAD FILL %s %d %d' % (path_, width, height))
+
+!V IMGLOAD CENTER fixations.gif 200 200

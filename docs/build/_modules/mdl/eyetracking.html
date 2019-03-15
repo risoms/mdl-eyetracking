@@ -110,17 +110,23 @@
 <span class="sd">| but should be compatiable with earlier systems.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="c1"># ---debug</span>
+<span class="c1">#----debug</span>
 <span class="kn">from</span> <span class="nn">pdb</span> <span class="k">import</span> <span class="n">set_trace</span> <span class="k">as</span> <span class="n">breakpoint</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">display</span>
 
-<span class="c1"># ---main</span>
+<span class="c1">#----main</span>
+<span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
 
-<span class="c1"># ---bridging</span>
+<span class="c1">#psychopy</span>
+<span class="kn">from</span> <span class="nn">psychopy</span> <span class="k">import</span> <span class="n">visual</span>
+<span class="kn">from</span> <span class="nn">psychopy.tools.monitorunittools</span> <span class="k">import</span> <span class="n">posToPix</span>
+
+<span class="c1">#----bridging</span>
 <span class="kn">import</span> <span class="nn">pylink</span>
 <span class="kn">from</span> <span class="nn">calibration</span> <span class="k">import</span> <span class="n">calibration</span>
 <span class="c1">#---------------------------------------------start</span>
@@ -485,7 +491,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye_used</span></div>
 
-<div class="viewcode-block" id="eyetracking.calibration"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.calibration">[docs]</a>    <span class="k">def</span> <span class="nf">calibration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="s1">&#39;calibration&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="eyetracking.calibration"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.calibration">[docs]</a>    <span class="k">def</span> <span class="nf">calibration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize mdl.calibration module.</span>
 <span class="sd">            </span>
@@ -493,24 +499,21 @@
 <span class="sd">        --------</span>
 <span class="sd">        &gt;&gt;&gt; eyetracking.calibration()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1">#----if running calibration</span>
-        <span class="k">if</span> <span class="n">event</span><span class="o">==</span><span class="s1">&#39;calibration&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s2">&quot;eyetracking.calibration()&quot;</span><span class="p">)</span>
-            <span class="c1"># if connected to eyetracker</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">:</span>
-                <span class="c1"># put the tracker in offline mode before we change its configurations</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">setOfflineMode</span><span class="p">()</span>
-                <span class="c1"># Generate custom calibration stimuli</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">genv</span> <span class="o">=</span> <span class="n">calibration</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="p">,</span> <span class="n">tracker</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span>
-                <span class="c1"># execute custom calibration display</span>
-                <span class="n">pylink</span><span class="o">.</span><span class="n">openGraphicsEx</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">genv</span><span class="p">)</span>
-                <span class="c1"># calibrate</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">doTrackerSetup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="p">)</span>
-        <span class="c1">#----else if running drift correction</span>
-        <span class="k">elif</span> <span class="n">event</span><span class="o">==</span><span class="s1">&#39;drift_correction&#39;</span><span class="p">:</span>
-            <span class="k">pass</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s2">&quot;eyetracking.calibration()&quot;</span><span class="p">)</span>
+        <span class="c1"># if connected to eyetracker</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">:</span>
+            <span class="c1"># put the tracker in offline mode before we change its configurations</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">setOfflineMode</span><span class="p">()</span>
+            <span class="c1"># Generate custom calibration stimuli</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">genv</span> <span class="o">=</span> <span class="n">calibration</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="p">,</span> <span class="n">tracker</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span>
+            <span class="c1"># execute custom calibration display</span>
+            <span class="n">pylink</span><span class="o">.</span><span class="n">openGraphicsEx</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">genv</span><span class="p">)</span>
+            <span class="c1"># calibrate</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">doTrackerSetup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="p">)</span>
+            <span class="c1">#flip screen after finishing</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="eyetracking.drift_correction"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.drift_correction">[docs]</a>    <span class="k">def</span> <span class="nf">drift_correction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="eyetracking.drift_correction"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.drift_correction">[docs]</a>    <span class="k">def</span> <span class="nf">drift_correction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s1">&#39;manual&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Starts drift correction. This can be done at any point after calibration, including before </span>
 <span class="sd">        and after eyetracking.start_recording has already been initiated.</span>
@@ -525,6 +528,9 @@
 <span class="sd">        &gt;&gt;&gt; eyetracking.drift_correction()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s2">&quot;eyetracking.drift_correction()&quot;</span><span class="p">)</span>
+        
+        <span class="c1">#clear screen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
 
         <span class="c1">#update counter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">drift_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drift_count</span> <span class="o">+</span> <span class="mi">1</span>
@@ -539,7 +545,9 @@
             <span class="n">pylink</span><span class="o">.</span><span class="n">msecDelay</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 
             <span class="c1"># send trial-level variables</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">send_variable</span><span class="p">(</span><span class="n">variables</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">trial</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trial</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">block</span><span class="p">))</span>
+            <span class="c1">#if running from self.gc</span>
+            <span class="k">if</span> <span class="n">source</span><span class="o">==</span><span class="s1">&#39;gc&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">send_variable</span><span class="p">(</span><span class="n">variables</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">trial</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trial</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">block</span><span class="p">,</span> <span class="n">issues</span><span class="o">=</span><span class="s1">&#39;gc window failed&#39;</span><span class="p">))</span>
 
             <span class="c1"># specify end of trial</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span><span class="s2">&quot;TRIAL_RESULT 1&quot;</span><span class="p">)</span>
@@ -548,42 +556,83 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">stopRecording</span><span class="p">()</span>
         
         <span class="c1"># flag isRecording</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">isRecording</span> <span class="o">=</span> <span class="kc">False</span>        
-        
-        <span class="c1">#draw drift correct on screen</span>
-        <span class="c1">#self.window = </span>
-        <span class="n">breakpoint</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">isRecording</span> <span class="o">=</span> <span class="kc">False</span>
         
         <span class="c1"># initiate drift correction, flag isDriftCorrection</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">isDriftCorrection</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">doDriftCorrect</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">doTrackerSetup</span><span class="p">()</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">doTrackerSetup</span><span class="p">()</span>
+        
+        <span class="c1">#flip screen after finishing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span></div>
 
-
-<div class="viewcode-block" id="eyetracking.roi"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.roi">[docs]</a>    <span class="k">def</span> <span class="nf">roi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">duration</span><span class="p">):</span>
+<div class="viewcode-block" id="eyetracking.gc"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.gc">[docs]</a>    <span class="k">def</span> <span class="nf">gc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create regions of interest. This is used for online data processing from eyelink-&gt;psychopy.</span>
+<span class="sd">        Creates gaze contigent event. This should be created while recording.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        window : :class:`psychopy.visual.window.Window`</span>
-<span class="sd">            PsychoPy window instance.</span>
-<span class="sd">        duration : :class:`str`</span>
-<span class="sd">            Duration window in msec of how long trial should be collecting samples.</span>
-<span class="sd">        region : :class:`dict` of {str : [left, top, right, bottom]}</span>
+<span class="sd">        region : :class:`dict` of {`str` : [left, top, right, bottom]}</span>
 <span class="sd">            Dictionary of the bounding box for each region of interest. Bounds are</span>
 <span class="sd">            by their left, top, right, and bottom coordinates in pixels.</span>
-<span class="sd">            &gt;&gt;&gt; # region of interest in the center of the screen, 200 by 200 pixels in size</span>
-<span class="sd">            &gt;&gt;&gt; region = dict(center=[860, 440, 1060, 640])</span>
-<span class="sd">        </span>
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        [item] : :class:`[type]`</span>
-<span class="sd">            [Description]</span>
-<span class="sd">        &quot;&quot;&quot;</span></div>
+<span class="sd">        t_min : :class:`int`</span>
+<span class="sd">            Mininum duration (msec) in which gaze contigent capture is collecting data before allowing</span>
+<span class="sd">            the task to continue.</span>
+<span class="sd">        t_max : :class:`int` or `None`</span>
+<span class="sd">            Maxinum duration (msec) before task is forced to go into drift correction. </span>
 
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; # region of interest in the center of the screen, 200 by 200 pixels in size.</span>
+<span class="sd">        &gt;&gt;&gt; region = dict(center=[860,1060,640,440])</span>
+<span class="sd">        &gt;&gt;&gt; eyetracking.gc(region=region, t_min=2000)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="c1">#if eyetracker is recording</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isRecording</span><span class="p">:</span>
+            <span class="c1"># draw box</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s1">&#39;draw_box </span><span class="si">%d</span><span class="s1"> </span><span class="si">%d</span><span class="s1"> </span><span class="si">%d</span><span class="s1"> </span><span class="si">%d</span><span class="s1"> 6&#39;</span><span class="o">%</span>\
+                                     <span class="p">(</span><span class="n">region</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">],</span><span class="n">region</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">],</span><span class="n">region</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">],</span><span class="n">region</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">]))</span>
+            
+            <span class="c1">#get start time</span>
+            <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
+            <span class="c1">#get current time</span>
+            <span class="n">current_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
+            
+            <span class="c1">#----check gc window</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="c1">#get gaze sample</span>
+                <span class="n">gxy</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eye_used</span><span class="p">)</span>
+                
+                <span class="c1">#is gaze with gaze contigent window for t_min time</span>
+                <span class="k">if</span> <span class="p">((</span><span class="n">region</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">gxy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">region</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span><span class="n">region</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">gxy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">region</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">])):</span>
+                    <span class="c1"># has mininum time for gc window occured</span>
+                    <span class="n">duration</span> <span class="o">=</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span> <span class="o">-</span> <span class="n">current_time</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;duration: </span><span class="si">%d</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">duration</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="n">duration</span> <span class="o">&gt;</span> <span class="n">t_min</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;gc window success&#39;</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;gc window success&#39;</span><span class="p">)</span>
+                        <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;out of window&#39;</span><span class="p">)</span>
+                    <span class="c1">#reset current time</span>
+                    <span class="n">current_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
+                
+                <span class="c1"># if reached maxinum time</span>
+                <span class="k">if</span> <span class="n">t_max</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="c1"># has maxinum time for gc window occured</span>
+                    <span class="n">duration</span> <span class="o">=</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;maxinum: </span><span class="si">%d</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">duration</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="n">duration</span> <span class="o">&gt;</span> <span class="n">t_max</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;gc window failed&#39;</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">drift_correction</span><span class="p">()</span>
+                        <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;eyetracker not recording&quot;</span><span class="p">)</span></div>
+                    
+            
 <div class="viewcode-block" id="eyetracking.sample"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.sample">[docs]</a>    <span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eye_used</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Collects new gaze coordinates from Eyelink.</span>
@@ -597,8 +646,10 @@
 <span class="sd">        -------</span>
 <span class="sd">        gxy : :class:`tuple`</span>
 <span class="sd">            Gaze coordiantes.</span>
-<span class="sd">        p : :class:`tuple`</span>
+<span class="sd">        ps : :class:`tuple`</span>
 <span class="sd">            Pupil size (area).</span>
+<span class="sd">        s : :class:`EyeLink.getNewestSample`</span>
+<span class="sd">            Eyelink newest sample.</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
@@ -651,7 +702,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;no variables entered&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="eyetracking.start_recording"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.start_recording">[docs]</a>    <span class="k">def</span> <span class="nf">start_recording</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trial</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="eyetracking.start_recording"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.start_recording">[docs]</a>    <span class="k">def</span> <span class="nf">start_recording</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trial</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">stimulus</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Starts recording of Eyelink.</span>
 
@@ -661,11 +712,16 @@
 <span class="sd">            Trial Number.</span>
 <span class="sd">        block : :obj:`str`</span>
 <span class="sd">            Block Number.</span>
-<span class="sd">        image : :obj:`str`, or `None`</span>
-<span class="sd">            File path for the stimulus being presented.</span>
-
+<span class="sd">        stimulus : :obj:`None` or `psychopy.visual.image.ImageStim`, `dict` or `list` of type.</span>
+<span class="sd">            Stimuli can be sent individually or as a list either:    </span>
+<span class="sd">                `psychopy.visual.image.ImageStim`</span>
+<span class="sd">                    PsychoPy stimulus image class.</span>
+<span class="sd">                `dict`:</span>
+<span class="sd">                    Dictionary containing position (x,y), path, filename.</span>
+<span class="sd">            If you wish to have images available on Eyelink, be sure to specify where the image is </span>
+<span class="sd">            stored relative to the EDF data file. </span>
 <span class="sd">        Notes</span>
-<span class="sd">        ----- </span>
+<span class="sd">        -----</span>
 <span class="sd">        tracker.beginRealTimeMode():</span>
 <span class="sd">            To ensure that no data is missed before the important part of the trial starts. The EyeLink </span>
 <span class="sd">            tracker requires 10 to 30 milliseconds after the recording command to begin writing data. </span>
@@ -693,15 +749,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s2">&quot;eyetracking.start_recording()&quot;</span><span class="p">)</span>
         
-        <span class="c1">#flush keyboard</span>
-        
-        <span class="c1"># clear the host display</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s1">&#39;clear_screen 0&#39;</span><span class="p">)</span> 
-        
-        <span class="c1"># draw text and box</span>
-        <span class="n">w</span><span class="p">,</span><span class="n">h</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span><span class="mi">200</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s1">&#39;draw_box </span><span class="si">%d</span><span class="s1"> </span><span class="si">%d</span><span class="s1"> </span><span class="si">%d</span><span class="s1"> </span><span class="si">%d</span><span class="s1"> 6&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
-
         <span class="c1"># indicates start of trial</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span><span class="s1">&#39;TRIALID </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">trial</span><span class="p">)))</span>
     
@@ -718,15 +765,7 @@
         <span class="c1"># indicates zero-time of trial</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span><span class="s1">&#39;SYNCTIME&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span><span class="s1">&#39;start recording&#39;</span><span class="p">)</span>
-
-        <span class="c1">#send location of image for later processing</span>
-        <span class="c1">#note: see &quot;Protocol for EyeLink Data to Data Viewer Integration -&gt; Image&quot; section of the </span>
-        <span class="c1"># Data Viewer manual for more information</span>
-        <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="c1">#%s %d %d %d %d</span>
-            <span class="n">breakpoint</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span><span class="s1">&#39;!V IMGLOAD FILL </span><span class="si">%s</span><span class="s1"> </span><span class="si">%d</span><span class="s1"> </span><span class="si">%d</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="o">+</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="n">pic</span><span class="p">))</span>
-        
+            
         <span class="c1"># flag isDriftCorrection, isRecording, trial, block</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">isDriftCorrection</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">isRecording</span> <span class="o">=</span> <span class="kc">True</span>
@@ -784,7 +823,7 @@
 <span class="sd">        &gt;&gt;&gt; eyetracking.stop_recording(trial=trial, block=block, variables=variables)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s2">&quot;eyetracking.stop_recording()&quot;</span><span class="p">)</span>
-
+        
         <span class="c1"># end of trial message</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span><span class="s1">&#39;end recording&#39;</span><span class="p">)</span>
 
@@ -795,6 +834,7 @@
         <span class="c1"># send trial-level variables</span>
         <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;trial&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trial</span>
         <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;block&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">block</span>
+        <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;issues&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">send_variable</span><span class="p">(</span><span class="n">variables</span><span class="o">=</span><span class="n">variables</span><span class="p">)</span>
 
         <span class="c1"># specify end of trial</span>
@@ -806,14 +846,14 @@
         <span class="c1"># flag isRecording</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">isRecording</span> <span class="o">=</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="eyetracking.finish_recording"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.finish_recording">[docs]</a>    <span class="k">def</span> <span class="nf">finish_recording</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="eyetracking.finish_recording"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.finish_recording">[docs]</a>    <span class="k">def</span> <span class="nf">finish_recording</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finish recording of Eyelink.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        subject : :obj:`int`</span>
-<span class="sd">            subject number.</span>
+<span class="sd">        path : :obj:`str` or `None`</span>
+<span class="sd">            Path to save data. If None, path will be default from PsychoPy task.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
@@ -865,9 +905,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">closeDataFile</span><span class="p">()</span>
 
         <span class="c1"># This receives a data file from the eyelink tracking computer</span>
-        <span class="n">destination</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">fname</span>
+        <span class="c1">#if no path entered, use psychopy destination</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">destination</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">fname</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">destination</span> <span class="o">=</span> <span class="n">path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">receiveDataFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="p">,</span> <span class="n">destination</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;File saved at: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">destination</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;File saved at: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">destination</span><span class="p">)))</span>
 
         <span class="c1"># sends a disconnect message to the EyeLink tracker</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>

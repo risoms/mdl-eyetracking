@@ -206,7 +206,8 @@ def runTrial(pars):
         
     # Message to specify where the image is stored relative to the EDF data file, please see the 
     # "Protocol for EyeLink Data to Data Viewer Integration -> Image" section of the Data Viewer manual
-    tk.sendMessage('!V IMGLOAD FILL %s %d %d' % ('..'+os.sep + pic))
+    path_ = '..' + os.sep + pic
+    tk.sendMessage('!V IMGLOAD FILL %s' % (path_))
     
     # show the image indefinitely until a key is pressed
     gazePos =  (scnWidth/2, scnHeight/2)
@@ -254,7 +255,7 @@ def runTrial(pars):
     # illustrate how the IA messages look like 
     # format: !V IAREA RECTANGLE <id> <left> <top> <right> <bottom> [label string] 
     # [see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]
-    tk.sendMessage('!V IAREA RECTANGLE %d %d %d %d %d %s'%(1, scnWidth/2-100, scnHeight/2-200, scnWidth/2+200, scnHeight/2+200, 'screenIA'))
+    tk.sendMessage('!V IAREA RECTANGLE %d %d %d %d %d %s'%(1, scnWidth/2-200, scnHeight/2-200, scnWidth/2+200, scnHeight/2+200, 'screenIA'))
     
     # send a message to mark the end of trial
     # [see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]

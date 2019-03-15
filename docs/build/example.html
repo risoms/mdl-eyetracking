@@ -115,8 +115,8 @@
 <span class="c1"># Finish eyetracking.roi()</span>
 </pre></div>
 </div>
-<p>The sequence of operations for implementing the trial is:</p>
-<ol><li><p>Perform a DRIFT CORRECTION, which also serves as the pre-trial fixation
+<p><p>The sequence of operations for implementing the trial is:</p>
+</p><ol><li><p>Perform a DRIFT CORRECTION, which also serves as the pre-trial fixation
 target.</p>
 </li><li><p>Start recording, allowing 100 milliseconds of data to accumulate before
 the trial display starts.</p>
@@ -132,8 +132,8 @@ of data has been collected.</p>
 </li><li><p>Report the trial result, and return an appropriate error code.</p>
 </li></ol><p>[see Pylink.chm]</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import</span>
-<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="p">;</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())))</span>
-<span class="kn">from</span> <span class="nn">psychopy</span> <span class="k">import</span> <span class="n">visual</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">psychopy</span> <span class="k">import</span> <span class="n">visual</span><span class="p">,</span> <span class="n">monitors</span>
 <span class="kn">import</span> <span class="nn">mdl</span>
 </pre></div>
 </div>
@@ -142,9 +142,13 @@ of data has been collected.</p>
 <span class="c1"># This window will be used in the calibration function.</span>
 <span class="c1">#</span>
 <span class="c1"># ```psychopy.visual.window.Window``` instance (for demonstration purposes only)</span>
-<span class="n">window</span> <span class="o">=</span> <span class="n">visual</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mi">1920</span><span class="p">,</span> <span class="mi">1080</span><span class="p">],</span> <span class="n">fullscr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">screen</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">allowGUI</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;pix&#39;</span><span class="p">,</span>
-                       <span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;Monitor&#39;</span><span class="p">,</span> <span class="n">winType</span><span class="o">=</span><span class="s1">&#39;pyglet&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">110</span><span class="p">,</span><span class="mi">110</span><span class="p">,</span><span class="mi">110</span><span class="p">],</span> <span class="n">colorSpace</span><span class="o">=</span><span class="s1">&#39;rgb255&#39;</span><span class="p">)</span>
 <span class="n">subject</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">screensize</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1920</span><span class="p">,</span> <span class="mi">1080</span><span class="p">]</span>
+<span class="n">monitor</span> <span class="o">=</span> <span class="n">monitors</span><span class="o">.</span><span class="n">Monitor</span><span class="p">(</span><span class="s1">&#39;Monitor&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">53.0</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="mf">65.0</span><span class="p">)</span>
+<span class="n">monitor</span><span class="o">.</span><span class="n">setSizePix</span><span class="p">(</span><span class="n">screensize</span><span class="p">)</span>
+<span class="n">window</span> <span class="o">=</span> <span class="n">visual</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">screensize</span><span class="p">,</span> <span class="n">fullscr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">allowGUI</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;pix&#39;</span><span class="p">,</span> <span class="n">monitor</span><span class="o">=</span><span class="n">monitor</span><span class="p">,</span>
+                       <span class="n">winType</span><span class="o">=</span><span class="s1">&#39;pyglet&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">110</span><span class="p">,</span><span class="mi">110</span><span class="p">,</span><span class="mi">110</span><span class="p">],</span> <span class="n">colorSpace</span><span class="o">=</span><span class="s1">&#39;rgb255&#39;</span><span class="p">)</span>
+<span class="c1">#start</span>
 <span class="n">eyetracking</span> <span class="o">=</span> <span class="n">mdl</span><span class="o">.</span><span class="n">eyetracking</span><span class="p">(</span><span class="n">libraries</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="n">subject</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -160,7 +164,7 @@ of data has been collected.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start calibration.</span>
 <span class="c1"># Before running the calibration, ensure psychopy window instance has been created in the experiment file.</span>
 <span class="c1"># This window will be used in the calibration function.</span>
-<span class="n">eyetracking</span><span class="o">.</span><span class="n">calibration</span><span class="p">(</span><span class="n">event</span><span class="o">=</span><span class="s1">&#39;calibration&#39;</span><span class="p">)</span>
+<span class="n">eyetracking</span><span class="o">.</span><span class="n">calibration</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enter the key &quot;o&quot; on the ```psychopy.visual.window.Window``` instance. This will begin the task.</span>
@@ -172,36 +176,40 @@ of data has been collected.</p>
 <span class="n">eyetracking</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;eyetracking.calibration() started&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drift correction. This can be done at any point after calibration, including before and after</span>
-<span class="c1"># eyetracking.start_recording has started. #!! To do. Finish.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># (Optional) Drift correction. This can be done at any point after calibration, including before and after</span>
+<span class="c1"># eyetracking.start_recording has started.</span>
 <span class="n">eyetracking</span><span class="o">.</span><span class="n">drift_correction</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;finished&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gaze contigent. This is used for realtime data collection from eyelink-&gt;psychopy.</span>
-<span class="c1"># For example, this can be used to require participant to look at the fixation cross for a duration</span>
-<span class="c1"># of 500 msec before continuing the task.</span>
-<span class="c1">#</span>
-<span class="c1"># Using the eyetracking.roi function to collect samples with the center of the screen.</span>
-<span class="n">roi</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mi">860</span><span class="p">,</span><span class="mi">1060</span><span class="p">,</span><span class="mi">640</span><span class="p">,</span><span class="mi">440</span><span class="p">])</span>
-<span class="c1"># start</span>
-<span class="n">eyetracking</span><span class="o">.</span><span class="n">roi</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="n">roi</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Region of interest. This is used for sending regions of interest for each trial from PsychoPy&gt;Eyelink.</span>
-<span class="c1">#</span>
-<span class="c1"># Using the eyetracking.roi function to collect samples with the center of the screen.</span>
-<span class="n">roi</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mi">860</span><span class="p">,</span><span class="mi">1060</span><span class="p">,</span><span class="mi">640</span><span class="p">,</span><span class="mi">440</span><span class="p">])</span>
-<span class="c1"># start</span>
-<span class="n">eyetracking</span><span class="o">.</span><span class="n">gc</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="n">roi</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start recording. This should be run at the start of the trial.</span>
-<span class="c1"># Note: There is an intentional delay of 150 msec to allow the Eyelink to buffer gaze samples.</span>
+<span class="c1">#</span>
+<span class="c1"># Create stimulus (demonstration purposes only). Note: There is an intentional delay of 150 msec to</span>
+<span class="c1"># allow the Eyelink to buffer gaze samples.</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;8380.bmp&quot;</span> <span class="c1">#filename</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;/data/stimulus/&quot;</span> <span class="o">+</span> <span class="n">filename</span> <span class="c1">#filepath</span>
+<span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">768</span><span class="p">)</span> <span class="c1">#image size</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">screensize</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">screensize</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="c1">#positioning image at center of screen</span>
+<span class="n">stimulus</span> <span class="o">=</span> <span class="n">visual</span><span class="o">.</span><span class="n">ImageStim</span><span class="p">(</span><span class="n">win</span><span class="o">=</span><span class="n">window</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;pix&#39;</span><span class="p">)</span>
+
+<span class="c1">#start</span>
 <span class="n">eyetracking</span><span class="o">.</span><span class="n">start_recording</span><span class="p">(</span><span class="n">trial</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Collect current gaze coordinates from Eyelink (only if needed in experiment). This command should be</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># (Optional) Gaze contigent event. This is used for realtime data collection from eyelink-&gt;psychopy.</span>
+<span class="c1"># For example, this can be used to require participant to look at the fixation cross for a duration</span>
+<span class="c1"># of 500 msec before continuing the task.</span>
+<span class="c1">#</span>
+<span class="c1"># Collect samples with the center of the screen, for 2000 msec, with a maxinum duration of 10000 msec</span>
+<span class="c1"># before drift correction will start.</span>
+<span class="n">region</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mi">860</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">440</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">1060</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mi">640</span><span class="p">)</span>
+<span class="n">t_min</span> <span class="o">=</span> <span class="mi">3000</span>
+<span class="n">t_max</span> <span class="o">=</span> <span class="mi">10000</span>
+
+<span class="c1"># start</span>
+<span class="n">eyetracking</span><span class="o">.</span><span class="n">gc</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="n">t_max</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># (Optional) Collect current gaze coordinates from Eyelink. This command should be</span>
 <span class="c1"># looped at an interval of sample/2.01 msec to prevent oversampling (500Hz).</span>
 <span class="c1">#</span>
 <span class="c1"># get time</span>
@@ -212,7 +220,9 @@ of data has been collected.</p>
 <span class="c1"># repeat</span>
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
     <span class="c1"># if difference between starting and current time is greater than &gt; 2.01 msec, collect new sample</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">s1</span> <span class="o">-</span> <span class="n">s0</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="o">.</span><span class="mi">00201</span><span class="p">:</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">s1</span> <span class="o">-</span> <span class="n">s0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">diff</span> <span class="o">&gt;=</span> <span class="o">.</span><span class="mi">00201</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span>
         <span class="n">gxy</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">eyetracking</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">eye_used</span><span class="o">=</span><span class="n">eye_used</span><span class="p">)</span> <span class="c1"># get gaze coordinates, pupil size, and sample</span>
         <span class="n">lgxy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gxy</span><span class="p">)</span> <span class="c1"># store in list (not required; demonstration purposes only)</span>
         <span class="n">s0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span> <span class="c1"># update starting time</span>
@@ -221,20 +231,21 @@ of data has been collected.</p>
         <span class="n">s1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
 
     <span class="c1">#break `while` statement if list of gaze coordiantes &gt;= 20 (not required; demonstration purposes only)</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lgxy</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">200</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">lgxy</span><span class="p">);</span> <span class="k">break</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lgxy</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">200</span><span class="p">:</span> <span class="k">break</span>
 </pre></div>
 </div>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Send messages to Eyelink. This allows post-hoc processing of timing related events (i.e. &quot;stimulus onset&quot;).</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># (Optional) Send messages to Eyelink. This allows post-hoc processing of timing related events (i.e. &quot;stimulus onset&quot;).</span>
 <span class="c1"># Sending message &quot;stimulus onset&quot;.</span>
+<span class="c1">#</span>
 <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;stimulus onset&quot;</span>
 <span class="n">eyetracking</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stops Eyelink recording. Also allows transmission of trial-level variables (optional) to Eyelink.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stop Eyelink recording. Also allows transmission of trial-level variables (optional) to Eyelink.</span>
 <span class="c1"># Note: Variables sent are optional. If they being included, they must be in ```python dict``` format.</span>
-<span class="c1">#</span>
+
 <span class="c1"># set variables</span>
-<span class="n">variables</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">stimulus</span><span class="o">=</span><span class="s1">&#39;001B_F.jpg&#39;</span><span class="p">,</span> <span class="n">trial_type</span><span class="o">=</span><span class="s1">&#39;encoding&#39;</span><span class="p">,</span> <span class="n">race</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">variables</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">stimulus</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">trial_type</span><span class="o">=</span><span class="s1">&#39;encoding&#39;</span><span class="p">,</span> <span class="n">race</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
 <span class="c1"># stop recording</span>
 <span class="n">eyetracking</span><span class="o">.</span><span class="n">stop_recording</span><span class="p">(</span><span class="n">trial</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="n">variables</span><span class="p">)</span>
 </pre></div>
