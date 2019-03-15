@@ -449,16 +449,13 @@ class eyetracking():
         self.isRecording = False        
         
         #draw drift correct on screen
-        self.window = 
+        #self.window = 
+        breakpoint()
         
         # initiate drift correction, flag isDriftCorrection
         self.isDriftCorrection = True
-        while:
+        try:
             self.tracker.doDriftCorrect(int(self.w/2), int(self.h/2), 1, 1)
-            if error != 27:
-                break;
-            else:
-                self.tracker.doTrackerSetup();
         except:
             self.tracker.doTrackerSetup()
 

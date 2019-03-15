@@ -10,6 +10,9 @@
  */
 
  /* -- modifications ----------------------------------------------------------- */
+li>p{
+	margin-bottom: 5px !important;
+}
 .navbar-form{
 	width: 200px !important;
 }

@@ -1,4 +1,14 @@
 
+.. raw:: html
+
+   <h5 style="padding-top: 0px;padding-bottom: 0px;">
+
+Example setup for Eyelink 1000 Plus, using PsychoPy 3.0.
+
+.. raw:: html
+
+   </h5>
+
 .. code:: ipython3
 
     # Created on Wed Feb 13 15:37:43 2019
@@ -13,20 +23,94 @@
     # Finish eyetracking.drift_correction()
     # Finish eyetracking.roi()
 
-.. code:: ipython3
+The sequence of operations for implementing the trial is:
 
-    # The sequence of operations for implementing the trial is:
-    # 1) Perform a DRIFT CORRECTION, which also serves as the pre-trial fixation target.
-    # 2) Start recording, allowing 100 milliseconds of data to accumulate before the trial display starts.
-    # 3) Draw the subject display, recording the time that the display appeared by placing a message in 
-    # the EDF file.
-    # 4) Loop until one of these events occurs RECORDING halts, due to the tracker Abort menu or an error,
-    # the maximum trial duration expires 'ESCAPE' is pressed, the program is interrupted, or abutton on the
-    # EyeLink button box is pressed.
-    # 5) Add special code to handle gaze-contingent display updates.
-    # 6) Blank the display, stop recording after an additional 100 milliseconds of data has been collected.
-    # 7) Report the trial result, and return an appropriate error code.
-    # [see Pylink.chm]
+.. raw:: html
+
+   <ol>
+
+.. raw:: html
+
+   <li>
+
+Perform a DRIFT CORRECTION, which also serves as the pre-trial fixation
+target.
+
+.. raw:: html
+
+   </li>
+
+.. raw:: html
+
+   <li>
+
+Start recording, allowing 100 milliseconds of data to accumulate before
+the trial display starts.
+
+.. raw:: html
+
+   </li>
+
+.. raw:: html
+
+   <li>
+
+Draw the subject display, recording the time that the display appeared
+by placing a message in the EDF file.
+
+.. raw:: html
+
+   </li>
+
+.. raw:: html
+
+   <li>
+
+Loop until one of these events occurs RECORDING halts, due to the
+tracker ABORT menu or an error, the maximum trial duration expires
+‘ESCAPE’ is pressed, the program is interrupted, or abutton on the
+EyeLink button box is pressed.
+
+.. raw:: html
+
+   </li>
+
+.. raw:: html
+
+   <li>
+
+Add special code to handle gaze-contingent display updates.
+
+.. raw:: html
+
+   </li>
+
+.. raw:: html
+
+   <li>
+
+Blank the display, stop recording after an additional 100 milliseconds
+of data has been collected.
+
+.. raw:: html
+
+   </li>
+
+.. raw:: html
+
+   <li>
+
+Report the trial result, and return an appropriate error code.
+
+.. raw:: html
+
+   </li>
+
+.. raw:: html
+
+   </ol>
+
+[see Pylink.chm]
 
 .. code:: ipython3
 
