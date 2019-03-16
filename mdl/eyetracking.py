@@ -30,7 +30,7 @@ from calibration import calibration
 #---------------------------------------------start
 class eyetracking():
     """
-    Sample code to run SR Research Eyelink eyetracking system. Code is optimized for the 
+    Module allowingcommuncation to the SR Research Eyelink eyetracking system. Code is optimized for the 
     Eyelink 1000 Plus (5.0), but should be compatiable with earlier systems.
     """
     def __init__(self, window, isPsychopy=True, libraries=False, subject=None):
@@ -47,6 +47,10 @@ class eyetracking():
             Should the code check if required libraries are available.
         subject : :class:`int`
             Subject number.
+
+        Examples
+        --------
+        >>> eytracking = mdl.eyetracking(libraries=False, window=window, subject=subject)  
         """
 
         #----screen size
@@ -113,34 +117,6 @@ class eyetracking():
         # store name
         self.fname = str(self.subject) + '.edf'
 
-    def console(self, c='green', msg=''):
-        """
-        Allow color print to console.
-
-        Parameters
-        ----------
-        color : :class:`str`
-            Color to use (black, red, green, orange, purple, blue, grey).
-        msg : :class:`str`
-            Message to be color printed.
-        
-        Examples
-        --------
-        >>> eyetracking.console(c="green", msg="eyetracking.calibration() started")
-        """
-
-        color = dict(
-            black='\33[40m',
-            red='\33[41m',
-            green='\33[42m',
-            orange='\33[43m',
-            purple='\33[45m',
-            blue='\33[46m',
-            grey='\33[47m',
-            ENDC='\033[0m')
-
-        return print(color[c] + msg + color['ENDC'])
-
     def libraries(self):
         """Check if required libraries to run eyelink and Psychopy are available."""
 
@@ -181,6 +157,34 @@ class eyetracking():
                         pip.main(['install', package])
         except Exception as e:
             return e
+            
+    def console(self, c='green', msg=''):
+        """
+        Allows printing color coded messages to console/terminal/cmd. This may be useful for debugging issues.
+
+        Parameters
+        ----------
+        color : :class:`str`
+            Color to use (black, red, green, orange, purple, blue, grey).
+        msg : :class:`str`
+            Message to be color printed.
+        
+        Examples
+        --------
+        >>> eyetracking.console(c="green", msg="eyetracking.calibration() started")
+        """
+
+        color = dict(
+            black='\33[40m',
+            red='\33[41m',
+            green='\33[42m',
+            orange='\33[43m',
+            purple='\33[45m',
+            blue='\33[46m',
+            grey='\33[47m',
+            ENDC='\033[0m')
+
+        return print(color[c] + msg + color['ENDC'])
 
     def connect(self, calibration_type=13, automatic_calibration_pacing=1000, saccade_velocity_threshold=35,
                 saccade_acceleration_threshold=9500, sound=True, select_parser_configuration=0,
@@ -366,7 +370,7 @@ class eyetracking():
 
     def set_eye_used(self, eye):
         """
-        Set dominant eye.
+        Set dominant eye. This step is required for recieving gaze coordinates from Eyelink->Psychopy.
 
         Parameters
         ----------
@@ -391,7 +395,7 @@ class eyetracking():
 
     def calibration(self):
         """
-        Initialize mdl.calibration module.
+        Start calibration procedure.
             
         Examples
         --------
@@ -466,6 +470,77 @@ class eyetracking():
         #flip screen after finishing
         self.window.flip()
 
+    def start_recording(self, trial, block, stimulus=None):
+        """
+        Starts recording of Eyelink.
+
+        Parameters
+        ----------
+        trial : :obj:`str`
+            Trial Number.
+        block : :obj:`str`
+            Block Number.
+        stimulus : :obj:`None` or :obj:`psychopy.visual.image.ImageStim`, :obj:`dict` or :obj:`list`.
+            Stimuli can be sent individually or as a list either:    
+                `psychopy.visual.image.ImageStim`
+                    PsychoPy stimulus image class.
+                `dict`:
+                    Dictionary containing position (x,y), path, filename.
+            If you wish to have images available on Eyelink, be sure to specify where the image is 
+            stored relative to the EDF data file.
+
+        Notes
+        -----
+        tracker.beginRealTimeMode():
+            To ensure that no data is missed before the important part of the trial starts. The EyeLink 
+            tracker requires 10 to 30 milliseconds after the recording command to begin writing data. 
+            This extra data also allows the detection of blinks or saccades just before the trial start, 
+            allowing bad trials to be discarded in saccadic RT analysis. A "SYNCTIME" message later 
+            in the trial marks the actual zero-time in the trial's data record for analysis.
+            [see pylink.chm]
+        TrialID:
+            The "TRIALID" message is sent to the EDF file next. This message must be placed 
+            in the EDF file before the drift correction and before recording begins, and is critical 
+            for data analysis. The viewer will not parse any messages, events, or samples that exist
+            in the data file prior to this message. The command identifier can be changed in the data
+            loading preference settings.
+            [see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]
+        SYNCTIME:
+            Marks the zero-time in a trial. A number may follow, which is interpreted as the delay of 
+            the message from the actual stimulus onset. It is suggested that recording start 100 
+            milliseconds before the display is drawn or unblanked at zero-time, so that no data at the 
+            trial start is lost.
+            [see pylink.chm]
+
+        Examples
+        --------
+        >>> eyetracking.start_recording(trial=1, block=1)
+        """
+        self.console(msg="eyetracking.start_recording()")
+        
+        # indicates start of trial
+        self.tracker.sendMessage('TRIALID %s' % (str(trial)))
+    
+        # Message to post to Eyelink display Monitor
+        self.tracker.sendCommand("record_status_message 'Trial %s Block %s'" % (str(trial), str(block)))
+
+        # start recording, parameters specify whether events and samples are
+        # stored in file, and available over the link
+        self.tracker.startRecording(1, 1, 1, 1)
+
+        # buffer to prevent loss of data
+        pylink.beginRealTimeMode(100)
+
+        # indicates zero-time of trial
+        self.tracker.sendMessage('SYNCTIME')
+        self.tracker.sendMessage('start recording')
+            
+        # flag isDriftCorrection, isRecording, trial, block
+        self.isDriftCorrection = False
+        self.isRecording = True
+        self.trial = trial
+        self.block = block
+    
     def gc(self, region, t_min, t_max=None):
         """
         Creates gaze contigent event. This should be created while recording.
@@ -483,9 +558,9 @@ class eyetracking():
 
         Examples
         --------
-        >>> # region of interest in the center of the screen, 200 by 200 pixels in size.
-        >>> region = dict(center=[860,1060,640,440])
-        >>> eyetracking.gc(region=region, t_min=2000)
+        >>> # Collect samples within the center of the screen, for 2000 msec, with a maxinum duration of 10000 msec.
+        >>> region = dict(left=860, top=440, right=1060, bottom=640)
+        >>> eyetracking.gc(region=region, t_min=2000, t_max=10000)
         """
         
         #if eyetracker is recording
@@ -529,8 +604,7 @@ class eyetracking():
                         break
         else:
             self.console(c='red', msg="eyetracker not recording")
-                    
-            
+                     
     def sample(self, eye_used):
         """
         Collects new gaze coordinates from Eyelink.
@@ -576,8 +650,7 @@ class eyetracking():
 
         Examples
         --------
-        >>> msg = "stimulus onset"
-        >>> eyetracking.send_message(msg=msg)
+        >>> eyetracking.console(c="blue", msg="eyetracking.calibration() started")
         """
         self.tracker.sendMessage(msg)
 
@@ -599,76 +672,6 @@ class eyetracking():
             self.console(msg="variables sent")
         else:
             self.console(c="red", msg="no variables entered")
-
-    def start_recording(self, trial, block, stimulus=None):
-        """
-        Starts recording of Eyelink.
-
-        Parameters
-        ----------
-        trial : :obj:`str`
-            Trial Number.
-        block : :obj:`str`
-            Block Number.
-        stimulus : :obj:`None` or `psychopy.visual.image.ImageStim`, `dict` or `list` of type.
-            Stimuli can be sent individually or as a list either:    
-                `psychopy.visual.image.ImageStim`
-                    PsychoPy stimulus image class.
-                `dict`:
-                    Dictionary containing position (x,y), path, filename.
-            If you wish to have images available on Eyelink, be sure to specify where the image is 
-            stored relative to the EDF data file. 
-        Notes
-        -----
-        tracker.beginRealTimeMode():
-            To ensure that no data is missed before the important part of the trial starts. The EyeLink 
-            tracker requires 10 to 30 milliseconds after the recording command to begin writing data. 
-            This extra data also allows the detection of blinks or saccades just before the trial start, 
-            allowing bad trials to be discarded in saccadic RT analysis. A "SYNCTIME" message later 
-            in the trial marks the actual zero-time in the trial's data record for analysis.
-            [see pylink.chm]
-        TrialID:
-            The "TRIALID" message is sent to the EDF file next. This message must be placed 
-            in the EDF file before the drift correction and before recording begins, and is critical 
-            for data analysis. The viewer will not parse any messages, events, or samples that exist
-            in the data file prior to this message. The command identifier can be changed in the data
-            loading preference settings.
-            [see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]
-        SYNCTIME:
-            Marks the zero-time in a trial. A number may follow, which is interpreted as the delay of 
-            the message from the actual stimulus onset. It is suggested that recording start 100 
-            milliseconds before the display is drawn or unblanked at zero-time, so that no data at the 
-            trial start is lost.
-            [see pylink.chm]
-
-        Examples
-        --------
-        >>> eyetracking.start_recording(block=1, trial=1)
-        """
-        self.console(msg="eyetracking.start_recording()")
-        
-        # indicates start of trial
-        self.tracker.sendMessage('TRIALID %s' % (str(trial)))
-    
-        # Message to post to Eyelink display Monitor
-        self.tracker.sendCommand("record_status_message 'Trial %s Block %s'" % (str(trial), str(block)))
-
-        # start recording, parameters specify whether events and samples are
-        # stored in file, and available over the link
-        self.tracker.startRecording(1, 1, 1, 1)
-
-        # buffer to prevent loss of data
-        pylink.beginRealTimeMode(100)
-
-        # indicates zero-time of trial
-        self.tracker.sendMessage('SYNCTIME')
-        self.tracker.sendMessage('start recording')
-            
-        # flag isDriftCorrection, isRecording, trial, block
-        self.isDriftCorrection = False
-        self.isRecording = True
-        self.trial = trial
-        self.block = block
 
     def stop_recording(self, trial=None, block=None, variables=None):
         """
@@ -750,7 +753,7 @@ class eyetracking():
 
         Parameters
         ----------
-        path : :obj:`str` or `None`
+        path : :obj:`str` or :obj:`None`
             Path to save data. If None, path will be default from PsychoPy task.
 
         Notes

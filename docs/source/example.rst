@@ -1,4 +1,3 @@
-
 .. raw:: html
 
    <h5 style="padding-top: 0px;padding-bottom: 0px;">
@@ -16,12 +15,6 @@ Example setup for Eyelink 1000 Plus, using PsychoPy 3.0.
     # @email: semeon.risom@gmail.com.
     # Sample code to run SR Research Eyelink eyetracking system. Code is optimized for the Eyelink 1000 
     # Plus (5.0), but should be compatiable with earlier systems.
-
-.. code:: ipython3
-
-    # To Do:
-    # Finish eyetracking.drift_correction()
-    # Finish eyetracking.roi()
 
 .. raw:: html
 
@@ -219,7 +212,7 @@ Start calibration.
 
 .. code:: ipython3
 
-    # This may be useful for debugging issues.
+    # Allows printing color coded messages to console/terminal/cmd. This may be useful for debugging issues.
     eyetracking.console(c="blue", msg="eyetracking.calibration() started")
 
 .. raw:: html

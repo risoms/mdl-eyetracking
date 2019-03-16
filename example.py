@@ -71,7 +71,7 @@ eyetracking.calibration()
 # %% [markdown]
 # <h6 style="padding-top: 0px;padding-bottom: 0px;">(Optional) Print message to console/terminal.</h6>
 # %%
-# This may be useful for debugging issues.
+# Allows printing color coded messages to console/terminal/cmd. This may be useful for debugging issues.
 eyetracking.console(c="blue", msg="eyetracking.calibration() started")
 # %% [markdown]
 # <h6 style="padding-top: 0px;padding-bottom: 0px;">(Optional) Drift correction.</h6>

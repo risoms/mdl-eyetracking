@@ -49,7 +49,7 @@ and then check out the :ref:`tutorial <tutorial>` and :ref:`API reference
 To see the code or report a bug, please visit the `github <https://github.com/risoms/mdl-eyelink>`_ repository.
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :titlesonly:
    :glob:
    :hidden:
