@@ -59,8 +59,6 @@ To see the code or report a bug, please visit the `github <https://github.com/ri
    example <example>
    installation <install>
    pylink <pylink>
-   EyeLink Programmers Guide <_static/pdf/Eyelink Programmers Guide.pdf>
-   Eyelink 1000 Plus Manual <_static/pdf/Eyelink 1000 Plus User Manual 1.0.12.pdf>
 
 .. raw:: html
 
@@ -68,17 +66,19 @@ To see the code or report a bug, please visit the `github <https://github.com/ri
 			<div class="col-md-3">
 				<div class="panel panel-default">   
 					<div class="panel-heading">
-						<h3 class="panel-title">Features</h3>
+						<h3 class="panel-title">Contents</h3>
 					</div>
 					<div class="panel-body">
-
-* Relational: :ref:`API <eyetracking>` | :ref:`Tutorial <eyetracking>`
-* eyetracking: :py:mod:`API <eyetracking>` | :py:func:`Tutorial <eyetracking>`
-* calibration: :py:class:`API <calibration>` | :ref:`<calibration>`
-* pylink: `API <pylink>` | `Tutorial <pylink>`
-
-.. raw:: html
-
+					<ul>
+					<li><a href="install.html">installation</a></li>
+					<li><a href="example.html">example</a></li>
+					<li><a href="eyetracking.html">eyetracking</a></li>
+					<li><a href="calibration.html">calibration</a></li>
+					<li><a href="pylink.html">pylink</a></li>
+					<li><a href="_static/pdf/Eyelink Programmers Guide.pdf">Eyelink Programmers Guide</a></li>
+					<li><a href="_static/pdf/EyeLink Data Viewer User Manual 3.2.1.pdf">EyeLink Data Viewer User Manual 3.2.1</a></li>
+					<li><a href="_static/pdf/Eyelink 1000 Plus User Manual 1.0.12.pdf">Eyelink 1000 Plus User Manual</a></li>
+					</ul>
 					</div>
 				</div>
 			</div>
