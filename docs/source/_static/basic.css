@@ -10,6 +10,15 @@
  */
 
  /* -- modifications ----------------------------------------------------------- */
+h1, .h1 {
+    font-size: 28px !important;
+}
+h2, .h2 {
+    font-size: 20px !important;
+}
+.prompt{
+    display: none !important;
+}
 .alert-warning {    
     background-color: #fcf8e3 !important;
     border-color: #faebcc !important;
