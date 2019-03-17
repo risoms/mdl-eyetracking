@@ -482,7 +482,7 @@ class eyetracking():
             Block Number.
         stimulus : :obj:`None` or :obj:`psychopy.visual.image.ImageStim`, :obj:`dict` or :obj:`list`.
             Stimuli can be sent individually or as a list either:    
-                `psychopy.visual.image.ImageStim`
+                `psychopy.visual.image.ImageStim`:
                     PsychoPy stimulus image class.
                 `dict`:
                     Dictionary containing position (x,y), path, filename.

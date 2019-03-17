@@ -59,6 +59,7 @@ To see the code or report a bug, please visit the `github <https://github.com/ri
    example <example>
    installation <install>
    pylink <pylink>
+   tutorial <tutorial.ipynb>
 
 .. raw:: html
 
