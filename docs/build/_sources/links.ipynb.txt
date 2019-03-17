@@ -1,0 +1,221 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "nbsphinx": "hidden"
+   },
+   "source": [
+    "This notebook is part of the `nbsphinx` documentation: https://nbsphinx.readthedocs.io/."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# External Links"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**nbconvert**\n",
+    "\n",
+    "The official conversion tool of the Jupyter project.\n",
+    "It can be used to convert notebooks to HTML, LaTeX and many other formats.\n",
+    "\n",
+    "Its `--execute` flag can be used to automatically execute notebooks before conversion.\n",
+    "\n",
+    "https://nbconvert.readthedocs.io/\n",
+    "\n",
+    "https://github.com/jupyter/nbconvert"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**notebook_sphinxext.py**\n",
+    "\n",
+    "Notebooks can be included in `*.rst` files with a custom `notebook` directive.\n",
+    "Uses `runipy` to execute notebooks and `nbconvert` to convert the result to HTML.\n",
+    "\n",
+    "No LaTeX support.\n",
+    "\n",
+    "https://github.com/ngoldbaum/RunNotebook\n",
+    "\n",
+    "https://bitbucket.org/yt_analysis/yt-doc/src/default/extensions/notebook_sphinxext.py\n",
+    "\n",
+    "https://github.com/matthew-brett/perrin-academy/blob/master/sphinxext/notebook_sphinxext.py"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**ipypublish**\n",
+    "\n",
+    "A workflow for creating and editing publication ready scientific reports and presentations, from one or more Jupyter Notebooks, without leaving the browser!\n",
+    "\n",
+    "https://ipypublish.readthedocs.io/\n",
+    "\n",
+    "https://github.com/chrisjsewell/ipypublish"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**nb_pdf_template**\n",
+    "\n",
+    "An extended `nbconvert` template for LaTeX output.\n",
+    "\n",
+    "https://github.com/t-makaro/nb_pdf_template"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**nb2plots**\n",
+    "\n",
+    "Notebook to reStructuredText converter which uses a modified version of the matplotlib `plot` directive.\n",
+    "\n",
+    "https://github.com/matthew-brett/nb2plots"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**brole**\n",
+    "\n",
+    "A Sphinx role for IPython notebooks\n",
+    "\n",
+    "https://github.com/matthew-brett/brole"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Sphinx-Gallery**\n",
+    "\n",
+    "https://sphinx-gallery.readthedocs.io/"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**sphinx-nbexamples**\n",
+    "\n",
+    "https://sphinx-nbexamples.readthedocs.io/\n",
+    "\n",
+    "https://github.com/Chilipp/sphinx-nbexamples"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**nbsphinx-link**\n",
+    "\n",
+    "https://github.com/vidartf/nbsphinx-link\n",
+    "\n",
+    "Uses `nbsphinx`, but supports notebooks outside the Sphinx source directory.\n",
+    "\n",
+    "See https://github.com/spatialaudio/nbsphinx/pull/33 for some limitations."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**bookbook**\n",
+    "\n",
+    "Uses `nbconvert` to create a sequence of HTML or\n",
+    "a concatenated LaTeX file from a sequence of notebooks.\n",
+    "\n",
+    "https://github.com/takluyver/bookbook"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**DocOnce**\n",
+    "\n",
+    "http://hplgit.github.io/doconce/doc/web/index.html"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Converting Notebooks to reStructuredText**\n",
+    "\n",
+    "https://github.com/perrette/dimarray/blob/master/docs/scripts/nbconvert_to_rst.py\n",
+    "\n",
+    "https://gist.github.com/hadim/16e29b5848672e2e497c\n",
+    "\n",
+    "https://sphinx-ipynb.readthedocs.io/"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Converting reStructuredText to Notebooks**\n",
+    "\n",
+    "https://github.com/nthiery/rst-to-ipynb\n",
+    "\n",
+    "https://github.com/QuantEcon/sphinxcontrib-jupyter"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Converting Notebooks to HTML for Blog Posts**\n",
+    "\n",
+    "http://dongweiming.github.io/divingintoipynb_nikola/posts/nbconvert.html\n",
+    "\n",
+    "https://github.com/getpelican/pelican-plugins/blob/master/liquid_tags/notebook.py"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Further Posts and Issues**\n",
+    "\n",
+    "https://github.com/ipython/ipython/issues/4936\n",
+    "\n",
+    "`https://mail.scipy.org/pipermail/ipython-user/2013-December/013490.html` (not available anymore)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.1"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

@@ -1,9 +1,10 @@
 mdl.pylink
 ----------
 
-.. py:module:: mdl.pylink
-.. py:currentmodule:: mdl.pylink
-
-.. automodule:: mdl.pylink.tracker
+.. automodule:: mdl.pylink
    :members:
    :undoc-members:
+   :inherited-members:
+   :private-members:
+   :special-members:
+

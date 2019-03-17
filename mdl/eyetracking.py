@@ -30,22 +30,34 @@ from calibration import calibration
 #---------------------------------------------start
 class eyetracking():
     """
-    Module allowingcommuncation to the SR Research Eyelink eyetracking system. Code is optimized for the 
+    Module allowing communcation to the SR Research Eyelink eyetracking system. Code is optimized for the 
     Eyelink 1000 Plus (5.0), but should be compatiable with earlier systems.
+    
+    Notes
+    -----
+    According to [Pylink.chm](\_static\pdf\Pylink.chm), the sequence of operations for implementing a trial is:
+        1) Perform a DRIFT CORRECTION, which also serves as the pre-trial fixation target.
+        2) Start recording, allowing 100 milliseconds of data to accumulate before the trial display starts.
+        3) Draw the subject display, recording the time that the display appeared by placing a message in the EDF file.
+        4) Loop until one of these events occurs RECORDING halts, due to the tracker ABORT menu or an error, the maximum 
+        trial duration expires 'ESCAPE' is pressed, the program is interrupted, or abutton on the EyeLink button box is pressed.
+        5) Add special code to handle gaze-contingent display updates.
+        6) Blank the display, stop recording after an additional 100 milliseconds of data has been collected.
+        7) Report the trial result, and return an appropriate error code.
     """
     def __init__(self, window, isPsychopy=True, libraries=False, subject=None):
         """
-        Start eyetracker.
+        Initialize eyetracker.
 
         Parameters
         ----------
-        window : :class:`psychopy.visual.window.Window`
+        window : :obj:`psychopy.visual.window.Window`
             PsychoPy window instance.
-        isPsychopy : :class:`bool`
+        isPsychopy : :obj:`bool`
             Is Psychopy being used.
-        libraries : :class:`bool`
+        libraries : :obj:`bool`
             Should the code check if required libraries are available.
-        subject : :class:`int`
+        subject : :obj:`int`
             Subject number.
 
         Examples
@@ -164,9 +176,9 @@ class eyetracking():
 
         Parameters
         ----------
-        color : :class:`str`
+        color : :obj:`str`
             Color to use (black, red, green, orange, purple, blue, grey).
-        msg : :class:`str`
+        msg : :obj:`str`
             Message to be color printed.
         
         Examples
@@ -194,36 +206,36 @@ class eyetracking():
 
         Parameters
         ----------
-        ip : :class:`string`
+        ip : :obj:`string`
             Host PC ip address.
-        calibration_type : :class:`int`
+        calibration_type : :obj:`int`
             Calibration type. Default is 13-point. [see Eyelink 1000 Plus User Manual, 3.7 Calibration]
-        automatic_calibration_pacing : :class:`int`
+        automatic_calibration_pacing : :obj:`int`
             Select the delay in milliseconds, between successive calibration or validation targets 
             if automatic target detection is activeSet automatic calibration pacing. [see pylink.chm]
-        saccade_velocity_threshold : :class:`int`
+        saccade_velocity_threshold : :obj:`int`
             Sets velocity threshold of saccade detector: usually 30 for cognitive research, 22 for 
             pursuit and neurological work. Default is 35. Note: EyeLink II and EyeLink 1000,
             select select_parser_configuration should be used instead. [see EyeLink Programmer’s Guide, 
             Section 25.9: Parser Configuration; Eyelink 1000 Plus User Manual, Section 4.3.5 
             Saccadic Thresholds]
-        saccade_acceleration_threshold : :class:`int`
+        saccade_acceleration_threshold : :obj:`int`
             Sets acceleration threshold of saccade detector: usually 9500 for cognitive research, 5000 
             for pursuit and neurological work. Default is 9500. Note: For EyeLink II and EyeLink 1000,
             select select_parser_configuration should be used instead. [see EyeLink Programmer’s Guide,
             Section 25.9: Parser Configuration; Eyelink 1000 Plus User Manual, Section 4.3.5 
             Saccadic Thresholds]
-        select_parser_configuration : :class:`int`
+        select_parser_configuration : :obj:`int`
             Selects the preset standard parser setup (0) or more sensitive (1). These are equivalent
             to the cognitive and psychophysical configurations. Default is 0. [see EyeLink Programmer’s 
             Guide, Section 25.9: Parser Configuration]
-        sound : :class:`bool`
+        sound : :obj:`bool`
             Should sound be used for calibration/validation/drift correction.
-        recording_parse_type : :class:`str`
+        recording_parse_type : :obj:`str`
             Sets how velocity information for saccade detection is to be computed.
             Enter either 'GAZE' or 'HREF'. Default is 'GAZE'. [see Eyelink 1000 Plus User Manual, 
             Section 4.4: File Data Types]
-        enable_search_limits : :class:`bool`
+        enable_search_limits : :obj:`bool`
             Enables tracking of pupil to global search limits. Default is True. [see Eyelink 1000 Plus 
             User Manual, Section 4.4: File Data Types]
         
@@ -470,7 +482,7 @@ class eyetracking():
         #flip screen after finishing
         self.window.flip()
 
-    def start_recording(self, trial, block, stimulus=None):
+    def start_recording(self, trial, block):
         """
         Starts recording of Eyelink.
 
@@ -480,14 +492,6 @@ class eyetracking():
             Trial Number.
         block : :obj:`str`
             Block Number.
-        stimulus : :obj:`None` or :obj:`psychopy.visual.image.ImageStim`, :obj:`dict` or :obj:`list`.
-            Stimuli can be sent individually or as a list either:    
-                `psychopy.visual.image.ImageStim`:
-                    PsychoPy stimulus image class.
-                `dict`:
-                    Dictionary containing position (x,y), path, filename.
-            If you wish to have images available on Eyelink, be sure to specify where the image is 
-            stored relative to the EDF data file.
 
         Notes
         -----
@@ -541,33 +545,34 @@ class eyetracking():
         self.trial = trial
         self.block = block
     
-    def gc(self, region, t_min, t_max=None):
+    def gc(self, bound, t_min, t_max=None):
         """
-        Creates gaze contigent event. This should be created while recording.
+        Creates gaze contigent event. This function needs to be run while recording.
         
         Parameters
         ----------
-        region : :class:`dict` of {`str` : [left, top, right, bottom]}
-            Dictionary of the bounding box for each region of interest. Bounds are
-            by their left, top, right, and bottom coordinates in pixels.
-        t_min : :class:`int`
+        bound : :obj:`dict` [:obj:`str`, :obj:`int`]:
+            Dictionary of the bounding box for each region of interest. Keys are each side of the 
+            bounding box and values are their corresponding coordinates in pixels.
+        t_min : :obj:`int`
             Mininum duration (msec) in which gaze contigent capture is collecting data before allowing
             the task to continue.
-        t_max : :class:`int` or `None`
+        t_max : :obj:`int` or :obj:`None`
             Maxinum duration (msec) before task is forced to go into drift correction. 
 
         Examples
         --------
-        >>> # Collect samples within the center of the screen, for 2000 msec, with a maxinum duration of 10000 msec.
+        >>> # Collect samples within the center of the screen, for 2000 msec, 
+        >>> # with a max limit of 10000 msec.
         >>> region = dict(left=860, top=440, right=1060, bottom=640)
-        >>> eyetracking.gc(region=region, t_min=2000, t_max=10000)
+        >>> eyetracking.gc(bound=bound, t_min=2000, t_max=10000)
         """
         
         #if eyetracker is recording
         if self.isRecording:
             # draw box
             self.tracker.sendCommand('draw_box %d %d %d %d 6'%\
-                                     (region['left'],region['top'],region['right'],region['bottom']))
+                                     (bound['left'],bound['top'],bound['right'],bound['bottom']))
             
             #get start time
             start_time = time.clock()
@@ -580,12 +585,11 @@ class eyetracking():
                 gxy, ps, s = self.sample(self.eye_used)
                 
                 #is gaze with gaze contigent window for t_min time
-                if ((region['left'] < gxy[0] < region['right']) and (region['top'] < gxy[1] < region['bottom'])):
+                if ((bound['left'] < gxy[0] < bound['right']) and (bound['top'] < gxy[1] < bound['bottom'])):
                     # has mininum time for gc window occured
                     duration = (time.clock() - current_time) * 1000
-                    print('duration: %d'%(duration))
                     if duration > t_min:
-                        print('gc window success')
+                        self.console(c='blue', msg="eyetracking.gc() success in %d"%((time.clock() - start_time) * 1000))
                         self.send_message(msg='gc window success')
                         break
                 else:
@@ -597,9 +601,9 @@ class eyetracking():
                 if t_max is not None:
                     # has maxinum time for gc window occured
                     duration = (time.clock() - start_time) * 1000
-                    print('maxinum: %d'%(duration))
                     if duration > t_max:
-                        print('gc window failed')
+                        self.console(c='blue', msg="eyetracking.gc() failed, drift correction started")
+                        self.send_message(msg='gc window failed')
                         self.drift_correction()
                         break
         else:
@@ -618,7 +622,7 @@ class eyetracking():
         -------
         gxy : :class:`tuple`
             Gaze coordiantes.
-        ps : :class:`tuple`
+        ps : :obj:`tuple`
             Pupil size (area).
         s : :class:`EyeLink.getNewestSample`
             Eyelink newest sample.
@@ -641,7 +645,7 @@ class eyetracking():
 
     def send_message(self, msg):
         """
-       send message to eyelink.
+        Send message to Eyelink. This allows post-hoc processing of event markers (i.e. "stimulus onset").
 
         Parameters
         ----------
@@ -749,7 +753,7 @@ class eyetracking():
 
     def finish_recording(self, path=None):
         """
-        Finish recording of Eyelink.
+        Ending Eyelink recording.
 
         Parameters
         ----------

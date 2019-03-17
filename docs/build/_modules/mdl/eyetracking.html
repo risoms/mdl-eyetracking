@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>mdl.eyetracking &#8212; mdl-eyelink 2019-03-16 documentation</title>
+    <title>mdl.eyetracking &#8212; mdl-eyelink 2019-03-17 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -36,7 +36,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           mdl-eyelink</a>
-        <span class="navbar-text navbar-version pull-left"><b>2019-03-16</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2019-03-17</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -59,6 +59,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../calibration.html">calibration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../pylink.html">pylink</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../example.html">Example setup for Eyelink 1000 Plus, using PsychoPy 3.0.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../example.html#Initialize-the-mdl.eyetracking()-package.">Initialize the mdl.eyetracking() package.</a></li>
 </ul>
 </ul>
 </li>
@@ -132,22 +134,34 @@
 <span class="c1">#---------------------------------------------start</span>
 <div class="viewcode-block" id="eyetracking"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking">[docs]</a><span class="k">class</span> <span class="nc">eyetracking</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Module allowingcommuncation to the SR Research Eyelink eyetracking system. Code is optimized for the </span>
+<span class="sd">    Module allowing communcation to the SR Research Eyelink eyetracking system. Code is optimized for the </span>
 <span class="sd">    Eyelink 1000 Plus (5.0), but should be compatiable with earlier systems.</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    According to [Pylink.chm](\_static\pdf\Pylink.chm), the sequence of operations for implementing a trial is:</span>
+<span class="sd">        1) Perform a DRIFT CORRECTION, which also serves as the pre-trial fixation target.</span>
+<span class="sd">        2) Start recording, allowing 100 milliseconds of data to accumulate before the trial display starts.</span>
+<span class="sd">        3) Draw the subject display, recording the time that the display appeared by placing a message in the EDF file.</span>
+<span class="sd">        4) Loop until one of these events occurs RECORDING halts, due to the tracker ABORT menu or an error, the maximum </span>
+<span class="sd">        trial duration expires &#39;ESCAPE&#39; is pressed, the program is interrupted, or abutton on the EyeLink button box is pressed.</span>
+<span class="sd">        5) Add special code to handle gaze-contingent display updates.</span>
+<span class="sd">        6) Blank the display, stop recording after an additional 100 milliseconds of data has been collected.</span>
+<span class="sd">        7) Report the trial result, and return an appropriate error code.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">isPsychopy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">libraries</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Start eyetracker.</span>
+<span class="sd">        Initialize eyetracker.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        window : :class:`psychopy.visual.window.Window`</span>
+<span class="sd">        window : :obj:`psychopy.visual.window.Window`</span>
 <span class="sd">            PsychoPy window instance.</span>
-<span class="sd">        isPsychopy : :class:`bool`</span>
+<span class="sd">        isPsychopy : :obj:`bool`</span>
 <span class="sd">            Is Psychopy being used.</span>
-<span class="sd">        libraries : :class:`bool`</span>
+<span class="sd">        libraries : :obj:`bool`</span>
 <span class="sd">            Should the code check if required libraries are available.</span>
-<span class="sd">        subject : :class:`int`</span>
+<span class="sd">        subject : :obj:`int`</span>
 <span class="sd">            Subject number.</span>
 
 <span class="sd">        Examples</span>
@@ -266,9 +280,9 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        color : :class:`str`</span>
+<span class="sd">        color : :obj:`str`</span>
 <span class="sd">            Color to use (black, red, green, orange, purple, blue, grey).</span>
-<span class="sd">        msg : :class:`str`</span>
+<span class="sd">        msg : :obj:`str`</span>
 <span class="sd">            Message to be color printed.</span>
 <span class="sd">        </span>
 <span class="sd">        Examples</span>
@@ -296,36 +310,36 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        ip : :class:`string`</span>
+<span class="sd">        ip : :obj:`string`</span>
 <span class="sd">            Host PC ip address.</span>
-<span class="sd">        calibration_type : :class:`int`</span>
+<span class="sd">        calibration_type : :obj:`int`</span>
 <span class="sd">            Calibration type. Default is 13-point. [see Eyelink 1000 Plus User Manual, 3.7 Calibration]</span>
-<span class="sd">        automatic_calibration_pacing : :class:`int`</span>
+<span class="sd">        automatic_calibration_pacing : :obj:`int`</span>
 <span class="sd">            Select the delay in milliseconds, between successive calibration or validation targets </span>
 <span class="sd">            if automatic target detection is activeSet automatic calibration pacing. [see pylink.chm]</span>
-<span class="sd">        saccade_velocity_threshold : :class:`int`</span>
+<span class="sd">        saccade_velocity_threshold : :obj:`int`</span>
 <span class="sd">            Sets velocity threshold of saccade detector: usually 30 for cognitive research, 22 for </span>
 <span class="sd">            pursuit and neurological work. Default is 35. Note: EyeLink II and EyeLink 1000,</span>
 <span class="sd">            select select_parser_configuration should be used instead. [see EyeLink Programmer’s Guide, </span>
 <span class="sd">            Section 25.9: Parser Configuration; Eyelink 1000 Plus User Manual, Section 4.3.5 </span>
 <span class="sd">            Saccadic Thresholds]</span>
-<span class="sd">        saccade_acceleration_threshold : :class:`int`</span>
+<span class="sd">        saccade_acceleration_threshold : :obj:`int`</span>
 <span class="sd">            Sets acceleration threshold of saccade detector: usually 9500 for cognitive research, 5000 </span>
 <span class="sd">            for pursuit and neurological work. Default is 9500. Note: For EyeLink II and EyeLink 1000,</span>
 <span class="sd">            select select_parser_configuration should be used instead. [see EyeLink Programmer’s Guide,</span>
 <span class="sd">            Section 25.9: Parser Configuration; Eyelink 1000 Plus User Manual, Section 4.3.5 </span>
 <span class="sd">            Saccadic Thresholds]</span>
-<span class="sd">        select_parser_configuration : :class:`int`</span>
+<span class="sd">        select_parser_configuration : :obj:`int`</span>
 <span class="sd">            Selects the preset standard parser setup (0) or more sensitive (1). These are equivalent</span>
 <span class="sd">            to the cognitive and psychophysical configurations. Default is 0. [see EyeLink Programmer’s </span>
 <span class="sd">            Guide, Section 25.9: Parser Configuration]</span>
-<span class="sd">        sound : :class:`bool`</span>
+<span class="sd">        sound : :obj:`bool`</span>
 <span class="sd">            Should sound be used for calibration/validation/drift correction.</span>
-<span class="sd">        recording_parse_type : :class:`str`</span>
+<span class="sd">        recording_parse_type : :obj:`str`</span>
 <span class="sd">            Sets how velocity information for saccade detection is to be computed.</span>
 <span class="sd">            Enter either &#39;GAZE&#39; or &#39;HREF&#39;. Default is &#39;GAZE&#39;. [see Eyelink 1000 Plus User Manual, </span>
 <span class="sd">            Section 4.4: File Data Types]</span>
-<span class="sd">        enable_search_limits : :class:`bool`</span>
+<span class="sd">        enable_search_limits : :obj:`bool`</span>
 <span class="sd">            Enables tracking of pupil to global search limits. Default is True. [see Eyelink 1000 Plus </span>
 <span class="sd">            User Manual, Section 4.4: File Data Types]</span>
 <span class="sd">        </span>
@@ -572,7 +586,7 @@
         <span class="c1">#flip screen after finishing</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="eyetracking.start_recording"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.start_recording">[docs]</a>    <span class="k">def</span> <span class="nf">start_recording</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trial</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">stimulus</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="eyetracking.start_recording"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.start_recording">[docs]</a>    <span class="k">def</span> <span class="nf">start_recording</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trial</span><span class="p">,</span> <span class="n">block</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Starts recording of Eyelink.</span>
 
@@ -582,14 +596,6 @@
 <span class="sd">            Trial Number.</span>
 <span class="sd">        block : :obj:`str`</span>
 <span class="sd">            Block Number.</span>
-<span class="sd">        stimulus : :obj:`None` or :obj:`psychopy.visual.image.ImageStim`, :obj:`dict` or :obj:`list`.</span>
-<span class="sd">            Stimuli can be sent individually or as a list either:    </span>
-<span class="sd">                `psychopy.visual.image.ImageStim`:</span>
-<span class="sd">                    PsychoPy stimulus image class.</span>
-<span class="sd">                `dict`:</span>
-<span class="sd">                    Dictionary containing position (x,y), path, filename.</span>
-<span class="sd">            If you wish to have images available on Eyelink, be sure to specify where the image is </span>
-<span class="sd">            stored relative to the EDF data file.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
@@ -643,33 +649,34 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">trial</span> <span class="o">=</span> <span class="n">trial</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">block</span> <span class="o">=</span> <span class="n">block</span></div>
     
-<div class="viewcode-block" id="eyetracking.gc"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.gc">[docs]</a>    <span class="k">def</span> <span class="nf">gc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="eyetracking.gc"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.gc">[docs]</a>    <span class="k">def</span> <span class="nf">gc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bound</span><span class="p">,</span> <span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Creates gaze contigent event. This should be created while recording.</span>
+<span class="sd">        Creates gaze contigent event. This function needs to be run while recording.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        region : :class:`dict` of {`str` : [left, top, right, bottom]}</span>
-<span class="sd">            Dictionary of the bounding box for each region of interest. Bounds are</span>
-<span class="sd">            by their left, top, right, and bottom coordinates in pixels.</span>
-<span class="sd">        t_min : :class:`int`</span>
+<span class="sd">        bound : :obj:`dict` [:obj:`str`, :obj:`int`]:</span>
+<span class="sd">            Dictionary of the bounding box for each region of interest. Keys are each side of the </span>
+<span class="sd">            bounding box and values are their corresponding coordinates in pixels.</span>
+<span class="sd">        t_min : :obj:`int`</span>
 <span class="sd">            Mininum duration (msec) in which gaze contigent capture is collecting data before allowing</span>
 <span class="sd">            the task to continue.</span>
-<span class="sd">        t_max : :class:`int` or `None`</span>
+<span class="sd">        t_max : :obj:`int` or :obj:`None`</span>
 <span class="sd">            Maxinum duration (msec) before task is forced to go into drift correction. </span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; # Collect samples within the center of the screen, for 2000 msec, with a maxinum duration of 10000 msec.</span>
+<span class="sd">        &gt;&gt;&gt; # Collect samples within the center of the screen, for 2000 msec, </span>
+<span class="sd">        &gt;&gt;&gt; # with a max limit of 10000 msec.</span>
 <span class="sd">        &gt;&gt;&gt; region = dict(left=860, top=440, right=1060, bottom=640)</span>
-<span class="sd">        &gt;&gt;&gt; eyetracking.gc(region=region, t_min=2000, t_max=10000)</span>
+<span class="sd">        &gt;&gt;&gt; eyetracking.gc(bound=bound, t_min=2000, t_max=10000)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         
         <span class="c1">#if eyetracker is recording</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isRecording</span><span class="p">:</span>
             <span class="c1"># draw box</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tracker</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span><span class="s1">&#39;draw_box </span><span class="si">%d</span><span class="s1"> </span><span class="si">%d</span><span class="s1"> </span><span class="si">%d</span><span class="s1"> </span><span class="si">%d</span><span class="s1"> 6&#39;</span><span class="o">%</span>\
-                                     <span class="p">(</span><span class="n">region</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">],</span><span class="n">region</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">],</span><span class="n">region</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">],</span><span class="n">region</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">]))</span>
+                                     <span class="p">(</span><span class="n">bound</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">],</span><span class="n">bound</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">],</span><span class="n">bound</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">],</span><span class="n">bound</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">]))</span>
             
             <span class="c1">#get start time</span>
             <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
@@ -682,12 +689,11 @@
                 <span class="n">gxy</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eye_used</span><span class="p">)</span>
                 
                 <span class="c1">#is gaze with gaze contigent window for t_min time</span>
-                <span class="k">if</span> <span class="p">((</span><span class="n">region</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">gxy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">region</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span><span class="n">region</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">gxy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">region</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">])):</span>
+                <span class="k">if</span> <span class="p">((</span><span class="n">bound</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">gxy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">bound</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span><span class="n">bound</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">gxy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">bound</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">])):</span>
                     <span class="c1"># has mininum time for gc window occured</span>
                     <span class="n">duration</span> <span class="o">=</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span> <span class="o">-</span> <span class="n">current_time</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;duration: </span><span class="si">%d</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">duration</span><span class="p">))</span>
                     <span class="k">if</span> <span class="n">duration</span> <span class="o">&gt;</span> <span class="n">t_min</span><span class="p">:</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;gc window success&#39;</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;eyetracking.gc() success in </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">((</span><span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;gc window success&#39;</span><span class="p">)</span>
                         <span class="k">break</span>
                 <span class="k">else</span><span class="p">:</span>
@@ -699,9 +705,9 @@
                 <span class="k">if</span> <span class="n">t_max</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="c1"># has maxinum time for gc window occured</span>
                     <span class="n">duration</span> <span class="o">=</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;maxinum: </span><span class="si">%d</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">duration</span><span class="p">))</span>
                     <span class="k">if</span> <span class="n">duration</span> <span class="o">&gt;</span> <span class="n">t_max</span><span class="p">:</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;gc window failed&#39;</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;eyetracking.gc() failed, drift correction started&quot;</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;gc window failed&#39;</span><span class="p">)</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">drift_correction</span><span class="p">()</span>
                         <span class="k">break</span>
         <span class="k">else</span><span class="p">:</span>
@@ -720,7 +726,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        gxy : :class:`tuple`</span>
 <span class="sd">            Gaze coordiantes.</span>
-<span class="sd">        ps : :class:`tuple`</span>
+<span class="sd">        ps : :obj:`tuple`</span>
 <span class="sd">            Pupil size (area).</span>
 <span class="sd">        s : :class:`EyeLink.getNewestSample`</span>
 <span class="sd">            Eyelink newest sample.</span>
@@ -743,7 +749,7 @@
 
 <div class="viewcode-block" id="eyetracking.send_message"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.send_message">[docs]</a>    <span class="k">def</span> <span class="nf">send_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">       send message to eyelink.</span>
+<span class="sd">        Send message to Eyelink. This allows post-hoc processing of event markers (i.e. &quot;stimulus onset&quot;).</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -851,7 +857,7 @@
 
 <div class="viewcode-block" id="eyetracking.finish_recording"><a class="viewcode-back" href="../../eyetracking.html#mdl.eyetracking.eyetracking.finish_recording">[docs]</a>    <span class="k">def</span> <span class="nf">finish_recording</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Finish recording of Eyelink.</span>
+<span class="sd">        Ending Eyelink recording.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>

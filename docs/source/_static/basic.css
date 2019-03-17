@@ -10,10 +10,27 @@
  */
 
  /* -- modifications ----------------------------------------------------------- */
+.alert-warning {    
+    background-color: #fcf8e3 !important;
+    border-color: #faebcc !important;
+    color: #8a6d3b !important;
+}
+.alert-info {
+    background-color: #d9edf7!important;
+    border-color: #bce8f1!important;
+    color: #31708f!important;
+}
+.list-container{
+    padding: 0px !important;
+    list-style-type: none;
+}
+.title>p{
+    font-weight: 600 !important;
+}
 li>p{
 	margin-bottom: 5px !important;
 }
-.navbar-form{
+.navbar-form.navbar-right{
 	width: 200px !important;
 }
 .rubric{
