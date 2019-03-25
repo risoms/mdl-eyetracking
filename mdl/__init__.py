@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/python3
 
-import os, sys; sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+import pkgutil
+import sys
 
-import pylink
-from calibration import calibration
-from eyetracking import eyetracking
-
-from ._version import get_versions
-__version__ = get_versions()['version']
-del get_versions
+import os, pkgutil
+__all__ = list(module for _, module, _ in pkgutil.iter_modules([os.path.dirname(__file__)]))
