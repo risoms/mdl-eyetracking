@@ -12,22 +12,17 @@ but should be compatiable with earlier systems.
 import datetime
 date = datetime.date.today().isoformat()
 
-name = 'mdl-eyelink'
-version = '%s'%(date)
-.get_version()
-
-
-author = 'Semeon Risom'
-author_email = 'semeon.risom@gmail.com'
-maintainer = 'Semeon Risom'
-maintainer_email = 'semeon.risom@gmail.com'
-url = 'https://semeon.io/d/mdl-eyelink'
-description = 'mdl-eyelink: Bindings for Eyelink and Python.'
-download_url = 'https://github.com/risoms/mdl-eyelink/'
-long_description = open('README.md').read()
-long_description_content_type = 'text/markdown'
-license_ = open('LICENSE', 'r').read()
-classifiers = [
+NAME = 'mdl-eyelink'
+VERSION = '%s'%(date)
+AUTHOR = 'Semeon Risom'
+AUTHOR_EMAIL = 'semeon.risom@gmail.com'
+URL = 'https://semeon.io/d/mdl-eyelink'
+DESCRIPTION = "mdl-eyelink: Bindings for Eyelink and Python."
+# get description
+with open("README.md", "r") as d:			   
+	LONG_DESCRIPTION = d.read()
+DOWNLOAD_URL = 'https://github.com/risoms/mdl-eyelink/'
+CLASSIFIERS = [
     'Intended Audience :: Science/Research',
     'Programming Language :: Python :: 3.4',
     'Programming Language :: Python :: 3.5',
@@ -42,15 +37,12 @@ classifiers = [
     'Operating System :: MacOS',
     'Operating System :: Microsoft :: Windows'
 ]
-install_requires = [
-    'numpy',
-    'scipy',
-    'pandas',
-    'psychopy',
-    'win32api',
-    'pyobjc'
+with open("LICENSE", "r") as d:			   
+	LICENSE = d.read()
+INSTALL_REQUIRES = [
+    'numpy','scipy','pandas','psychopy','win32api','pyobjc'
 ]
-packages = [
+PACKAGES = [
     'mdl',
     'mdl.eyetracking',
 ]
@@ -68,19 +60,19 @@ required = read_configuration('setup.cfg')['options']['install_requires']
 
 if __name__ == "__main__":
     setup(
-        name=name,
-        version=version,
-        author=author,
-        author_email=author_email,
-        maintainer=maintainer,
-        maintainer_email=maintainer_email,	
-        url=url,
-        description=description,
-        long_description = long_description,
-		long_description_content_type = long_description_content_type,		
-        download_url=download_url,
-        classifiers=classifiers,	  				 
-        license=license_,
-        install_requires=install_requires,
-		packages=packages,
+        name=NAME,
+        version=VERSION,
+        author=AUTHOR,
+        author_email=AUTHOR_EMAIL,
+        maintainer=AUTHOR,
+        maintainer_email=AUTHOR_EMAIL,	
+        url=URL,
+        description=DESCRIPTION,
+        long_description=open("README.md").read(),
+		long_description_content_type="text/markdown",		
+        download_url=DOWNLOAD_URL,
+        classifiers=CLASSIFIERS,	  				 
+        license=open("LICENSE", "r").read(),
+        install_requires=INSTALL_REQUIRES,
+		packages=PACKAGES,
     )
