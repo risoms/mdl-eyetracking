@@ -9,11 +9,8 @@ Created on Wed Feb 13 15:37:43 2019
 Sample code to run SR Research Eyelink eyetracking system. Code is optimized for the Eyelink 1000 Plus (5.0),
 but should be compatiable with earlier systems.
 """
-import os
-import datetime
-import sys
+import os, datetime, sys, importlib, pkg_resources
 from setuptools import find_packages
-import importlib, pkg_resources
 
 try:
     from setuptools import setup
@@ -66,7 +63,8 @@ classifiers = [
     'Operating System :: MacOS',
     'Operating System :: Microsoft :: Windows'
 ]
-packages = ['mdl','mdl.eyetracking']
+packages = find_packages()
+namespace_packages=['mdl']
 
 # init
 setup(
@@ -87,5 +85,7 @@ setup(
 	classifiers=classifiers,
 	platforms='any',
 	python_requires='>!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*!=3.5.*!=3.6.*!=3.7.*',
+    packages=packages,
+    namespace_packages=namespace_packages,
 	**setuptools_kwargs
 )

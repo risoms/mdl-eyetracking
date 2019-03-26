@@ -26,7 +26,7 @@ from psychopy.tools.monitorunittools import posToPix
 
 #----bridging
 import pylink
-from calibration import calibration
+from .calibration import calibration
 #---------------------------------------------start
 class eyetracking():
     """

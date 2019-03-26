@@ -36,9 +36,7 @@
 # %%
 import os
 import sys
-from psychopy import visual, monitors
-import time
-sys.path.append("../../")
+from psychopy import visual
 import mdl
 # %% [markdown]
 # <h5>Initialize the mdl.eyetracking() package.</h5><br>
@@ -48,11 +46,10 @@ import mdl
 # Creating `psychopy.visual.window.Window` instance (for demonstration purposes only)
 subject = 1
 screensize = [1920, 1080]
-monitor = monitors.Monitor('Monitor', width=53.0, distance=65.0)
-monitor.setSizePix(screensize)
-window = visual.Window(size=screensize, fullscr=False, allowGUI=True, units='pix', monitor=monitor, 
+window = visual.Window(size=screensize, fullscr=False, allowGUI=True, units='pix', 
                        winType='pyglet', color=[110,110,110], colorSpace='rgb255')
-#start
+# %%
+#start package
 eyetracking = mdl.eyetracking(libraries=False, window=window, subject=subject)
 
 # %% [markdown]
