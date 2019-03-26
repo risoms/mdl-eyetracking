@@ -36,15 +36,15 @@ setuptools_kwargs = {
 }
 
 # setup
-name = 'mdl-eyelink'
+name = 'mdl-eyetracking'
 author = 'Semeon Risom'
 author_email = 'semeon.risom@gmail.com'
 maintainer = 'Semeon Risom'
 maintainer_email = 'semeon.risom@gmail.com'
 version = versioneer.get_version()
-url = 'https://semeon.io/d/mdl-eyelink'
-description = 'mdl-eyelink: Bindings for Eyelink and Python.'
-download_url = 'https://github.com/risoms/mdl-eyelink/'
+url = 'https://semeon.io/d/mdl-eyetracking'
+description = 'mdl-eyetracking: Bindings for Eyelink and Python.'
+download_url = 'https://github.com/risoms/mdl-eyetracking/'
 long_description = open('README.md').read()
 long_description_content_type = 'text/markdown'
 license_ = open('LICENSE', 'r').read()
@@ -85,7 +85,6 @@ setup(
 	classifiers=classifiers,
 	platforms='any',
 	python_requires='>!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*!=3.5.*!=3.6.*!=3.7.*',
-    packages=packages,
     namespace_packages=namespace_packages,
 	**setuptools_kwargs
 )

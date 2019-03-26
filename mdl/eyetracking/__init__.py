@@ -8,5 +8,5 @@ from .eyetracking import eyetracking
 __name__ = 'eyetracking'
 
 from ._version import get_versions
-__version__ = get_versions()['date']
+__version__ = get_versions()['version']
 del get_versions

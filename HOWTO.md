@@ -17,11 +17,11 @@ resources
 steps to package
 ----------------
 
-#### create archive
-- python setup.py sdist
-
 #### update version
 - versioneer install
+
+#### create archive
+- python setup.py sdist
 
 #### upload to test pypi
 - python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
