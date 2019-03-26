@@ -51,7 +51,6 @@ window = visual.Window(size=screensize, fullscr=False, allowGUI=True, units='pix
 # %%
 #start package
 eyetracking = mdl.eyetracking(libraries=False, window=window, subject=subject)
-
 # %% [markdown]
 # <h5>Connect to the Eyelink Host.</h5><br>
 # This controls the parameters to be used when running the eyetracker.

@@ -26,7 +26,7 @@ from psychopy.tools.monitorunittools import posToPix
 
 #----bridging
 import pylink
-from .calibration import calibration
+from .calibration import calibration as _calibration
 #---------------------------------------------start
 class eyetracking():
     """
@@ -419,7 +419,7 @@ class eyetracking():
             # put the tracker in offline mode before we change its configurations
             self.tracker.setOfflineMode()
             # Generate custom calibration stimuli
-            self.genv = calibration(w=self.w, h=self.h, tracker=self.tracker, window=self.window)
+            self.genv = _calibration(w=self.w, h=self.h, tracker=self.tracker, window=self.window)
             # execute custom calibration display
             pylink.openGraphicsEx(self.genv)
             # calibrate

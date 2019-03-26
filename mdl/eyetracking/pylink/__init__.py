@@ -4,6 +4,6 @@
 import os, sys
 
 if sys.platform == 'win32':
-	from win import *
+	from .win import pylink.pylink
 elif sys.platform == 'darwin':
-	from osx import *
+	from .osx import pylink.pylink

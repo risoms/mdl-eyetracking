@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/python3
 
-import pylink
-from .calibration import calibration
-from .eyetracking import eyetracking
+import pkg_resources
+pkg_resources.declare_namespace(__name__)
+ 
 
-__name__ = 'eyetracking'
+import os, sys; sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+
+import pylink
+
+from eyetracking import eyetracking
 
 from ._version import get_versions
 __version__ = get_versions()['version']
