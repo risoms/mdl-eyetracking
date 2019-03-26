@@ -2,3 +2,4 @@ include versioneer.py
 include mdl/eyelink/__version__.py
 include mdl/eyelink/__version.py
 include mdl/eyelink/_version.py
+include mdl/eyetracking/_version.py

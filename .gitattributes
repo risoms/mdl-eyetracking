@@ -1,3 +1,4 @@
 mdl/eyelink/__version__.py export-subst
 mdl/eyelink/__version.py export-subst
 mdl/eyelink/_version.py export-subst
+mdl/eyetracking/_version.py export-subst
