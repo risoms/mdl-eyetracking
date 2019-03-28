@@ -21,12 +21,11 @@ import pandas as pd
 from pathlib import Path
 
 #psychopy
-from psychopy import visual
-from psychopy.tools.monitorunittools import posToPix
-
+from psychopy import visual, core, event
+from psychopy.constants import (NOT_STARTED, STARTED, FINISHED)
 #----bridging
 import pylink
-from .calibration import calibration as _calibration
+from calibration import calibration
 #---------------------------------------------start
 class eyetracking():
     """
@@ -45,7 +44,7 @@ class eyetracking():
         6) Blank the display, stop recording after an additional 100 milliseconds of data has been collected.
         7) Report the trial result, and return an appropriate error code.
     """
-    def __init__(self, window, isPsychopy=True, libraries=False, subject=None):
+    def __init__(self, window, timer, isPsychopy=True, libraries=False, subject=None):
         """
         Initialize eyetracker.
 
@@ -53,6 +52,8 @@ class eyetracking():
         ----------
         window : :obj:`psychopy.visual.window.Window`
             PsychoPy window instance.
+        timer : :obj:`psychopy.clock.CountdownTimer`
+            Psychopy timer instance.
         isPsychopy : :obj:`bool`
             Is Psychopy being used.
         libraries : :obj:`bool`
@@ -78,7 +79,7 @@ class eyetracking():
                 from AppKit import NSScreen
                 self.w = int(NSScreen.mainScreen().frame().size.width)
                 self.h = int(NSScreen.mainScreen().frame().size.height)
-
+        
         #----parameters
         # instants
         self.window = window
@@ -94,7 +95,26 @@ class eyetracking():
         self.eye_used = None
         self.left_eye = 0
         self.right_eye = 1
-
+        # status
+        self.status = {}
+        
+        #----timing
+        self.routineTimer = timer
+        
+        #----drift correction
+        #clock
+        self.drift_message_clock = core.Clock()
+        self.drift_clock = core.Clock()
+        #screen
+        text = '\n'.join([
+            "On the next screen a fixation dot will appear.",
+            "Please look at the fixation dot until it disappears.",
+            "\nPress any key to continue."
+        ])
+        self.drift_text = visual.TextStim(win=window, name='drift_message', font='Helvetica',
+        text=text, height=0.1, wrapWidth=1.5, ori=0, pos=(0, 0), alignVert='center', color='black', 
+        colorSpace='rgb', opacity=1, languageStyle='LTR', depth=0.0)
+        
         # check if subject number has been entered
         if subject == None:
             self.console(
@@ -397,10 +417,10 @@ class eyetracking():
         self.console(msg="eyetracking.set_eye_used()")
         eye_entered = str(eye)
         if eye_entered in ('Left', 'LEFT', 'left', 'l', 'L'):
-            self.console(c="blue", msg="eye_entered = %s(left)" %(eye_entered))
+            self.console(c="blue", msg="eye_entered = %s('left')" %(eye_entered))
             self.eye_used = self.left_eye
         else:
-            self.console(c="blue", msg="eye_entered = %s(right)" %(eye_entered))
+            self.console(c="blue", msg="eye_entered = %s('right')" %(eye_entered))
             self.eye_used = self.right_eye
 
         return self.eye_used
@@ -408,25 +428,111 @@ class eyetracking():
     def calibration(self):
         """
         Start calibration procedure.
-            
+        
+        Returns
+        -------
+        calibration_status : :obj:`str`
+            Message indicating calibration has finished.
+        
         Examples
         --------
         >>> eyetracking.calibration()
         """
         self.console(msg="eyetracking.calibration()")
-        # if connected to eyetracker
+        
+        #----prepare
+        self.status['calibration'] = 'Started'
+        
+        #----if connected to eyetracker
         if self.connected:
             # put the tracker in offline mode before we change its configurations
             self.tracker.setOfflineMode()
             # Generate custom calibration stimuli
-            self.genv = _calibration(w=self.w, h=self.h, tracker=self.tracker, window=self.window)
+            self.genv = calibration(w=self.w, h=self.h, tracker=self.tracker, window=self.window)
             # execute custom calibration display
             pylink.openGraphicsEx(self.genv)
             # calibrate
             self.tracker.doTrackerSetup(self.w, self.h)
             #flip screen after finishing
             self.window.flip()
-
+            
+        #----finished
+        self.status['calibration'] = 'Finished'
+        self.console(c="blue", msg="eyetracking.calibration() finished")
+        return self.status['calibration']
+    
+    def _drift_message(self):
+        #----prepare to start Routine 'drift_message'
+        endExpNow = False  # flag for 'escape' or other condition => quit the exp
+        t = 0
+        self.drift_message_clock.reset()  # clock
+        frameN = -1
+        continueRoutine = True
+        # update component parameters for each repeat
+        drift_response = event.BuilderKeyResponse()
+        # keep track of which components have finished
+        drift_message_components = [drift_response, self.drift_text]
+        for thisComponent in drift_message_components:
+            if hasattr(thisComponent, 'status'):
+                thisComponent.status = NOT_STARTED
+        
+        # -------Start Routine "drift_message"-------
+        while continueRoutine:
+            # get current time
+            t = self.drift_message_clock.getTime()
+            frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+            # update/draw components on each frame
+            
+            # *drift_response* updates
+            if t >= 0.0 and drift_response.status == NOT_STARTED:
+                # keep track of start time/frame for later
+                drift_response.tStart = t
+                drift_response.frameNStart = frameN  # exact frame index
+                drift_response.status = STARTED
+                # keyboard checking is just starting
+                event.clearEvents(eventType='keyboard')
+            if drift_response.status == STARTED:
+                theseKeys = event.getKeys()
+                
+                # check for quit:
+                if "escape" in theseKeys:
+                    endExpNow = True
+                if len(theseKeys) > 0:  # at least one key was pressed
+                    # a response ends the routine
+                    continueRoutine = False
+            
+            # *drift_text* updates
+            if t >= 0.0 and self.drift_text.status == NOT_STARTED:
+                # keep track of start time/frame for later
+                self.drift_text.tStart = t
+                self.drift_text.frameNStart = frameN  # exact frame index
+                self.drift_text.setAutoDraw(True)
+            
+            # check for quit (typically the Esc key)
+            if endExpNow or event.getKeys(keyList=["escape"]):
+                core.quit()
+            
+            # check if all components have finished
+            if not continueRoutine:  # a component has requested a forced-end of Routine
+                break
+            continueRoutine = False  # will revert to True if at least one component still running
+            for thisComponent in drift_message_components:
+                if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                    continueRoutine = True
+                    break  # at least one component has not yet finished
+            
+            # refresh the screen
+            if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+                self.window.flip()
+        
+        # -------Ending Routine "drift_message"-------
+        for thisComponent in drift_message_components:
+            if hasattr(thisComponent, "setAutoDraw"):
+                thisComponent.setAutoDraw(False)
+                
+        # the Routine "drift_message" was not non-slip safe, so reset the non-slip timer
+        self.routineTimer.reset()
+        
     def drift_correction(self, source='manual'):
         """
         Starts drift correction. This can be done at any point after calibration, including before 
@@ -443,12 +549,15 @@ class eyetracking():
         """
         self.console(msg="eyetracking.drift_correction()")
         
-        #clear screen
-        self.window.flip()
-
-        #update counter
-        self.drift_count = self.drift_count + 1
-
+        #----prepare
+        self.status['drift'] = 'Started'
+        
+        #----present drift correction message (only if manually accessing)
+        if source=='manual':
+            self._drift_message()
+            self.window.clearBuffer()
+            self.window.flip()
+        
         #check if recording
         if self.isRecording:
             # end of trial message
@@ -475,13 +584,17 @@ class eyetracking():
         # initiate drift correction, flag isDriftCorrection
         self.isDriftCorrection = True
         try:
-            self.tracker.doDriftCorrect(int(self.w/2), int(self.h/2), 1, 1)
+           self.tracker.doDriftCorrect(int(self.w/2), int(self.h/2), 1, 1)
         except:
-            self.tracker.doTrackerSetup()
+           self.tracker.doTrackerSetup()
         
-        #flip screen after finishing
-        self.window.flip()
 
+        #----finished
+        self.status['drift'] = 'Finished'
+        self.console(c="blue", msg="eyetracking.drift_correction() finished")
+        
+        return self.status['drift']
+    
     def start_recording(self, trial, block):
         """
         Starts recording of Eyelink.
