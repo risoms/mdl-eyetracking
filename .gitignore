@@ -5,7 +5,7 @@ mdl/__pycache__/
 mdl/eyetracking/__pycache__/
 mdl/pylink/__pycache__/
 
-#file types
+#filetypes
 *.ipynb_checkpoints
 *.DS_Store
 *.egg
