@@ -84,8 +84,11 @@ class eyetracking():
         # instants
         self.window = window
         # flags
+        self.isStarted = False
+        self.isCalibration = False
         self.isRecording = False
         self.isDriftCorrection = False
+        self.isFinished = False
         # counters
         self.drift_count = 0
         # metadata
@@ -431,17 +434,14 @@ class eyetracking():
         
         Returns
         -------
-        calibration_status : :obj:`str`
-            Message indicating calibration has finished.
+        isCalibration : :obj:`bool`
+            Message indicating status of calibration.
         
         Examples
         --------
         >>> eyetracking.calibration()
         """
         self.console(msg="eyetracking.calibration()")
-        
-        #----prepare
-        self.status['calibration'] = 'Started'
         
         #----if connected to eyetracker
         if self.connected:
@@ -457,9 +457,10 @@ class eyetracking():
             self.window.flip()
             
         #----finished
-        self.status['calibration'] = 'Finished'
+        self.isCalibration = True
         self.console(c="blue", msg="eyetracking.calibration() finished")
-        return self.status['calibration']
+
+        return self.isCalibration
     
     def _drift_message(self):
         #----prepare to start Routine 'drift_message'
@@ -538,6 +539,16 @@ class eyetracking():
         Starts drift correction. This can be done at any point after calibration, including before 
         and after eyetracking.start_recording has already been initiated.
         
+        Parameters
+        ----------
+        source : :obj:`str`
+            Origin of call, either `manual` (default) or from gaze contigent event (`gc`).
+        
+        Returns
+        -------
+        isDriftCorrection : :obj:`bool`
+            Message indicating status of drift correction.
+        
         Notes
         -----
         Running drift_correction will end any start_recording event to function properly. Once drift
@@ -548,9 +559,6 @@ class eyetracking():
         >>> eyetracking.drift_correction()
         """
         self.console(msg="eyetracking.drift_correction()")
-        
-        #----prepare
-        self.status['drift'] = 'Started'
         
         #----present drift correction message (only if manually accessing)
         if source=='manual':
@@ -590,10 +598,9 @@ class eyetracking():
         
 
         #----finished
-        self.status['drift'] = 'Finished'
         self.console(c="blue", msg="eyetracking.drift_correction() finished")
         
-        return self.status['drift']
+        return self.isDriftCorrection
     
     def start_recording(self, trial, block):
         """
@@ -605,6 +612,11 @@ class eyetracking():
             Trial Number.
         block : :obj:`str`
             Block Number.
+        
+        Returns
+        -------
+        isRecording : :obj:`bool`
+            Message indicating status of Eyelink recording.
 
         Notes
         -----
@@ -657,6 +669,8 @@ class eyetracking():
         self.isRecording = True
         self.trial = trial
         self.block = block
+
+        return self.isRecording
     
     def gc(self, bound, t_min, t_max=None):
         """
@@ -802,6 +816,11 @@ class eyetracking():
             Block Number.
         variables : :obj:`dict` or `None`
             Dict of variables to send to eyelink (variable name, value).
+        
+        Returns
+        -------
+        isRecording : :obj:`bool`
+            Message indicating status of Eyelink recording.
 
         Notes
         -----
@@ -864,6 +883,8 @@ class eyetracking():
         # flag isRecording
         self.isRecording = False
 
+        return self.isRecording
+
     def finish_recording(self, path=None):
         """
         Ending Eyelink recording.
@@ -872,6 +893,11 @@ class eyetracking():
         ----------
         path : :obj:`str` or :obj:`None`
             Path to save data. If None, path will be default from PsychoPy task.
+        
+        Returns
+        -------
+        isFinished : :obj:`bool`
+            Message indicating status of Eyelink recording.
 
         Notes
         -----
@@ -933,3 +959,9 @@ class eyetracking():
 
         # sends a disconnect message to the EyeLink tracker
         self.tracker.close()
+
+        # flag isFinished
+        self.isFinished = True
+
+        #---finish
+        return self.isFinished
