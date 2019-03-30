@@ -60,7 +60,7 @@ been implemented to allow portability of the development kit across platforms. T
 allow general analysis tools such as EDF2ASC converter or EyeLink Data Viewer to process your EDF files.
 """
 
-from pylink.constants import *
+#from pylink.constants import *
 
 from pylink.pylink_c import inRealTimeMode
 from pylink.pylink_c import flushGetkeyQueue

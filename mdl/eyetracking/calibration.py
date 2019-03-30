@@ -7,19 +7,25 @@
 | This allows mdl.eyetracking package to initiate calibration/validation/drift correction.
 """
 
-#---main
+__all__ = ['calibration']
+
+#----debug
 from pdb import set_trace as breakpoint
+
+#---main
 import string, os, array
 from math import sin, cos, pi
 from PIL import Image
 import numpy as np
+import sys
 
 #---psychopy
 from psychopy import visual, event, sound
 
-#---eyetracking
-import pylink
+#----package
+from . import pylink
 
+#----------------------------------------------------------------------------------------------------------------------------start
 class calibration(pylink.EyeLinkCustomDisplay):
     """This allows mdl.eyetracking package to initiate calibration/validation/drift correction."""
     def __init__(self, w, h, tracker, window):

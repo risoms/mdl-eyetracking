@@ -48,8 +48,6 @@ different platforms, such as MS-DOS, Windows, Linux, and the Macintosh. Some pro
 such as placement of messages in the EDF file by your experiment, and the use of special data types, have
 been implemented to allow portability of the development kit across platforms. The standard messages
 allow general analysis tools such as EDF2ASC converter or EyeLink Data Viewer to process your EDF files.
-
-
 """
 
 from pylink.constants import *

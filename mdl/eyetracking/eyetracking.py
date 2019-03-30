@@ -8,6 +8,8 @@
 | but should be compatiable with earlier systems.
 """
 
+__all__ = ['run']
+
 #----debug
 from pdb import set_trace as breakpoint
 from IPython.display import display
@@ -15,19 +17,21 @@ from IPython.display import display
 #----main
 import time
 import os
+import sys
 import re
 import platform
 import pandas as pd
 from pathlib import Path
 
-#psychopy
+#----psychopy
 from psychopy import visual, core, event
 from psychopy.constants import (NOT_STARTED, STARTED, FINISHED)
-#----bridging
-import pylink
-from calibration import calibration
-#---------------------------------------------start
-class eyetracking():
+
+#----package
+# calibration
+from . import calibration as _calibration
+#---------------------------------------------------------------------------------------------------------------------------start
+class run():
     """
     Module allowing communcation to the SR Research Eyelink eyetracking system. Code is optimized for the 
     Eyelink 1000 Plus (5.0), but should be compatiable with earlier systems.
@@ -133,7 +137,7 @@ class eyetracking():
         
         #----check if required libraries are available
         if libraries == True:
-            self.libraries()
+            self.library()
 
         #----edf filename
         self.subject = os.path.splitext(str(subject))[0]
@@ -152,7 +156,7 @@ class eyetracking():
         # store name
         self.fname = str(self.subject) + '.edf'
 
-    def libraries(self):
+    def library(self):
         """Check if required libraries to run eyelink and Psychopy are available."""
 
         self.console(msg="eyetracking.libraries()")
@@ -193,33 +197,49 @@ class eyetracking():
         except Exception as e:
             return e
             
-    def console(self, c='green', msg=''):
+    @classmethod
+    def console(cls, c='green', msg=''):
         """
-        Allows printing color coded messages to console/terminal/cmd. This may be useful for debugging issues.
-
-        Parameters
-        ----------
-        color : :obj:`str`
-            Color to use (black, red, green, orange, purple, blue, grey).
-        msg : :obj:`str`
-            Message to be color printed.
+        Allows user-friend console logging using ANSI escape codes.
         
+        Attributes
+        ----------
+        message : :class:`str`
+            Message to send to console.
+        color : :class:`str`
+            Name of color or ANSI escape event to use.
+        
+        Returns
+        -------
+        result : :class:`str`
+            ANSI escape code.
+            
         Examples
         --------
-        >>> eyetracking.console(c="green", msg="eyetracking.calibration() started")
+        >>> console(self, message, color='blue)
+        >>>
+        >>>
+            
+        Notes
+        -----
+        Colors are produced using ASCII Oct format. For example: '\033[40m'
+        See http://jafrog.com/2013/11/23/colors-in-terminal.html
         """
-
-        color = dict(
-            black='\33[40m',
-            red='\33[41m',
-            green='\33[42m',
-            orange='\33[43m',
-            purple='\33[45m',
-            blue='\33[46m',
-            grey='\33[47m',
-            ENDC='\033[0m')
-
-        return print(color[c] + msg + color['ENDC'])
+        
+        c_ = dict(
+            black = '40m',
+            red =  '41m',
+            green =  '42m',
+            orange = '43m',
+            purple = '45m',
+            blue =  '46m',
+            grey =  '47m'
+        )
+        
+        # result will be in this format: [<PREFIX>];[<COLOR>];[<TEXT DECORATION>][<MESSAGE>][<FINISHING SYMBOL>]
+        result = '\033[' + c_[c] + msg + '\033[0m'
+        
+        return print(result)
 
     def connect(self, calibration_type=13, automatic_calibration_pacing=1000, saccade_velocity_threshold=35,
                 saccade_acceleration_threshold=9500, sound=True, select_parser_configuration=0,
@@ -448,7 +468,7 @@ class eyetracking():
             # put the tracker in offline mode before we change its configurations
             self.tracker.setOfflineMode()
             # Generate custom calibration stimuli
-            self.genv = calibration(w=self.w, h=self.h, tracker=self.tracker, window=self.window)
+            self.genv = _calibration(w=self.w, h=self.h, tracker=self.tracker, window=self.window)
             # execute custom calibration display
             pylink.openGraphicsEx(self.genv)
             # calibrate

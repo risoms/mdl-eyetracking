@@ -1,16 +1,30 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/python3
 
+import os, sys
+from pkgutil import extend_path
 import pkg_resources
+
+# set as module
+__all__ = ['run','calibration','pylink']
 pkg_resources.declare_namespace(__name__)
- 
 
-import os, sys; sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+# relative paths
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
-import pylink
+# imports
+from .eyetracking import run
+from .calibration import calibration
 
-from eyetracking import eyetracking
+# pylink
+if sys.platform == 'win32':
+	from win import pylink
+elif sys.platform == 'darwin':
+	from osx import pylink
 
+#----versioning
 from ._version import get_versions
 __version__ = get_versions()['version']
 del get_versions
+
+del os, sys, extend_path, pkg_resources

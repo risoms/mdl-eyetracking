@@ -14,9 +14,9 @@ import sphinx_bootstrap_theme
 
 # module directory
 #osx
-sys.path.append('/Users/mdl-admin/Desktop/mdl-eyelink/')
+sys.path.append('/Users/mdl-admin/Desktop/mdl-eyetracking/')
 sys.path.append('/anaconda3/lib/python3.6/site-packages/')
-sys.path.append(os.path.abspath('../../mdl'))
+sys.path.append(os.path.abspath('../../'))
 
 # -- Path setup --------------------------------------------------------------
 autodoc_mock_imports = ["numpy","pandas","scipy","PIL","psychopy"]
@@ -59,8 +59,12 @@ source_suffix = ['.rst', '.md', '.ipynb']
 master_doc = 'index'
 
 # -- Project information -----------------------------------------------------
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))
+from mdl.eyetracking._version import get_versions
+
 # General information about the project.
-project = u'mdl-eyelink'
+project = u'mdl-eyetracking'
 author = 'Semeon Risom'
 import time
 copyright = u'{}, Semeon Risom'.format(time.strftime("%Y"))
@@ -70,7 +74,7 @@ date = datetime.date.today().isoformat()
 # The short X.Y version
 version = '%s'%(date)
 # The full version, including alpha/beta/rc tags
-release = '%s'%(date)
+release = get_versions()['version']
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -130,20 +134,20 @@ nbsphinx_epilog = r"""
 
 # -- Options for HTMLHelp output ---------------------------------------------
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'mdl-eyelink'
+htmlhelp_basename = 'mdl-eyetracking'
 
 # -- Options for manual page output ------------------------------------------
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'mdl-eyelink', 'mdl-eyelink', [author], 1)
+    (master_doc, 'mdl-eyetracking', 'mdl-eyetracking', [author], 1)
 ]
 # -- Options for Texinfo output ----------------------------------------------
 # Grouping the document tree into Texinfo files. List of tuples
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'mdl-eyelink', 'mdl-eyelink', author, 'mdl-eyelink', 'One line description of project.', 'Miscellaneous'),
+    (master_doc, 'mdl-eyetracking', 'mdl-eyetracking', author, 'mdl-eyetracking', 'One line description of project.', 'Miscellaneous'),
 ]
 # -- Options for Epub output -------------------------------------------------
 # Bibliographic Dublin Core info.

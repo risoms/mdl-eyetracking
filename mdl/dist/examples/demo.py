@@ -34,10 +34,31 @@
 # %% [markdown]
 # <h5>Import packages.</h5><br>
 # %%
-import os
-import sys
-from psychopy import visual, core
+import os, sys
+sys.path.append(os.path.abspath(os.getcwd() + '..\..\..'))
+#from psychopy import visual, core
 import mdl
+
+
+
+import pkgutil
+import sys
+def explore_package(module_name):    
+    loader = pkgutil.get_loader(module_name)
+    for sub_module in pkgutil.walk_packages([loader.filename]):
+        _, sub_module_name, _ = sub_module
+        qname = module_name + "." + sub_module_name
+        print(qname)
+        explore_package(qname)
+ 
+explore_package('mdl')
+
+
+
+
+
+
+
 # %% [markdown]
 # <h5>Task parameters, either directly from PsychoPy or created manually.</h5><br>
 # %%
@@ -54,7 +75,7 @@ window = visual.Window(size=[1920, 1080], fullscr=False, allowGUI=True, units='p
 # This window will be used in the calibration function.
 # %%
 # initializing Eyelink
-eyetracking = mdl.eyetracking(window=win, libraries=False, subject=subject, timer=routineTimer)
+eyetracking = mdl.eyetracking(window=window, libraries=False, subject=subject, timer=routineTimer)
 # %% [markdown]
 # <h5>Connect to the Eyelink Host.</h5><br>
 # This controls the parameters to be used when running the eyetracker.
