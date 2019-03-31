@@ -1,5 +1,5 @@
 @echo OFF
 
-sphinx-autogen -o source build
+sphinx-autogen -o %~dp0\source %~dp0\build
 
 :end

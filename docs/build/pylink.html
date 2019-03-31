@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>mdl.pylink &#8212; mdl-eyetracking 0+untagged.112.ged7dbd4.dirty documentation</title>
+    <title>mdl.eyetracking.pylink &#8212; mdl-eyetracking 0+untagged.113.g5be3947.dirty documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -18,7 +18,6 @@
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Installing and getting started" href="install.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -55,11 +54,10 @@
      href="index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul class="current">
+      aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="eyetracking.html">eyetracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calibration.html">calibration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">pylink</a></li>
 </ul>
 </ul>
 </li>
@@ -73,7 +71,9 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">mdl.pylink</a></li>
+<li><a class="reference internal" href="#">mdl.eyetracking.pylink</a><ul>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -103,10 +103,1917 @@
   <div class="row">
     <div class="col-md-12 content">
       
-  <div class="section" id="mdl-pylink">
-<h1>mdl.pylink<a class="headerlink" href="#mdl-pylink" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="mdl-eyetracking-pylink">
+<h1>mdl.eyetracking.pylink<a class="headerlink" href="#mdl-eyetracking-pylink" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
+<span class="target" id="module-mdl.eyetracking.pylink.tracker"></span><dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkAddress">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">EyeLinkAddress</code><span class="sig-paren">(</span><em>ip=(100</em>, <em>1</em>, <em>1</em>, <em>1)</em>, <em>port=4000</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkAddress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkAddress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkAddress.getIP" title="mdl.eyetracking.pylink.tracker.EyeLinkAddress.getIP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getIP</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkAddress.getPort" title="mdl.eyetracking.pylink.tracker.EyeLinkAddress.getPort"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getPort</span></code></a>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkAddress.getIP">
+<code class="descname">getIP</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkAddress.getIP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkAddress.getIP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkAddress.getPort">
+<code class="descname">getPort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkAddress.getPort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkAddress.getPort" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.EyelinkMessage">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">EyelinkMessage</code><span class="sig-paren">(</span><em>ip=(100</em>, <em>1</em>, <em>1</em>, <em>1)</em>, <em>port=4000</em>, <em>msg=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyelinkMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyelinkMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkAddress" title="mdl.eyetracking.pylink.tracker.EyeLinkAddress"><code class="xref py py-class docutils literal notranslate"><span class="pre">mdl.eyetracking.pylink.tracker.EyeLinkAddress</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getIP</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getPort</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyelinkMessage.getText" title="mdl.eyetracking.pylink.tracker.EyelinkMessage.getText"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getText</span></code></a>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyelinkMessage.getText">
+<code class="descname">getText</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyelinkMessage.getText"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyelinkMessage.getText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.SampleData">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">SampleData</code><span class="sig-paren">(</span><em>px</em>, <em>py</em>, <em>hx</em>, <em>hy</em>, <em>pa</em>, <em>gx</em>, <em>gy</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#SampleData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.SampleData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.SampleData.getGaze" title="mdl.eyetracking.pylink.tracker.SampleData.getGaze"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getGaze</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.SampleData.getHREF" title="mdl.eyetracking.pylink.tracker.SampleData.getHREF"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getHREF</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.SampleData.getPupilSize" title="mdl.eyetracking.pylink.tracker.SampleData.getPupilSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getPupilSize</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.SampleData.getRawPupil" title="mdl.eyetracking.pylink.tracker.SampleData.getRawPupil"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getRawPupil</span></code></a>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.SampleData.getGaze">
+<code class="descname">getGaze</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#SampleData.getGaze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.SampleData.getGaze" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.SampleData.getHREF">
+<code class="descname">getHREF</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#SampleData.getHREF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.SampleData.getHREF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.SampleData.getRawPupil">
+<code class="descname">getRawPupil</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#SampleData.getRawPupil"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.SampleData.getRawPupil" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.SampleData.getPupilSize">
+<code class="descname">getPupilSize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#SampleData.getPupilSize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.SampleData.getPupilSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.Sample">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">Sample</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>flags</em>, <em>px</em>, <em>py</em>, <em>hx</em>, <em>hy</em>, <em>pa</em>, <em>gx</em>, <em>gy</em>, <em>rx</em>, <em>ry</em>, <em>status</em>, <em>input</em>, <em>buttons</em>, <em>htype</em>, <em>hdata</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.getButtons" title="mdl.eyetracking.pylink.tracker.Sample.getButtons"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getButtons</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.getEye" title="mdl.eyetracking.pylink.tracker.Sample.getEye"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEye</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.getFlags" title="mdl.eyetracking.pylink.tracker.Sample.getFlags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFlags</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.getHData" title="mdl.eyetracking.pylink.tracker.Sample.getHData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getHData</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.getInput" title="mdl.eyetracking.pylink.tracker.Sample.getInput"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getInput</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.getLeftEye" title="mdl.eyetracking.pylink.tracker.Sample.getLeftEye"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getLeftEye</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.getPPD" title="mdl.eyetracking.pylink.tracker.Sample.getPPD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getPPD</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.getRightEye" title="mdl.eyetracking.pylink.tracker.Sample.getRightEye"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getRightEye</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.getStatus" title="mdl.eyetracking.pylink.tracker.Sample.getStatus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStatus</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.getTargetDistance" title="mdl.eyetracking.pylink.tracker.Sample.getTargetDistance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTargetDistance</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.getTargetFlags" title="mdl.eyetracking.pylink.tracker.Sample.getTargetFlags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTargetFlags</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.getTargetX" title="mdl.eyetracking.pylink.tracker.Sample.getTargetX"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTargetX</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.getTargetY" title="mdl.eyetracking.pylink.tracker.Sample.getTargetY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTargetY</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.getTime" title="mdl.eyetracking.pylink.tracker.Sample.getTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTime</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.getType" title="mdl.eyetracking.pylink.tracker.Sample.getType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getType</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.initFromSample" title="mdl.eyetracking.pylink.tracker.Sample.initFromSample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initFromSample</span></code></a>(sample)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.isBinocular" title="mdl.eyetracking.pylink.tracker.Sample.isBinocular"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isBinocular</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.isLeftSample" title="mdl.eyetracking.pylink.tracker.Sample.isLeftSample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isLeftSample</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.Sample.isRightSample" title="mdl.eyetracking.pylink.tracker.Sample.isRightSample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isRightSample</span></code></a>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.initFromSample">
+<code class="descname">initFromSample</code><span class="sig-paren">(</span><em>sample</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.initFromSample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.initFromSample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.isLeftSample">
+<code class="descname">isLeftSample</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.isLeftSample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.isLeftSample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.isRightSample">
+<code class="descname">isRightSample</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.isRightSample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.isRightSample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.isBinocular">
+<code class="descname">isBinocular</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.isBinocular"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.isBinocular" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.getTime">
+<code class="descname">getTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.getTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.getTime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.getType">
+<code class="descname">getType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.getType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.getType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.getPPD">
+<code class="descname">getPPD</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.getPPD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.getPPD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.getStatus">
+<code class="descname">getStatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.getStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.getStatus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.getInput">
+<code class="descname">getInput</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.getInput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.getInput" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.getFlags">
+<code class="descname">getFlags</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.getFlags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.getFlags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.getButtons">
+<code class="descname">getButtons</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.getButtons"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.getButtons" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.getRightEye">
+<code class="descname">getRightEye</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.getRightEye"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.getRightEye" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.getLeftEye">
+<code class="descname">getLeftEye</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.getLeftEye"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.getLeftEye" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.getHData">
+<code class="descname">getHData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.getHData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.getHData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.getEye">
+<code class="descname">getEye</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.getEye"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.getEye" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.getTargetDistance">
+<code class="descname">getTargetDistance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.getTargetDistance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.getTargetDistance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.getTargetX">
+<code class="descname">getTargetX</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.getTargetX"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.getTargetX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.getTargetY">
+<code class="descname">getTargetY</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.getTargetY"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.getTargetY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.Sample.getTargetFlags">
+<code class="descname">getTargetFlags</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#Sample.getTargetFlags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.Sample.getTargetFlags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="mdl.eyetracking.pylink.tracker.newSample">
+<code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">newSample</code><span class="sig-paren">(</span><em>time</em>, <em>flags</em>, <em>px</em>, <em>py</em>, <em>hx</em>, <em>hy</em>, <em>pa</em>, <em>gx</em>, <em>gy</em>, <em>rx</em>, <em>ry</em>, <em>status</em>, <em>input</em>, <em>buttons</em>, <em>htype</em>, <em>hdata</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#newSample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.newSample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">rawSample</code><span class="sig-paren">(</span><em>time</em>, <em>left_raw_pupil_x</em>, <em>left_raw_pupil_y</em>, <em>left_raw_cr_x</em>, <em>left_raw_cr_y</em>, <em>left_pupil_area</em>, <em>left_cr_area</em>, <em>left_pupil_dimension_x</em>, <em>left_pupil_dimension_y</em>, <em>left_cr_dimension_x</em>, <em>left_cr_dimension_y</em>, <em>left_win_pos_x</em>, <em>left_win_pos_y</em>, <em>left_pupil_cr_x</em>, <em>left_pupil_cr_y</em>, <em>left_cr_area2</em>, <em>left_raw_cr2_x</em>, <em>left_raw_cr2_y</em>, <em>right_raw_pupil_x</em>, <em>right_raw_pupil_y</em>, <em>right_raw_cr_x</em>, <em>right_raw_cr_y</em>, <em>right_pupil_area</em>, <em>right_cr_area</em>, <em>right_pupil_dimension_x</em>, <em>right_pupil_dimension_y</em>, <em>right_cr_dimension_x</em>, <em>right_cr_dimension_y</em>, <em>right_win_pos_x</em>, <em>right_win_pos_y</em>, <em>right_pupil_cr_x</em>, <em>right_pupil_cr_y</em>, <em>right_cr_area2</em>, <em>right_raw_cr2_x</em>, <em>right_raw_cr2_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="72%" />
+<col width="28%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>getLeftCrArea</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><strong>getLeftCrArea2</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><strong>getLeftCrDimension</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><strong>getLeftPupilArea</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><strong>getLeftPupilCr</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><strong>getLeftPupilDimension</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><strong>getLeftRawCr</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><strong>getLeftRawCr2</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><strong>getLeftWindowPosition</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><strong>getLeftrRawPupil</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><strong>getRawSampleTime</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><strong>getRightCrArea</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><strong>getRightCrArea2</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><strong>getRightCrDimension</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><strong>getRightPupilArea</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><strong>getRightPupilCr</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><strong>getRightPupilDimension</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><strong>getRightRawCr</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><strong>getRightRawCr2</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><strong>getRightWindowPosition</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><strong>getRightrRawPupil</strong></td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getRawSampleTime">
+<code class="descname">getRawSampleTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getRawSampleTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getRawSampleTime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getLeftrRawPupil">
+<code class="descname">getLeftrRawPupil</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getLeftrRawPupil"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getLeftrRawPupil" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getLeftRawCr">
+<code class="descname">getLeftRawCr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getLeftRawCr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getLeftRawCr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getLeftPupilArea">
+<code class="descname">getLeftPupilArea</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getLeftPupilArea"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getLeftPupilArea" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getLeftCrArea">
+<code class="descname">getLeftCrArea</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getLeftCrArea"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getLeftCrArea" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getLeftPupilDimension">
+<code class="descname">getLeftPupilDimension</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getLeftPupilDimension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getLeftPupilDimension" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getLeftCrDimension">
+<code class="descname">getLeftCrDimension</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getLeftCrDimension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getLeftCrDimension" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getLeftWindowPosition">
+<code class="descname">getLeftWindowPosition</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getLeftWindowPosition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getLeftWindowPosition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getLeftPupilCr">
+<code class="descname">getLeftPupilCr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getLeftPupilCr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getLeftPupilCr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getLeftCrArea2">
+<code class="descname">getLeftCrArea2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getLeftCrArea2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getLeftCrArea2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getLeftRawCr2">
+<code class="descname">getLeftRawCr2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getLeftRawCr2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getLeftRawCr2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getRightrRawPupil">
+<code class="descname">getRightrRawPupil</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getRightrRawPupil"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getRightrRawPupil" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getRightRawCr">
+<code class="descname">getRightRawCr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getRightRawCr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getRightRawCr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getRightPupilArea">
+<code class="descname">getRightPupilArea</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getRightPupilArea"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getRightPupilArea" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getRightCrArea">
+<code class="descname">getRightCrArea</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getRightCrArea"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getRightCrArea" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getRightPupilDimension">
+<code class="descname">getRightPupilDimension</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getRightPupilDimension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getRightPupilDimension" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getRightCrDimension">
+<code class="descname">getRightCrDimension</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getRightCrDimension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getRightCrDimension" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getRightWindowPosition">
+<code class="descname">getRightWindowPosition</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getRightWindowPosition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getRightWindowPosition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getRightPupilCr">
+<code class="descname">getRightPupilCr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getRightPupilCr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getRightPupilCr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getRightCrArea2">
+<code class="descname">getRightCrArea2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getRightCrArea2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getRightCrArea2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.rawSample.getRightRawCr2">
+<code class="descname">getRightRawCr2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#rawSample.getRightRawCr2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.rawSample.getRightRawCr2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="mdl.eyetracking.pylink.tracker.newRawSample">
+<code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">newRawSample</code><span class="sig-paren">(</span><em>time</em>, <em>left_raw_pupil_x</em>, <em>left_raw_pupil_y</em>, <em>left_raw_cr_x</em>, <em>left_raw_cr_y</em>, <em>left_pupil_area</em>, <em>left_cr_area</em>, <em>left_pupil_dimension_x</em>, <em>left_pupil_dimension_y</em>, <em>left_cr_dimension_x</em>, <em>left_cr_dimension_y</em>, <em>left_win_pos_x</em>, <em>left_win_pos_y</em>, <em>left_pupil_cr_x</em>, <em>left_pupil_cr_y</em>, <em>left_cr_area2</em>, <em>left_raw_cr2_x</em>, <em>left_raw_cr2_y</em>, <em>right_raw_pupil_x</em>, <em>right_raw_pupil_y</em>, <em>right_raw_cr_x</em>, <em>right_raw_cr_y</em>, <em>right_pupil_area</em>, <em>right_cr_area</em>, <em>right_pupil_dimension_x</em>, <em>right_pupil_dimension_y</em>, <em>right_cr_dimension_x</em>, <em>right_cr_dimension_y</em>, <em>right_win_pos_x</em>, <em>right_win_pos_y</em>, <em>right_pupil_cr_x</em>, <em>right_pupil_cr_y</em>, <em>right_cr_area2</em>, <em>right_raw_cr2_x</em>, <em>right_raw_cr2_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#newRawSample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.newRawSample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.EyeEvent">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">EyeEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>eye</em>, <em>read</em>, <em>sttime</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeEvent.getEye" title="mdl.eyetracking.pylink.tracker.EyeEvent.getEye"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEye</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeEvent.getRead" title="mdl.eyetracking.pylink.tracker.EyeEvent.getRead"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getRead</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeEvent.getStartTime" title="mdl.eyetracking.pylink.tracker.EyeEvent.getStartTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartTime</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeEvent.getStatus" title="mdl.eyetracking.pylink.tracker.EyeEvent.getStatus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStatus</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeEvent.getTime" title="mdl.eyetracking.pylink.tracker.EyeEvent.getTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTime</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeEvent.getType" title="mdl.eyetracking.pylink.tracker.EyeEvent.getType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getType</span></code></a>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeEvent.getTime">
+<code class="descname">getTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeEvent.getTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeEvent.getTime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeEvent.getType">
+<code class="descname">getType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeEvent.getType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeEvent.getType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeEvent.getEye">
+<code class="descname">getEye</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeEvent.getEye"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeEvent.getEye" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeEvent.getRead">
+<code class="descname">getRead</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeEvent.getRead"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeEvent.getRead" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeEvent.getStartTime">
+<code class="descname">getStartTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeEvent.getStartTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeEvent.getStartTime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeEvent.getStatus">
+<code class="descname">getStatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeEvent.getStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeEvent.getStatus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.StartBlinkEvent">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">StartBlinkEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>eye</em>, <em>read</em>, <em>sttime</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#StartBlinkEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.StartBlinkEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeEvent" title="mdl.eyetracking.pylink.tracker.EyeEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">mdl.eyetracking.pylink.tracker.EyeEvent</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEye</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getRead</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStatus</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getType</span></code>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="mdl.eyetracking.pylink.tracker.newStartBlinkEvent">
+<code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">newStartBlinkEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>eye</em>, <em>read</em>, <em>sttime</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#newStartBlinkEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.newStartBlinkEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.StartNonBlinkEvent">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">StartNonBlinkEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>eye</em>, <em>read</em>, <em>sttime</em>, <em>gstx</em>, <em>gsty</em>, <em>hstx</em>, <em>hsty</em>, <em>svel</em>, <em>supd_x</em>, <em>supd_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#StartNonBlinkEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.StartNonBlinkEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeEvent" title="mdl.eyetracking.pylink.tracker.EyeEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">mdl.eyetracking.pylink.tracker.EyeEvent</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEye</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getRead</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.StartNonBlinkEvent.getStartGaze" title="mdl.eyetracking.pylink.tracker.StartNonBlinkEvent.getStartGaze"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartGaze</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.StartNonBlinkEvent.getStartHREF" title="mdl.eyetracking.pylink.tracker.StartNonBlinkEvent.getStartHREF"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartHREF</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.StartNonBlinkEvent.getStartPPD" title="mdl.eyetracking.pylink.tracker.StartNonBlinkEvent.getStartPPD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartPPD</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.StartNonBlinkEvent.getStartVelocity" title="mdl.eyetracking.pylink.tracker.StartNonBlinkEvent.getStartVelocity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartVelocity</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStatus</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getType</span></code>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.StartNonBlinkEvent.getStartGaze">
+<code class="descname">getStartGaze</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#StartNonBlinkEvent.getStartGaze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.StartNonBlinkEvent.getStartGaze" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.StartNonBlinkEvent.getStartHREF">
+<code class="descname">getStartHREF</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#StartNonBlinkEvent.getStartHREF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.StartNonBlinkEvent.getStartHREF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.StartNonBlinkEvent.getStartVelocity">
+<code class="descname">getStartVelocity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#StartNonBlinkEvent.getStartVelocity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.StartNonBlinkEvent.getStartVelocity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.StartNonBlinkEvent.getStartPPD">
+<code class="descname">getStartPPD</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#StartNonBlinkEvent.getStartPPD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.StartNonBlinkEvent.getStartPPD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.StartSaccadeEvent">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">StartSaccadeEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>eye</em>, <em>read</em>, <em>sttime</em>, <em>gstx</em>, <em>gsty</em>, <em>hstx</em>, <em>hsty</em>, <em>svel</em>, <em>supd_x</em>, <em>supd_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#StartSaccadeEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.StartSaccadeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mdl.eyetracking.pylink.tracker.StartNonBlinkEvent" title="mdl.eyetracking.pylink.tracker.StartNonBlinkEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">mdl.eyetracking.pylink.tracker.StartNonBlinkEvent</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEye</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getRead</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartGaze</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartHREF</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartPPD</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartVelocity</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStatus</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getType</span></code>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="mdl.eyetracking.pylink.tracker.newStartSaccadeEvent">
+<code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">newStartSaccadeEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>eye</em>, <em>read</em>, <em>sttime</em>, <em>gstx</em>, <em>gsty</em>, <em>hstx</em>, <em>hsty</em>, <em>svel</em>, <em>supd_x</em>, <em>supd_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#newStartSaccadeEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.newStartSaccadeEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.StartFixationEvent">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">StartFixationEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>eye</em>, <em>read</em>, <em>sttime</em>, <em>gstx</em>, <em>gsty</em>, <em>hstx</em>, <em>hsty</em>, <em>sta</em>, <em>svel</em>, <em>supd_x</em>, <em>supd_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#StartFixationEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.StartFixationEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mdl.eyetracking.pylink.tracker.StartNonBlinkEvent" title="mdl.eyetracking.pylink.tracker.StartNonBlinkEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">mdl.eyetracking.pylink.tracker.StartNonBlinkEvent</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEye</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getRead</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartGaze</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartHREF</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartPPD</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.StartFixationEvent.getStartPupilSize" title="mdl.eyetracking.pylink.tracker.StartFixationEvent.getStartPupilSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartPupilSize</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartVelocity</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStatus</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getType</span></code>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.StartFixationEvent.getStartPupilSize">
+<code class="descname">getStartPupilSize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#StartFixationEvent.getStartPupilSize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.StartFixationEvent.getStartPupilSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="mdl.eyetracking.pylink.tracker.newStartFixationEvent">
+<code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">newStartFixationEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>eye</em>, <em>read</em>, <em>sttime</em>, <em>gstx</em>, <em>gsty</em>, <em>hstx</em>, <em>hsty</em>, <em>sta</em>, <em>svel</em>, <em>supd_x</em>, <em>supd_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#newStartFixationEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.newStartFixationEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.EndBlinkEvent">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">EndBlinkEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>eye</em>, <em>read</em>, <em>sttime</em>, <em>entime</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndBlinkEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndBlinkEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeEvent" title="mdl.eyetracking.pylink.tracker.EyeEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">mdl.eyetracking.pylink.tracker.EyeEvent</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EndBlinkEvent.getEndTime" title="mdl.eyetracking.pylink.tracker.EndBlinkEvent.getEndTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndTime</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEye</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getRead</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStatus</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getType</span></code>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EndBlinkEvent.getEndTime">
+<code class="descname">getEndTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndBlinkEvent.getEndTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndBlinkEvent.getEndTime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="mdl.eyetracking.pylink.tracker.newEndBlinkEvent">
+<code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">newEndBlinkEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>eye</em>, <em>read</em>, <em>sttime</em>, <em>entime</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#newEndBlinkEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.newEndBlinkEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">EndNonBlinkEvent</code><span class="sig-paren">(</span><em>entime</em>, <em>genx</em>, <em>geny</em>, <em>henx</em>, <em>heny</em>, <em>evel</em>, <em>avel</em>, <em>pvel</em>, <em>eupd_x</em>, <em>eupd_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndNonBlinkEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getAverageVelocity" title="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getAverageVelocity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getAverageVelocity</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndGaze" title="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndGaze"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndGaze</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndHREF" title="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndHREF"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndHREF</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndPPD" title="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndPPD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndPPD</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndTime" title="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndTime</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndVelocity" title="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndVelocity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndVelocity</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getPeakVelocity" title="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getPeakVelocity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getPeakVelocity</span></code></a>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndTime">
+<code class="descname">getEndTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndNonBlinkEvent.getEndTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndTime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndGaze">
+<code class="descname">getEndGaze</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndNonBlinkEvent.getEndGaze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndGaze" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndHREF">
+<code class="descname">getEndHREF</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndNonBlinkEvent.getEndHREF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndHREF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndVelocity">
+<code class="descname">getEndVelocity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndNonBlinkEvent.getEndVelocity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndVelocity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getAverageVelocity">
+<code class="descname">getAverageVelocity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndNonBlinkEvent.getAverageVelocity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getAverageVelocity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getPeakVelocity">
+<code class="descname">getPeakVelocity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndNonBlinkEvent.getPeakVelocity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getPeakVelocity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndPPD">
+<code class="descname">getEndPPD</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndNonBlinkEvent.getEndPPD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent.getEndPPD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="mdl.eyetracking.pylink.tracker.getAngle">
+<code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">getAngle</code><span class="sig-paren">(</span><em>xavgres</em>, <em>yavgres</em>, <em>x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#getAngle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.getAngle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.EndSaccadeEvent">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">EndSaccadeEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>eye</em>, <em>read</em>, <em>sttime</em>, <em>gstx</em>, <em>gsty</em>, <em>hstx</em>, <em>hsty</em>, <em>svel</em>, <em>supd_x</em>, <em>supd_y</em>, <em>entime</em>, <em>genx</em>, <em>geny</em>, <em>henx</em>, <em>heny</em>, <em>evel</em>, <em>avel</em>, <em>pvel</em>, <em>eupd_x</em>, <em>eupd_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndSaccadeEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndSaccadeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mdl.eyetracking.pylink.tracker.StartSaccadeEvent" title="mdl.eyetracking.pylink.tracker.StartSaccadeEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">mdl.eyetracking.pylink.tracker.StartSaccadeEvent</span></code></a>, <a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent" title="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">mdl.eyetracking.pylink.tracker.EndNonBlinkEvent</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EndSaccadeEvent.getAmplitude" title="mdl.eyetracking.pylink.tracker.EndSaccadeEvent.getAmplitude"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getAmplitude</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EndSaccadeEvent.getAngle" title="mdl.eyetracking.pylink.tracker.EndSaccadeEvent.getAngle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getAngle</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getAverageVelocity</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndGaze</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndHREF</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndPPD</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndVelocity</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEye</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getPeakVelocity</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getRead</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartGaze</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartHREF</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartPPD</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartVelocity</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStatus</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getType</span></code>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EndSaccadeEvent.getAmplitude">
+<code class="descname">getAmplitude</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndSaccadeEvent.getAmplitude"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndSaccadeEvent.getAmplitude" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EndSaccadeEvent.getAngle">
+<code class="descname">getAngle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndSaccadeEvent.getAngle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndSaccadeEvent.getAngle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="mdl.eyetracking.pylink.tracker.newEndSaccadeEvent">
+<code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">newEndSaccadeEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>eye</em>, <em>read</em>, <em>sttime</em>, <em>gstx</em>, <em>gsty</em>, <em>hstx</em>, <em>hsty</em>, <em>svel</em>, <em>supd_x</em>, <em>supd_y</em>, <em>entime</em>, <em>genx</em>, <em>geny</em>, <em>henx</em>, <em>heny</em>, <em>evel</em>, <em>avel</em>, <em>pvel</em>, <em>eupd_x</em>, <em>eupd_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#newEndSaccadeEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.newEndSaccadeEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.EndFixationEvent">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">EndFixationEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>eye</em>, <em>read</em>, <em>sttime</em>, <em>gstx</em>, <em>gsty</em>, <em>hstx</em>, <em>hsty</em>, <em>sta</em>, <em>svel</em>, <em>supd_x</em>, <em>supd_y</em>, <em>entime</em>, <em>genx</em>, <em>geny</em>, <em>gavx</em>, <em>gavy</em>, <em>henx</em>, <em>heny</em>, <em>havx</em>, <em>havy</em>, <em>ena</em>, <em>ava</em>, <em>evel</em>, <em>avel</em>, <em>pvel</em>, <em>eupd_x</em>, <em>eupd_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndFixationEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndFixationEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mdl.eyetracking.pylink.tracker.StartFixationEvent" title="mdl.eyetracking.pylink.tracker.StartFixationEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">mdl.eyetracking.pylink.tracker.StartFixationEvent</span></code></a>, <a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent" title="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">mdl.eyetracking.pylink.tracker.EndNonBlinkEvent</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EndFixationEvent.getAverageGaze" title="mdl.eyetracking.pylink.tracker.EndFixationEvent.getAverageGaze"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getAverageGaze</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EndFixationEvent.getAverageHREF" title="mdl.eyetracking.pylink.tracker.EndFixationEvent.getAverageHREF"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getAverageHREF</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EndFixationEvent.getAveragePupilSize" title="mdl.eyetracking.pylink.tracker.EndFixationEvent.getAveragePupilSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getAveragePupilSize</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getAverageVelocity</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndGaze</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndHREF</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndPPD</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EndFixationEvent.getEndPupilSize" title="mdl.eyetracking.pylink.tracker.EndFixationEvent.getEndPupilSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndPupilSize</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndVelocity</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEye</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getPeakVelocity</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getRead</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartGaze</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartHREF</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartPPD</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartPupilSize</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartVelocity</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStatus</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getType</span></code>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EndFixationEvent.getAverageGaze">
+<code class="descname">getAverageGaze</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndFixationEvent.getAverageGaze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndFixationEvent.getAverageGaze" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EndFixationEvent.getAverageHREF">
+<code class="descname">getAverageHREF</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndFixationEvent.getAverageHREF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndFixationEvent.getAverageHREF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EndFixationEvent.getAveragePupilSize">
+<code class="descname">getAveragePupilSize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndFixationEvent.getAveragePupilSize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndFixationEvent.getAveragePupilSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EndFixationEvent.getEndPupilSize">
+<code class="descname">getEndPupilSize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EndFixationEvent.getEndPupilSize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EndFixationEvent.getEndPupilSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="mdl.eyetracking.pylink.tracker.newEndFixationEvent">
+<code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">newEndFixationEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>eye</em>, <em>read</em>, <em>sttime</em>, <em>gstx</em>, <em>gsty</em>, <em>hstx</em>, <em>hsty</em>, <em>sta</em>, <em>svel</em>, <em>supd_x</em>, <em>supd_y</em>, <em>entime</em>, <em>genx</em>, <em>geny</em>, <em>gavx</em>, <em>gavy</em>, <em>henx</em>, <em>heny</em>, <em>havx</em>, <em>havy</em>, <em>ena</em>, <em>ava</em>, <em>evel</em>, <em>avel</em>, <em>pvel</em>, <em>eupd_x</em>, <em>eupd_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#newEndFixationEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.newEndFixationEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.FixUpdateEvent">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">FixUpdateEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>eye</em>, <em>read</em>, <em>sttime</em>, <em>gstx</em>, <em>gsty</em>, <em>hstx</em>, <em>hsty</em>, <em>sta</em>, <em>svel</em>, <em>supd_x</em>, <em>supd_y</em>, <em>entime</em>, <em>genx</em>, <em>geny</em>, <em>gavx</em>, <em>gavy</em>, <em>henx</em>, <em>heny</em>, <em>havx</em>, <em>havy</em>, <em>ena</em>, <em>ava</em>, <em>evel</em>, <em>avel</em>, <em>pvel</em>, <em>eupd_x</em>, <em>eupd_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#FixUpdateEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.FixUpdateEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mdl.eyetracking.pylink.tracker.StartNonBlinkEvent" title="mdl.eyetracking.pylink.tracker.StartNonBlinkEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">mdl.eyetracking.pylink.tracker.StartNonBlinkEvent</span></code></a>, <a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EndNonBlinkEvent" title="mdl.eyetracking.pylink.tracker.EndNonBlinkEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">mdl.eyetracking.pylink.tracker.EndNonBlinkEvent</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.FixUpdateEvent.getAverageGaze" title="mdl.eyetracking.pylink.tracker.FixUpdateEvent.getAverageGaze"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getAverageGaze</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.FixUpdateEvent.getAverageHREF" title="mdl.eyetracking.pylink.tracker.FixUpdateEvent.getAverageHREF"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getAverageHREF</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.FixUpdateEvent.getAveragePupilSize" title="mdl.eyetracking.pylink.tracker.FixUpdateEvent.getAveragePupilSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getAveragePupilSize</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getAverageVelocity</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndGaze</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndHREF</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndPPD</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.FixUpdateEvent.getEndPupilSize" title="mdl.eyetracking.pylink.tracker.FixUpdateEvent.getEndPupilSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndPupilSize</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEndVelocity</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEye</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getPeakVelocity</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getRead</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartGaze</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartHREF</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartPPD</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.FixUpdateEvent.getStartPupilSize" title="mdl.eyetracking.pylink.tracker.FixUpdateEvent.getStartPupilSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartPupilSize</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStartVelocity</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStatus</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getType</span></code>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.FixUpdateEvent.getStartPupilSize">
+<code class="descname">getStartPupilSize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#FixUpdateEvent.getStartPupilSize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.FixUpdateEvent.getStartPupilSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.FixUpdateEvent.getAverageGaze">
+<code class="descname">getAverageGaze</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#FixUpdateEvent.getAverageGaze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.FixUpdateEvent.getAverageGaze" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.FixUpdateEvent.getAverageHREF">
+<code class="descname">getAverageHREF</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#FixUpdateEvent.getAverageHREF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.FixUpdateEvent.getAverageHREF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.FixUpdateEvent.getAveragePupilSize">
+<code class="descname">getAveragePupilSize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#FixUpdateEvent.getAveragePupilSize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.FixUpdateEvent.getAveragePupilSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.FixUpdateEvent.getEndPupilSize">
+<code class="descname">getEndPupilSize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#FixUpdateEvent.getEndPupilSize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.FixUpdateEvent.getEndPupilSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="mdl.eyetracking.pylink.tracker.newFixUpdateEvent">
+<code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">newFixUpdateEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>eye</em>, <em>read</em>, <em>sttime</em>, <em>gstx</em>, <em>gsty</em>, <em>hstx</em>, <em>hsty</em>, <em>sta</em>, <em>svel</em>, <em>supd_x</em>, <em>supd_y</em>, <em>entime</em>, <em>genx</em>, <em>geny</em>, <em>gavx</em>, <em>gavy</em>, <em>henx</em>, <em>heny</em>, <em>havx</em>, <em>havy</em>, <em>ena</em>, <em>ava</em>, <em>evel</em>, <em>avel</em>, <em>pvel</em>, <em>eupd_x</em>, <em>eupd_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#newFixUpdateEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.newFixUpdateEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.MessageEvent">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">MessageEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#MessageEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.MessageEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.MessageEvent.getText" title="mdl.eyetracking.pylink.tracker.MessageEvent.getText"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getText</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.MessageEvent.getTime" title="mdl.eyetracking.pylink.tracker.MessageEvent.getTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTime</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.MessageEvent.getType" title="mdl.eyetracking.pylink.tracker.MessageEvent.getType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getType</span></code></a>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.MessageEvent.getTime">
+<code class="descname">getTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#MessageEvent.getTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.MessageEvent.getTime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.MessageEvent.getType">
+<code class="descname">getType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#MessageEvent.getType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.MessageEvent.getType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.MessageEvent.getText">
+<code class="descname">getText</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#MessageEvent.getText"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.MessageEvent.getText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="mdl.eyetracking.pylink.tracker.newMessageEvent">
+<code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">newMessageEvent</code><span class="sig-paren">(</span><em>time</em>, <em>type</em>, <em>text</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#newMessageEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.newMessageEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.IOEvent">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">IOEvent</code><span class="sig-paren">(</span><em>iotype</em>, <em>time</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#IOEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.IOEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.IOEvent.getData" title="mdl.eyetracking.pylink.tracker.IOEvent.getData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getData</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.IOEvent.getTime" title="mdl.eyetracking.pylink.tracker.IOEvent.getTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTime</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.IOEvent.getType" title="mdl.eyetracking.pylink.tracker.IOEvent.getType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getType</span></code></a>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.IOEvent.getTime">
+<code class="descname">getTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#IOEvent.getTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.IOEvent.getTime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.IOEvent.getType">
+<code class="descname">getType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#IOEvent.getType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.IOEvent.getType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.IOEvent.getData">
+<code class="descname">getData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#IOEvent.getData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.IOEvent.getData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.ButtonEvent">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">ButtonEvent</code><span class="sig-paren">(</span><em>time</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ButtonEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ButtonEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mdl.eyetracking.pylink.tracker.IOEvent" title="mdl.eyetracking.pylink.tracker.IOEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">mdl.eyetracking.pylink.tracker.IOEvent</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ButtonEvent.getButtons" title="mdl.eyetracking.pylink.tracker.ButtonEvent.getButtons"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getButtons</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getData</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ButtonEvent.getStates" title="mdl.eyetracking.pylink.tracker.ButtonEvent.getStates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStates</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTime</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getType</span></code>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ButtonEvent.getButtons">
+<code class="descname">getButtons</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ButtonEvent.getButtons"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ButtonEvent.getButtons" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ButtonEvent.getStates">
+<code class="descname">getStates</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ButtonEvent.getStates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ButtonEvent.getStates" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="mdl.eyetracking.pylink.tracker.newIOEvent">
+<code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">newIOEvent</code><span class="sig-paren">(</span><em>btype</em>, <em>time</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#newIOEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.newIOEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.DisplayInfo">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">DisplayInfo</code><span class="sig-paren">(</span><em>width</em>, <em>height</em>, <em>bits</em>, <em>refresh</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#DisplayInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.DisplayInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="mdl.eyetracking.pylink.tracker.newDisplayInfo">
+<code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">newDisplayInfo</code><span class="sig-paren">(</span><em>width</em>, <em>height</em>, <em>bits</em>, <em>refresh</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#newDisplayInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.newDisplayInfo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">ILinkData</code><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getAddress" title="mdl.eyetracking.pylink.tracker.ILinkData.getAddress"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getAddress</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getBlockNumber" title="mdl.eyetracking.pylink.tracker.ILinkData.getBlockNumber"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getBlockNumber</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getEventDataFlags" title="mdl.eyetracking.pylink.tracker.ILinkData.getEventDataFlags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEventDataFlags</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getEventQueueLength" title="mdl.eyetracking.pylink.tracker.ILinkData.getEventQueueLength"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEventQueueLength</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getEventTypeFlags" title="mdl.eyetracking.pylink.tracker.ILinkData.getEventTypeFlags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEventTypeFlags</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getEventsInBlock" title="mdl.eyetracking.pylink.tracker.ILinkData.getEventsInBlock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEventsInBlock</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getFreeQueueLength" title="mdl.eyetracking.pylink.tracker.ILinkData.getFreeQueueLength"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getFreeQueueLength</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getHeadDistencePrescaler" title="mdl.eyetracking.pylink.tracker.ILinkData.getHeadDistencePrescaler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getHeadDistencePrescaler</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastBufferSize" title="mdl.eyetracking.pylink.tracker.ILinkData.getLastBufferSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getLastBufferSize</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastBufferType" title="mdl.eyetracking.pylink.tracker.ILinkData.getLastBufferType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getLastBufferType</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastItem" title="mdl.eyetracking.pylink.tracker.ILinkData.getLastItem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getLastItem</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastItemContent" title="mdl.eyetracking.pylink.tracker.ILinkData.getLastItemContent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getLastItemContent</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastItemStatus" title="mdl.eyetracking.pylink.tracker.ILinkData.getLastItemStatus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getLastItemStatus</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastItemTimeStamp" title="mdl.eyetracking.pylink.tracker.ILinkData.getLastItemTimeStamp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getLastItemTimeStamp</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastItemType" title="mdl.eyetracking.pylink.tracker.ILinkData.getLastItemType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getLastItemType</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastPupil" title="mdl.eyetracking.pylink.tracker.ILinkData.getLastPupil"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getLastPupil</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastReceiveTime" title="mdl.eyetracking.pylink.tracker.ILinkData.getLastReceiveTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getLastReceiveTime</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastResX" title="mdl.eyetracking.pylink.tracker.ILinkData.getLastResX"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getLastResX</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastResY" title="mdl.eyetracking.pylink.tracker.ILinkData.getLastResY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getLastResY</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLinkFlags" title="mdl.eyetracking.pylink.tracker.ILinkData.getLinkFlags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getLinkFlags</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLostDataTypes" title="mdl.eyetracking.pylink.tracker.ILinkData.getLostDataTypes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getLostDataTypes</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getName" title="mdl.eyetracking.pylink.tracker.ILinkData.getName"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getName</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getNodes" title="mdl.eyetracking.pylink.tracker.ILinkData.getNodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getNodes</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getPacketFlags" title="mdl.eyetracking.pylink.tracker.ILinkData.getPacketFlags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getPacketFlags</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getPendingCommands" title="mdl.eyetracking.pylink.tracker.ILinkData.getPendingCommands"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getPendingCommands</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getPoolResponse" title="mdl.eyetracking.pylink.tracker.ILinkData.getPoolResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getPoolResponse</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getPrescaler" title="mdl.eyetracking.pylink.tracker.ILinkData.getPrescaler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getPrescaler</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getPupilPrescaler" title="mdl.eyetracking.pylink.tracker.ILinkData.getPupilPrescaler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getPupilPrescaler</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getQueueSize" title="mdl.eyetracking.pylink.tracker.ILinkData.getQueueSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getQueueSize</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getRemoteBroadcastAddress" title="mdl.eyetracking.pylink.tracker.ILinkData.getRemoteBroadcastAddress"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getRemoteBroadcastAddress</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getReserved" title="mdl.eyetracking.pylink.tracker.ILinkData.getReserved"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getReserved</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getSampleDataFlags" title="mdl.eyetracking.pylink.tracker.ILinkData.getSampleDataFlags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getSampleDataFlags</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getSampleDivisor" title="mdl.eyetracking.pylink.tracker.ILinkData.getSampleDivisor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getSampleDivisor</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getSampleQueueLength" title="mdl.eyetracking.pylink.tracker.ILinkData.getSampleQueueLength"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getSampleQueueLength</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getSampleRate" title="mdl.eyetracking.pylink.tracker.ILinkData.getSampleRate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getSampleRate</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getSamplesInBlock" title="mdl.eyetracking.pylink.tracker.ILinkData.getSamplesInBlock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getSamplesInBlock</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getStateFlags" title="mdl.eyetracking.pylink.tracker.ILinkData.getStateFlags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStateFlags</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getTime" title="mdl.eyetracking.pylink.tracker.ILinkData.getTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTime</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getTrackerAddress" title="mdl.eyetracking.pylink.tracker.ILinkData.getTrackerAddress"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTrackerAddress</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getTrackerBroadcastAddress" title="mdl.eyetracking.pylink.tracker.ILinkData.getTrackerBroadcastAddress"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTrackerBroadcastAddress</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getTrackerDataOutputState" title="mdl.eyetracking.pylink.tracker.ILinkData.getTrackerDataOutputState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTrackerDataOutputState</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getTrackerName" title="mdl.eyetracking.pylink.tracker.ILinkData.getTrackerName"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getTrackerName</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.getVelocityPrescaler" title="mdl.eyetracking.pylink.tracker.ILinkData.getVelocityPrescaler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getVelocityPrescaler</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.haveLeftEye" title="mdl.eyetracking.pylink.tracker.ILinkData.haveLeftEye"><code class="xref py py-obj docutils literal notranslate"><span class="pre">haveLeftEye</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.haveRightEye" title="mdl.eyetracking.pylink.tracker.ILinkData.haveRightEye"><code class="xref py py-obj docutils literal notranslate"><span class="pre">haveRightEye</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.isControlEvent" title="mdl.eyetracking.pylink.tracker.ILinkData.isControlEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isControlEvent</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.isEventsEnabled" title="mdl.eyetracking.pylink.tracker.ILinkData.isEventsEnabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isEventsEnabled</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.isInBlockWithEvents" title="mdl.eyetracking.pylink.tracker.ILinkData.isInBlockWithEvents"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isInBlockWithEvents</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.isInBlockWithSamples" title="mdl.eyetracking.pylink.tracker.ILinkData.isInBlockWithSamples"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isInBlockWithSamples</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.isNewBlock" title="mdl.eyetracking.pylink.tracker.ILinkData.isNewBlock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isNewBlock</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.isPoolingRemote" title="mdl.eyetracking.pylink.tracker.ILinkData.isPoolingRemote"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isPoolingRemote</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.ILinkData.isSamplesEnabled" title="mdl.eyetracking.pylink.tracker.ILinkData.isSamplesEnabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isSamplesEnabled</span></code></a>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getTime">
+<code class="descname">getTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getTime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getSampleRate">
+<code class="descname">getSampleRate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getSampleRate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getSampleRate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getSampleDivisor">
+<code class="descname">getSampleDivisor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getSampleDivisor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getSampleDivisor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getPrescaler">
+<code class="descname">getPrescaler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getPrescaler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getPrescaler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getVelocityPrescaler">
+<code class="descname">getVelocityPrescaler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getVelocityPrescaler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getVelocityPrescaler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getPupilPrescaler">
+<code class="descname">getPupilPrescaler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getPupilPrescaler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getPupilPrescaler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getHeadDistencePrescaler">
+<code class="descname">getHeadDistencePrescaler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getHeadDistencePrescaler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getHeadDistencePrescaler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getSampleDataFlags">
+<code class="descname">getSampleDataFlags</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getSampleDataFlags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getSampleDataFlags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getEventDataFlags">
+<code class="descname">getEventDataFlags</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getEventDataFlags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getEventDataFlags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getEventTypeFlags">
+<code class="descname">getEventTypeFlags</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getEventTypeFlags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getEventTypeFlags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.isInBlockWithSamples">
+<code class="descname">isInBlockWithSamples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.isInBlockWithSamples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.isInBlockWithSamples" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.isInBlockWithEvents">
+<code class="descname">isInBlockWithEvents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.isInBlockWithEvents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.isInBlockWithEvents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.haveLeftEye">
+<code class="descname">haveLeftEye</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.haveLeftEye"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.haveLeftEye" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.haveRightEye">
+<code class="descname">haveRightEye</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.haveRightEye"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.haveRightEye" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getLostDataTypes">
+<code class="descname">getLostDataTypes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getLostDataTypes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLostDataTypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getLastBufferType">
+<code class="descname">getLastBufferType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getLastBufferType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastBufferType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getLastBufferSize">
+<code class="descname">getLastBufferSize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getLastBufferSize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastBufferSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.isControlEvent">
+<code class="descname">isControlEvent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.isControlEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.isControlEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.isNewBlock">
+<code class="descname">isNewBlock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.isNewBlock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.isNewBlock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getLastItemTimeStamp">
+<code class="descname">getLastItemTimeStamp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getLastItemTimeStamp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastItemTimeStamp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getLastItemType">
+<code class="descname">getLastItemType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getLastItemType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastItemType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getLastItemContent">
+<code class="descname">getLastItemContent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getLastItemContent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastItemContent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getBlockNumber">
+<code class="descname">getBlockNumber</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getBlockNumber"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getBlockNumber" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getSamplesInBlock">
+<code class="descname">getSamplesInBlock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getSamplesInBlock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getSamplesInBlock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getEventsInBlock">
+<code class="descname">getEventsInBlock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getEventsInBlock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getEventsInBlock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getLastResX">
+<code class="descname">getLastResX</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getLastResX"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastResX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getLastResY">
+<code class="descname">getLastResY</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getLastResY"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastResY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getLastPupil">
+<code class="descname">getLastPupil</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getLastPupil"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastPupil" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getLastItemStatus">
+<code class="descname">getLastItemStatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getLastItemStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastItemStatus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getSampleQueueLength">
+<code class="descname">getSampleQueueLength</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getSampleQueueLength"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getSampleQueueLength" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getEventQueueLength">
+<code class="descname">getEventQueueLength</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getEventQueueLength"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getEventQueueLength" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getQueueSize">
+<code class="descname">getQueueSize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getQueueSize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getQueueSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getFreeQueueLength">
+<code class="descname">getFreeQueueLength</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getFreeQueueLength"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getFreeQueueLength" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getLastReceiveTime">
+<code class="descname">getLastReceiveTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getLastReceiveTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastReceiveTime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.isSamplesEnabled">
+<code class="descname">isSamplesEnabled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.isSamplesEnabled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.isSamplesEnabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.isEventsEnabled">
+<code class="descname">isEventsEnabled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.isEventsEnabled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.isEventsEnabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getPacketFlags">
+<code class="descname">getPacketFlags</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getPacketFlags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getPacketFlags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getLinkFlags">
+<code class="descname">getLinkFlags</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getLinkFlags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLinkFlags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getStateFlags">
+<code class="descname">getStateFlags</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getStateFlags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getStateFlags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getTrackerDataOutputState">
+<code class="descname">getTrackerDataOutputState</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getTrackerDataOutputState"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getTrackerDataOutputState" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getPendingCommands">
+<code class="descname">getPendingCommands</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getPendingCommands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getPendingCommands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.isPoolingRemote">
+<code class="descname">isPoolingRemote</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.isPoolingRemote"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.isPoolingRemote" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getPoolResponse">
+<code class="descname">getPoolResponse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getPoolResponse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getPoolResponse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getReserved">
+<code class="descname">getReserved</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getReserved"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getReserved" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getName">
+<code class="descname">getName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getTrackerName">
+<code class="descname">getTrackerName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getTrackerName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getTrackerName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getNodes">
+<code class="descname">getNodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getNodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getNodes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getLastItem">
+<code class="descname">getLastItem</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getLastItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getLastItem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getAddress">
+<code class="descname">getAddress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getAddress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getAddress" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getTrackerAddress">
+<code class="descname">getTrackerAddress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getTrackerAddress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getTrackerAddress" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getTrackerBroadcastAddress">
+<code class="descname">getTrackerBroadcastAddress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getTrackerBroadcastAddress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getTrackerBroadcastAddress" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.ILinkData.getRemoteBroadcastAddress">
+<code class="descname">getRemoteBroadcastAddress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#ILinkData.getRemoteBroadcastAddress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.ILinkData.getRemoteBroadcastAddress" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="mdl.eyetracking.pylink.tracker.drawCalTarget">
+<code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">drawCalTarget</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#drawCalTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.drawCalTarget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.KeyInput">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">KeyInput</code><span class="sig-paren">(</span><em>key</em>, <em>mod=0</em>, <em>state=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#KeyInput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.KeyInput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.pylink.tracker.</code><code class="descname">EyeLinkCustomDisplay</code><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.alert_printf" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.alert_printf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alert_printf</span></code></a>(msg)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.clear_cal_display" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.clear_cal_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_cal_display</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_cal_target" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_cal_target"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_cal_target</span></code></a>(x,&nbsp;y)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_cross_hair" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_cross_hair"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_cross_hair</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_image_line" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_image_line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_image_line</span></code></a>(width,&nbsp;line,&nbsp;totlines,&nbsp;buff)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_line" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_line</span></code></a>(x1,&nbsp;y1,&nbsp;x2,&nbsp;y2,&nbsp;colorindex)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_lozenge" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_lozenge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_lozenge</span></code></a>(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;colorindex)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.erase_cal_target" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.erase_cal_target"><code class="xref py py-obj docutils literal notranslate"><span class="pre">erase_cal_target</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.exit_cal_display" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.exit_cal_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exit_cal_display</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.exit_image_display" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.exit_image_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exit_image_display</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.get_input_key" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.get_input_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_input_key</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.get_mouse_state" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.get_mouse_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_mouse_state</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.image_title" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.image_title"><code class="xref py py-obj docutils literal notranslate"><span class="pre">image_title</span></code></a>(title)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.play_beep" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.play_beep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play_beep</span></code></a>(beepid)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.record_abort_hide" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.record_abort_hide"><code class="xref py py-obj docutils literal notranslate"><span class="pre">record_abort_hide</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.set_image_palette" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.set_image_palette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_image_palette</span></code></a>(red,&nbsp;green,&nbsp;blue)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.setup_cal_display" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.setup_cal_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_cal_display</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.setup_image_display" title="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.setup_image_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_image_display</span></code></a>(width,&nbsp;height)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.setup_cal_display">
+<code class="descname">setup_cal_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.setup_cal_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.setup_cal_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.exit_cal_display">
+<code class="descname">exit_cal_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.exit_cal_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.exit_cal_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.record_abort_hide">
+<code class="descname">record_abort_hide</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.record_abort_hide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.record_abort_hide" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.setup_image_display">
+<code class="descname">setup_image_display</code><span class="sig-paren">(</span><em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.setup_image_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.setup_image_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.image_title">
+<code class="descname">image_title</code><span class="sig-paren">(</span><em>title</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.image_title"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.image_title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_image_line">
+<code class="descname">draw_image_line</code><span class="sig-paren">(</span><em>width</em>, <em>line</em>, <em>totlines</em>, <em>buff</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.draw_image_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_image_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.set_image_palette">
+<code class="descname">set_image_palette</code><span class="sig-paren">(</span><em>red</em>, <em>green</em>, <em>blue</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.set_image_palette"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.set_image_palette" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.exit_image_display">
+<code class="descname">exit_image_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.exit_image_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.exit_image_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.clear_cal_display">
+<code class="descname">clear_cal_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.clear_cal_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.clear_cal_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.erase_cal_target">
+<code class="descname">erase_cal_target</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.erase_cal_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.erase_cal_target" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_cal_target">
+<code class="descname">draw_cal_target</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.draw_cal_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_cal_target" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.play_beep">
+<code class="descname">play_beep</code><span class="sig-paren">(</span><em>beepid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.play_beep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.play_beep" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.get_input_key">
+<code class="descname">get_input_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.get_input_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.get_input_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.alert_printf">
+<code class="descname">alert_printf</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.alert_printf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.alert_printf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_line">
+<code class="descname">draw_line</code><span class="sig-paren">(</span><em>x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em>, <em>colorindex</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.draw_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_lozenge">
+<code class="descname">draw_lozenge</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>width</em>, <em>height</em>, <em>colorindex</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.draw_lozenge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_lozenge" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.get_mouse_state">
+<code class="descname">get_mouse_state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.get_mouse_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.get_mouse_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_cross_hair">
+<code class="descname">draw_cross_hair</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/pylink/tracker.html#EyeLinkCustomDisplay.draw_cross_hair"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.pylink.tracker.EyeLinkCustomDisplay.draw_cross_hair" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 
 

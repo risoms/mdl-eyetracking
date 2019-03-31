@@ -57,8 +57,8 @@ To see the code or report a bug, please visit the `github <https://github.com/ri
    eyetracking <eyetracking>
    calibration <calibration>
    installation <install>
-   pylink <pylink>
-   example <example.ipynb>
+   pylink <mdl.eyetracking.win.pylink>
+   example <docs\examples\demo.ipynb>
 
 .. raw:: html
 

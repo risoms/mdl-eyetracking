@@ -36,32 +36,12 @@
 # %%
 import os, sys
 sys.path.append(os.path.abspath(os.getcwd() + '..\..\..'))
-#from psychopy import visual, core
+from psychopy import visual, core
 import mdl
-
-
-
-import pkgutil
-import sys
-def explore_package(module_name):    
-    loader = pkgutil.get_loader(module_name)
-    for sub_module in pkgutil.walk_packages([loader.filename]):
-        _, sub_module_name, _ = sub_module
-        qname = module_name + "." + sub_module_name
-        print(qname)
-        explore_package(qname)
- 
-explore_package('mdl')
-
-
-
-
-
-
-
 # %% [markdown]
 # <h5>Task parameters, either directly from PsychoPy or created manually.</h5><br>
 # %%
+expInfo = {u'condition': u'even', u'participant': u'001', u'dominant eye': u'left', u'corrective': u'False'}
 subject = expInfo['participant']
 dominant_eye = expInfo['dominant eye']
 # `psychopy.core.Clock.CountdownTimer` instance

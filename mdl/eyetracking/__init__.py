@@ -6,7 +6,7 @@ from pkgutil import extend_path
 import pkg_resources
 
 # set as module
-__all__ = ['run','calibration','pylink']
+__all__ = ['run','calibration','pylink','__version__']
 pkg_resources.declare_namespace(__name__)
 
 # relative paths

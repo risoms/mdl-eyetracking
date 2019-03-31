@@ -14,9 +14,10 @@ import sphinx_bootstrap_theme
 
 # module directory
 #osx
-sys.path.append('/Users/mdl-admin/Desktop/mdl-eyetracking/')
-sys.path.append('/anaconda3/lib/python3.6/site-packages/')
-sys.path.append(os.path.abspath('../../'))
+if sys.platform == 'darwin':
+    sys.path.append('/Users/mdl-admin/Desktop/mdl-eyetracking/')
+    sys.path.append('/anaconda3/lib/python3.6/site-packages/')
+    sys.path.append(os.path.abspath('../../'))
 
 # -- Path setup --------------------------------------------------------------
 autodoc_mock_imports = ["numpy","pandas","scipy","PIL","psychopy"]
@@ -61,7 +62,7 @@ master_doc = 'index'
 # -- Project information -----------------------------------------------------
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))
-from mdl.eyetracking._version import get_versions
+import mdl
 
 # General information about the project.
 project = u'mdl-eyetracking'
@@ -74,7 +75,7 @@ date = datetime.date.today().isoformat()
 # The short X.Y version
 version = '%s'%(date)
 # The full version, including alpha/beta/rc tags
-release = get_versions()['version']
+release = mdl.eyetracking.__version__
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.

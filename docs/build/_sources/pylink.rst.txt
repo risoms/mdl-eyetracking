@@ -1,13 +1,11 @@
-mdl.pylink
-----------
+mdl.eyetracking.pylink
+----------------------
 
 .. toctree::
-   :maxdepth: 2
 
-.. automodule:: mdl.eyetracking.win.pylink.pylink
-   :members:
-   :undoc-members:
-   :inherited-members:
-   :private-members:
-   :special-members:
+    mdl.eyetracking.pylink.tracker
 
+.. automodule:: mdl.eyetracking.pylink.tracker
+    :members:
+    :undoc-members:
+    :show-inheritance:

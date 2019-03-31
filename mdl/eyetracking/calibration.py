@@ -23,7 +23,11 @@ import sys
 from psychopy import visual, event, sound
 
 #----package
-from . import pylink
+# pylink
+if sys.platform == 'win32':
+	from .win import pylink
+elif sys.platform == 'darwin':
+	from .osx import pylink
 
 #----------------------------------------------------------------------------------------------------------------------------start
 class calibration(pylink.EyeLinkCustomDisplay):

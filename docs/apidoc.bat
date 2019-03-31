@@ -1,5 +1,5 @@
 @echo OFF
 
-sphinx-autogen -o %~dp0\source %~dp0\build
+sphinx-apidoc -o %~dp0\source %~dp0\..\mdl
 
 :end
