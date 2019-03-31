@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>&lt;no title&gt; &#8212; mdl-eyetracking 0+untagged.113.g5be3947.dirty documentation</title>
+    <title>&lt;no title&gt; &#8212; mdl-eyetracking 0+untagged.114.gec393a4.dirty documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -12,16 +12,16 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/language_data.js"></script>
-    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
   </head><body>
 
@@ -36,7 +36,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           mdl-eyetracking</a>
-        <span class="navbar-text navbar-version pull-left"><b>2019-03-30</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2019-03-31</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -58,6 +58,7 @@
 <li class="toctree-l1"><a class="reference internal" href="eyetracking.html">eyetracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calibration.html">calibration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pylink.html">pylink</a></li>
 </ul>
 </ul>
 </li>
@@ -98,7 +99,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12 content">
+    <div class="body col-md-12 content" role="main">
       
   
 <style>
@@ -348,8 +349,9 @@ systems.:nbsphinx-math:<cite>s</cite><span class="math">\s</span><span class="ma
 </div>
 </div>
 <h5><p>Initialize the mdl.eyetracking() package.</p>
-</h5><p>Note: Before initializing, make sure code is placed after PsychoPy window instance has been created in the experiment file. This window will be used in the calibration function.</p>
-<div class="nbinput nblast docutils container">
+  </h5>
+
+Note: Before initializing, make sure code is placed after PsychoPy window instance has been created in the experiment file. This window will be used in the calibration function.<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
@@ -360,8 +362,9 @@ systems.:nbsphinx-math:<cite>s</cite><span class="math">\s</span><span class="ma
 </div>
 </div>
 <h5><p>Connect to the Eyelink Host.</p>
-</h5><p>This controls the parameters to be used when running the eyetracker.</p>
-<div class="nbinput nblast docutils container">
+  </h5>
+
+This controls the parameters to be used when running the eyetracker.<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
@@ -371,8 +374,9 @@ systems.:nbsphinx-math:<cite>s</cite><span class="math">\s</span><span class="ma
 </div>
 </div>
 <h5><p>Set the dominamt eye.</p>
-</h5><p>This step is required for recieving gaze coordinates from Eyelink-&gt;PsychoPy.</p>
-<div class="nbinput nblast docutils container">
+  </h5>
+
+This step is required for recieving gaze coordinates from Eyelink->PsychoPy.<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
@@ -404,8 +408,9 @@ systems.:nbsphinx-math:<cite>s</cite><span class="math">\s</span><span class="ma
 </div>
 </div>
 <h5><p>(Optional) Print message to console/terminal.</p>
-</h5><p>Allows printing color coded messages to console/terminal/cmd. This may be useful for debugging issues.</p>
-<div class="nbinput nblast docutils container">
+  </h5>
+
+Allows printing color coded messages to console/terminal/cmd. This may be useful for debugging issues.<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
@@ -415,8 +420,9 @@ systems.:nbsphinx-math:<cite>s</cite><span class="math">\s</span><span class="ma
 </div>
 </div>
 <h5><p>(Optional) Drift correction.</p>
-</h5><p>This can be done at any point after calibration, including before and after eyetracking.start_recording() has started.</p>
-<div class="nbinput nblast docutils container">
+  </h5>
+
+This can be done at any point after calibration, including before and after `eyetracking.start_recording() <eyetracking.rst#mdl.eyetracking.eyetracking.start_recording>`__ has started.<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
@@ -426,8 +432,9 @@ systems.:nbsphinx-math:<cite>s</cite><span class="math">\s</span><span class="ma
 </div>
 </div>
 <h5><p>Start recording.</p>
-</h5><p>Note: This should be run at the start of the trial. Also, there is an intentional delay of 150 msec to allow the Eyelink to buffer gaze samples that will show up in your data.</p>
-<div class="nbinput nblast docutils container">
+  </h5>
+
+Note: This should be run at the start of the trial. Also, there is an intentional delay of 150 msec to allow the Eyelink to buffer gaze samples that will show up in your data.<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
@@ -451,8 +458,9 @@ systems.:nbsphinx-math:<cite>s</cite><span class="math">\s</span><span class="ma
 </div>
 </div>
 <h5><p>(Optional) Initiate gaze contigent event.</p>
-</h5><p>This is used for realtime data collection from Eyelink-&gt;PsychoPy.</p>
-<div class="nbinput nblast docutils container">
+  </h5>
+
+This is used for realtime data collection from Eyelink->PsychoPy.<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
@@ -466,8 +474,9 @@ systems.:nbsphinx-math:<cite>s</cite><span class="math">\s</span><span class="ma
 </div>
 </div>
 <h5><p>(Optional) Collect real-time gaze coordinates from Eyelink.</p>
-</h5><p>Note: This command should be repeated at an interval of 1000/(Eyelink pacing interval) msec to prevent oversampling.</p>
-<div class="nbinput nblast docutils container">
+  </h5>
+
+Note: This command should be repeated at an interval of 1000/(Eyelink pacing interval) msec to prevent oversampling.<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
@@ -495,8 +504,9 @@ systems.:nbsphinx-math:<cite>s</cite><span class="math">\s</span><span class="ma
 </div>
 </div>
 <h5><p>(Optional) Send messages to Eyelink.</p>
-</h5><p>This allows post-hoc processing of event markers (i.e.&nbsp;“stimulus onset”).</p>
-<div class="nbinput nblast docutils container">
+  </h5>
+
+This allows post-hoc processing of event markers (i.e. “stimulus onset”).<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
@@ -507,8 +517,9 @@ systems.:nbsphinx-math:<cite>s</cite><span class="math">\s</span><span class="ma
 </div>
 </div>
 <h5><p>Stop recording.</p>
-</h5><p>Also (optional) provides trial-level variables to Eyelink. Note: Variables sent are optional. If they being included, they must be in <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">dict</span></code> format.</p>
-<div class="nbinput nblast docutils container">
+  </h5>
+
+Also (optional) provides trial-level variables to Eyelink. Note: Variables sent are optional. If they being included, they must be in ``python dict`` format.<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
@@ -547,7 +558,7 @@ systems.:nbsphinx-math:<cite>s</cite><span class="math">\s</span><span class="ma
     </p>
     <p>
         &copy; Copyright 2019, Semeon Risom.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.<br/>
     </p>
   </div>
 </footer>

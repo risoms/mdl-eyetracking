@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>mdl.calibration &#8212; mdl-eyetracking 0+untagged.113.g5be3947.dirty documentation</title>
+    <title>mdl.eyetracking.calibration &#8212; mdl-eyetracking 0+untagged.114.gec393a4.dirty documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -12,16 +12,16 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/language_data.js"></script>
-    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
   </head><body>
 
@@ -36,7 +36,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           mdl-eyetracking</a>
-        <span class="navbar-text navbar-version pull-left"><b>2019-03-30</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2019-03-31</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -58,6 +58,7 @@
 <li class="toctree-l1"><a class="reference internal" href="eyetracking.html">eyetracking</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">calibration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pylink.html">pylink</a></li>
 </ul>
 </ul>
 </li>
@@ -71,9 +72,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">mdl.calibration</a><ul>
-</ul>
-</li>
+<li><a class="reference internal" href="#">mdl.eyetracking.calibration</a></li>
 </ul>
 </ul>
 </li>
@@ -101,21 +100,13 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12 content">
+    <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="mdl-calibration">
-<h1>mdl.calibration<a class="headerlink" href="#mdl-calibration" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-</div>
-<span class="target" id="module-mdl.eyetracking.calibration"></span><div class="line-block">
-<div class="line">Created on Wed Feb 13 15:37:43 2019</div>
-<div class="line">&#64;author: Semeon Risom</div>
-<div class="line">&#64;email: <a class="reference external" href="mailto:semeon&#46;risom&#37;&#52;&#48;gmail&#46;com">semeon<span>&#46;</span>risom<span>&#64;</span>gmail<span>&#46;</span>com</a>.</div>
-<div class="line">This allows mdl.eyetracking package to initiate calibration/validation/drift correction.</div>
-</div>
+  <div class="section" id="mdl-eyetracking-calibration">
+<h1>mdl.eyetracking.calibration<a class="headerlink" href="#mdl-eyetracking-calibration" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="mdl.eyetracking.calibration.calibration">
-<em class="property">class </em><code class="descclassname">mdl.eyetracking.calibration.</code><code class="descname">calibration</code><span class="sig-paren">(</span><em>w</em>, <em>h</em>, <em>tracker</em>, <em>window</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration" title="Permalink to this definition">¶</a></dt>
+<dt id="mdl.eyetracking.calibration">
+<em class="property">class </em><code class="descclassname">mdl.eyetracking.</code><code class="descname">calibration</code><span class="sig-paren">(</span><em>w</em>, <em>h</em>, <em>tracker</em>, <em>window</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration" title="Permalink to this definition">¶</a></dt>
 <dd><p>This allows mdl.eyetracking package to initiate calibration/validation/drift correction.</p>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
@@ -124,41 +115,41 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.calibration.calibration.alert_printf" title="mdl.eyetracking.calibration.calibration.alert_printf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alert_printf</span></code></a>(msg)</td>
-<td>Print error messages.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_cross_hair</span></code>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.calibration.alert_printf" title="mdl.eyetracking.calibration.alert_printf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alert_printf</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.calibration.calibration.draw_image_line" title="mdl.eyetracking.calibration.calibration.draw_image_line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_image_line</span></code></a>(width,&nbsp;line,&nbsp;totlines,&nbsp;buff)</td>
-<td>Display image pixel by pixel, line by line.</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_cross_hair</span></code></td>
+<td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.calibration.calibration.draw_line" title="mdl.eyetracking.calibration.calibration.draw_line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_line</span></code></a>(x1,&nbsp;y1,&nbsp;x2,&nbsp;y2,&nbsp;colorindex)</td>
-<td>Draw a line.</td>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.calibration.draw_image_line" title="mdl.eyetracking.calibration.draw_image_line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_image_line</span></code></a></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.calibration.calibration.erase_cal_target" title="mdl.eyetracking.calibration.calibration.erase_cal_target"><code class="xref py py-obj docutils literal notranslate"><span class="pre">erase_cal_target</span></code></a>()</td>
-<td>Erase the calibration/validation target.</td>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.calibration.draw_line" title="mdl.eyetracking.calibration.draw_line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_line</span></code></a></td>
+<td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.calibration.calibration.exit_image_display" title="mdl.eyetracking.calibration.calibration.exit_image_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exit_image_display</span></code></a>()</td>
-<td>Clear the camera image.</td>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.calibration.erase_cal_target" title="mdl.eyetracking.calibration.erase_cal_target"><code class="xref py py-obj docutils literal notranslate"><span class="pre">erase_cal_target</span></code></a></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.calibration.calibration.getColorFromIndex" title="mdl.eyetracking.calibration.calibration.getColorFromIndex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getColorFromIndex</span></code></a>(colorindex)</td>
-<td>Return psychopy colors for elements in the camera image.</td>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.calibration.exit_image_display" title="mdl.eyetracking.calibration.exit_image_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exit_image_display</span></code></a></td>
+<td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.calibration.calibration.get_input_key" title="mdl.eyetracking.calibration.calibration.get_input_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_input_key</span></code></a>()</td>
-<td>This function will be constantly pools, update the stimuli here is you need dynamic calibration target.</td>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.calibration.getColorFromIndex" title="mdl.eyetracking.calibration.getColorFromIndex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getColorFromIndex</span></code></a></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.calibration.calibration.get_mouse_state" title="mdl.eyetracking.calibration.calibration.get_mouse_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_mouse_state</span></code></a>()</td>
-<td>Get the current mouse position and status</td>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.calibration.get_input_key" title="mdl.eyetracking.calibration.get_input_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_input_key</span></code></a></td>
+<td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.calibration.calibration.play_beep" title="mdl.eyetracking.calibration.calibration.play_beep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play_beep</span></code></a>(beepid)</td>
-<td>Play a sound during calibration/drift correction.</td>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.calibration.get_mouse_state" title="mdl.eyetracking.calibration.get_mouse_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_mouse_state</span></code></a></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.calibration.calibration.set_image_palette" title="mdl.eyetracking.calibration.calibration.set_image_palette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_image_palette</span></code></a>(r,&nbsp;g,&nbsp;b)</td>
-<td>Given a set of RGB colors, create a list of 24bit numbers representing the pallet.</td>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.calibration.play_beep" title="mdl.eyetracking.calibration.play_beep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play_beep</span></code></a></td>
+<td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.calibration.calibration.setup_image_display" title="mdl.eyetracking.calibration.calibration.setup_image_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_image_display</span></code></a>(width,&nbsp;height)</td>
-<td>Set up the camera image, for newer APIs, the size is 384 x 320 pixels.</td>
+<tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.calibration.set_image_palette" title="mdl.eyetracking.calibration.set_image_palette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_image_palette</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.calibration.setup_image_display" title="mdl.eyetracking.calibration.setup_image_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_image_display</span></code></a></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -192,104 +183,69 @@
 </tbody>
 </table>
 <dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.setup_cal_display">
-<code class="descname">setup_cal_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.setup_cal_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.setup_cal_display" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.clear_cal_display">
-<code class="descname">clear_cal_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.clear_cal_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.clear_cal_display" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.exit_cal_display">
-<code class="descname">exit_cal_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.exit_cal_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.exit_cal_display" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.record_abort_hide">
-<code class="descname">record_abort_hide</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.record_abort_hide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.record_abort_hide" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.erase_cal_target">
-<code class="descname">erase_cal_target</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.erase_cal_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.erase_cal_target" title="Permalink to this definition">¶</a></dt>
+<dt id="mdl.eyetracking.calibration.erase_cal_target">
+<code class="descname">erase_cal_target</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.erase_cal_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.erase_cal_target" title="Permalink to this definition">¶</a></dt>
 <dd><p>Erase the calibration/validation target.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.draw_cal_target">
-<code class="descname">draw_cal_target</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.draw_cal_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.draw_cal_target" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.play_beep">
-<code class="descname">play_beep</code><span class="sig-paren">(</span><em>beepid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.play_beep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.play_beep" title="Permalink to this definition">¶</a></dt>
+<dt id="mdl.eyetracking.calibration.play_beep">
+<code class="descname">play_beep</code><span class="sig-paren">(</span><em>beepid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.play_beep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.play_beep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Play a sound during calibration/drift correction.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.getColorFromIndex">
-<code class="descname">getColorFromIndex</code><span class="sig-paren">(</span><em>colorindex</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.getColorFromIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.getColorFromIndex" title="Permalink to this definition">¶</a></dt>
+<dt id="mdl.eyetracking.calibration.getColorFromIndex">
+<code class="descname">getColorFromIndex</code><span class="sig-paren">(</span><em>colorindex</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.getColorFromIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.getColorFromIndex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return psychopy colors for elements in the camera image.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.draw_line">
-<code class="descname">draw_line</code><span class="sig-paren">(</span><em>x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em>, <em>colorindex</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.draw_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.draw_line" title="Permalink to this definition">¶</a></dt>
+<dt id="mdl.eyetracking.calibration.draw_line">
+<code class="descname">draw_line</code><span class="sig-paren">(</span><em>x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em>, <em>colorindex</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.draw_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.draw_line" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw a line. This is used for drawing crosshairs/squares.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.draw_lozenge">
-<code class="descname">draw_lozenge</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>width</em>, <em>height</em>, <em>colorindex</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.draw_lozenge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.draw_lozenge" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.get_mouse_state">
-<code class="descname">get_mouse_state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.get_mouse_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.get_mouse_state" title="Permalink to this definition">¶</a></dt>
+<dt id="mdl.eyetracking.calibration.get_mouse_state">
+<code class="descname">get_mouse_state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.get_mouse_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.get_mouse_state" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the current mouse position and status</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.get_input_key">
-<code class="descname">get_input_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.get_input_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.get_input_key" title="Permalink to this definition">¶</a></dt>
+<dt id="mdl.eyetracking.calibration.get_input_key">
+<code class="descname">get_input_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.get_input_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.get_input_key" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will be constantly pools, update the stimuli here is you need
 dynamic calibration target.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.exit_image_display">
-<code class="descname">exit_image_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.exit_image_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.exit_image_display" title="Permalink to this definition">¶</a></dt>
+<dt id="mdl.eyetracking.calibration.exit_image_display">
+<code class="descname">exit_image_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.exit_image_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.exit_image_display" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear the camera image.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.alert_printf">
-<code class="descname">alert_printf</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.alert_printf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.alert_printf" title="Permalink to this definition">¶</a></dt>
+<dt id="mdl.eyetracking.calibration.alert_printf">
+<code class="descname">alert_printf</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.alert_printf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.alert_printf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print error messages.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.setup_image_display">
-<code class="descname">setup_image_display</code><span class="sig-paren">(</span><em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.setup_image_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.setup_image_display" title="Permalink to this definition">¶</a></dt>
+<dt id="mdl.eyetracking.calibration.setup_image_display">
+<code class="descname">setup_image_display</code><span class="sig-paren">(</span><em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.setup_image_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.setup_image_display" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set up the camera image, for newer APIs, the size is 384 x 320 pixels.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.image_title">
-<code class="descname">image_title</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.image_title"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.image_title" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.draw_image_line">
-<code class="descname">draw_image_line</code><span class="sig-paren">(</span><em>width</em>, <em>line</em>, <em>totlines</em>, <em>buff</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.draw_image_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.draw_image_line" title="Permalink to this definition">¶</a></dt>
+<dt id="mdl.eyetracking.calibration.draw_image_line">
+<code class="descname">draw_image_line</code><span class="sig-paren">(</span><em>width</em>, <em>line</em>, <em>totlines</em>, <em>buff</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.draw_image_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.draw_image_line" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display image pixel by pixel, line by line.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="mdl.eyetracking.calibration.calibration.set_image_palette">
-<code class="descname">set_image_palette</code><span class="sig-paren">(</span><em>r</em>, <em>g</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.set_image_palette"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.calibration.set_image_palette" title="Permalink to this definition">¶</a></dt>
+<dt id="mdl.eyetracking.calibration.set_image_palette">
+<code class="descname">set_image_palette</code><span class="sig-paren">(</span><em>r</em>, <em>g</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/calibration.html#calibration.set_image_palette"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.calibration.set_image_palette" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a set of RGB colors, create a list of 24bit numbers representing the pallet.
 I.e., RGB of (1,64,127) would be saved as 82047, or the number 00000001 01000000 011111111</p>
 </dd></dl>
@@ -314,7 +270,7 @@ I.e., RGB of (1,64,127) would be saved as 82047, or the number 00000001 01000000
     </p>
     <p>
         &copy; Copyright 2019, Semeon Risom.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.<br/>
     </p>
   </div>
 </footer>

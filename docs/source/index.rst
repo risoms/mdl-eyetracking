@@ -15,8 +15,8 @@
     }
     </style>
 
-mdl-eyelink:  Bindings for Eyelink and Python.
-----------------------------------------------
+mdl-eyetracking:  Bindings for Eyelink and Python.
+--------------------------------------------------
 
 .. raw:: html
 
@@ -35,7 +35,7 @@ mdl-eyelink:  Bindings for Eyelink and Python.
 		<div class="row">
 			<div class="col-md-6">
 
-mdl-eyelink provides a high-level interface for eyetracking research in Python. 
+mdl-eyetracking provides a high-level interface for eyetracking research in Python. 
 This package was created at the `Institute for Mental Health Research <http://mdl.psy.utexas.edu/>`_, 
 at `the University of Texas at Austin <http://www.utexas.edu/>`_ by `Semeon Risom <https://semeon.io>`_.
 
@@ -49,7 +49,7 @@ and then check out the :ref:`tutorial <tutorial>` and :ref:`API reference
 To see the code or report a bug, please visit the `github <https://github.com/risoms/mdl-eyelink>`_ repository.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :titlesonly:
    :glob:
    :hidden:
@@ -57,7 +57,7 @@ To see the code or report a bug, please visit the `github <https://github.com/ri
    eyetracking <eyetracking>
    calibration <calibration>
    installation <install>
-   pylink <mdl.eyetracking.win.pylink>
+   pylink <pylink>
    example <docs\examples\demo.ipynb>
 
 .. raw:: html
@@ -71,7 +71,7 @@ To see the code or report a bug, please visit the `github <https://github.com/ri
 					<div class="panel-body">
 					<ul>
 					<li><a href="install.html">installation</a></li>
-					<li><a href="example.html">example</a></li>
+					<li><a href="demo.html">example</a></li>
 					<li><a href="eyetracking.html">eyetracking</a></li>
 					<li><a href="calibration.html">calibration</a></li>
 					<li><a href="pylink.html">pylink</a></li>

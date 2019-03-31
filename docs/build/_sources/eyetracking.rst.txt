@@ -1,6 +1,7 @@
-mdl.eyetracking
----------------
+mdl.eyetracking.run
+-------------------
 
-.. automodule:: mdl.eyetracking
+.. autoclass:: mdl.eyetracking.run
    :members:
-   :undoc-members:
+   :no-undoc-members:
+   :member-order: bysource

@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 ##
 # Copyright (c) 1996-2012, SR Research Ltd., All Rights Reserved
 #

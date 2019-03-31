@@ -1,11 +1,17 @@
 mdl.eyetracking.pylink
 ----------------------
 
-.. toctree::
+.. autoclass:: mdl.eyetracking.win.pylink.tracker.EyeLinkCustomDisplay
+   :members:
+   :no-undoc-members:
+   :member-order: bysource
 
-    mdl.eyetracking.pylink.tracker
+.. autoclass:: mdl.eyetracking.win.pylink.tracker.EyeEvent
+   :members:
+   :no-undoc-members:
+   :member-order: bysource
 
-.. automodule:: mdl.eyetracking.pylink.tracker
-    :members:
-    :undoc-members:
-    :show-inheritance:
+.. autoclass:: mdl.eyetracking.win.pylink.tracker.ILinkData
+   :members:
+   :no-undoc-members:
+   :member-order: bysource

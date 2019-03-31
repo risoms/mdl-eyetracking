@@ -14,7 +14,7 @@ Documentation
 -------------
 Online documentation is available at our [examples](https://risoms.github.io/mdl-eyetracking/docs/build/example.html) file and at [mdl-eyetracking](https://mdl.psy.utexas.edu/d/eyetracking/example.html).
 
-The docs include a [tutorial](https://risoms.github.io/mdl-eyetracking/docs/build/tutorial.html), [example](https://mdl.psy.utexas.edu/d/eyelink/example.html), [API reference](https://risoms.github.io/mdl-eyetracking/docs/build/py-modindex.html), and other useful information.
+The docs include a [tutorial](https://risoms.github.io/mdl-eyetracking/docs/build/demo.html), [example](https://mdl.psy.utexas.edu/d/eyelink/example.html), [API reference](https://risoms.github.io/mdl-eyetracking/docs/build/py-modindex.html), and other useful information.
 
 
 Dependencies

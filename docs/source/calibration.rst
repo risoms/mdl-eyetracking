@@ -1,9 +1,6 @@
-mdl.calibration
----------------
+mdl.eyetracking.calibration
+---------------------------
 
-.. toctree::
-   :maxdepth: 1
-
-.. automodule:: mdl.eyetracking.calibration
+.. autoclass:: mdl.eyetracking.calibration
    :members:
-   :undoc-members:
+   :no-undoc-members:
