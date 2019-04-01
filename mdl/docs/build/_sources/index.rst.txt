@@ -75,9 +75,9 @@ To see the code or report a bug, please visit the `github <https://github.com/ri
 					<li><a href="eyetracking.html">eyetracking</a></li>
 					<li><a href="calibration.html">calibration</a></li>
 					<li><a href="pylink.html">pylink</a></li>
-					<li><a href="_static/pdf/Eyelink Programmers Guide.pdf">Eyelink Programmers Guide</a></li>
+					<li><a href="_static/pdf/Eyelink%20Programmers%20Guide.pdf">Eyelink Programmers Guide</a></li>
 					<li><a href="_static/pdf/EyeLink Data Viewer User Manual 3.2.1.pdf">EyeLink Data Viewer User Manual 3.2.1</a></li>
-					<li><a href="_static/pdf/Eyelink 1000 Plus User Manual 1.0.12.pdf">Eyelink 1000 Plus User Manual</a></li>
+					<li><a href="_static/pdf//Eyelink%201000%20Plus%20User%20Manual%201.0.12.pdf">Eyelink 1000 Plus User Manual</a></li>
 					</ul>
 					</div>
 				</div>
