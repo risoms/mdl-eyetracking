@@ -58,7 +58,7 @@ To see the code or report a bug, please visit the `github <https://github.com/ri
    calibration <calibration>
    installation <install>
    pylink <pylink>
-   example <examples/eyetracking/demo.ipynb>
+   demo <examples/eyetracking/demo.ipynb>
 
 .. raw:: html
 

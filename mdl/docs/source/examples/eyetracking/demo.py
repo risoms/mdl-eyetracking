@@ -1,24 +1,24 @@
 # %% [markdown]
 # <h5>Example setup for Eyelink 1000 Plus, using PsychoPy 3.0.</h5>
 # %% [markdown]
-# Created on Wed Feb 13 15:37:43 2019\s\s\s
-# @author: Semeon Risom\s\s\s
-# @email: semeon.risom@gmail.com\s\s\s
-# Sample code to run SR Research Eyelink eyetracking system. Code is optimized for the Eyelink 1000\s\s\s
-# Plus (5.0), but should be compatiable with earlier systems.\s\s\s
+# <a>Created on Wed Feb 13 15:37:43 2019</a><br>
+# <a>@author: Semeon Risom</a><br>
+# <a>@email: semeon.risom@gmail.com</a><br>
+# <a>Sample code to run SR Research Eyelink eyetracking system. Code is optimized for the Eyelink 1000</a><br>
+# <a>Plus (5.0), but should be compatiable with earlier systems.</a><br>
 # %% [markdown]
 # <ul class="list-container">
 #     <li>
 #         <div class="title">The sequence of operations for implementing the trial is:</div>
 #         <ol class="list">
-#             <li>[Import the mdl package](example.ipynb#import).</li>
-#             <li>Initialize the `mdl.eyetracking()` package.</li>
-#             <li>Connect to the Eyelink Host.</li>
-#             <li>Set the dominamt eye.</li>
-#             <li>Start calibration.</li>
-#             <li>Start recording.</li>
-#             <li>Stop recording.</li>
-#             <li>Finish recording.</li>
+#             <li>[Import the mdl package](:ref:`demo.ipynb#A-Sub-Section`).</li>
+#             <li>[Initialize the `mdl.eyetracking()` package](demo.html#import).</li>
+#             <li>[Connect to the Eyelink Host](demo#import).</li>
+#             <li>[Set the dominamt eye](demo#import).</li>
+#             <li>[Start calibration](demo#import).</li>
+#             <li>[Start recording](demo#import).</li>
+#             <li>[Stop recording](demo.ipynb#import).</li>
+#             <li>[Finish recording](example.ipynb#import).</li>
 #         </ol>
 #     </li>
 #     <li>
