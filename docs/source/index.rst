@@ -58,12 +58,12 @@ To see the code or report a bug, please visit the `github <https://github.com/ri
    calibration <calibration>
    installation <install>
    pylink <pylink>
-   example <docs\examples\demo.ipynb>
+   example <..\..\mdl\dist\examples\demo.ipynb>
 
 .. raw:: html
 
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-6">
 				<div class="panel panel-default">   
 					<div class="panel-heading">
 						<h3 class="panel-title">Contents</h3>
