@@ -1,4 +1,4 @@
-.. _installing:
+.. _install:
 
 .. currentmodule:: mdl
 
@@ -25,7 +25,7 @@ Another option would be to to clone the `github repository
 Dependencies
 ~~~~~~~~~~~~
 
--  Python 2.7 or 3.6+
+-  `Python 3.6+ <https://www.python.org/>`__
 
 -  `PsychoPy <https://www.psychopy.org/>`__
 

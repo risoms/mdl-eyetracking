@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>mdl &#8212; mdl-eyetracking 0+untagged.122.gb83eee3.dirty documentation</title>
+    <title>How Eyelink works &#8212; mdl-eyetracking 0+untagged.122.gb83eee3.dirty documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -14,6 +14,7 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="examples/eyetracking/demo.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -54,12 +55,12 @@
      href="index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul>
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="eyetracking.html">eyetracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calibration.html">calibration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pylink.html">pylink</a></li>
-<li class="toctree-l1"><a class="reference internal" href="eyelink.html">eyelink</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">eyelink</a></li>
 </ul>
 </ul>
 </li>
@@ -73,7 +74,11 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">mdl</a></li>
+<li><a class="reference internal" href="#">How Eyelink works</a><ul>
+<li><a class="reference internal" href="#heuristic-filtering-algorithm">heuristic filtering algorithm</a></li>
+<li><a class="reference internal" href="#velocity-and-acceleration-thresholds">velocity and acceleration thresholds</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -103,10 +108,29 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="mdl">
-<h1>mdl<a class="headerlink" href="#mdl" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
+  <div class="section" id="how-eyelink-works">
+<span id="eyelink"></span><h1>How Eyelink works<a class="headerlink" href="#how-eyelink-works" title="Permalink to this headline">¶</a></h1>
+<div class="col-md-12"><p>The EyeLink trackers use a velocity-based method for eye event parsing. Saccade onset is detected when the eye movement
+velocity or acceleration exceeds a pre-set threshold, whereas saccade offset is detected when the velocity and acceleration
+fall below the thresholds. The end of a saccade is the start of a fixation and the start of a saccade is the end of a
+previous fixation. Since this velocity-based method detects the onset and offset of saccades, it is usually known as a
+“saccade-picker” (<a class="reference external" href="https://www.sr-support.com/forum/eyelink/eyelink-usage/53415-official-documentation-of-how-eyelink-calculates-fixations-and-saccades">Eyelink forum</a>).</p>
+<div class="section" id="heuristic-filtering-algorithm">
+<h2>heuristic filtering algorithm<a class="headerlink" href="#heuristic-filtering-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>The eye movement data recorded in the data file, by default, has been filtered with a heuristic algorithm (Stampe, 1993).
+For more information on the heuristic filtering algorithm, see (<a class="reference external" href="https://doi.org/10.3758/BF03204486">Stampe, 1993</a>).:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Stampe, D. (1993). Heuristic filtering and reliable calibration methods for video-based pupil-tracking systems.
+Behavior Research Methods, Instruments, &amp; Computers, 25(2), 137–142. doi:10.3758/BF03204486
+</pre></div>
 </div>
+</div>
+<div class="section" id="velocity-and-acceleration-thresholds">
+<h2>velocity and acceleration thresholds<a class="headerlink" href="#velocity-and-acceleration-thresholds" title="Permalink to this headline">¶</a></h2>
+<p>For the velocity and acceleration thresholds see the <a class="reference external" href="_static/pdf//Eyelink%201000%20Plus%20User%20Manual%201.0.12.pdf">EyeLink 1000 Plus User Manual</a>.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">EyeLink</span> <span class="mi">1000</span> <span class="n">Plus</span> <span class="n">User</span> <span class="n">Manual</span> <span class="p">(</span><span class="mi">2013</span><span class="p">)</span><span class="o">.</span> <span class="n">EyeLink</span> <span class="mi">1000</span> <span class="n">Plus</span><span class="o">.</span> <span class="n">SR</span> <span class="n">Research</span> <span class="n">Ltd</span><span class="o">.</span><span class="p">,</span> <span class="n">Mississauga</span><span class="p">,</span> <span class="n">Ontario</span><span class="p">,</span> <span class="n">Canada</span><span class="o">.</span>
+</pre></div>
+</div>
+</div></div>
 </div>
 
 

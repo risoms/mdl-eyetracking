@@ -20,7 +20,7 @@ The docs include a [installation](https://risoms.github.io/mdl-eyetracking/mdl/d
 Dependencies
 ------------
 
-mdl-eyetracking supports Python 2.7 and 3.6+.
+mdl-eyetracking supports Python 3.3+.
 
 Installation requires [numpy](http://www.numpy.org/), [scipy](https://www.scipy.org/), [rpy2](https://rpy2.readthedocs.io/), [pandas](https://pandas.pydata.org/), and [matplotlib](https://matplotlib.org/). Some functions will optionally use [statsmodels](https://www.statsmodels.org/) if it is installed.
 
@@ -32,6 +32,10 @@ The latest stable release (and older versions) can be installed from PyPI:
 
     pip install mdl-eyetracking
 
-You may instead want to use the development version from Github:
+Alternatively, you can install the development version directly from github:
+
+    pip install git+https://github.com/risoms/mdl-eyetracking.git
+
+Another option would be to to clone the github repository and install from your local copy:
 
     pip install git+https://github.com/risoms/mdl-eyetracking.git
