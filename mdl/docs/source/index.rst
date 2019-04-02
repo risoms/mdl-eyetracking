@@ -46,7 +46,7 @@ For a brief introduction to the ideas behind the library, you can read the
 and then check out the :ref:`tutorial <tutorial>` and :ref:`API reference
 <index>` to find out how.
 
-To see the code or report a bug, please visit the `github <https://github.com/risoms/mdl-eyelink>`_ repository.
+To see the code or report a bug, please visit the `github <https://github.com/risoms/mdl-eyetracking>`_ repository.
 
 .. toctree::
    :maxdepth: 4
@@ -76,8 +76,8 @@ To see the code or report a bug, please visit the `github <https://github.com/ri
 					<li><a href="calibration.html">calibration</a></li>
 					<li><a href="pylink.html">pylink</a></li>
 					<li><a href="_static/pdf/Eyelink%20Programmers%20Guide.pdf">Eyelink Programmers Guide</a></li>
-					<li><a href="_static/pdf/EyeLink Data Viewer User Manual 3.2.1.pdf">EyeLink Data Viewer User Manual 3.2.1</a></li>
-					<li><a href="_static/pdf//Eyelink%201000%20Plus%20User%20Manual%201.0.12.pdf">Eyelink 1000 Plus User Manual</a></li>
+					<li><a href="_static/pdf/EyeLink Data Viewer User Manual 3.2.1.pdf">Data Viewer</a></li>
+					<li><a href="_static/pdf//Eyelink%201000%20Plus%20User%20Manual%201.0.12.pdf">Eyelink User Manual</a></li>
 					</ul>
 					</div>
 				</div>
