@@ -29,7 +29,8 @@ from psychopy.constants import (NOT_STARTED, STARTED, FINISHED)
 
 #----package
 # calibration
-from . import calibration as _calibration
+from mdl.eyetracking.calibration import calibration as _calibration
+from mdl.eyetracking import pylink
 #---------------------------------------------------------------------------------------------------------------------------start
 class run():
     """
@@ -415,8 +416,14 @@ class run():
         pylink.setDriftCorrectSounds("", "", "")
         
         # export param to txt file
+        ## prevent metadata from being truncated
+        width = pd.get_option('display.max_colwidth')
+        pd.set_option('display.max_colwidth', -1)
+        # create df
         param = pd.DataFrame(list(self.param.items()),columns=['category', 'value'])
         param.to_csv(path_or_buf=self.path + str(self.subject) + ".txt", index=True, index_label='index')
+        # reset truncation
+        pd.set_option('display.max_colwidth', width)
 
         #if ipython
         display(param)

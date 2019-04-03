@@ -35,7 +35,7 @@
 # <h5>Import packages.</h5><br>
 # %%
 import os, sys
-sys.path.append(os.path.abspath(os.getcwd() + '..\..\..'))
+sys.path.append(os.path.abspath(os.getcwd() + '../../../../../..'))
 from psychopy import visual, core
 import mdl
 # %% [markdown]
@@ -47,15 +47,14 @@ dominant_eye = expInfo['dominant eye']
 # `psychopy.core.Clock.CountdownTimer` instance
 routineTimer = core.CountdownTimer()
 # `psychopy.visual.window.Window` instance
-window = visual.Window(size=[1920, 1080], fullscr=False, allowGUI=True, units='pix', 
-                       winType='pyglet', color=[110,110,110], colorSpace='rgb255')
+window = visual.Window(size=[1920, 1080], fullscr=False, allowGUI=True, units='pix', winType='pyglet', color=[110,110,110], colorSpace='rgb255')
 # %% [markdown]
 # <h5>Initialize the mdl.eyetracking() package.</h5><br>
 # Note: Before initializing, make sure code is placed after PsychoPy window instance has been created in the experiment file. 
 # This window will be used in the calibration function.
 # %%
-# initializing Eyelink
-eyetracking = mdl.eyetracking(window=window, libraries=False, subject=subject, timer=routineTimer)
+# Initialize mdl.eyetracking()
+eyetracking = mdl.eyetracking.run(window=window, libraries=False, subject=subject, timer=routineTimer)
 # %% [markdown]
 # <h5>Connect to the Eyelink Host.</h5><br>
 # This controls the parameters to be used when running the eyetracker.
@@ -142,9 +141,9 @@ eyetracking.send_message(msg="stimulus onset")
 # Also (optional) provides trial-level variables to Eyelink.
 # Note: Variables sent are optional. If they being included, they must be in `python dict` format.
 # %%
-# set variables
+# Prepare variables to be sent to Eyelink
 variables = dict(stimulus=filename, trial_type='encoding', race="black")
-# stop recording
+# Stop recording
 eyetracking.stop_recording(trial=1, block=1, variables=variables)
 # %% [markdown]
 # <h5>Finish recording.</h5><br>

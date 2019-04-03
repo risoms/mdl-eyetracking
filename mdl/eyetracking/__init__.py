@@ -12,15 +12,15 @@ pkg_resources.declare_namespace(__name__)
 # relative paths
 sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
-# imports
-from .eyetracking import run
-from .calibration import calibration
-
+#----imports
 # pylink
 if sys.platform == 'win32':
-	from win import pylink
+	import win.pylink as pylink
 elif sys.platform == 'darwin':
-	from osx import pylink
+	import osx.pylink as pylink
+# package
+from .eyetracking import run
+from .calibration import calibration
 
 #----versioning
 from ._version import get_versions

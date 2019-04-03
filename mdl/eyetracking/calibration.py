@@ -23,12 +23,7 @@ import sys
 from psychopy import visual, event, sound
 
 #----package
-# pylink
-if sys.platform == 'win32':
-	from .win import pylink
-elif sys.platform == 'darwin':
-	from .osx import pylink
-
+from mdl.eyetracking import pylink
 #----------------------------------------------------------------------------------------------------------------------------start
 class calibration(pylink.EyeLinkCustomDisplay):
     """This allows mdl.eyetracking package to initiate calibration/validation/drift correction."""

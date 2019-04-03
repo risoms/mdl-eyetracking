@@ -605,7 +605,8 @@ eyetracking = mdl.eyetracking(window=win, libraries=False, subject=subject, time
 # Connect to the Eyelink Host.
 param = eyetracking.connect(calibration_type=13)
 
-# Setting the dominant eye. This step is especially critical for transmitting gaze coordinates from Eyelink->Psychopy.
+# Set the dominant eye. 
+# Note: This step is especially critical for transmitting gaze coordinates from Eyelink->Psychopy.
 eye_used = eyetracking.set_eye_used(eye=dominant_eye)
 
 # Start calibration.
