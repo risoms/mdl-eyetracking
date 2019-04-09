@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>mdl.eyetracking.calibration &#8212; mdl-eyetracking 0+untagged.122.gb83eee3.dirty documentation</title>
+    <title>mdl.eyetracking.calibration &#8212; mdl-eyetracking 0+untagged.124.gdc07fd4.dirty documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
@@ -36,7 +36,7 @@
         </button>
         <a class="navbar-brand" href="../../../index.html">
           mdl-eyetracking</a>
-        <span class="navbar-text navbar-version pull-left"><b>2019-04-02</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2019-04-09</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -126,12 +126,7 @@
 <span class="kn">from</span> <span class="nn">psychopy</span> <span class="k">import</span> <span class="n">visual</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">sound</span>
 
 <span class="c1">#----package</span>
-<span class="c1"># pylink</span>
-<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;win32&#39;</span><span class="p">:</span>
-	<span class="kn">from</span> <span class="nn">.win</span> <span class="k">import</span> <span class="n">pylink</span>
-<span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;darwin&#39;</span><span class="p">:</span>
-	<span class="kn">from</span> <span class="nn">.osx</span> <span class="k">import</span> <span class="n">pylink</span>
-
+<span class="kn">from</span> <span class="nn">mdl.eyetracking</span> <span class="k">import</span> <span class="n">pylink</span>
 <span class="c1">#----------------------------------------------------------------------------------------------------------------------------start</span>
 <div class="viewcode-block" id="calibration"><a class="viewcode-back" href="../../../calibration.html#mdl.eyetracking.calibration">[docs]</a><span class="k">class</span> <span class="nc">calibration</span><span class="p">(</span><span class="n">pylink</span><span class="o">.</span><span class="n">EyeLinkCustomDisplay</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This allows mdl.eyetracking package to initiate calibration/validation/drift correction.&quot;&quot;&quot;</span>

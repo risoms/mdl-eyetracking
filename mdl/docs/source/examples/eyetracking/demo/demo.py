@@ -1,5 +1,6 @@
-# %% [markdown]
-# <h5>Example setup for Eyelink 1000 Plus, using PsychoPy 3.0.</h5>
+#%% [markdown]
+#  <title>Example setup for Eyelink 1000 Plus, using PsychoPy 3.0.</title>
+#  <h5>Example setup for Eyelink 1000 Plus, using PsychoPy 3.0.</h5>
 # %% [markdown]
 # <a>Created on Wed Feb 13 15:37:43 2019</a><br>
 # <a>@author: Semeon Risom</a><br>
@@ -34,8 +35,8 @@
 # %% [markdown]
 # <h5>Import packages.</h5><br>
 # %%
-import os, sys
-sys.path.append(os.path.abspath(os.getcwd() + '../../../../../..'))
+import os, sys, time
+sys.path.append(os.path.abspath(os.getcwd() + '../../../../../../..'))
 from psychopy import visual, core
 import mdl
 # %% [markdown]
@@ -54,7 +55,7 @@ window = visual.Window(size=[1920, 1080], fullscr=False, allowGUI=True, units='p
 # This window will be used in the calibration function.
 # %%
 # Initialize mdl.eyetracking()
-eyetracking = mdl.eyetracking.run(window=window, libraries=False, subject=subject, timer=routineTimer)
+eyetracking = mdl.eyetracking.run(window=window, libraries=True, subject=subject, timer=routineTimer)
 # %% [markdown]
 # <h5>Connect to the Eyelink Host.</h5><br>
 # This controls the parameters to be used when running the eyetracker.
@@ -91,7 +92,8 @@ drift = eyetracking.drift_correction()
 # allow the Eyelink to buffer gaze samples that will show up in your data.
 # %%
 # Create stimulus (demonstration purposes only).
-path = os.getcwd() + "/data/stimulus/8380.bmp"
+filename = "8380.bmp"
+path = os.getcwd() + "/stimuli/" + filename
 size = (1024, 768) #image size
 pos = (window.size[0]/2, window.size[1]/2) #positioning image at center of screen
 stimulus = visual.ImageStim(win=window, image=path, size=size, pos=(0,0), units='pix')
@@ -109,7 +111,12 @@ bound = dict(left=860, top=440, right=1060, bottom=640)
 eyetracking.gc(bound=bound, t_min=2000, t_max=10000)
 # %% [markdown]
 # <h5>(Optional) Collect real-time gaze coordinates from Eyelink.</h5><br>
-# Note: This command should be repeated at an interval of 1000/(Eyelink pacing interval) msec to prevent oversampling.
+# Note: Samples need to be collected at an interval of 1000/(sampling rate) msec to prevent oversampling.
+# %%
+gxy, ps, sample = eyetracking.sample() # get gaze coordinates, pupil size, and sample
+# %% [markdown]
+# <h5>(Optional) Example use of `eyetracking.sample()`.</h5><br>
+# Note: Samples need to be collected at an interval of 1000/(sampling rate) msec to prevent oversampling.
 # %%
 # In our example, the sampling rate of our device (Eyelink 1000 Plus) is 500Hz.
 s1 = 0 # set current time to 0
@@ -120,8 +127,7 @@ while True:
     # if difference between starting and current time is greater than > 2.01 msec, collect new sample
     diff = (s1 - s0)
     if diff >= .00201:
-        print(s1)
-        gxy, ps, s = eyetracking.sample(eye_used=eye_used) # get gaze coordinates, pupil size, and sample
+        gxy, ps, sample = eyetracking.sample() # get gaze coordinates, pupil size, and sample
         lgxy.append(gxy) # store in list (not required; demonstration purposes only)
         s0 = time.clock() # update starting time
     #else set current time

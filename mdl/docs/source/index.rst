@@ -72,7 +72,7 @@ To see the code or report a bug, please visit the `github <https://github.com/ri
 					<div class="panel-body">
 						<ul>
 							<li><a href="install.html">installation</a></li>
-							<li><a href="demo.html">example</a></li>
+							<li><a href="examples/eyetracking/demo/demo.html">example</a></li>
 							<li><a href="eyetracking.html">eyetracking</a></li>
 							<li><a href="calibration.html">calibration</a></li>
 							<li><a href="pylink.html">pylink</a></li>

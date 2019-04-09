@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>mdl.eyetracking.run &#8212; mdl-eyetracking 0+untagged.122.gb83eee3.dirty documentation</title>
+    <title>mdl.eyetracking.run &#8212; mdl-eyetracking 0+untagged.124.gdc07fd4.dirty documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -37,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           mdl-eyetracking</a>
-        <span class="navbar-text navbar-version pull-left"><b>2019-04-02</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2019-04-09</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -154,7 +154,7 @@ trial duration expires ‘ESCAPE’ is pressed, the program is interrupted, or a
 <tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.run.library" title="mdl.eyetracking.run.library"><code class="xref py py-obj docutils literal notranslate"><span class="pre">library</span></code></a>()</td>
 <td>Check if required libraries to run eyelink and Psychopy are available.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.run.sample" title="mdl.eyetracking.run.sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample</span></code></a>(eye_used)</td>
+<tr class="row-even"><td><a class="reference internal" href="#mdl.eyetracking.run.sample" title="mdl.eyetracking.run.sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample</span></code></a>()</td>
 <td>Collects new gaze coordinates from Eyelink.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#mdl.eyetracking.run.send_message" title="mdl.eyetracking.run.send_message"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send_message</span></code></a>(msg)</td>
@@ -465,27 +465,20 @@ the task to continue.</p>
 
 <dl class="method">
 <dt id="mdl.eyetracking.run.sample">
-<code class="descname">sample</code><span class="sig-paren">(</span><em>eye_used</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/eyetracking.html#run.sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.run.sample" title="Permalink to this definition">¶</a></dt>
+<code class="descname">sample</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdl/eyetracking/eyetracking.html#run.sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdl.eyetracking.run.sample" title="Permalink to this definition">¶</a></dt>
 <dd><p>Collects new gaze coordinates from Eyelink.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>eye_used</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a></span></dt>
-<dd><p class="first last">Checks if eye used is available.</p>
-</dd>
-</dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
 <dt><strong>gxy</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></span></dt>
 <dd><p class="first last">Gaze coordiantes.</p>
 </dd>
 <dt><strong>ps</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a></span></dt>
 <dd><p class="first last">Pupil size (area).</p>
 </dd>
-<dt><strong>s</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">EyeLink.getNewestSample</span></code></span></dt>
+<dt><strong>sample</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">EyeLink.getNewestSample</span></code></span></dt>
 <dd><p class="first last">Eyelink newest sample.</p>
 </dd>
 </dl>

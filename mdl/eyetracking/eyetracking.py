@@ -70,6 +70,8 @@ class run():
         --------
         >>> eytracking = mdl.eyetracking(libraries=False, window=window, subject=subject)  
         """
+        #----introduction
+        self.console(msg="mdl.eyetracking() found.", c='green')
 
         #----screen size
         if isPsychopy:
@@ -80,10 +82,12 @@ class run():
                 from win32api import GetSystemMetrics
                 self.w = int(GetSystemMetrics(0))
                 self.h = int(GetSystemMetrics(1))
+                self.console(msg="mdl.eyetracking(): screensize [%s, %s]."%(self.w, self.h))
             elif platform.system() == 'Darwin':
                 from AppKit import NSScreen
                 self.w = int(NSScreen.mainScreen().frame().size.width)
                 self.h = int(NSScreen.mainScreen().frame().size.height)
+                self.console(msg="mdl.eyetracking(): screensize [%s, %s]."%(self.w, self.h))
         
         #----parameters
         # instants
@@ -125,20 +129,9 @@ class run():
         
         # check if subject number has been entered
         if subject == None:
-            self.console(
-                c='red', msg='Subject number not entered. Please enter the subject number.'
-            )
+            raise AssertionError('Subject number not entered. Please enter the subject number.')
         else:
             self.subject = subject
-    
-        # generate file path
-        self.path = "%s/data/edf/" % (os.getcwd())
-        if not os.path.exists(self.path):
-            os.makedirs(self.path)
-        
-        #----check if required libraries are available
-        if libraries == True:
-            self.library()
 
         #----edf filename
         self.subject = os.path.splitext(str(subject))[0]
@@ -156,11 +149,20 @@ class run():
             raise AssertionError('Name must be <= 8 characters.')
         # store name
         self.fname = str(self.subject) + '.edf'
+    
+        # generate file path
+        self.path = "%s/data/edf/" % (os.getcwd())
+        if not os.path.exists(self.path):
+            os.makedirs(self.path)
+        
+        #----check if required libraries are available
+        if libraries == True:
+            self.library()
 
     def library(self):
         """Check if required libraries to run eyelink and Psychopy are available."""
 
-        self.console(msg="eyetracking.libraries()")
+        self.console(msg="eyetracking.library()")
         # check libraries for missing
         from distutils.version import StrictVersion
         import importlib
@@ -168,7 +170,7 @@ class run():
         import pip
 
         # list of possibly missing packages to install
-        required = ['psychopy', 'importlib', 'glfw']
+        required = ['psychopy', 'importlib', 'glfw', 'pandas']
 
         # for geting os variables
         if platform.system() == "Windows":
@@ -187,6 +189,9 @@ class run():
                     # if missing, install
                     if importlib.util.find_spec(package) is None:
                         _main(['install', package])
+                    # package available    
+                    else:
+                        self.console(msg="eyetracking.library(): package % found."%(package))
 
             # else pip < 10.01
             else:
@@ -195,6 +200,10 @@ class run():
                     # if missing
                     if importlib.util.find_spec(package) is None:
                         pip.main(['install', package])
+                    # package available    
+                    else:
+                        self.console(msg="eyetracking.library(): package % found."%(package))
+                        
         except Exception as e:
             return e
             
@@ -301,7 +310,7 @@ class run():
         except RuntimeError:
             self.tracker = pylink.EyeLink(None)
             self.connected = False
-            self.console(c='red', msg="Eyelink RuntimeError")
+            self.console(c='red', msg="Eyelink not detected at %s"%(self.ip))
             
         #----tracker metadata
         # get eyelink version
@@ -359,21 +368,21 @@ class run():
         #----send settings to eyelink
         # place EyeLink tracker in offline (idle) mode before changing settings
         self.tracker.setOfflineMode()
+        
         # Set the tracker to parse events using either GAZE or HREF
         # note: [see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]
-        self.tracker.sendCommand("recording_parse_type = %s" %
-                                 (self.recording_parse_type))
+        self.tracker.sendCommand("recording_parse_type = %s" %(self.recording_parse_type))
+       
         # inform the tracker the resolution of the subject display
         # note: [see Eyelink Installation Guide, Section 8.4: Customizing Your PHYSICAL.INI Settings]
-        self.tracker.sendCommand(
-            "screen_pixel_coords = 0 0 %d %d" % (self.w - 1, self.h - 1))
+        self.tracker.sendCommand("screen_pixel_coords = 0 0 %d %d" % (self.w - 1, self.h - 1))
+       
         # save display resolution in EDF data file for Data Viewer integration purposes
         # note: [see Data Viewer User Manual, Section 7: Protocol for EyeLink Data to Viewer Integration]
-        self.tracker.sendMessage(
-            "DISPLAY_COORDS = 0 0 %d %d" % (self.w - 1, self.h - 1))
+        self.tracker.sendMessage("DISPLAY_COORDS = 0 0 %d %d" % (self.w - 1, self.h - 1))
+        
         # set calibration type
-        self.tracker.sendCommand("calibration_type = HV%d" %
-                                 (self.calibration_type))
+        self.tracker.sendCommand("calibration_type = HV%d"%(self.calibration_type))
         # set automatic calibraiton pacing interval
         self.tracker.sendCommand("automatic_calibration_pacing = %d" % (
             self.automatic_calibration_pacing))
@@ -736,18 +745,17 @@ class run():
             #----check gc window
             while True:
                 #get gaze sample
-                gxy, ps, s = self.sample(self.eye_used)
+                gxy, ps, s = self.sample()
                 
                 #is gaze with gaze contigent window for t_min time
                 if ((bound['left'] < gxy[0] < bound['right']) and (bound['top'] < gxy[1] < bound['bottom'])):
                     # has mininum time for gc window occured
                     duration = (time.clock() - current_time) * 1000
                     if duration > t_min:
-                        self.console(c='blue', msg="eyetracking.gc() success in %d"%((time.clock() - start_time) * 1000))
+                        self.console(c='blue', msg="eyetracking.gc() success in %d msec"%((time.clock() - start_time) * 1000))
                         self.send_message(msg='gc window success')
                         break
                 else:
-                    print('out of window')
                     #reset current time
                     current_time = time.clock()
                 
@@ -763,14 +771,9 @@ class run():
         else:
             self.console(c='red', msg="eyetracker not recording")
                      
-    def sample(self, eye_used):
+    def sample(self):
         """
         Collects new gaze coordinates from Eyelink.
-
-        Parameters
-        ----------
-        eye_used : :obj:`str`
-            Checks if eye used is available.
         
         Returns
         -------
@@ -778,7 +781,7 @@ class run():
             Gaze coordiantes.
         ps : :obj:`tuple`
             Pupil size (area).
-        s : :class:`EyeLink.getNewestSample`
+        sample : :class:`EyeLink.getNewestSample`
             Eyelink newest sample.
 
         Examples
@@ -786,16 +789,26 @@ class run():
         >>> eyetracking.sample(eye_used=eye_used)
         """
         # check for new sample update
-        s = self.tracker.getNewestSample()
-        if(s != None):
-            # gaze coordinates, pupil area
-            if eye_used == self.right_eye:
-                gxy = s.getRightEye().getGaze()
-                ps = s.getRightEye().getPupilSize()
+        sample = self.tracker.getNewestSample()
+        
+        #if sample available
+        if(sample != None):
+            # if dominant eye entered as right in both psychopy and eyelink
+            if ((self.eye_used == self.right_eye) and (sample.isRightSample())):
+                gxy = sample.getRightEye().getGaze()
+                ps = sample.getRightEye().getPupilSize()
+            elif ((self.eye_used == self.left_eye) and (sample.isLeftSample())):
+                gxy = sample.getLeftEye().getGaze()
+                ps = sample.getLeftEye().getPupilSize()
             else:
-                gxy = s.getLeftEye().getGaze()
-                ps = s.getLeftEye().getPupilSize()
-            return gxy, ps, s
+                 raise AssertionError('eye_used (%s) ≠ Eyelink "Eye Tracked" (%s). \
+                                      Please make sure the eye used in PsychoPy and Eyelink match.'\
+                                      %(self.eye_used, sample.getEye()))
+                
+            # gaze coordinates, pupil area    
+            return gxy, ps, sample
+        
+        return None, None, sample
 
     def send_message(self, msg):
         """

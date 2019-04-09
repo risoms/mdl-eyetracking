@@ -21,8 +21,8 @@ heuristic filtering algorithm
 The eye movement data recorded in the data file, by default, has been filtered with a heuristic algorithm (Stampe, 1993).
 For more information on the heuristic filtering algorithm, see (`Stampe, 1993 <https://doi.org/10.3758/BF03204486>`_).::
 
-    Stampe, D. (1993). Heuristic filtering and reliable calibration methods for video-based pupil-tracking systems. 
-    Behavior Research Methods, Instruments, & Computers, 25(2), 137–142. doi:10.3758/BF03204486
+    Stampe, D. (1993). Heuristic filtering and reliable calibration methods for video-based pupil-tracking
+    systems. Behavior Research Methods, Instruments, & Computers, 25(2), 137–142. doi:10.3758/BF03204486
 
 velocity and acceleration thresholds
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
