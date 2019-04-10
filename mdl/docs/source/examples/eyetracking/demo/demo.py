@@ -49,13 +49,14 @@ dominant_eye = expInfo['dominant eye']
 routineTimer = core.CountdownTimer()
 # `psychopy.visual.window.Window` instance
 window = visual.Window(size=[1920, 1080], fullscr=False, allowGUI=True, units='pix', winType='pyglet', color=[110,110,110], colorSpace='rgb255')
+window.flip()
 # %% [markdown]
 # <h5>Initialize the mdl.eyetracking() package.</h5><br>
 # Note: Before initializing, make sure code is placed after PsychoPy window instance has been created in the experiment file. 
 # This window will be used in the calibration function.
 # %%
 # Initialize mdl.eyetracking()
-eyetracking = mdl.eyetracking.run(window=window, libraries=True, subject=subject, timer=routineTimer)
+eyetracking = mdl.eyetracking.run(window=window, libraries=True, subject=subject, timer=routineTimer, demo=True)
 # %% [markdown]
 # <h5>Connect to the Eyelink Host.</h5><br>
 # This controls the parameters to be used when running the eyetracker.
@@ -96,7 +97,11 @@ filename = "8380.bmp"
 path = os.getcwd() + "/stimuli/" + filename
 size = (1024, 768) #image size
 pos = (window.size[0]/2, window.size[1]/2) #positioning image at center of screen
-stimulus = visual.ImageStim(win=window, image=path, size=size, pos=(0,0), units='pix')
+stimulus = visual.ImageStim(win=window, name="stimulus", units='pix', image=path, pos=(0,0), size=size,
+                            flipHoriz=False, flipVert=False, texRes=128, interpolate=True, depth=-1.0)
+stimulus.setAutoDraw(True)
+window.flip()
+window.flip()
 # %%
 # start recording
 eyetracking.start_recording(trial=1, block=1)
@@ -107,8 +112,8 @@ eyetracking.start_recording(trial=1, block=1)
 # In the example, a participant is qto look at the bounding cross for a duration
 # of 2000 msec before continuing the task. If this doesn't happen and a maxinum maxinum duration of 
 # 10000 msec has occured first drift correction will start.
-bound = dict(left=860, top=440, right=1060, bottom=640)
-eyetracking.gc(bound=bound, t_min=2000, t_max=10000)
+bound = dict(left=448, top=156, right=1472, bottom=924)
+eyetracking.gc(bound=bound, t_min=5000, t_max=20000)
 # %% [markdown]
 # <h5>(Optional) Collect real-time gaze coordinates from Eyelink.</h5><br>
 # Note: Samples need to be collected at an interval of 1000/(sampling rate) msec to prevent oversampling.
@@ -155,3 +160,7 @@ eyetracking.stop_recording(trial=1, block=1, variables=variables)
 # <h5>Finish recording.</h5><br>
 # %%
 eyetracking.finish_recording()
+# %% [markdown]
+# <h5>Close PsychoPy.</h5><br>
+# %%
+ window.close()

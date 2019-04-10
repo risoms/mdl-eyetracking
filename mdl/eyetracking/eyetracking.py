@@ -49,7 +49,7 @@ class run():
         6) Blank the display, stop recording after an additional 100 milliseconds of data has been collected.
         7) Report the trial result, and return an appropriate error code.
     """
-    def __init__(self, window, timer, isPsychopy=True, libraries=False, subject=None):
+    def __init__(self, window, timer, isPsychopy=True, libraries=False, subject=None, **kwargs):
         """
         Initialize eyetracker.
 
@@ -65,6 +65,11 @@ class run():
             Should the code check if required libraries are available.
         subject : :obj:`int`
             Subject number.
+
+        Other Parameters
+        ----------------
+        kwargs : :obj:`list`
+            List of optional parameters.
 
         Examples
         --------
@@ -158,6 +163,10 @@ class run():
         #----check if required libraries are available
         if libraries == True:
             self.library()
+        
+        #----kwargs
+        # demo
+        self.demo = kwargs['demo'] if 'demo' in kwargs else False
 
     def library(self):
         """Check if required libraries to run eyelink and Psychopy are available."""
@@ -733,9 +742,21 @@ class run():
         
         #if eyetracker is recording
         if self.isRecording:
+            # if demo
+            if self.demo:
+                line = 6
+                width = (bound['right'] - bound['left']) + line
+                height = (bound['bottom'] - bound['top']) + line
+                center = ((bound['left'] - line) + width/2, bound['top'] + height/2)
+                color = [0,255,0]
+                box = visual.Rect(win=self.window, name="bound", units='pix',
+                                  width=width, height=height, pos=(0,0), colorSpace='rgb255',
+                                  lineWidth=6, lineColor=color, lineColorSpace='rgb255',
+                                  opacity=1, depth=0.0, interpolate=True)
+                box.setAutoDraw(True)
+                
             # draw box
-            self.tracker.sendCommand('draw_box %d %d %d %d 6'%\
-                                     (bound['left'],bound['top'],bound['right'],bound['bottom']))
+            self.tracker.sendCommand('draw_box %d %d %d %d 6'% (bound['left'],bound['top'],bound['right'],bound['bottom']))
             
             #get start time
             start_time = time.clock()
@@ -743,19 +764,32 @@ class run():
             current_time = time.clock()
             
             #----check gc window
-            while True:
+            while True:    
+                #flip screen
+                self.window.flip()
+                
                 #get gaze sample
                 gxy, ps, s = self.sample()
                 
                 #is gaze with gaze contigent window for t_min time
                 if ((bound['left'] < gxy[0] < bound['right']) and (bound['top'] < gxy[1] < bound['bottom'])):
+                    # if demo
+                    if self.demo:
+                        box.lineColor = [0,255,0]
                     # has mininum time for gc window occured
                     duration = (time.clock() - current_time) * 1000
                     if duration > t_min:
                         self.console(c='blue', msg="eyetracking.gc() success in %d msec"%((time.clock() - start_time) * 1000))
                         self.send_message(msg='gc window success')
+                        # clear bounding box (if demo)
+                        if self.demo:
+                            box.setAutoDraw(False)
                         break
+                # not in window
                 else:
+                    # if demo
+                    if self.demo:
+                        box.lineColor = [255,0,0]
                     #reset current time
                     current_time = time.clock()
                 
@@ -766,6 +800,10 @@ class run():
                     if duration > t_max:
                         self.console(c='blue', msg="eyetracking.gc() failed, drift correction started")
                         self.send_message(msg='gc window failed')
+                        # clear bounding box (if demo)
+                        if self.demo:
+                            box.setAutoDraw(False)
+                        # start drift correction
                         self.drift_correction()
                         break
         else:
