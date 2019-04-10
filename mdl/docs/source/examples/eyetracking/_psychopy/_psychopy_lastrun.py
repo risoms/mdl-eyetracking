@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v3.0.7),
-    on April 03, 2019, at 16:02
+    on April 10, 2019, at 14:09
 If you publish work using this script please cite the PsychoPy publications:
     Peirce, JW (2007) PsychoPy - Psychophysics software in Python.
         Journal of Neuroscience Methods, 162(1-2), 8-13.
@@ -38,12 +38,12 @@ expInfo['expName'] = expName
 expInfo['psychopyVersion'] = psychopyVersion
 
 # Data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
-filename = _thisDir + os.sep + '%s'%(expInfo['participant'])
+filename = _thisDir + os.sep + 'data/%s'%(expInfo['participant'])
 
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
     extraInfo=expInfo, runtimeInfo=None,
-    originPath='C:\\Users\\mdl-admin\\Desktop\\mdl-eyelink\\mdl\\docs\\source\\examples\\eyetracking\\_psychopy_lastrun.py',
+    originPath='C:\\Users\\mdl-admin\\Desktop\\mdl-eyelink\\mdl\\docs\\source\\examples\\eyetracking\\_psychopy\\_psychopy_lastrun.py',
     savePickle=True, saveWideText=True,
     dataFileName=filename)
 # save a log file for detail verbose info
@@ -70,8 +70,18 @@ else:
 
 # Initialize components for Routine "instructions"
 instructionsClock = core.Clock()
-_instructions = visual.TextStim(win=win, name='_instructions',
-    text="OK. Ready?\n\nRemember: \n1) Stay fixated on the central white dot. \n2) Ignore the word itself; press:\n - Left for red LETTERS\n - Down for green LETTERS\n - Right for blue LETTERS\n - (Esc will quit)\n3) To toggle gaze position visibility, press 'g'. \n\nPress any key to continue",
+instructions_text = visual.TextStim(win=win, name='instructions_text',
+    text='Stay fixated on the central white dot and ignore the word itself. To respond press:\n - Left for red LETTERS\n - Down for green LETTERS\n - Right for blue LETTERS\n\nPress SPACE to continue.',
+    font='Calibri',
+    units='pix', pos=[0, 0], height=50, wrapWidth=800, ori=0, 
+    color=[1, 1, 1], colorSpace='rgb', opacity=1, 
+    languageStyle='LTR',
+    depth=0.0);
+
+# Initialize components for Routine "calibration"
+calibrationClock = core.Clock()
+calibration_text = visual.TextStim(win=win, name='calibration_text',
+    text='Press SPACE key to continue',
     font='Calibri',
     units='pix', pos=[0, 0], height=50, wrapWidth=800, ori=0, 
     color=[1, 1, 1], colorSpace='rgb', opacity=1, 
@@ -80,9 +90,9 @@ _instructions = visual.TextStim(win=win, name='_instructions',
 
 # Initialize components for Routine "task"
 taskClock = core.Clock()
-stimulus = visual.TextStim(win=win, name='stimulus',
+stimulus_text = visual.TextStim(win=win, name='stimulus_text',
     text='default text',
-    font='Arial',
+    font='Calibri',
     pos=[0, 0], height=100, wrapWidth=None, ori=0, 
     color='white', colorSpace='rgb', opacity=1, 
     languageStyle='LTR',
@@ -99,23 +109,11 @@ gaze_cursor = visual.GratingStim(
     ori=0, pos=[0,0], size=1.0, sf=40, phase=0.0,
     color=[0.004,0.004,1.000], colorSpace='rgb', opacity=1.0,blendmode='avg',
     texRes=128, interpolate=True, depth=-2.0)
-# Initialize the Eyelink.
-import mdl
-eyetracking = mdl.eyetracking(window=win, subject=expInfo['participant'], timer=routineTimer)
-
-# Connect to the Eyelink Host.
-param = eyetracking.connect(calibration_type=13)
-
-# Setting the dominant eye
-eye_used = eyetracking.set_eye_used(eye=dominant_eye)
-
-# Start calibration.
-eyetracking.calibration()
 
 # Initialize components for Routine "finished"
 finishedClock = core.Clock()
-_finished = visual.TextStim(win=win, name='_finished',
-    text='This is the end of the experiment.\n\nThanks!\n\nPress any key to exit the experiment.',
+finished_text = visual.TextStim(win=win, name='finished_text',
+    text='This is the end of the experiment. Thanks!\n\nPress SPACE to exit.',
     font='Calibri',
     units='pix', pos=[0, 0], height=50, wrapWidth=800, ori=0, 
     color=[1, 1, 1], colorSpace='rgb', opacity=1, 
@@ -132,9 +130,9 @@ instructionsClock.reset()  # clock
 frameN = -1
 continueRoutine = True
 # update component parameters for each repeat
-ready = event.BuilderKeyResponse()
+instructions_keyboard = event.BuilderKeyResponse()
 # keep track of which components have finished
-instructionsComponents = [_instructions, ready]
+instructionsComponents = [instructions_text, instructions_keyboard]
 for thisComponent in instructionsComponents:
     if hasattr(thisComponent, 'status'):
         thisComponent.status = NOT_STARTED
@@ -146,23 +144,23 @@ while continueRoutine:
     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
     # update/draw components on each frame
     
-    # *_instructions* updates
-    if t >= 0 and _instructions.status == NOT_STARTED:
+    # *instructions_text* updates
+    if t >= 0 and instructions_text.status == NOT_STARTED:
         # keep track of start time/frame for later
-        _instructions.tStart = t
-        _instructions.frameNStart = frameN  # exact frame index
-        _instructions.setAutoDraw(True)
+        instructions_text.tStart = t
+        instructions_text.frameNStart = frameN  # exact frame index
+        instructions_text.setAutoDraw(True)
     
-    # *ready* updates
-    if t >= 0 and ready.status == NOT_STARTED:
+    # *instructions_keyboard* updates
+    if t >= 0 and instructions_keyboard.status == NOT_STARTED:
         # keep track of start time/frame for later
-        ready.tStart = t
-        ready.frameNStart = frameN  # exact frame index
-        ready.status = STARTED
+        instructions_keyboard.tStart = t
+        instructions_keyboard.frameNStart = frameN  # exact frame index
+        instructions_keyboard.status = STARTED
         # keyboard checking is just starting
         event.clearEvents(eventType='keyboard')
-    if ready.status == STARTED:
-        theseKeys = event.getKeys()
+    if instructions_keyboard.status == STARTED:
+        theseKeys = event.getKeys(keyList=['space'])
         
         # check for quit:
         if "escape" in theseKeys:
@@ -193,6 +191,89 @@ for thisComponent in instructionsComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
 # the Routine "instructions" was not non-slip safe, so reset the non-slip timer
+routineTimer.reset()
+
+# ------Prepare to start Routine "calibration"-------
+t = 0
+calibrationClock.reset()  # clock
+frameN = -1
+continueRoutine = True
+# update component parameters for each repeat
+calibration_keyboard = event.BuilderKeyResponse()
+# Initialize the Eyelink.
+import os, sys
+sys.path.append(os.path.abspath(os.getcwd() + '../../../../../../../'))
+import mdl
+eyetracking = mdl.eyetracking.run(window=win, libraries=True, subject=subject, timer=routineTimer, demo=True)
+
+# Connect to the Eyelink Host.
+param = eyetracking.connect(calibration_type=13)
+
+# Set the dominant eye
+eye_used = eyetracking.set_eye_used(eye=dominant_eye)
+
+# Start calibration.
+calibration = eyetracking.calibration()
+# keep track of which components have finished
+calibrationComponents = [calibration_text, calibration_keyboard]
+for thisComponent in calibrationComponents:
+    if hasattr(thisComponent, 'status'):
+        thisComponent.status = NOT_STARTED
+
+# -------Start Routine "calibration"-------
+while continueRoutine:
+    # get current time
+    t = calibrationClock.getTime()
+    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+    # update/draw components on each frame
+    
+    # *calibration_text* updates
+    if t >= 0 and calibration_text.status == NOT_STARTED:
+        # keep track of start time/frame for later
+        calibration_text.tStart = t
+        calibration_text.frameNStart = frameN  # exact frame index
+        calibration_text.setAutoDraw(True)
+    
+    # *calibration_keyboard* updates
+    if t >= 0 and calibration_keyboard.status == NOT_STARTED:
+        # keep track of start time/frame for later
+        calibration_keyboard.tStart = t
+        calibration_keyboard.frameNStart = frameN  # exact frame index
+        calibration_keyboard.status = STARTED
+        # keyboard checking is just starting
+        event.clearEvents(eventType='keyboard')
+    if calibration_keyboard.status == STARTED:
+        theseKeys = event.getKeys(keyList=['SPACE'])
+        
+        # check for quit:
+        if "escape" in theseKeys:
+            endExpNow = True
+        if len(theseKeys) > 0:  # at least one key was pressed
+            # a response ends the routine
+            continueRoutine = False
+    
+    # check for quit (typically the Esc key)
+    if endExpNow or event.getKeys(keyList=["escape"]):
+        core.quit()
+    
+    # check if all components have finished
+    if not continueRoutine:  # a component has requested a forced-end of Routine
+        break
+    continueRoutine = False  # will revert to True if at least one component still running
+    for thisComponent in calibrationComponents:
+        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+            continueRoutine = True
+            break  # at least one component has not yet finished
+    
+    # refresh the screen
+    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+        win.flip()
+
+# -------Ending Routine "calibration"-------
+for thisComponent in calibrationComponents:
+    if hasattr(thisComponent, "setAutoDraw"):
+        thisComponent.setAutoDraw(False)
+# the Routine "calibration" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
@@ -239,19 +320,19 @@ for thisBlock in block:
         frameN = -1
         continueRoutine = True
         # update component parameters for each repeat
-        stimulus.setColor(stimColor, colorSpace='rgb')
-        stimulus.setText(stimText)
-        response = event.BuilderKeyResponse()
+        stimulus_text.setColor(stimColor, colorSpace='rgb')
+        stimulus_text.setText(stimText)
+        stimulus_keyboard = event.BuilderKeyResponse()
         # Start recording. This should be run at the start of the trial. 
         # Note: There is an intentional delay of 150 msec to allow the Eyelink to buffer gaze samples.
-        eyetracking.start_recording(trial=practiceLrn.thisN, block='practiceblock')
+        eyetracking.start_recording(trial=trials.thisN, block=block.thisN)
         
         # Send messages to Eyelink. This allows post-hoc processing of timing related events (i.e. "stimulus onset").
         # Sending message "stimulus onset".
         msg = "stimulus onset"
         eyetracking.send_message(msg=msg)
         # keep track of which components have finished
-        taskComponents = [stimulus, fixation, gaze_cursor, response]
+        taskComponents = [stimulus_text, fixation, gaze_cursor, stimulus_keyboard]
         for thisComponent in taskComponents:
             if hasattr(thisComponent, 'status'):
                 thisComponent.status = NOT_STARTED
@@ -263,12 +344,12 @@ for thisBlock in block:
             frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
             # update/draw components on each frame
             
-            # *stimulus* updates
-            if t >= 0.5 and stimulus.status == NOT_STARTED:
+            # *stimulus_text* updates
+            if t >= 0.5 and stimulus_text.status == NOT_STARTED:
                 # keep track of start time/frame for later
-                stimulus.tStart = t
-                stimulus.frameNStart = frameN  # exact frame index
-                stimulus.setAutoDraw(True)
+                stimulus_text.tStart = t
+                stimulus_text.frameNStart = frameN  # exact frame index
+                stimulus_text.setAutoDraw(True)
             
             # *fixation* updates
             if t >= 0 and fixation.status == NOT_STARTED:
@@ -288,29 +369,29 @@ for thisBlock in block:
                 gaze_cursor.setPos([x,y], log=False)
                 gaze_cursor.setSize((30,30), log=False)
             
-            # *response* updates
-            if t >= 0.5 and response.status == NOT_STARTED:
+            # *stimulus_keyboard* updates
+            if t >= 0.5 and stimulus_keyboard.status == NOT_STARTED:
                 # keep track of start time/frame for later
-                response.tStart = t
-                response.frameNStart = frameN  # exact frame index
-                response.status = STARTED
+                stimulus_keyboard.tStart = t
+                stimulus_keyboard.frameNStart = frameN  # exact frame index
+                stimulus_keyboard.status = STARTED
                 # keyboard checking is just starting
-                win.callOnFlip(response.clock.reset)  # t=0 on next screen flip
+                win.callOnFlip(stimulus_keyboard.clock.reset)  # t=0 on next screen flip
                 event.clearEvents(eventType='keyboard')
-            if response.status == STARTED:
+            if stimulus_keyboard.status == STARTED:
                 theseKeys = event.getKeys(keyList=['left', 'down', 'right'])
                 
                 # check for quit:
                 if "escape" in theseKeys:
                     endExpNow = True
                 if len(theseKeys) > 0:  # at least one key was pressed
-                    response.keys = theseKeys[-1]  # just the last key pressed
-                    response.rt = response.clock.getTime()
+                    stimulus_keyboard.keys = theseKeys[-1]  # just the last key pressed
+                    stimulus_keyboard.rt = stimulus_keyboard.clock.getTime()
                     # was this 'correct'?
-                    if (response.keys == str(corrAns)) or (response.keys == corrAns):
-                        response.corr = 1
+                    if (stimulus_keyboard.keys == str(corrAns)) or (stimulus_keyboard.keys == corrAns):
+                        stimulus_keyboard.corr = 1
                     else:
-                        response.corr = 0
+                        stimulus_keyboard.corr = 0
                     # a response ends the routine
                     continueRoutine = False
             #if eyetracker:
@@ -350,18 +431,18 @@ for thisBlock in block:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
         # check responses
-        if response.keys in ['', [], None]:  # No response was made
-            response.keys=None
+        if stimulus_keyboard.keys in ['', [], None]:  # No response was made
+            stimulus_keyboard.keys=None
             # was no response the correct answer?!
             if str(corrAns).lower() == 'none':
-               response.corr = 1;  # correct non-response
+               stimulus_keyboard.corr = 1;  # correct non-response
             else:
-               response.corr = 0;  # failed to respond (incorrectly)
+               stimulus_keyboard.corr = 0;  # failed to respond (incorrectly)
         # store data for trials (TrialHandler)
-        trials.addData('response.keys',response.keys)
-        trials.addData('response.corr', response.corr)
-        if response.keys != None:  # we had a response
-            trials.addData('response.rt', response.rt)
+        trials.addData('stimulus_keyboard.keys',stimulus_keyboard.keys)
+        trials.addData('stimulus_keyboard.corr', stimulus_keyboard.corr)
+        if stimulus_keyboard.keys != None:  # we had a response
+            trials.addData('stimulus_keyboard.rt', stimulus_keyboard.rt)
         # Send messages to Eyelink. This allows post-hoc processing of timing related events (i.e. "stimulus onset").
         # Sending message "stimulus offset".
         msg = "stimulus offset"
@@ -384,30 +465,51 @@ t = 0
 finishedClock.reset()  # clock
 frameN = -1
 continueRoutine = True
-routineTimer.add(2.000000)
 # update component parameters for each repeat
+finished_keyboard = event.BuilderKeyResponse()
 # keep track of which components have finished
-finishedComponents = [_finished]
+finishedComponents = [finished_text, finished_keyboard]
 for thisComponent in finishedComponents:
     if hasattr(thisComponent, 'status'):
         thisComponent.status = NOT_STARTED
 
 # -------Start Routine "finished"-------
-while continueRoutine and routineTimer.getTime() > 0:
+while continueRoutine:
     # get current time
     t = finishedClock.getTime()
     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
     # update/draw components on each frame
     
-    # *_finished* updates
-    if t >= 0.0 and _finished.status == NOT_STARTED:
+    # *finished_text* updates
+    if t >= 0.0 and finished_text.status == NOT_STARTED:
         # keep track of start time/frame for later
-        _finished.tStart = t
-        _finished.frameNStart = frameN  # exact frame index
-        _finished.setAutoDraw(True)
+        finished_text.tStart = t
+        finished_text.frameNStart = frameN  # exact frame index
+        finished_text.setAutoDraw(True)
     frameRemains = 0.0 + 2.0- win.monitorFramePeriod * 0.75  # most of one frame period left
-    if _finished.status == STARTED and t >= frameRemains:
-        _finished.setAutoDraw(False)
+    if finished_text.status == STARTED and t >= frameRemains:
+        finished_text.setAutoDraw(False)
+    
+    # *finished_keyboard* updates
+    if t >= 0.0 and finished_keyboard.status == NOT_STARTED:
+        # keep track of start time/frame for later
+        finished_keyboard.tStart = t
+        finished_keyboard.frameNStart = frameN  # exact frame index
+        finished_keyboard.status = STARTED
+        # keyboard checking is just starting
+        win.callOnFlip(finished_keyboard.clock.reset)  # t=0 on next screen flip
+        event.clearEvents(eventType='keyboard')
+    if finished_keyboard.status == STARTED:
+        theseKeys = event.getKeys(keyList=['space'])
+        
+        # check for quit:
+        if "escape" in theseKeys:
+            endExpNow = True
+        if len(theseKeys) > 0:  # at least one key was pressed
+            finished_keyboard.keys = theseKeys[-1]  # just the last key pressed
+            finished_keyboard.rt = finished_keyboard.clock.getTime()
+            # a response ends the routine
+            continueRoutine = False
     
     # check for quit (typically the Esc key)
     if endExpNow or event.getKeys(keyList=["escape"]):
@@ -430,6 +532,15 @@ while continueRoutine and routineTimer.getTime() > 0:
 for thisComponent in finishedComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
+# check responses
+if finished_keyboard.keys in ['', [], None]:  # No response was made
+    finished_keyboard.keys=None
+thisExp.addData('finished_keyboard.keys',finished_keyboard.keys)
+if finished_keyboard.keys != None:  # we had a response
+    thisExp.addData('finished_keyboard.rt', finished_keyboard.rt)
+thisExp.nextEntry()
+# the Routine "finished" was not non-slip safe, so reset the non-slip timer
+routineTimer.reset()
 # Finish recording
 eyetracking.finish_recording()
 # these shouldn't be strictly necessary (should auto-save)

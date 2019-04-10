@@ -62,6 +62,10 @@ code.descname{
 code.descclassname {
     padding-right: 0px !important;
 }
+
+th.field-name {
+    background: #eeeeee;
+}
 /* -- main layout ----------------------------------------------------------- */
 
 div.clearer {

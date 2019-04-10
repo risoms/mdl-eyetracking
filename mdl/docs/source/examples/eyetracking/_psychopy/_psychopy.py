@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v3.0.7),
-    on April 03, 2019, at 16:27
+    on April 10, 2019, at 14:16
 If you publish work using this script please cite the PsychoPy publications:
     Peirce, JW (2007) PsychoPy - Psychophysics software in Python.
         Journal of Neuroscience Methods, 162(1-2), 8-13.
@@ -28,8 +28,8 @@ os.chdir(_thisDir)
 
 # Store info about the experiment session
 psychopyVersion = '3.0.7'
-expName = 'psychopy2'  # from the Builder filename that created this script
-expInfo = {'participant': '001', 'dominant_eye': "'left'"}
+expName = '_psychopy'  # from the Builder filename that created this script
+expInfo = {'participant': '001', 'dominant eye': "'left'"}
 dlg = gui.DlgFromDict(dictionary=expInfo, title=expName)
 if dlg.OK == False:
     core.quit()  # user pressed cancel
@@ -43,7 +43,7 @@ filename = _thisDir + os.sep + 'data/%s'%(expInfo['participant'])
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
     extraInfo=expInfo, runtimeInfo=None,
-    originPath='C:\\Users\\mdl-admin\\Desktop\\mdl-eyelink\\mdl\\docs\\source\\examples\\eyetracking\\_psychopy.py',
+    originPath='C:\\Users\\mdl-admin\\Desktop\\mdl-eyelink\\mdl\\docs\\source\\examples\\eyetracking\\_psychopy\\_psychopy.py',
     savePickle=True, saveWideText=True,
     dataFileName=filename)
 # save a log file for detail verbose info
@@ -80,13 +80,6 @@ instructions_text = visual.TextStim(win=win, name='instructions_text',
 
 # Initialize components for Routine "calibration"
 calibrationClock = core.Clock()
-calibration_text = visual.TextStim(win=win, name='calibration_text',
-    text='Press any key to continue',
-    font='Calibri',
-    units='pix', pos=[0, 0], height=50, wrapWidth=800, ori=0, 
-    color=[1, 1, 1], colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=0.0);
 
 # Initialize components for Routine "task"
 taskClock = core.Clock()
@@ -199,23 +192,26 @@ calibrationClock.reset()  # clock
 frameN = -1
 continueRoutine = True
 # update component parameters for each repeat
-calibration_keyboard = event.BuilderKeyResponse()
+# get parameters from PsychoPy
+subject = expInfo['participant']
+dominant_eye = expInfo['dominant eye']
+
 # Initialize the Eyelink.
 import os, sys
-sys.path.append(os.path.abspath(os.getcwd() + '../../../../../../'))
+sys.path.append(os.path.abspath(os.getcwd() + '../../../../../../../'))
 import mdl
-eyetracking = mdl.eyetracking.run(window=win, subject=expInfo['participant'], timer=routineTimer)
+eyetracking = mdl.eyetracking.run(window=win, libraries=True, subject=subject, timer=routineTimer, demo=True)
 
 # Connect to the Eyelink Host.
 param = eyetracking.connect(calibration_type=13)
 
-# Setting the dominant eye
+# Set the dominant eye
 eye_used = eyetracking.set_eye_used(eye=dominant_eye)
 
 # Start calibration.
-eyetracking.calibration()
+calibration = eyetracking.calibration()
 # keep track of which components have finished
-calibrationComponents = [calibration_text, calibration_keyboard]
+calibrationComponents = []
 for thisComponent in calibrationComponents:
     if hasattr(thisComponent, 'status'):
         thisComponent.status = NOT_STARTED
@@ -226,31 +222,8 @@ while continueRoutine:
     t = calibrationClock.getTime()
     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
     # update/draw components on each frame
-    
-    # *calibration_text* updates
-    if t >= 0 and calibration_text.status == NOT_STARTED:
-        # keep track of start time/frame for later
-        calibration_text.tStart = t
-        calibration_text.frameNStart = frameN  # exact frame index
-        calibration_text.setAutoDraw(True)
-    
-    # *calibration_keyboard* updates
-    if t >= 0 and calibration_keyboard.status == NOT_STARTED:
-        # keep track of start time/frame for later
-        calibration_keyboard.tStart = t
-        calibration_keyboard.frameNStart = frameN  # exact frame index
-        calibration_keyboard.status = STARTED
-        # keyboard checking is just starting
-        event.clearEvents(eventType='keyboard')
-    if calibration_keyboard.status == STARTED:
-        theseKeys = event.getKeys()
-        
-        # check for quit:
-        if "escape" in theseKeys:
-            endExpNow = True
-        if len(theseKeys) > 0:  # at least one key was pressed
-            # a response ends the routine
-            continueRoutine = False
+    if calibration == True:
+        continueRoutine = False
     
     # check for quit (typically the Esc key)
     if endExpNow or event.getKeys(keyList=["escape"]):
@@ -325,7 +298,7 @@ for thisBlock in block:
         stimulus_keyboard = event.BuilderKeyResponse()
         # Start recording. This should be run at the start of the trial. 
         # Note: There is an intentional delay of 150 msec to allow the Eyelink to buffer gaze samples.
-        eyetracking.start_recording(trial=practiceLrn.thisN, block='practiceblock')
+        eyetracking.start_recording(trial=trials.thisN, block=block.thisN)
         
         # Send messages to Eyelink. This allows post-hoc processing of timing related events (i.e. "stimulus onset").
         # Sending message "stimulus onset".
