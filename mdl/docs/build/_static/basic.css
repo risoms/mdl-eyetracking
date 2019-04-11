@@ -9,7 +9,13 @@
  *
  */
 
- /* -- modifications ----------------------------------------------------------- */
+/* -- modifications ----------------------------------------------------------- */
+.info>p{
+    margin: 0px !important;
+}
+.info>p:last-of-type{
+    margin: 0 0 1em 0 !important;
+}
 h1, .h1 {
     font-size: 28px !important;
 }
@@ -41,6 +47,11 @@ li>p{
 }
 .navbar-form.navbar-right{
 	width: 200px !important;
+}
+@media (max-width: 1000px) {
+    .navbar-form.navbar-right{
+        width: 150px !important;
+    } 
 }
 .rubric{
 	margin-top: 0px !important;
