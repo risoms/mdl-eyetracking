@@ -10,6 +10,18 @@
  */
 
 /* -- modifications ----------------------------------------------------------- */
+/* headerlink */
+p.headerlink {
+    visibility: hidden;
+    margin: 0px;
+    margin-left: 0.25em;
+    color: #2196f3;
+    text-decoration: none;
+}
+h5:hover > p.headerlink {
+    visibility: visible;
+}
+/* other */
 .info>p{
     margin: 0px !important;
 }

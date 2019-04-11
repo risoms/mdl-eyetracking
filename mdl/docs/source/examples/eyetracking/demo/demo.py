@@ -14,7 +14,7 @@
 #         <div class="title">The sequence of operations for implementing the trial is:</div>
 #         <ol class="list">
 #             <li>[Import packages](demo.html#import).</li>
-#             <li>[Initialize the `mdl.eyetracking()` package](demo.html#init).</li>
+#             <li>[Initialize the mdl.eyetracking package](demo.html#init).</li>
 #             <li>[Connect to the Eyelink Host](demo.html#connect).</li>
 #             <li>[Set the dominamt eye](demo.html#eye).</li>
 #             <li>[Start calibration](demo.html#calibration).</li>
@@ -41,7 +41,8 @@ sys.path.append(os.path.abspath(os.getcwd() + '../../../../../../..'))
 from psychopy import visual, core
 import mdl
 # %% [markdown]
-# <h5>Task parameters, either directly from PsychoPy or created manually.</h5><br>
+# .. _hyperlink-name: link-block
+# <h5>Set task parameters, either directly from PsychoPy or created manually.</h5><br>
 # %%
 expInfo = {u'condition': u'even', u'participant': u'001', u'dominant eye': u'left', u'corrective': u'False'}
 subject = expInfo['participant']
@@ -52,7 +53,8 @@ routineTimer = core.CountdownTimer()
 window = visual.Window(size=[1920, 1080], fullscr=False, allowGUI=True, units='pix', winType='pyglet', color=[110,110,110], colorSpace='rgb255')
 window.flip()
 # %% [markdown]
-# <h5 id='init'>Initialize the `mdl.eyetracking()`<mdl.eyetracking()>_ package.</h5><br>
+# .. raw:: html
+# <h5 id='init'>Initialize the [mdl.eyetracking](../../../eyetracking.html#mdl.eyetracking.run) package.</h5>
 # .. note:: Before initializing, make sure code is placed after PsychoPy window instance has been created in the experiment file. 
 # This window will be used in the calibration function.
 # %%
@@ -70,6 +72,7 @@ param = eyetracking.connect(calibration_type=13)
 eye_used = eyetracking.set_eye_used(eye=dominant_eye)
 # %% [markdown]
 # <h5 id='calibration'>Start calibration.</h5><br>
+# When calibration has been completed, it returns `True`.
 # %%
 # start calibration
 calibration = eyetracking.calibration()
@@ -85,7 +88,8 @@ eyetracking.console(c="blue", msg="eyetracking.calibration() started")
 # %% [markdown]
 # <h5 id='drift'>(Optional) Drift correction.</h5><br>
 # This can be done at any point after calibration, including before and after 
-# [eyetracking.start_recording()](eyetracking.rst#mdl.eyetracking.eyetracking.start_recording) has started.
+# [eyetracking.start_recording()](../../../eyetracking.rst#mdl.eyetracking.run.start_recording) has started.
+# When drift correction has been completed, it returns `True`.
 # %%
 drift = eyetracking.drift_correction()
 # %% [markdown]
@@ -110,9 +114,9 @@ eyetracking.start_recording(trial=1, block=1)
 # <h5 id='gc'>(Optional) Initiate gaze contigent event.</h5><br>
 # This is used for realtime data collection from Eyelink->PsychoPy.
 # %%
-# In the example, a participant is qto look at the bounding cross for a duration
-# of 2000 msec before continuing the task. If this doesn't happen and a maxinum maxinum duration of 
-# 10000 msec has occured first drift correction will start.
+# In the example, a participant is required to look at the bounding cross for a duration
+# of 2000 msec before continuing the task. If this doesn't happen and a maxinum duration of 
+# 10000 msec has occured, drift correction will be initiated.
 bound = dict(left=448, top=156, right=1472, bottom=924)
 eyetracking.gc(bound=bound, t_min=5000, t_max=20000)
 # %% [markdown]
@@ -121,8 +125,7 @@ eyetracking.gc(bound=bound, t_min=5000, t_max=20000)
 # %%
 gxy, ps, sample = eyetracking.sample() # get gaze coordinates, pupil size, and sample
 # %% [markdown]
-# <h5>Example use of `eyetracking.sample()`<eyetracking.sample()>_.</h5><br>
-# .. note:: Samples need to be collected at an interval of 1000/(sampling rate) msec to prevent oversampling.
+# <h5>Example use of [eyetracking.sample()](../../../eyetracking.html#mdl.eyetracking.run.sample).</h5>
 # %%
 # In our example, the sampling rate of our device (Eyelink 1000 Plus) is 500Hz.
 s1 = 0 # set current time to 0

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v3.0.7),
-    on April 10, 2019, at 14:16
+    on April 11, 2019, at 14:51
 If you publish work using this script please cite the PsychoPy publications:
     Peirce, JW (2007) PsychoPy - Psychophysics software in Python.
         Journal of Neuroscience Methods, 162(1-2), 8-13.
@@ -68,6 +68,9 @@ if expInfo['frameRate'] != None:
 else:
     frameDur = 1.0 / 60.0  # could not measure, so guess
 
+# Initialize components for Routine "calibration"
+calibrationClock = core.Clock()
+
 # Initialize components for Routine "instructions"
 instructionsClock = core.Clock()
 instructions_text = visual.TextStim(win=win, name='instructions_text',
@@ -77,9 +80,6 @@ instructions_text = visual.TextStim(win=win, name='instructions_text',
     color=[1, 1, 1], colorSpace='rgb', opacity=1, 
     languageStyle='LTR',
     depth=0.0);
-
-# Initialize components for Routine "calibration"
-calibrationClock = core.Clock()
 
 # Initialize components for Routine "task"
 taskClock = core.Clock()
@@ -116,6 +116,69 @@ finished_text = visual.TextStim(win=win, name='finished_text',
 # Create some handy timers
 globalClock = core.Clock()  # to track the time since experiment started
 routineTimer = core.CountdownTimer()  # to track time remaining of each (non-slip) routine 
+
+# ------Prepare to start Routine "calibration"-------
+t = 0
+calibrationClock.reset()  # clock
+frameN = -1
+continueRoutine = True
+# update component parameters for each repeat
+# get parameters from PsychoPy
+subject = expInfo['participant']
+dominant_eye = expInfo['dominant eye']
+
+# Initialize the Eyelink.
+import os, sys
+sys.path.append(os.path.abspath(os.getcwd() + '../../../../../../../'))
+import mdl
+eyetracking = mdl.eyetracking.run(window=win, libraries=True, subject=subject, timer=routineTimer, demo=True)
+
+# Connect to the Eyelink Host.
+param = eyetracking.connect(calibration_type=13)
+
+# Set the dominant eye
+eye_used = eyetracking.set_eye_used(eye=dominant_eye)
+
+# Start calibration.
+calibration = eyetracking.calibration()
+# keep track of which components have finished
+calibrationComponents = []
+for thisComponent in calibrationComponents:
+    if hasattr(thisComponent, 'status'):
+        thisComponent.status = NOT_STARTED
+
+# -------Start Routine "calibration"-------
+while continueRoutine:
+    # get current time
+    t = calibrationClock.getTime()
+    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+    # update/draw components on each frame
+    if calibration == True:
+        continueRoutine = False
+    
+    # check for quit (typically the Esc key)
+    if endExpNow or event.getKeys(keyList=["escape"]):
+        core.quit()
+    
+    # check if all components have finished
+    if not continueRoutine:  # a component has requested a forced-end of Routine
+        break
+    continueRoutine = False  # will revert to True if at least one component still running
+    for thisComponent in calibrationComponents:
+        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+            continueRoutine = True
+            break  # at least one component has not yet finished
+    
+    # refresh the screen
+    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+        win.flip()
+
+# -------Ending Routine "calibration"-------
+for thisComponent in calibrationComponents:
+    if hasattr(thisComponent, "setAutoDraw"):
+        thisComponent.setAutoDraw(False)
+# the Routine "calibration" was not non-slip safe, so reset the non-slip timer
+routineTimer.reset()
 
 # ------Prepare to start Routine "instructions"-------
 t = 0
@@ -184,69 +247,6 @@ for thisComponent in instructionsComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
 # the Routine "instructions" was not non-slip safe, so reset the non-slip timer
-routineTimer.reset()
-
-# ------Prepare to start Routine "calibration"-------
-t = 0
-calibrationClock.reset()  # clock
-frameN = -1
-continueRoutine = True
-# update component parameters for each repeat
-# get parameters from PsychoPy
-subject = expInfo['participant']
-dominant_eye = expInfo['dominant eye']
-
-# Initialize the Eyelink.
-import os, sys
-sys.path.append(os.path.abspath(os.getcwd() + '../../../../../../../'))
-import mdl
-eyetracking = mdl.eyetracking.run(window=win, libraries=True, subject=subject, timer=routineTimer, demo=True)
-
-# Connect to the Eyelink Host.
-param = eyetracking.connect(calibration_type=13)
-
-# Set the dominant eye
-eye_used = eyetracking.set_eye_used(eye=dominant_eye)
-
-# Start calibration.
-calibration = eyetracking.calibration()
-# keep track of which components have finished
-calibrationComponents = []
-for thisComponent in calibrationComponents:
-    if hasattr(thisComponent, 'status'):
-        thisComponent.status = NOT_STARTED
-
-# -------Start Routine "calibration"-------
-while continueRoutine:
-    # get current time
-    t = calibrationClock.getTime()
-    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-    # update/draw components on each frame
-    if calibration == True:
-        continueRoutine = False
-    
-    # check for quit (typically the Esc key)
-    if endExpNow or event.getKeys(keyList=["escape"]):
-        core.quit()
-    
-    # check if all components have finished
-    if not continueRoutine:  # a component has requested a forced-end of Routine
-        break
-    continueRoutine = False  # will revert to True if at least one component still running
-    for thisComponent in calibrationComponents:
-        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-            continueRoutine = True
-            break  # at least one component has not yet finished
-    
-    # refresh the screen
-    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-        win.flip()
-
-# -------Ending Routine "calibration"-------
-for thisComponent in calibrationComponents:
-    if hasattr(thisComponent, "setAutoDraw"):
-        thisComponent.setAutoDraw(False)
-# the Routine "calibration" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
@@ -338,8 +338,8 @@ for thisBlock in block:
                 gaze_cursor.frameNStart = frameN  # exact frame index
                 gaze_cursor.setAutoDraw(True)
             if gaze_cursor.status == STARTED:  # only update if drawing
-                gaze_cursor.setOpacity(display_gaze, log=False)
-                gaze_cursor.setPos([x,y], log=False)
+                gaze_cursor.setOpacity(1, log=False)
+                gaze_cursor.setPos([0,0], log=False)
                 gaze_cursor.setSize((30,30), log=False)
             
             # *stimulus_keyboard* updates
@@ -421,7 +421,7 @@ for thisBlock in block:
         msg = "stimulus offset"
         eyetracking.send_message(msg=msg)
         # Prepare variables to be sent to Eyelink
-        variables = dict(color=StimColor, text=StimText, isCongruent=congruent, response=response.keys, correct=CorrAns)
+        variables = dict(color=stimColor, text=stimText, isCongruent=congruent, response=stimulus_keyboard.keys, correct=corrAns)
         # Stop recording
         eyetracking.stop_recording(trial=trials.thisN, block=block.thisN, variables=variables)
         # the Routine "task" was not non-slip safe, so reset the non-slip timer

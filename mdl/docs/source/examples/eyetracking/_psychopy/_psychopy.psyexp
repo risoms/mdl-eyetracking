@@ -161,10 +161,10 @@
         <Param name="interpolate" updates="constant" val="linear" valType="str"/>
         <Param name="mask" updates="constant" val="circle" valType="str"/>
         <Param name="name" updates="constant" val="gaze_cursor" valType="code"/>
-        <Param name="opacity" updates="set every frame" val="$display_gaze" valType="code"/>
+        <Param name="opacity" updates="set every frame" val="1" valType="code"/>
         <Param name="ori" updates="constant" val="0" valType="code"/>
         <Param name="phase" updates="constant" val="0.0" valType="code"/>
-        <Param name="pos" updates="set every frame" val="$[x,y]" valType="code"/>
+        <Param name="pos" updates="set every frame" val="[0,0]" valType="code"/>
         <Param name="sf" updates="constant" val="40" valType="code"/>
         <Param name="size" updates="set every frame" val="(30,30)" valType="code"/>
         <Param name="startEstim" updates="None" val="" valType="code"/>
@@ -203,7 +203,7 @@
         <Param name="End Experiment" updates="constant" val="# Finish recording&amp;#10;eyetracking.finish_recording()" valType="extendedCode"/>
         <Param name="End JS Experiment" updates="constant" val="" valType="extendedCode"/>
         <Param name="End JS Routine" updates="constant" val="" valType="extendedCode"/>
-        <Param name="End Routine" updates="constant" val="# Send messages to Eyelink. This allows post-hoc processing of timing related events (i.e. &quot;stimulus onset&quot;).&amp;#10;# Sending message &quot;stimulus offset&quot;.&amp;#10;msg = &quot;stimulus offset&quot;&amp;#10;eyetracking.send_message(msg=msg)&amp;#10;# Prepare variables to be sent to Eyelink&amp;#10;variables = dict(color=StimColor, text=StimText, isCongruent=congruent, response=response.keys, correct=CorrAns)&amp;#10;# Stop recording&amp;#10;eyetracking.stop_recording(trial=trials.thisN, block=block.thisN, variables=variables)" valType="extendedCode"/>
+        <Param name="End Routine" updates="constant" val="# Send messages to Eyelink. This allows post-hoc processing of timing related events (i.e. &quot;stimulus onset&quot;).&amp;#10;# Sending message &quot;stimulus offset&quot;.&amp;#10;msg = &quot;stimulus offset&quot;&amp;#10;eyetracking.send_message(msg=msg)&amp;#10;# Prepare variables to be sent to Eyelink&amp;#10;variables = dict(color=stimColor, text=stimText, isCongruent=congruent, response=stimulus_keyboard.keys, correct=corrAns)&amp;#10;# Stop recording&amp;#10;eyetracking.stop_recording(trial=trials.thisN, block=block.thisN, variables=variables)" valType="extendedCode"/>
         <Param name="name" updates="None" val="stimulus_code" valType="code"/>
       </CodeComponent>
     </Routine>
@@ -225,8 +225,8 @@
     </Routine>
   </Routines>
   <Flow>
-    <Routine name="instructions"/>
     <Routine name="calibration"/>
+    <Routine name="instructions"/>
     <LoopInitiator loopType="TrialHandler" name="block">
       <Param name="Selected rows" updates="None" val="" valType="str"/>
       <Param name="conditions" updates="None" val="None" valType="str"/>
