@@ -59,7 +59,7 @@ window.flip()
 # This window will be used in the calibration function.
 # %%
 # Initialize mdl.eyetracking()
-eyetracking = mdl.eyetracking.run(window=window, libraries=True, subject=subject, timer=routineTimer, demo=True)
+eyetracking = mdl.eyetracking.run(window=window, libraries=True, subject=subject, timer=routineTimer, isDemo=True)
 # %% [markdown]
 # <h5 id='connect'>Connect to the Eyelink Host.</h5><br>
 # This controls the parameters to be used when running the eyetracker.
@@ -118,7 +118,7 @@ eyetracking.start_recording(trial=1, block=1)
 # of 2000 msec before continuing the task. If this doesn't happen and a maxinum duration of 
 # 10000 msec has occured, drift correction will be initiated.
 bound = dict(left=448, top=156, right=1472, bottom=924)
-eyetracking.gc(bound=bound, t_min=5000, t_max=20000)
+eyetracking.gc(bound=bound, min_=5000, max_=20000)
 # %% [markdown]
 # <h5 id='sample'>(Optional) Collect real-time gaze coordinates from Eyelink.</h5><br>
 # .. note:: Samples need to be collected at an interval of 1000/(sampling rate) msec to prevent oversampling.

@@ -14,10 +14,8 @@ sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
 #----imports
 # pylink
-if sys.platform == 'win32':
-	import win.pylink as pylink
-elif sys.platform == 'darwin':
-	import osx.pylink as pylink
+import pylink
+
 # package
 from .eyetracking import run
 from .calibration import calibration

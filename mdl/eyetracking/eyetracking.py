@@ -60,16 +60,25 @@ class run():
         timer : :obj:`psychopy.clock.CountdownTimer`
             Psychopy timer instance.
         isPsychopy : :obj:`bool`
-            Is Psychopy being used.
+            Is this code running in PsychoPy. Default `True`.
         libraries : :obj:`bool`
-            Should the code check if required libraries are available.
+            Should the code check if required libraries are available. Default `False`.
         subject : :obj:`int`
             Subject number.
+        **kwargs : 
+            Additional properties to include for initialization. These include:
 
-        Other Parameters
-        ----------------
-        kwargs : :obj:`list`
-            List of optional parameters.
+            .. list-table::
+                :class: kwargs
+                :widths: 25 50
+                :header-rows: 1
+            
+                * - Property
+                - Description
+                * - isDemo : :obj:`bool`
+                - Include visualization elements to demonstrate how the API works. Default False.
+                * - isFlag : :obj:`bool`
+                - Bypass Eyelink flags (isRecording, isConnected) to run all functions without checking flags. Default True.
 
         Examples
         --------
@@ -98,11 +107,16 @@ class run():
         # instants
         self.window = window
         # flags
+        self.isConnected = False
         self.isStarted = False
         self.isCalibration = False
         self.isRecording = False
         self.isDriftCorrection = False
         self.isFinished = False
+        # demo
+        self.isDemo = kwargs['isDemo'] if 'isDemo' in kwargs else False
+        # turn off eyelink flags
+        self.isFlag = kwargs['isFlag'] if 'isFlag' in kwargs else True
         # counters
         self.drift_count = 0
         # metadata
@@ -130,7 +144,7 @@ class run():
         ])
         self.drift_text = visual.TextStim(win=window, name='drift_message', font='Helvetica',
         text=text, height=0.1, wrapWidth=1.5, ori=0, pos=(0, 0), alignVert='center', color='black', 
-        colorSpace='rgb', opacity=1, languageStyle='LTR', depth=0.0)
+        colorSpace='rgb', opacity=1, depth=0.0)
         
         # check if subject number has been entered
         if subject == None:
@@ -163,10 +177,6 @@ class run():
         #----check if required libraries are available
         if libraries == True:
             self.library()
-        
-        #----kwargs
-        # demo
-        self.demo = kwargs['demo'] if 'demo' in kwargs else False
 
     def library(self):
         """Check if required libraries to run eyelink and Psychopy are available."""
@@ -314,11 +324,11 @@ class run():
         self.ip = ip
         try:
             self.tracker = pylink.EyeLink(self.ip)
-            self.connected = True
+            self.isConnected = True
             self.console(c='blue', msg="Eyelink Connected")
         except RuntimeError:
             self.tracker = pylink.EyeLink(None)
-            self.connected = False
+            self.isConnected = False
             self.console(c='red', msg="Eyelink not detected at %s"%(self.ip))
             
         #----tracker metadata
@@ -489,7 +499,7 @@ class run():
         self.console(msg="eyetracking.calibration()")
         
         #----if connected to eyetracker
-        if self.connected:
+        if self.isConnected or (not self.isFlag):
             # put the tracker in offline mode before we change its configurations
             self.tracker.setOfflineMode()
             # Generate custom calibration stimuli
@@ -579,14 +589,14 @@ class run():
         # the Routine "drift_message" was not non-slip safe, so reset the non-slip timer
         self.routineTimer.reset()
         
-    def drift_correction(self, source='manual'):
+    def drift_correction(self, origin='call'):
         """
         Starts drift correction. This can be done at any point after calibration, including before 
         and after eyetracking.start_recording has already been initiated.
         
         Parameters
         ----------
-        source : :obj:`str`
+        origin : :obj:`str`
             Origin of call, either `manual` (default) or from gaze contigent event (`gc`).
         
         Returns
@@ -606,13 +616,13 @@ class run():
         self.console(msg="eyetracking.drift_correction()")
         
         #----present drift correction message (only if manually accessing)
-        if source=='manual':
+        if origin=='call':
             self._drift_message()
             self.window.clearBuffer()
             self.window.flip()
         
         #check if recording
-        if self.isRecording:
+        if self.isRecording or (not self.isFlag):
             # end of trial message
             self.tracker.sendMessage('drift correction')
 
@@ -622,7 +632,7 @@ class run():
 
             # send trial-level variables
             #if running from self.gc
-            if source=='gc':
+            if origin=='gc':
                 self.send_variable(variables=dict(trial=self.trial, block=self.block, issues='gc window failed'))
 
             # specify end of trial
@@ -717,7 +727,7 @@ class run():
 
         return self.isRecording
     
-    def gc(self, bound, t_min, t_max=None):
+    def gc(self, bound, min_, max_=None):
         """
         Creates gaze contigent event. This function needs to be run while recording.
         
@@ -726,10 +736,10 @@ class run():
         bound : :obj:`dict` [:obj:`str`, :obj:`int`]:
             Dictionary of the bounding box for each region of interest. Keys are each side of the 
             bounding box and values are their corresponding coordinates in pixels.
-        t_min : :obj:`int`
+        min_ : :obj:`int`
             Mininum duration (msec) in which gaze contigent capture is collecting data before allowing
             the task to continue.
-        t_max : :obj:`int` or :obj:`None`
+        max_ : :obj:`int` or :obj:`None`
             Maxinum duration (msec) before task is forced to go into drift correction. 
 
         Examples
@@ -737,13 +747,13 @@ class run():
         >>> # Collect samples within the center of the screen, for 2000 msec, 
         >>> # with a max limit of 10000 msec.
         >>> region = dict(left=860, top=440, right=1060, bottom=640)
-        >>> eyetracking.gc(bound=bound, t_min=2000, t_max=10000)
+        >>> eyetracking.gc(bound=bound, min_=2000, max_=10000)
         """
         
         #if eyetracker is recording
-        if self.isRecording:
+        if self.isRecording or (not self.isFlag):
             # if demo
-            if self.demo:
+            if self.isDemo:
                 line = 6
                 width = (bound['right'] - bound['left']) + line
                 height = (bound['bottom'] - bound['top']) + line
@@ -771,40 +781,40 @@ class run():
                 #get gaze sample
                 gxy, ps, s = self.sample()
                 
-                #is gaze with gaze contigent window for t_min time
+                #is gaze with gaze contigent window for min_ time
                 if ((bound['left'] < gxy[0] < bound['right']) and (bound['top'] < gxy[1] < bound['bottom'])):
                     # if demo
-                    if self.demo:
+                    if self.isDemo:
                         box.lineColor = [0,255,0]
                     # has mininum time for gc window occured
                     duration = (time.clock() - current_time) * 1000
-                    if duration > t_min:
+                    if duration > min_:
                         self.console(c='blue', msg="eyetracking.gc() success in %d msec"%((time.clock() - start_time) * 1000))
                         self.send_message(msg='gc window success')
                         # clear bounding box (if demo)
-                        if self.demo:
+                        if self.isDemo:
                             box.setAutoDraw(False)
                         break
                 # not in window
                 else:
                     # if demo
-                    if self.demo:
+                    if self.isDemo:
                         box.lineColor = [255,0,0]
                     #reset current time
                     current_time = time.clock()
                 
                 # if reached maxinum time
-                if t_max is not None:
+                if max_ is not None:
                     # has maxinum time for gc window occured
                     duration = (time.clock() - start_time) * 1000
-                    if duration > t_max:
+                    if duration > max_:
                         self.console(c='blue', msg="eyetracking.gc() failed, drift correction started")
                         self.send_message(msg='gc window failed')
                         # clear bounding box (if demo)
-                        if self.demo:
+                        if self.isDemo:
                             box.setAutoDraw(False)
                         # start drift correction
-                        self.drift_correction()
+                        self.drift_correction(origin='gc')
                         break
         else:
             self.console(c='red', msg="eyetracker not recording")
