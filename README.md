@@ -14,7 +14,7 @@ Documentation
 -------------
 Online documentation is available [here](https://risoms.github.io/mdl-eyetracking/index.html).
 
-The docs include a [installation](https://risoms.github.io/mdl-eyetracking/install.html) guide, [example](https://risoms.github.io/mdl-eyetracking/examples/eyetracking/demo.html), [API reference](https://risoms.github.io/mdl-eyetracking/py-modindex.html), and other useful information.
+The docs include a [installation](https://risoms.github.io/mdl-eyetracking/install.html) guide, [example](https://risoms.github.io/mdl-eyetracking/examples/eyetracking/demo/demo.html), [API reference](https://risoms.github.io/mdl-eyetracking/genindex.html), and other useful information.
 
 
 Dependencies
