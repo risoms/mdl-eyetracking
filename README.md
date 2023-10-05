@@ -12,9 +12,9 @@ mdl-eyetracking provides a high-level interface for eyetracking research in Pyth
 
 Documentation
 -------------
-Online documentation is available [here](https://risoms.github.io/mdl-eyetracking/mdl/docs/build/index.html).
+Online documentation is available [here](https://risoms.github.io/mdl/index.html).
 
-The docs include a [installation](https://risoms.github.io/mdl-eyetracking/mdl/docs/build/install.html) guide, [example](https://risoms.github.io/mdl-eyetracking/mdl/docs/build/examples/eyetracking/demo.html), [API reference](https://risoms.github.io/mdl-eyetracking/mdl/docs/build/py-modindex.html), and other useful information.
+The docs include a [installation](https://risoms.github.io/mdl/install.html) guide, [example](https://risoms.github.io/mdl/examples/eyetracking/demo.html), [API reference](https://risoms.github.io/mdl/py-modindex.html), and other useful information.
 
 
 Dependencies
